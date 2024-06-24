@@ -78,7 +78,7 @@ const CourseRow = () => {
               التفاصيل
             </button>
           </Link>
-          <a href="/course-details.html">
+          <a href="/courses/1">
             <button>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
