@@ -96,7 +96,7 @@ const Articles = () => {
         </div>
         {/* search bar end */}
         {/* ARTICLES start */}
-        <div className="articles relative mx-auto grid grid-cols-3 gap-[1.5%] pb-[6%] pt-10 ">
+        <div className="articles relative mx-auto grid sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-[1.5%] sm:pb-[6%] pt-10 ">
           {articles}
         </div>
         {/* ARTICLES end */}
