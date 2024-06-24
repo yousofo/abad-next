@@ -1,0 +1,23 @@
+header {
+  nav {
+    z-index: 2;
+    width: 90%;
+    position: relative;
+    background-color: transparent;
+    & a {
+      white-space: nowrap;
+    }
+    .nav-list {
+      top: 100%;
+      left: 0;
+    }
+    .nav-list-drop {
+      border-radius: 20px;
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+      & li {
+        margin: 20px 0;
+      }
+    }
+  }
+}

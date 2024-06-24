@@ -1,0 +1,22 @@
+footer {
+  .social-links {
+    & > svg {
+      cursor: pointer;
+    }
+  }
+  h4 {
+    font-size: 16px;
+    @media (min-width: 768px) {
+      font-size: 18px;
+    }
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+  li {
+    flex-direction: column;
+
+    display: flex;
+    gap: 10px;
+    font-size: 15px;
+  }
+}

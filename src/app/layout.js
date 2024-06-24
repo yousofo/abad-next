@@ -1,7 +1,35 @@
-import { Inter } from "next/font/google";
 import "./globals.css";
+import Header from "@/components/Header/Header";
+import Footer from "@/components/Footer/Footer";
 
-const inter = Inter({ subsets: ["latin"] });
+// import localFont from 'next/font/local'
+
+// Font files can be colocated inside of `app`
+// const bukra = localFont({
+//   // src: [
+//   //   {
+//   //     path: './bukra/29LT-Bukra-regular.ttf',
+//   //     weight: '400',
+//   //     style: 'normal',
+//   //   }
+//   //   // {
+//   //   //   path: './Roboto-Italic.woff2',
+//   //   //   weight: '500',
+//   //   //   style: 'medium',
+//   //   // },
+//   //   // {
+//   //   //   path: './Roboto-Bold.woff2',
+//   //   //   weight: '700',
+//   //   //   style: 'bold',
+//   //   // },
+//   //   // {
+//   //   //   path: './Roboto-BoldItalic.woff2',
+//   //   //   weight: '700',
+//   //   //   style: 'italic',
+//   //   // },
+//   // ],
+//   display: 'swap'
+// })
 
 export const metadata = {
   title: "Create Next App",
@@ -10,8 +38,12 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
-      <body className={inter.className}>{children}</body>
+    <html lang="en" dir="rtl">
+      <body /*className={bukra.className}*/>
+        <Header />
+        {children}
+        <Footer />
+      </body>
     </html>
   );
 }
