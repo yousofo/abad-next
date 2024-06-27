@@ -1,8 +1,14 @@
+"use client"
 import React from "react";
 import "./header.css";
 import Link from "next/link";
+import { useDispatch, useSelector } from "react-redux";
+import { toggleAuthMenu } from '../GlobalState/Features/authSlice';
+
 
 const Header = () => {
+  const isHidden = useSelector((state) => state.auth.isHidden);
+  const dispatch = useDispatch();
   return (
     <header className="absolute w-full top-0 pt-6">
       <nav className="container max-w-screen-xl px-4 flex mx-auto justify-between items-center">
@@ -34,12 +40,13 @@ const Header = () => {
           </li>
         </ul>
         {/* logout btn */}
-        <a
+        <button
           href="#"
           className="bg-abad-gold rounded-xl p-2 px-4 hidden md:block"
+          onClick={()=>dispatch(toggleAuthMenu())}
         >
           تسجيل الدخول
-        </a>
+        </button>
         {/* small screens nav icon */}
         <svg
           className="md:hidden toggle-nav-list cursor-pointer min-w-8"

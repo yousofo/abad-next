@@ -1,6 +1,5 @@
 "use client";
 import React from "react";
-import ReviewCard from "../cards/ReviewCard";
 //swiper
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay } from "swiper/modules";
@@ -27,19 +26,19 @@ const PartnersSwiper = () => {
       }}
       loop
       autoplay={{ delay: 1000 }}
-      onSlideChange={() => console.log("slide change")}
-      onSwiper={(swiper) => console.log(swiper)}
+
     >
       {(function () {
         let partnerCards = [];
-        for (let image of images) {
+        let imagesX2 = [...images,...images]
+        for (let image of imagesX2) {
           partnerCards.push(
-            <SwiperSlide>
+            <SwiperSlide key={image[1]+Math.floor(Math.random()*1000)}>
               <img className="mx-auto" src={`/media/${image}`} alt="" />
             </SwiperSlide>
           );
         }
-        return [...partnerCards,...partnerCards];
+        return  partnerCards;
       })()}
     </Swiper>
   );

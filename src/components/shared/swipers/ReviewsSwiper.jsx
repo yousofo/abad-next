@@ -10,13 +10,13 @@ import { Navigation, Autoplay } from "swiper/modules";
 const ReviewsSwiper = () => {
   return (
     <Swiper
-      modules={[Navigation,Autoplay]}
+      modules={[Navigation, Autoplay]}
       slidesPerView={1}
-      navigation= {{
-        nextEl: '.swiper1-next',
-        prevEl: '.swiper1-prev',
+      navigation={{
+        nextEl: ".swiper1-next",
+        prevEl: ".swiper1-prev",
       }}
-      breakpoints= {{
+      breakpoints={{
         640: {
           slidesPerView: 2,
         },
@@ -25,15 +25,13 @@ const ReviewsSwiper = () => {
         },
       }}
       loop
-      autoplay={{delay:1000}}
-      onSlideChange={() => console.log("slide change")}
-      onSwiper={(swiper) => console.log(swiper)}
+      autoplay={{ delay: 1000 }}
     >
       {(function () {
         let reviewCards = [];
         for (let i = 0; i < 6; i++) {
           reviewCards.push(
-            <SwiperSlide>
+            <SwiperSlide key={i + Math.floor(Math.random() * 100)}>
               <ReviewCard />
             </SwiperSlide>
           );

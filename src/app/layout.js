@@ -1,6 +1,8 @@
 import "./globals.css";
 import Header from "@/components/Header/Header";
 import Footer from "@/components/Footer/Footer";
+import { StateProvider } from "@/components/GlobalState/StateProvider";
+import Authentication from "@/components/shared/auth/Authentication";
 
 // import localFont from 'next/font/local'
 
@@ -40,9 +42,12 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" dir="rtl">
       <body /*className={bukra.className}*/>
-        <Header />
-        {children}
-        <Footer />
+        <StateProvider>
+          <Header />
+          {children}
+          <Footer />
+          <Authentication/>
+        </StateProvider>
       </body>
     </html>
   );
