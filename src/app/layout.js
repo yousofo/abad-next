@@ -43,10 +43,10 @@ export default function RootLayout({ children }) {
     <html lang="en" dir="rtl">
       <body /*className={bukra.className}*/>
         <StateProvider>
+          <Authentication/>
           <Header />
           {children}
           <Footer />
-          <Authentication/>
         </StateProvider>
       </body>
     </html>

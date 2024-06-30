@@ -1,19 +1,28 @@
+"use client"
+import { toggleAuthMode } from "@/components/GlobalState/Features/authSlice";
 import React from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 const SignIn = () => {
+  const isSignIn=useSelector(state=>state.auth.signIn)
+  const dispatch=useDispatch()
+  function handleSignUp(e){
+    e.preventDefault()
+    dispatch(toggleAuthMode())
+  }
   return (
-    <div className="flex flex-col  gap-10 ">
+    <div className={`${!isSignIn&& "hidden"} flex flex-col  gap-10 `}>
       <div className="flex flex-col gap-3">
-        <h2 className="text-3xl font-bold">
+        <h2 className="text-[22px] sm:text-3xl font-bold">
           <span className="text-[#03133D]">تسجيل الدخول إلى</span>
           &nbsp;
           <span className="text-abad-gold">آباد</span>
         </h2>
-        <p className="text-lg text-[#68718B]">
+        <p className="text-xs sm:text-lg text-[#68718B]">
           املأ بريدك الإلكتروني وكلمة المرور لتسجيل الدخول
         </p>
       </div>
-      <form action="">
+      <form action="" className="flex flex-col gap-4">
         <div className="input">
           <label htmlFor="">عنوان البريد الإلكتروني</label>
           <input
@@ -36,9 +45,10 @@ const SignIn = () => {
         </div>
         <button className="login text-white font-bold" type="submit">تسجيل الدخول</button>
         <p className="text-sm text-center">
-          <span className="text-[#68718B]">ليس لديك حساب؟ </span>
+          <span className="text-[#68718B]">ليس لديك حساب؟</span>
           &nbsp;
-          <button className="text-[#133491]">سجل الان</button>
+          {/* to sign up */}
+          <button onClick={handleSignUp} className="text-[#133491]">سجل الان</button>
         </p>
       </form>
     </div>

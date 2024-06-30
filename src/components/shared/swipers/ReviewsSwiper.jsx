@@ -31,7 +31,7 @@ const ReviewsSwiper = () => {
         let reviewCards = [];
         for (let i = 0; i < 6; i++) {
           reviewCards.push(
-            <SwiperSlide key={i + Math.floor(Math.random() * 100)}>
+            <SwiperSlide key={"reviewCard-"+i}>
               <ReviewCard />
             </SwiperSlide>
           );

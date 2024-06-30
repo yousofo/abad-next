@@ -31,13 +31,13 @@ const PartnersSwiper = () => {
       {(function () {
         let partnerCards = [];
         let imagesX2 = [...images,...images]
-        for (let image of imagesX2) {
-          partnerCards.push(
-            <SwiperSlide key={image[1]+Math.floor(Math.random()*1000)}>
-              <img className="mx-auto" src={`/media/${image}`} alt="" />
-            </SwiperSlide>
-          );
-        }
+
+        imagesX2.forEach((e,i)=>partnerCards.push(
+          <SwiperSlide key={"partnerCard-"+i}>
+            <img className="mx-auto" src={`/media/${e}`} alt="" />
+          </SwiperSlide>
+        ))
+
         return  partnerCards;
       })()}
     </Swiper>
