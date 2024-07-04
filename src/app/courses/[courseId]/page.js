@@ -1,5 +1,6 @@
-import React from 'react'
 import "./course.css"
+
+import Accordion from '@/components/shared/Accordion/Accordion'
 
 const Course = ({ params }) => {
   return (
@@ -19,9 +20,9 @@ const Course = ({ params }) => {
           />
         </div>
         {/* BACKGROUND IMG end*/}
-        <div className="container px-4 flex flex-col sm:flex-row justify-between gap-16 course-details pt-36 m-auto max-w-screen-lg">
+        <div className="container px-4 flex flex-col sm:flex-row justify-between gap-16 course-details pt-36 m-auto max-w-screen-xl">
           {/* COURSE CONTENT start */}
-          <section className="h-fit flex flex-col gap-60">
+          <section className="h-fit flex flex-col gap-60 flex-1">
             <div className="flex  flex-col gap-6">
               <h6 className="flex flex-wrap items-center text-[#A8A8A8] font-bold text-xs md:text-sm">
                 <a href="/">الرئيسية</a>
@@ -144,132 +145,21 @@ const Course = ({ params }) => {
             </div>
             {/* accordions for large screens */}
             <div className="accordion !hidden sm:!flex">
-              <div className="accordion-item">
-                <button className="accordion-header">
-                  {" "}
-                  <span>موعد الدورة</span>
-                  <svg
-                    width={20}
-                    height={20}
-                    viewBox="0 0 20 20"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M16.25 12.5L10 6.25L3.75 12.5"
-                      stroke="#1C1C1C"
-                      strokeWidth="1.5"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
-                </button>
-                <div className="accordion-content">
-                  <div className="wrapper">
-                    <p>Content for موعد الدورة.</p>
-                  </div>
-                </div>
-              </div>
-              <div className="accordion-item">
-                <button className="accordion-header">
-                  <span>تفاصيل الاختبارات</span>
-                  <svg
-                    width={20}
-                    height={20}
-                    viewBox="0 0 20 20"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M16.25 12.5L10 6.25L3.75 12.5"
-                      stroke="#1C1C1C"
-                      strokeWidth="1.5"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
-                </button>
-                <div className="accordion-content">
-                  <div className="wrapper">
-                    <p>Content for تفاصيل الاختبارات.</p>
-                  </div>
-                </div>
-              </div>
-              <div className="accordion-item">
-                <button className="accordion-header">
-                  <span>مهارات وكفاءات</span>
-                  <svg
-                    width={20}
-                    height={20}
-                    viewBox="0 0 20 20"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M16.25 12.5L10 6.25L3.75 12.5"
-                      stroke="#1C1C1C"
-                      strokeWidth="1.5"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
-                </button>
-                <div className="accordion-content">
-                  <div className="wrapper">
-                    <p>Content for مهارات وكفاءات.</p>
-                  </div>
-                </div>
-              </div>
-              <div className="accordion-item">
-                <button className="accordion-header">
-                  <span>من يحتاج هذة الدورة</span>
-                  <svg
-                    width={20}
-                    height={20}
-                    viewBox="0 0 20 20"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M16.25 12.5L10 6.25L3.75 12.5"
-                      stroke="#1C1C1C"
-                      strokeWidth="1.5"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
-                </button>
-                <div className="accordion-content">
-                  <div className="wrapper">
-                    <p>Content for من يحتاج هذة الدورة.</p>
-                  </div>
-                </div>
-              </div>
-              <div className="accordion-item">
-                <button className="accordion-header">
-                  <span>اهداف الدورة</span>
-                  <svg
-                    width={20}
-                    height={20}
-                    viewBox="0 0 20 20"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M16.25 12.5L10 6.25L3.75 12.5"
-                      stroke="#1C1C1C"
-                      strokeWidth="1.5"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
-                </button>
-                <div className="accordion-content">
-                  <div className="wrapper">
-                    <p>Content for اهداف الدورة.</p>
-                  </div>
-                </div>
-              </div>
+              <Accordion title="موعد الدورة">
+                Content for موعد الدورة.
+              </Accordion>
+              <Accordion title="تفاصيل الاختبارات">
+                Content for تفاصيل الاختبارات.
+              </Accordion>
+              <Accordion title="مهارات وكفاءات">
+                Content for مهارات وكفاءات.
+              </Accordion>
+              <Accordion title="من يحتاج هذة الدورة">
+                Content for من يحتاج هذة الدورة.
+              </Accordion>
+              <Accordion title="اهداف الدورة">
+                Content for اهداف الدورة.
+              </Accordion>
             </div>
           </section>
           {/* COURSE CONTENT end */}
@@ -350,134 +240,25 @@ const Course = ({ params }) => {
             </figcaption>
           </figure>
           {/* COURSE CARD end */}
+          {/* ACCORDIONS start */}
           <div className="accordion sm:!hidden">
-            <div className="accordion-item">
-              <button className="accordion-header">
-                {" "}
-                <span>موعد الدورة</span>
-                <svg
-                  width={20}
-                  height={20}
-                  viewBox="0 0 20 20"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M16.25 12.5L10 6.25L3.75 12.5"
-                    stroke="#1C1C1C"
-                    strokeWidth="1.5"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
-              </button>
-              <div className="accordion-content">
-                <div className="wrapper">
-                  <p>Content for موعد الدورة.</p>
-                </div>
-              </div>
-            </div>
-            <div className="accordion-item">
-              <button className="accordion-header">
-                <span>تفاصيل الاختبارات</span>
-                <svg
-                  width={20}
-                  height={20}
-                  viewBox="0 0 20 20"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M16.25 12.5L10 6.25L3.75 12.5"
-                    stroke="#1C1C1C"
-                    strokeWidth="1.5"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
-              </button>
-              <div className="accordion-content">
-                <div className="wrapper">
-                  <p>Content for تفاصيل الاختبارات.</p>
-                </div>
-              </div>
-            </div>
-            <div className="accordion-item">
-              <button className="accordion-header">
-                <span>مهارات وكفاءات</span>
-                <svg
-                  width={20}
-                  height={20}
-                  viewBox="0 0 20 20"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M16.25 12.5L10 6.25L3.75 12.5"
-                    stroke="#1C1C1C"
-                    strokeWidth="1.5"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
-              </button>
-              <div className="accordion-content">
-                <div className="wrapper">
-                  <p>Content for مهارات وكفاءات.</p>
-                </div>
-              </div>
-            </div>
-            <div className="accordion-item">
-              <button className="accordion-header">
-                <span>من يحتاج هذة الدورة</span>
-                <svg
-                  width={20}
-                  height={20}
-                  viewBox="0 0 20 20"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M16.25 12.5L10 6.25L3.75 12.5"
-                    stroke="#1C1C1C"
-                    strokeWidth="1.5"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
-              </button>
-              <div className="accordion-content">
-                <div className="wrapper">
-                  <p>Content for من يحتاج هذة الدورة.</p>
-                </div>
-              </div>
-            </div>
-            <div className="accordion-item">
-              <button className="accordion-header">
-                <span>اهداف الدورة</span>
-                <svg
-                  width={20}
-                  height={20}
-                  viewBox="0 0 20 20"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M16.25 12.5L10 6.25L3.75 12.5"
-                    stroke="#1C1C1C"
-                    strokeWidth="1.5"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
-              </button>
-              <div className="accordion-content">
-                <div className="wrapper">
-                  <p>Content for اهداف الدورة.</p>
-                </div>
-              </div>
-            </div>
+            <Accordion title="موعد الدورة">
+              Content for موعد الدورة.
+            </Accordion>
+            <Accordion title="تفاصيل الاختبارات">
+              Content for تفاصيل الاختبارات.
+            </Accordion>
+            <Accordion title="مهارات وكفاءات">
+              Content for مهارات وكفاءات.
+            </Accordion>
+            <Accordion title="من يحتاج هذة الدورة">
+              Content for من يحتاج هذة الدورة.
+            </Accordion>
+            <Accordion title="اهداف الدورة">
+              Content for اهداف الدورة.
+            </Accordion>
           </div>
+          {/* ACCORDIONS end */}
         </div>
       </div>
     </main>

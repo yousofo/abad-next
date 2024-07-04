@@ -1,0 +1,31 @@
+.enlist {
+  font-size: 10px;
+  font-weight: 500;
+  @media (min-width: 768px) {
+    font-size: 12px;
+  }
+  padding: 6px 12px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  background-color: #f0f6ec;
+  color: #6ea641;
+}
+table {
+  color: #3f3e43;
+  font-weight: 500!important;
+  th,td {
+    font-weight: inherit;
+    font-size: 12px;
+    padding: 16px;
+    text-align: start;
+  }
+  td:nth-child(1){
+    font-size: 14px;
+  }
+  td:nth-child(2){
+    font-weight: 700;
+  }
+}
