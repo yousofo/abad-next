@@ -3,6 +3,7 @@ import Header from "@/components/Header/Header";
 import Footer from "@/components/Footer/Footer";
 import { StateProvider } from "@/components/GlobalState/StateProvider";
 import Authentication from "@/components/shared/auth/Authentication";
+import NavList from "@/components/NavList/NavList";
 
 // import localFont from 'next/font/local'
 
@@ -43,7 +44,8 @@ export default function RootLayout({ children }) {
     <html lang="en" dir="rtl">
       <body /*className={bukra.className}*/>
         <StateProvider>
-          <Authentication/>
+          <Authentication />
+          <NavList />
           <Header />
           {children}
           <Footer />

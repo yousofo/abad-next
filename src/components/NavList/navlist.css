@@ -1,0 +1,25 @@
+.navlist-sm {
+  /* border-image-source: linear-gradient(0deg, #E7E7E7, #E7E7E7),
+  linear-gradient(0deg, #E7E7E7, #E7E7E7),
+  linear-gradient(0deg, #E7E7E7, #E7E7E7); */
+  > ul {
+    > li {
+      padding: 24px 12px;
+      margin: 0 12px;
+    }
+    > li:not(:nth-last-child(1)) {
+      border-bottom: 1px solid #e7e7e7;
+    }
+  }
+  .navlist-auth {
+    button {
+      border-radius: 6px;
+      padding: 12px 36px;
+      font-size: 12px;
+      font-weight: bold;
+    }
+    button:nth-child(1) {
+      background: linear-gradient(83.79deg, #1b45b4 3.25%, #1c2792 96.85%);
+    }
+  }
+}

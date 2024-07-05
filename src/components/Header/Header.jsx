@@ -1,10 +1,10 @@
-"use client"
+"use client";
 import React from "react";
 import "./header.css";
 import Link from "next/link";
 import { useDispatch, useSelector } from "react-redux";
-import { toggleAuthMenu } from '../GlobalState/Features/authSlice';
-
+import { toggleAuthMenu } from "../GlobalState/Features/authSlice";
+import { toggleNavList } from "../GlobalState/Features/navListSlice";
 
 const Header = () => {
   const isHidden = useSelector((state) => state.auth.isHidden);
@@ -43,12 +43,13 @@ const Header = () => {
         <button
           href="#"
           className="bg-abad-gold rounded-xl p-2 px-4 hidden md:block"
-          onClick={()=>dispatch(toggleAuthMenu())}
+          onClick={() => dispatch(toggleAuthMenu())}
         >
           تسجيل الدخول
         </button>
         {/* small screens nav icon */}
         <svg
+          onClick={() => dispatch(toggleNavList())}
           className="md:hidden toggle-nav-list cursor-pointer min-w-8"
           xmlns="http://www.w3.org/2000/svg"
           width={33}
