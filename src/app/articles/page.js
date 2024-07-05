@@ -28,11 +28,11 @@ const Articles = () => {
       {/* HERO start  */}
       <section className="hero h-dvh md:min-h-[600px] md:h-auto relative">
         <div className="intro text-center absolute flex flex-col items-center h-full justify-center gap-5 md:gap-7 text-white w-full max-w-full px-4">
-          <h2 className="text-2xl font-medium md:text-4xl lg:text-5xl xl:text-6xl max-w-60 sm:max-w-fit">
+          <h2 className="text-2xl font-medium md:text-4xl lg:text-5xl xl:text-6xl max-w-72 sm:max-w-fit">
             <span className="text-abad-gold whitespace-nowrap my-3 block">
               المقالات
             </span>
-            <p className="text-sm md:text-2xl font-normal">
+            <p className="text-sm md:text-2xl font-normal leading-loose">
               معهد شبكة آباد للتدريب من المعاهد الرائدة في تقديم الدورات التطويرية
               المتخصصة في تقنية المعلومات.
             </p>
