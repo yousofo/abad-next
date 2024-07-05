@@ -11,7 +11,7 @@ const NavList = () => {
     <div
       className={`navlist-sm ${
         !active && " -translate-x-full "
-      } transition-all fixed w-dvw h-dvh bg-white z-50 flex flex-col gap-7 py-6`}
+      } transition-all fixed w-screen h-screen bg-white z-50 flex flex-col gap-7 py-6`}
     >
       <div className="flex justify-between items-center px-5">
         <img src="/media/logos/NavListLogo.png" alt="" />
