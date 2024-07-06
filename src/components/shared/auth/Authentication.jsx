@@ -5,6 +5,7 @@ import SignUp from "./SignUp";
 import "./auth.css";
 import { useDispatch, useSelector } from "react-redux";
 import { reset } from "@/components/GlobalState/Features/authSlice";
+import ForgotPassword from "./ForgotPassword";
 
 const Authentication = () => {
   const isHidden = useSelector(e=>e.auth.isHidden)
@@ -18,6 +19,7 @@ const Authentication = () => {
       <div onClick={(e)=>e.stopPropagation()} className="auth-container bg-white py-7 px-6 md:py-12 md:px-10 rounded-2xl h-fit w-full max-w-[573px]">
         <SignIn />
         <SignUp />
+        <ForgotPassword/>
       </div>
     </div>
   );

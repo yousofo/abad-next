@@ -52,7 +52,7 @@
   font-family: "29lt-Bukra";
   font-style: normal;
   font-weight: 700;
-  src: url("/bukra/29LT-Bukra-Boldl-2.ttf") format("truetype");
+  src: url("/bukra/29LT-Bukra-Bold.OTF") format("opentype");
 }
 body {
   font-family: "29lt-Bukra";

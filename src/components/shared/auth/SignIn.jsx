@@ -1,17 +1,17 @@
-"use client"
-import { toggleAuthMode } from "@/components/GlobalState/Features/authSlice";
+"use client";
+import { toggleForgotPassword, toggleSignUp } from "@/components/GlobalState/Features/authSlice";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 const SignIn = () => {
-  const isSignIn=useSelector(state=>state.auth.signIn)
-  const dispatch=useDispatch()
-  function handleSignUp(e){
+  const isSignIn = useSelector((state) => state.auth.signIn);
+  const dispatch = useDispatch();
+  function handleForgotPassword(e){
     e.preventDefault()
-    dispatch(toggleAuthMode())
+    dispatch(toggleForgotPassword())
   }
   return (
-    <div className={`${!isSignIn&& "hidden"} flex flex-col  gap-10 `}>
+    <div className={`${!isSignIn && "hidden"} flex flex-col  gap-10 `}>
       <div className="flex flex-col gap-3">
         <h2 className="text-[22px] sm:text-3xl font-bold">
           <span className="text-[#03133D]">تسجيل الدخول إلى</span>
@@ -39,18 +39,32 @@ const SignIn = () => {
         <div className="flex justify-between items-center">
           <div className="flex gap-1.5 items-center">
             <input type="checkbox" name="" id="" />
-            <label htmlFor="" className="text-[#68718B]">تذكرني</label>
+            <label htmlFor="" className="text-[#68718B]">
+              تذكرني
+            </label>
           </div>
-          <button className="text-[#7C2BB8] text-sm">نسيت كلمة السر؟</button>
+          <button
+            className="text-[#7C2BB8] text-sm"
+            onClick={handleForgotPassword}
+          >
+            نسيت كلمة السر؟
+          </button>
         </div>
-        <button className="login text-white font-bold" type="submit">تسجيل الدخول</button>
-        <p className="text-sm text-center">
-          <span className="text-[#68718B]">ليس لديك حساب؟</span>
-          &nbsp;
-          {/* to sign up */}
-          <button onClick={handleSignUp} className="text-[#133491]">سجل الان</button>
-        </p>
+        <button className="login text-white font-bold" type="submit">
+          تسجيل الدخول
+        </button>
       </form>
+      <p className="text-sm text-center mt-auto">
+        <span className="text-[#68718B]">ليس لديك حساب؟</span>
+        &nbsp;
+        {/* to sign up */}
+        <button
+          onClick={() => dispatch(toggleSignUp())}
+          className="text-[#133491]"
+        >
+          سجل الان
+        </button>
+      </p>
     </div>
   );
 };

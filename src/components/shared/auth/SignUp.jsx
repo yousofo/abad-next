@@ -1,18 +1,18 @@
 "use client";
-import { toggleAuthMode } from "@/components/GlobalState/Features/authSlice";
+import { toggleSignIn } from "@/components/GlobalState/Features/authSlice";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 const SignUp = () => {
-  const isSignIn = useSelector((e) => e.auth.signIn);
+  const isSignUp = useSelector((e) => e.auth.signUp);
   const dispatch = useDispatch();
 
   function switchAuthMode(e) {
     e.preventDefault();
-    dispatch(toggleAuthMode());
+    dispatch(toggleSignIn());
   }
   return (
-    <div className={`${isSignIn && "hidden"} flex flex-col gap-7 md:gap-10 `}>
+    <div className={`${!isSignUp && "hidden"} flex flex-col gap-7 md:gap-10 `}>
       <div className="flex flex-col gap-3">
         <h2 className="text-[22px] sm:text-3xl font-bold text-[#03133D]">
           تسجيل حساب جديد

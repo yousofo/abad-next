@@ -3,6 +3,7 @@ import "./navlist.css";
 import Link from "next/link";
 import { useDispatch, useSelector } from "react-redux";
 import { reset, toggleNavList } from "../GlobalState/Features/navListSlice";
+import { toggleSignIn, toggleSignUp } from "../GlobalState/Features/authSlice";
 
 const NavList = () => {
   const active = useSelector((state) => state.navList.active);
@@ -84,8 +85,8 @@ const NavList = () => {
           </li>
         </ul>
         <div className="navlist-auth mt-auto px-5 flex justify-center gap-2">
-          <button className="text-white">تسجل دخول</button>
-          <button className="text-[#7F7F7F]">تسجيل جديد</button>
+          <button onClick={()=>dispatch(toggleSignIn())} className="text-white">تسجل دخول</button>
+          <button onClick={()=>dispatch(toggleSignUp())} className="text-[#7F7F7F]">تسجيل جديد</button>
         </div>
       </div>
     </div>
