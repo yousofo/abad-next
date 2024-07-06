@@ -3,7 +3,7 @@ import React from "react";
 import "./header.css";
 import Link from "next/link";
 import { useDispatch, useSelector } from "react-redux";
-import { toggleAuthMenu } from "../GlobalState/Features/authSlice";
+import { toggleSignIn } from "../GlobalState/Features/authSlice";
 import { toggleNavList } from "../GlobalState/Features/navListSlice";
 
 const Header = () => {
@@ -43,7 +43,7 @@ const Header = () => {
         <button
           href="#"
           className="bg-abad-gold rounded-xl p-2 px-4 hidden md:block"
-          onClick={() => dispatch(toggleAuthMenu())}
+          onClick={() => dispatch(toggleSignIn())}
         >
           تسجيل الدخول
         </button>
