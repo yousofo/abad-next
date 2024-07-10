@@ -1,14 +1,22 @@
 "use client";
-import { toggleForgotPassword, toggleSignUp } from "@/components/GlobalState/Features/authSlice";
+import { toggleForgotPassword, toggleSignUp, toggleSignedIn } from "@/components/GlobalState/Features/authSlice";
+import { useRouter } from "next/navigation";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 const SignIn = () => {
   const isSignIn = useSelector((state) => state.auth.signIn);
   const dispatch = useDispatch();
+  const router = useRouter()
+
   function handleForgotPassword(e){
     e.preventDefault()
     dispatch(toggleForgotPassword())
+  }
+  function handleSignIn(e){
+    e.preventDefault()
+    dispatch(toggleSignedIn())
+    router.push("/")
   }
   return (
     <div className={`${!isSignIn && "hidden"} flex flex-col  gap-10 `}>
@@ -50,7 +58,7 @@ const SignIn = () => {
             نسيت كلمة السر؟
           </button>
         </div>
-        <button className="login text-white font-bold" type="submit">
+        <button className="login text-white font-bold" type="submit" onClick={handleSignIn}>
           تسجيل الدخول
         </button>
       </form>

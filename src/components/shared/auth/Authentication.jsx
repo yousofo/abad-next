@@ -6,6 +6,7 @@ import "./auth.css";
 import { useDispatch, useSelector } from "react-redux";
 import { reset } from "@/components/GlobalState/Features/authSlice";
 import ForgotPassword from "./ForgotPassword";
+import PasswordReassigned from "./PasswordReassigned";
 
 const Authentication = () => {
   const isHidden = useSelector(e=>e.auth.isHidden)
@@ -20,6 +21,7 @@ const Authentication = () => {
         <SignIn />
         <SignUp />
         <ForgotPassword/>
+        <PasswordReassigned/>
       </div>
     </div>
   );

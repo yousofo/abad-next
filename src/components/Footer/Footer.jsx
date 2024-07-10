@@ -4,7 +4,7 @@ import "./footer.css";
 const Footer = () => {
   return (
     <footer className="bg-[#303030] p-10">
-      <ul className="container text-white flex-col gap-4 md:gap-0 flex md:flex-row justify-between items-start max-w-screen-lg mx-auto">
+      <ul className="container text-white flex-col gap-6 md:gap-0 flex md:flex-row justify-between items-start max-w-screen-lg mx-auto">
         <li className="max-w-[370px]">
           <img src="/media/ft-logo 3 (1).png" className="w-fit" alt="" />
           <p className="noto my-3">
@@ -83,7 +83,7 @@ const Footer = () => {
             </svg>
           </div>
         </li>
-        <li>
+        <li className="footer-pages">
           <h4>الصفحات</h4>
           <a href="#">الصفحة الرئيسية</a>
           <a href="#">حول</a>
@@ -91,7 +91,7 @@ const Footer = () => {
           <a href="#">منشور المدونة</a>
           <a href="#">فريق أباد</a>
         </li>
-        <li>
+        <li className="footer-general">
           <h4>نظرة عامة</h4>
           <a href="#">جهة الاتصال</a>
           <a href="#">قصة العميل </a>
@@ -99,7 +99,7 @@ const Footer = () => {
           <a href="#">التسجيل</a>
           <a href="#">دليل النمط</a>
         </li>
-        <li>
+        <li className="footer-contact">
           <h4>يتصل:</h4>
           <a href="tel:001 234 567 89" dir="ltr">
             +001 234 567 89

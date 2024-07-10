@@ -5,9 +5,10 @@ import { createSlice } from '@reduxjs/toolkit';
 const initialState = {
   isHidden: true,
   isSignedIn: false,
-  signIn: true,
+  signIn: false,
   signUp: false,
   forgotPassword: false,
+  newPassword: false,
 }
 
 
@@ -27,7 +28,6 @@ export const authSlice = createSlice({
       return {
         ...initialState,
         isHidden: false,
-        signIn:false,
         signUp: true,
       }
     },
@@ -35,8 +35,20 @@ export const authSlice = createSlice({
       return {
         ...initialState,
         isHidden: false,
-        signIn:false,
         forgotPassword: true,
+      }
+    },
+    toggleNewPassword: (state) => {
+      return {
+        ...initialState,
+        isHidden: false,
+        newPassword: true,
+      }
+    },
+    toggleSignedIn: () => {
+      return {
+        ...initialState,
+        isSignedIn: true,
       }
     },
     reset: (state) => {
@@ -48,6 +60,6 @@ export const authSlice = createSlice({
   }
 })
 
-export const { toggleSignIn, toggleSignUp, toggleForgotPassword, reset } = authSlice.actions;
+export const { toggleSignIn, toggleSignUp, toggleForgotPassword, toggleNewPassword, toggleSignedIn, reset } = authSlice.actions;
 
 export default authSlice.reducer;
