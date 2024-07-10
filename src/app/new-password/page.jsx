@@ -3,7 +3,7 @@ import React from "react";
 import "./newPassword.css";
 import { useDispatch } from "react-redux";
 import { toggleNewPassword } from "@/components/GlobalState/Features/authSlice";
-const newPassword = () => {
+const NewPassword = () => {
   const dispatch = useDispatch();
   function handleClick(e){
     e.preventDefault()
@@ -70,4 +70,4 @@ const newPassword = () => {
   );
 };
 
-export default newPassword;
+export default NewPassword;
