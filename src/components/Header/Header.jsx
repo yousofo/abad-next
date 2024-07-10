@@ -3,7 +3,7 @@ import React from "react";
 import "./header.css";
 import Link from "next/link";
 import { useDispatch, useSelector } from "react-redux";
-import { toggleSignIn } from "../GlobalState/Features/authSlice";
+import { reset, toggleSignIn } from "../GlobalState/Features/authSlice";
 import { toggleNavList } from "../GlobalState/Features/navListSlice";
 import { toggleMiniNav } from "../GlobalState/Features/miniNavSlice";
 
@@ -13,6 +13,9 @@ const Header = () => {
   const dispatch = useDispatch();
   function handleMiniNav() {
     dispatch(toggleMiniNav());
+  }
+  function handleSignOut() {
+    dispatch(reset());
   }
   return (
     <header className="absolute w-full top-0 pt-6">
@@ -132,7 +135,7 @@ const Header = () => {
                   <span>الملف الشخصي</span>
                 </Link>
               </li>
-              <li>
+              <li onClick={handleSignOut}>
                 <svg
                   width="24"
                   height="24"
