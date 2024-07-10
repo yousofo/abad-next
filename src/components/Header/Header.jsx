@@ -47,7 +47,7 @@ const Header = () => {
         {/* logout btn */}
         {isSignedIn ? (
           <div
-            className="flex text-white items-center gap-2 relative z-20  cursor-pointer"
+            className=" text-white items-center gap-2 relative z-20  cursor-pointer hidden md:flex"
             onClick={handleMiniNav}
           >
             <img src="/media/placeholders/user-image.png" alt="" />
