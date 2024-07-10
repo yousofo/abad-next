@@ -133,7 +133,7 @@ main {
         a:nth-child(1) button {
           background-color: #f6f6f6;
         }
-        a:nth-child(2) button {
+        div:nth-child(2) button {
           background-color: #f0f6ec;
           color: #6ea641;
         }

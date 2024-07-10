@@ -33,9 +33,9 @@ const PasswordReassigned = () => {
           <path
             d="M7.5 40.2165L29.2165 61.9331L72.7263 18.5"
             stroke="white"
-            stroke-width="8"
-            stroke-linecap="round"
-            stroke-linejoin="round"
+            strokeWidth="8"
+            strokeLinecap="round"
+            strokeLinejoin="round"
           />
         </svg>
       </div>

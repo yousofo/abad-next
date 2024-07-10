@@ -1,7 +1,11 @@
+"use client"
+import { toggleEnlistInCourse } from "@/components/GlobalState/Features/popUpsSlice";
 import Link from "next/link";
 import React from "react";
+import { useDispatch } from "react-redux";
 
 const CourseRow = () => {
+  const dispatch = useDispatch()
   return (
     <tr
       data-type="programming"
@@ -78,7 +82,7 @@ const CourseRow = () => {
               التفاصيل
             </button>
           </Link>
-          <a href="/courses/1">
+          <div onClick={()=>dispatch(toggleEnlistInCourse())}>
             <button>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -94,7 +98,7 @@ const CourseRow = () => {
               </svg>
               تسجيل
             </button>
-          </a>
+          </div>
         </div>
       </td>
     </tr>

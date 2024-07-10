@@ -62,7 +62,7 @@ const SignUp = () => {
               className="w-full focus:outline-none"
             >
               <option value="" className="hidden">
-                ttt
+                اختر الجنس
               </option>
               <option value="">ذكر</option>
               <option value="">انثي</option>
@@ -94,7 +94,7 @@ const SignUp = () => {
       <div className="flex flex-col gap-4">
         {/* sign up BUTTON */}
         <button className="login text-white font-bold" type="submit">
-          تسجيل 
+          تسجيل
         </button>
         <p className="text-sm text-center">
           <span className="text-[#68718B]">لديك حساب؟</span>

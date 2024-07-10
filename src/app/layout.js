@@ -4,6 +4,7 @@ import Footer from "@/components/Footer/Footer";
 import { StateProvider } from "@/components/GlobalState/StateProvider";
 import Authentication from "@/components/shared/auth/Authentication";
 import NavList from "@/components/NavList/NavList";
+import PopUps from "@/components/PopUps/PopUps";
 
 // import localFont from 'next/font/local'
 
@@ -46,6 +47,7 @@ export default function RootLayout({ children }) {
         <StateProvider>
           <Authentication />
           <NavList />
+          <PopUps/>
           <Header />
           {children}
           <Footer />
