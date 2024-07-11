@@ -11,13 +11,13 @@ export default function Home() {
     <main>
       {/* HERO start  */}
       <section className="hero h-dvh md:min-h-[600px] md:h-auto relative">
-        <div className="intro text-center absolute flex flex-col items-center justify-center gap-4 md:gap-6 text-white w-max max-w-full px-4">
+        <div className="intro text-center absolute flex flex-col items-center justify-center gap-4 md:gap-7 text-white w-max max-w-full px-4">
           <h2 className="text-2xl font-medium md:text-3xl lg:text-4xl xl:text-5xl max-w-60 sm:max-w-fit">
             <span>تعلم بكل سهولة مع</span>
             &nbsp;
             <span className="text-abad-gold whitespace-nowrap">اباد للتدريب</span>
           </h2>
-          <h4 className="text-sm md:text-md max-w-lg leading-loose">
+          <h4 className="text-sm font-light word-spacing md:text-lg max-w-[650px] leading-loose md:leading-[2.5]">
             معهد شبكة آباد للتدريب من المعاهد الرائدة في تقديم الدورات التطويرية
             المتخصصة في تقنية المعلومات.
           </h4>

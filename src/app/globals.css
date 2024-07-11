@@ -99,3 +99,7 @@ body {
 img{
   user-select: none;
 }
+.word-spacing{
+  /* word-spacing: 3px; */
+  font-weight: 300;
+}
