@@ -72,7 +72,7 @@ export default function Home() {
           src="/media/Animation - 1717986646627.gif"
           alt=""
         />
-        <div className="flex flex-col items-center gap-8 courses container px-4 max-w-screen-xl py-10 mx-auto min-h-[450px]">
+        <div className="flex flex-col items-center gap-8 home-courses container px-4 max-w-screen-xl py-10 mx-auto min-h-[450px]">
           {/* courses preview mode options */}
           <div className="flex md:px-6 justify-between items-center w-full">
             <h3 className="text-lg md:text-4xl font-bold text-[#1E1E1E] noto">

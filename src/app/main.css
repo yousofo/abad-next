@@ -10,7 +10,7 @@ main {
       transform: translate(-50%, -50%);
     }
   }
-  .courses {
+  .home-courses {
     .courses-preview-mode {
       color: #0f1416;
       svg {

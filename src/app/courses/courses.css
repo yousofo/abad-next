@@ -62,7 +62,9 @@
             display: flex;
             align-items: center;
             gap: 3px;
-            color: #008000;
+          }
+          span:nth-child(1) {
+            color: #6EA641;
           }
           span:nth-child(2) {
             font-size: 12px;
@@ -172,31 +174,7 @@
   > .show-all {
     background: linear-gradient(to right, #1b45b4, #1c2792);
   }
-  /*
-  <figure class="">
-    <div class="img">
-      <img src="/media/abad-course-card.png" alt="">
-    </div>
-    <figcaption>
-      <h4>CCNA 200-301 شهادة سيسكو المعتمدة</h4>
-      <div class="course-date">
-        <div>
-          <img src="/media/calendar.png" alt="">
-          <p>16 مارس 2024</p>
-        </div>
-        <div>
-          <img src="/media/combo sape.png" alt="">
-          <p>من 6 م : الي 9 م</p>
-        </div>
-      </div>
-      <p>هنا يكتب تفاصيل المحتوي للدورة  هنا يكتب تفاصيل المحتوي للدورة  هنا يكتب تفاصيل المحتوي للدورة</p>
-      <div class="course-info">
-        <p>البرمجة</p>
-        <p>1500 ريال سعودي</p>
-      </div>
-    </figcaption>
-  </figure>
-  */
+
   .courses-cards {
     display: grid;
     width: 100%;
