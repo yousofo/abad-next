@@ -40,3 +40,11 @@ header {
     }
   }
 }
+.header-contact-bar{
+  a{
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 18px !important;
+  }
+}

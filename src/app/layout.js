@@ -48,6 +48,7 @@ export default function RootLayout({ children }) {
           <Authentication />
           <NavList />
           <PopUps/>
+          
           <Header />
           {children}
           <Footer />

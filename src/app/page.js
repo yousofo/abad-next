@@ -265,7 +265,7 @@ export default function Home() {
           </nav>
           {/* courses table ROWS MODE */}
           <table className="courses-rows w-full px-3 md:px-6">
-            <thead>
+            <thead className="bg-[#1D2A96]">
               <tr className="abad-shadow rounded-lg hidden md:table-row">
                 <th className="text-start">اسم الدورة</th>
                 <th className="text-start">تاريخ بداية الدورة</th>
@@ -279,7 +279,7 @@ export default function Home() {
                 (function () {
                   let rows = []
                   for (let i = 0; i < 6; i++) {
-                    rows.push(<CourseRow key={i} />)
+                    rows.push(<CourseRow key={i} index={i} />)
                   }
                   console.log("================================== " + rows.length)
                   return rows
@@ -295,7 +295,7 @@ export default function Home() {
           {/* link to all courses page */}
           <Link
             href="/courses"
-            className="text-white cursor-pointer font-bold px-8 py-2.5 show-all flex items-center gap-5 rounded-xl"
+            className="text-white cursor-pointer font-medium px-10 py-4 show-all flex items-center gap-5 rounded-xl"
           >
             <span>عرض الكل</span>
             <svg

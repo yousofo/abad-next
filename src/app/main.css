@@ -49,15 +49,20 @@ main {
       }
     }
     table {
-      border-spacing: 0 10px;
+      border-spacing: 0 3px;
       border-collapse: separate;
+      td{
+        color: #3f3e43;
+      }
+      th{
+        color: white;
+      }
       td,
       th {
         display: block;
         padding: 2px;
         font-size: 12px;
-        font-weight: bold;
-        color: #3f3e43;
+        font-weight: 500;
         border: 1px solid transparent;
         &.course-name {
           padding-top: 4px;
@@ -67,17 +72,16 @@ main {
           flex-direction: column;
           > div {
             order: 1;
-            font-size: 12px;
+            font-size: 10px !important;
             display: flex;
             gap: 12px;
             span {
               display: flex;
               align-items: center;
               gap: 3px;
-              color: #008000;
+              color: #DF2121;
             }
             span:nth-child(2) {
-              font-size: 12px;
               color: #1b39a6;
             }
           }
@@ -100,7 +104,7 @@ main {
         }
         @media (min-width: 768px) {
           display: table-cell;
-          padding: 14px !important;
+          padding: 16px !important;
           &.course-start-date {
             display: table-cell;
           }
@@ -120,9 +124,6 @@ main {
         gap: 8px;
         font-size: 10px;
         font-weight: 500;
-        @media (min-width: 768px) {
-          font-size: 12px;
-        }
         button {
           padding: 6px 12px;
           border-radius: 4px;
@@ -130,12 +131,27 @@ main {
           align-items: center;
           gap: 8px;
         }
+        >*{
+          flex: 1;
+          >*{
+            width: 100%;
+            justify-content: center;
+          }
+        }
+        @media (min-width: 768px) {
+          font-size: 12px;
+          >*{
+            flex: auto;
+          }
+        }
+        
         a:nth-child(1) button {
-          background-color: #f6f6f6;
+          background-color: #FDB614;
+          color: black;
         }
         div:nth-child(2) button {
-          background-color: #f0f6ec;
-          color: #6ea641;
+          background: linear-gradient(83.79deg, #1B45B4 3.25%, #1C2792 96.85%);
+          color: white;
         }
       }
     }
