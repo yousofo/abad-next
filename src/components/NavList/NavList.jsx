@@ -12,7 +12,7 @@ const NavList = () => {
     <div
       className={` ${
         !active && " -translate-x-full "
-      } transition-all fixed w-screen h-screen bg-white z-50 `}
+      } transition-all fixed w-screen h-screen bg-white z-[100] `}
     >
       <div className="navlist-sm wrapper h-dvh flex flex-col gap-7 py-6">
         <div className="flex justify-between items-center px-5">

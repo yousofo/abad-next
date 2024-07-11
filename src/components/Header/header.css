@@ -39,12 +39,45 @@ header {
       border: 1px solid #E2E2E2
     }
   }
+  .courses-nav{
+    ul{
+      li:not(:nth-last-child(1)){
+        border: 0;
+        border-bottom: 1px solid #EFEFEF !important;
+      }
+    }
+  }
+  ul.right-corner{
+    border-top-right-radius: 0;
+  }
+  ul.left-corner{
+    border-top-left-radius: 0;
+  }
 }
 .header-contact-bar{
   a{
     display: flex;
     align-items: center;
     gap: 6px;
-    font-size: 18px !important;
+    font-size: 14px;
+  }
+  @media (min-width:640px) {
+    font-size: 18px;
+  }
+  a:nth-child(1){
+    @media (max-width:639px) {
+      display: none;
+    }
+  }
+}
+.no-padding{
+  padding: 0 !important;
+}
+.courses-nav-1{
+  >li{
+    padding: 0 !important;
+    button{
+      padding: 12px;
+    }
   }
 }
