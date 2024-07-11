@@ -18,7 +18,7 @@ const Header = () => {
     dispatch(reset());
   }
   return (
-    <header className="absolute w-full top-0 flex flex-col gap-6 z-50">
+    <header className="absolute w-full top-0 flex flex-col gap-4 z-50">
       <div className="flex header-contact-bar text-white bg-[#334073] py-4 justify-center gap-8 noto">
         <a target="_blank" href="mailto:Info@abadnet.com.sa">
           <p>Info@abadnet.com.sa</p>
