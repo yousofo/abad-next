@@ -28,7 +28,7 @@ const Header = () => {
       height="6"
       viewBox="0 0 9 6"
       fill={fill}
-      className={`h-fit pt-1`}
+      className={`h-fit p-1 w-max`}
       xmlns="http://www.w3.org/2000/svg"
     >
       <path
@@ -196,7 +196,7 @@ const Header = () => {
             <Link href="/">الرئيسية</Link>
           </li>
           <li
-            className="flex relative items-center gap-2 cursor-pointer"
+            className="flex relative items-center gap-1 cursor-pointer"
             onClick={handleCoursesNav}
           >
             <Link href="/courses">الدورات</Link>

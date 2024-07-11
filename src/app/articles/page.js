@@ -32,7 +32,7 @@ const Articles = () => {
             <span className="text-abad-gold whitespace-nowrap my-3 block">
               المقالات
             </span>
-            <p className="text-sm md:text-2xl font-normal leading-loose">
+            <p className="text-sm md:text-2xl max-w-2xl font-normal leading-loose md:leading-[2]">
               معهد شبكة آباد للتدريب من المعاهد الرائدة في تقديم الدورات التطويرية
               المتخصصة في تقنية المعلومات.
             </p>
