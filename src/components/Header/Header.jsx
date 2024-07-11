@@ -20,7 +20,7 @@ const Header = () => {
   return (
     <header className="absolute w-full top-0 flex flex-col gap-6 z-50">
       <div className="flex header-contact-bar text-white bg-[#334073] py-4 justify-center gap-8 noto">
-        <a href="mailto:Info@abadnet.com.sa">
+        <a target="_blank" href="mailto:Info@abadnet.com.sa">
           <p>Info@abadnet.com.sa</p>
           <svg
             width="23"
@@ -57,7 +57,7 @@ const Header = () => {
             </defs>
           </svg>
         </a>
-        <a href="tel:+1 210 415 9856">
+        <a target="_blank" href="https://api.whatsapp.com/send/?phone=12104159856&text&type=phone_number&app_absent=0">
           <p dir="ltr">+1 210 415 9856</p>
           <svg
             width="25"
@@ -106,7 +106,7 @@ const Header = () => {
             </defs>
           </svg>
         </a>
-        <a href="tel:+1 210 504 8191">
+        <a target="_blank" href="tel:+12105048191">
           <p dir="ltr">+1 210 504 8191</p>
           <svg
             width="25"
