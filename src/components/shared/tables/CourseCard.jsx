@@ -16,11 +16,29 @@ const CourseCard = ({ index, data }) => {
         <div className="course-date">
           <div>
             <img src="/media/calendar.png" alt="" />
-            <p>{data.courseStartData}</p>
+            <p>{data.startDate}</p>
           </div>
           <div>
             <img src="/media/combo sape.png" alt="" />
-            <p>{data.courseTime}</p>
+            <p>
+              <span className="">
+                <span>من</span>
+                &nbsp;
+                <span>
+                  {data.formattedTimeStart.substring(1) +
+                    " " +
+                    data.formattedTimeStart[0]}
+                </span>
+                &nbsp;
+                <span>حتي</span>
+                &nbsp;
+                <span>
+                  {data.formattedTimeEnd.substring(1) +
+                    " " +
+                    data.formattedTimeEnd[0]}
+                </span>
+              </span>
+            </p>
           </div>
         </div>
         <p>
