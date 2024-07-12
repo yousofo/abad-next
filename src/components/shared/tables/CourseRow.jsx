@@ -20,7 +20,7 @@ const CourseRow = ({ index, data }) => {
     >
       <td className="course-name">
         <p>{data.courseName}</p>
-        <div>
+        <div className="hidden sm:flex">
           <span>
             <svg
               width="10"
@@ -53,17 +53,57 @@ const CourseRow = ({ index, data }) => {
           </span>
         </div>
       </td>
-      <td className="course-start-date">
-        {data.startDate.split("-").join("/")}
+      <td className="course-start-date flex items-center">
+        <span className="sm:hidden">بداية الدورة : </span>
+        <span className="font-medium">
+          {data.startDate.split("-").join("/")}
+        </span>
       </td>
       <td>
-        <span>من</span>
-        &nbsp;
-        <span>{data.formattedTimeStart}</span>
-        &nbsp;
-        <span>حتي</span>
-        &nbsp;
-        <span>{data.formattedTimeEnd}</span>
+        <span>التوقيت : </span>
+        <span className="font-medium">
+          <span>من</span>
+          &nbsp;
+          <span>{data.formattedTimeStart}</span>
+          &nbsp;
+          <span>حتي</span>
+          &nbsp;
+          <span>{data.formattedTimeEnd}</span>
+        </span>
+      </td>
+      <td className="course-name sm:!hidden">
+        <div className="flex sm:hidden">
+          <span>
+            <svg
+              width="10"
+              height="10"
+              viewBox="0 0 10 10"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M4.99996 8.33341C6.84091 8.33341 8.33329 6.84103 8.33329 5.00008C8.33329 3.15913 6.84091 1.66675 4.99996 1.66675C3.15901 1.66675 1.66663 3.15913 1.66663 5.00008C1.66663 6.84103 3.15901 8.33341 4.99996 8.33341Z"
+                fill="#DF2121"
+              />
+            </svg>
+            {data.isOnline}
+          </span>
+          <span>
+            <svg
+              width="10"
+              height="10"
+              viewBox="0 0 10 10"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M4.99996 8.33341C6.84091 8.33341 8.33329 6.84103 8.33329 5.00008C8.33329 3.15913 6.84091 1.66675 4.99996 1.66675C3.15901 1.66675 1.66663 3.15913 1.66663 5.00008C1.66663 6.84103 3.15901 8.33341 4.99996 8.33341Z"
+                fill="#1B45B4"
+              />
+            </svg>
+            {data.hadaf}
+          </span>
+        </div>
       </td>
       <td>
         <div className="btns">
