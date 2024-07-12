@@ -6,7 +6,7 @@ import { useDispatch } from "react-redux";
 
 const CourseRow = ({ index, data }) => {
   const dispatch = useDispatch();
-  const isOnline = data.isOnline ==  "اونلاين"
+  const isOnline = data.isOnline ==  "اونلاين" || data.isOnline == "أون لاين"
   return (
     <tr
       data-type="programming"
