@@ -20,7 +20,7 @@ const Course = ({ params }) => {
           />
         </div>
         {/* BACKGROUND IMG end*/}
-        <div className="container px-4 flex flex-col sm:flex-row justify-between gap-16 course-details pt-36 m-auto max-w-screen-xl">
+        <div className="container px-4 flex flex-col sm:flex-row justify-between gap-16 course-details pt-44 m-auto max-w-screen-xl">
           {/* COURSE CONTENT start */}
           <section className="h-fit flex flex-col gap-60 flex-1">
             <div className="flex  flex-col gap-6">
