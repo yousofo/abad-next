@@ -71,7 +71,7 @@ const CourseRow = ({ index, data }) => {
           <span>{data.formattedTimeEnd}</span>
         </span>
       </td>
-      <td className="course-name sm:!hidden">
+      <td className="course-name !pb-2 sm:!hidden">
         <div className="flex sm:hidden">
           <span>
             <svg
