@@ -13,7 +13,7 @@ const CourseCard = ({ index, data }) => {
       </div>
       <figcaption>
         <h4>{data.courseName}</h4>
-        <div className="course-date">
+        <div className="course-date noto">
           <div>
             <img src="/media/calendar.png" alt="" />
             <p>{data.startDate}</p>
@@ -23,7 +23,6 @@ const CourseCard = ({ index, data }) => {
             <p>
               <span className="">
                 <span>من</span>
-                &nbsp;
                 <span>
                   {data.formattedTimeStart.substring(1) +
                     " " +
@@ -31,7 +30,7 @@ const CourseCard = ({ index, data }) => {
                 </span>
                 &nbsp;
                 <span>حتي</span>
-                &nbsp;
+                {/* &nbsp; */}
                 <span>
                   {data.formattedTimeEnd.substring(1) +
                     " " +

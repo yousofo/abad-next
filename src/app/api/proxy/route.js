@@ -1,10 +1,15 @@
-// app/api/proxy.js
-
 export async function GET(request) {
   try {
-    const response = await fetch('http://myserverhost-001-site2.dtempurl.com/api/Home/latest');
+    const response = await fetch('http://myserverhost-001-site2.dtempurl.com/api/Home/latest', {
+      headers: {
+        'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate',
+        'Pragma': 'no-cache',
+        'Expires': '0',
+        'Surrogate-Control': 'no-store'
+      }
+    });
     const data = await response.json();
-    console.log(data)
+    console.log(data);
     return new Response(JSON.stringify(data), {
       headers: { 'Content-Type': 'application/json' },
     });

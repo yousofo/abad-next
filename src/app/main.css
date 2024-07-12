@@ -215,7 +215,7 @@ main {
     .courses-cards {
       display: grid;
       width: 100%;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
       justify-content: center;
       gap: 28px;
       figure {
@@ -250,6 +250,7 @@ main {
               align-items: center;
               gap: 8px;
             }
+            border-bottom: 1.01px solid #0000001A;
           }
           > p {
             font-size: 12px;

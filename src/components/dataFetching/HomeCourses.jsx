@@ -25,10 +25,8 @@ const HomeCourses = () => {
     dispatch(toggleCards());
   }
 
-  //replace course row with course card
-  function rowToCard(Course) {}
   return (
-    <div className="flex flex-col items-center gap-4 sm:gap-6 md:gap-8 home-courses container px-4 max-w-screen-lg pb-5 sm:py-10 py-10 mx-auto min-h-[450px]">
+    <div className="flex flex-col items-center gap-4 sm:gap-6 md:gap-8 home-courses container px-1 max-w-screen-lg pb-5 sm:py-10 py-10 mx-auto min-h-[450px]">
       {/* courses preview mode options */}
       <div className="flex justify-between items-center w-full px-2">
         <h3 className="text-base md:text-4xl font-bold text-[#1E1E1E]">
