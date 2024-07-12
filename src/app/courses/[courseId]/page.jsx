@@ -41,7 +41,7 @@ const Course = ({ params }) => {
                     strokeLinejoin="round"
                   />
                 </svg>
-                <a href="/courses.html">الدورات التدريبية</a>
+                <a href="/courses">الدورات التدريبية</a>
                 <svg
                   width={24}
                   height={24}
