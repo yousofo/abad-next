@@ -103,3 +103,7 @@ img{
   /* word-spacing: 3px; */
   font-weight: 300;
 }
+.abad-drop-shadow{
+  box-shadow: 5px 4px 30px 0px #00000014;
+
+}

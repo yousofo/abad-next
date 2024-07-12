@@ -174,12 +174,14 @@ main {
           }
         }
         @media (min-width: 768px) {
-          padding: 8px;
+          padding: 8px 12px;
           button {
             gap: 10px;
             svg {
+              min-width: 24px;
+              min-height: 25px;
               width: 24px;
-              height: auto;
+              height: max-content;
             }
           }
         }

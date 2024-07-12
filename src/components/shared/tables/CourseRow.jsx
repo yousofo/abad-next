@@ -16,7 +16,7 @@ const CourseRow = ({ index, data }) => {
       category-id="1"
       className={`${
         index % 2 == 0 ? "bg-white" : "bg-[#F5F5F5]"
-      } shadow row rounded-lg`}
+      } shadow row rounded-lg overflow-hidden`}
     >
       <td className="course-name">
         <p>{data.courseName}</p>
