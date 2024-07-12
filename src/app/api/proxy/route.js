@@ -4,7 +4,7 @@ export async function GET(request) {
   try {
     const response = await fetch('http://myserverhost-001-site2.dtempurl.com/api/Home/latest');
     const data = await response.json();
-
+    console.log(data)
     return new Response(JSON.stringify(data), {
       headers: { 'Content-Type': 'application/json' },
     });
