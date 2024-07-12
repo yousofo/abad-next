@@ -54,13 +54,16 @@ const CourseRow = ({ index, data }) => {
         </div>
       </td>
       <td className="course-start-date flex items-center">
-        <span className="sm:hidden">بداية الدورة : </span>
+        <span className="sm:hidden">بداية الدورة</span>
+        <span className="px-1 sm:hidden">:</span>
         <span className="font-medium">
           {data.startDate.split("-").join("/")}
         </span>
       </td>
       <td>
-        <span className="sm:hidden">التوقيت : </span>
+        <span className="sm:hidden">التوقيت</span>
+        <span className="px-1 sm:hidden">:</span>
+
         <span className="font-medium">
           <span>من</span>
           &nbsp;
