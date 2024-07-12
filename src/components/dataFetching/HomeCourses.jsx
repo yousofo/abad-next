@@ -362,9 +362,7 @@ const HomeCourses = () => {
           </div>
         </div>
         {/* courses table ROWS MODE */}
-        <table
-          className={`${isCards && "hidden "} courses-rows w-full`}
-        >
+        <table className={`${isCards && "hidden "} courses-rows w-full`}>
           <thead className="bg-[#1D2A96]">
             <tr className="abad-shadow rounded-lg hidden md:table-row">
               <th className="text-start">اسم الدورة</th>
@@ -385,12 +383,8 @@ const HomeCourses = () => {
           className={`${!isCards && "!hidden "} courses-cards min-h-[400px]`}
         >
           {data.map((e, i) => (
-              <>
-              <CourseCard data={e} key={i} index={i} />
-              <CourseCard data={e} key={i+1} index={i} />
-              <CourseCard data={e} key={i+2} index={i} />
-              </>
-            ))}
+            <CourseCard data={e} key={i} index={i} />
+          ))}
         </div>
       </div>
       {/* link to all courses page */}

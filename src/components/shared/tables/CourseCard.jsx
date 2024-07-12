@@ -57,7 +57,7 @@ const CourseCard = ({ index, data }) => {
             </svg>
             {data.isOnline}
           </span>
-          <span className={`${!data.hadaf && "hidden"}`}>
+          <span className={`${!data.hadaf&& "!hidden"} ttt`}>
             <svg
               width="10"
               height="10"

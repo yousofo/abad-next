@@ -6,7 +6,8 @@ import { useDispatch } from "react-redux";
 
 const CourseRow = ({ index, data }) => {
   const dispatch = useDispatch();
-  const isOnline = data.isOnline ==  "اونلاين" || data.isOnline == "أون لاين"
+  const isOnline = data.isOnline == "اونلاين" || data.isOnline == "أون لاين";
+  const hadaf = data.hadaf;
   return (
     <tr
       data-type="programming"
@@ -22,7 +23,7 @@ const CourseRow = ({ index, data }) => {
       <td className="course-name">
         <p>{data.courseName}</p>
         <div className="hidden sm:flex">
-          <span className={`${isOnline?"online":"in-person"}`}>
+          <span className={`${isOnline ? "online" : "in-person"}`}>
             <svg
               width="10"
               height="10"
@@ -37,7 +38,7 @@ const CourseRow = ({ index, data }) => {
             </svg>
             {data.isOnline}
           </span>
-          <span>
+          <span className={`${!hadaf && "!hidden"} ttt`}>
             <svg
               width="10"
               height="10"
@@ -69,17 +70,23 @@ const CourseRow = ({ index, data }) => {
           <span>من</span>
           &nbsp;
           <span>
-            {data.formattedTimeStart.substring(1) + " " + data.formattedTimeStart[0]}
+            {data.formattedTimeStart.substring(1) +
+              " " +
+              data.formattedTimeStart[0]}
           </span>
           &nbsp;
           <span>حتي</span>
           &nbsp;
-          <span>{data.formattedTimeEnd.substring(1) + " " + data.formattedTimeEnd[0]}</span>
+          <span>
+            {data.formattedTimeEnd.substring(1) +
+              " " +
+              data.formattedTimeEnd[0]}
+          </span>
         </span>
       </td>
       <td className="course-name !pb-2 sm:!hidden">
         <div className="flex sm:hidden">
-          <span className={`${isOnline?"online":"in-person"}`}>
+          <span className={`${isOnline ? "online" : "in-person"}`}>
             <svg
               width="10"
               height="10"
@@ -94,7 +101,7 @@ const CourseRow = ({ index, data }) => {
             </svg>
             {data.isOnline}
           </span>
-          <span>
+          <span className={`${!hadaf && "!hidden"} ttt`}>
             <svg
               width="10"
               height="10"
