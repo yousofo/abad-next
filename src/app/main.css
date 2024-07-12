@@ -76,6 +76,11 @@ main {
               display: flex;
               align-items: center;
               gap: 3px;
+            }
+            span.online{
+              color: #0dc00d;
+            }
+            span.in-person{
               color: #DF2121;
             }
             span:nth-child(2) {

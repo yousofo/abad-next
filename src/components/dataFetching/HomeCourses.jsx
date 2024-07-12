@@ -25,7 +25,7 @@ const HomeCourses = () => {
   //replace course row with course card
   function rowToCard(Course) {}
   return (
-    <div className="flex flex-col items-center gap-4 sm:gap-6 md:gap-8 home-courses container px-4 max-w-screen-lg py-10 mx-auto min-h-[450px]">
+    <div className="flex flex-col items-center gap-4 sm:gap-6 md:gap-8 home-courses container px-4 max-w-screen-lg pb-5 sm:py-10 py-10 mx-auto min-h-[450px]">
       {/* courses preview mode options */}
       <div className="flex justify-between items-center w-full px-2">
         <h3 className="text-base md:text-4xl font-bold text-[#1E1E1E]">
@@ -386,13 +386,12 @@ const HomeCourses = () => {
       {/* link to all courses page */}
       <Link
         href="/courses"
-        className="text-white cursor-pointer font-medium px-10 py-4 show-all flex items-center gap-5 rounded-xl"
+        className="text-white text-[11px] mt-2 sm:mt-0 md:mb-10 sm:text-base cursor-pointer font-medium px-10 py-4 show-all flex items-center gap-5 rounded-xl"
       >
         <span>عرض الكل</span>
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          width={24}
-          height={24}
+          className={`w-4 h-4 sm:w-6 sm:h-6`}
           viewBox="0 0 24 24"
           fill="none"
         >

@@ -6,6 +6,7 @@ import { useDispatch } from "react-redux";
 
 const CourseRow = ({ index, data }) => {
   const dispatch = useDispatch();
+  const isOnline = data.isOnline ==  "اونلاين"
   return (
     <tr
       data-type="programming"
@@ -21,7 +22,7 @@ const CourseRow = ({ index, data }) => {
       <td className="course-name">
         <p>{data.courseName}</p>
         <div className="hidden sm:flex">
-          <span>
+          <span className={`${isOnline?"online":"in-person"}`}>
             <svg
               width="10"
               height="10"
@@ -31,7 +32,7 @@ const CourseRow = ({ index, data }) => {
             >
               <path
                 d="M4.99996 8.33341C6.84091 8.33341 8.33329 6.84103 8.33329 5.00008C8.33329 3.15913 6.84091 1.66675 4.99996 1.66675C3.15901 1.66675 1.66663 3.15913 1.66663 5.00008C1.66663 6.84103 3.15901 8.33341 4.99996 8.33341Z"
-                fill="#DF2121"
+                fill="currentColor"
               />
             </svg>
             {data.isOnline}
@@ -46,7 +47,7 @@ const CourseRow = ({ index, data }) => {
             >
               <path
                 d="M4.99996 8.33341C6.84091 8.33341 8.33329 6.84103 8.33329 5.00008C8.33329 3.15913 6.84091 1.66675 4.99996 1.66675C3.15901 1.66675 1.66663 3.15913 1.66663 5.00008C1.66663 6.84103 3.15901 8.33341 4.99996 8.33341Z"
-                fill="#1B45B4"
+                fill="currentColor"
               />
             </svg>
             {data.hadaf}
@@ -67,16 +68,18 @@ const CourseRow = ({ index, data }) => {
         <span className="font-medium">
           <span>من</span>
           &nbsp;
-          <span>{data.formattedTimeStart}</span>
+          <span>
+            {data.formattedTimeStart.substring(1) + " " + data.formattedTimeStart[0]}
+          </span>
           &nbsp;
           <span>حتي</span>
           &nbsp;
-          <span>{data.formattedTimeEnd}</span>
+          <span>{data.formattedTimeEnd.substring(1) + " " + data.formattedTimeEnd[0]}</span>
         </span>
       </td>
       <td className="course-name !pb-2 sm:!hidden">
         <div className="flex sm:hidden">
-          <span>
+          <span className={`${isOnline?"online":"in-person"}`}>
             <svg
               width="10"
               height="10"
