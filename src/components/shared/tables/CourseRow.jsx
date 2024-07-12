@@ -13,6 +13,7 @@ const CourseRow = ({ index, data }) => {
       data-date="16 مارس 2024"
       data-time="من 06:00 م حتى 10:00 م"
       data-price="1500 ريال سعودي"
+      category-id="1"
       className={`${
         index % 2 == 0 ? "bg-white" : "bg-[#F5F5F5]"
       } shadow row rounded-lg`}
@@ -33,7 +34,7 @@ const CourseRow = ({ index, data }) => {
                 fill="#DF2121"
               />
             </svg>
-            اونلاين
+            {data.isOnline}
           </span>
           <span>
             <svg
@@ -48,12 +49,22 @@ const CourseRow = ({ index, data }) => {
                 fill="#1B45B4"
               />
             </svg>
-            {data.isOnline}
+            {data.hadaf}
           </span>
         </div>
       </td>
-      <td className="course-start-date">16/3/2024</td>
-      <td>من 06:00 م حتى 10:00 م</td>
+      <td className="course-start-date">
+        {data.startDate.split("-").join("/")}
+      </td>
+      <td>
+        <span>من</span>
+        &nbsp;
+        <span>{data.formattedTimeStart}</span>
+        &nbsp;
+        <span>حتي</span>
+        &nbsp;
+        <span>{data.formattedTimeEnd}</span>
+      </td>
       <td>
         <div className="btns">
           <Link href="/courses/1">
