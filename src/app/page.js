@@ -5,6 +5,7 @@ import Link from "next/link";
 import ReviewsSwiper from "@/components/shared/swipers/ReviewsSwiper";
 import "swiper/css";
 import PartnersSwiper from "@/components/shared/swipers/PartnersSwiper";
+import HomeCoursesData from "@/components/dataFetching/HomeCoursesData";
 
 export default function Home() {
   return (
@@ -275,16 +276,7 @@ export default function Home() {
             </thead>
             {/* rows data */}
             <tbody>
-              {
-                (function () {
-                  let rows = []
-                  for (let i = 0; i < 6; i++) {
-                    rows.push(<CourseRow key={i} index={i} />)
-                  }
-                  console.log("================================== " + rows.length)
-                  return rows
-                })()
-              }
+              <HomeCoursesData />
             </tbody>
           </table>
           {/* courses table CARDS MODE */}

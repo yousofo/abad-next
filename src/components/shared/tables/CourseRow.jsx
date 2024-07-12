@@ -1,11 +1,11 @@
-"use client"
+"use client";
 import { toggleEnlistInCourse } from "@/components/GlobalState/Features/popUpsSlice";
 import Link from "next/link";
 import React from "react";
 import { useDispatch } from "react-redux";
 
-const CourseRow = ({index}) => {
-  const dispatch = useDispatch()
+const CourseRow = ({ index, data }) => {
+  const dispatch = useDispatch();
   return (
     <tr
       data-type="programming"
@@ -13,24 +13,42 @@ const CourseRow = ({index}) => {
       data-date="16 مارس 2024"
       data-time="من 06:00 م حتى 10:00 م"
       data-price="1500 ريال سعودي"
-      className={`${index%2 == 0? "bg-white": "bg-[#F5F5F5]"} shadow row rounded-lg`}
+      className={`${
+        index % 2 == 0 ? "bg-white" : "bg-[#F5F5F5]"
+      } shadow row rounded-lg`}
     >
       <td className="course-name">
-        <p>شهادة سيسكو المعتمدة CCNA 200-301</p>
+        <p>{data.courseName}</p>
         <div>
           <span>
-          <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M4.99996 8.33341C6.84091 8.33341 8.33329 6.84103 8.33329 5.00008C8.33329 3.15913 6.84091 1.66675 4.99996 1.66675C3.15901 1.66675 1.66663 3.15913 1.66663 5.00008C1.66663 6.84103 3.15901 8.33341 4.99996 8.33341Z" fill="#DF2121"/>
-</svg>
-
+            <svg
+              width="10"
+              height="10"
+              viewBox="0 0 10 10"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M4.99996 8.33341C6.84091 8.33341 8.33329 6.84103 8.33329 5.00008C8.33329 3.15913 6.84091 1.66675 4.99996 1.66675C3.15901 1.66675 1.66663 3.15913 1.66663 5.00008C1.66663 6.84103 3.15901 8.33341 4.99996 8.33341Z"
+                fill="#DF2121"
+              />
+            </svg>
             اونلاين
           </span>
           <span>
-          <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M4.99996 8.33341C6.84091 8.33341 8.33329 6.84103 8.33329 5.00008C8.33329 3.15913 6.84091 1.66675 4.99996 1.66675C3.15901 1.66675 1.66663 3.15913 1.66663 5.00008C1.66663 6.84103 3.15901 8.33341 4.99996 8.33341Z" fill="#1B45B4"/>
-</svg>
-
-            مدعومة من هدف
+            <svg
+              width="10"
+              height="10"
+              viewBox="0 0 10 10"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M4.99996 8.33341C6.84091 8.33341 8.33329 6.84103 8.33329 5.00008C8.33329 3.15913 6.84091 1.66675 4.99996 1.66675C3.15901 1.66675 1.66663 3.15913 1.66663 5.00008C1.66663 6.84103 3.15901 8.33341 4.99996 8.33341Z"
+                fill="#1B45B4"
+              />
+            </svg>
+            {data.isOnline}
           </span>
         </div>
       </td>
@@ -66,7 +84,7 @@ const CourseRow = ({index}) => {
               التفاصيل
             </button>
           </Link>
-          <div onClick={()=>dispatch(toggleEnlistInCourse())}>
+          <div onClick={() => dispatch(toggleEnlistInCourse())}>
             <button>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
