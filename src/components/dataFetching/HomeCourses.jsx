@@ -373,9 +373,7 @@ const HomeCourses = () => {
           {/* rows data */}
           <tbody className="flex flex-col gap-2 sm:table-row-group">
             {data.map((e, i) => (
-              <>
               <CourseRow data={e} key={i} index={i} />
-              </>
             ))}
           </tbody>
         </table>
