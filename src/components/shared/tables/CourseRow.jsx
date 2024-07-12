@@ -60,7 +60,7 @@ const CourseRow = ({ index, data }) => {
         </span>
       </td>
       <td>
-        <span>التوقيت : </span>
+        <span className="sm:hidden">التوقيت : </span>
         <span className="font-medium">
           <span>من</span>
           &nbsp;
