@@ -5,6 +5,7 @@ import React from "react";
 import { useDispatch } from "react-redux";
 
 const CourseCard = ({ index, data }) => {
+  const isOnline = data.isOnline ==  "اونلاين" || data.isOnline == "أون لاين"
   const dispatch = useDispatch();
   return (
     <figure data-type={data} className="course-card">
@@ -39,6 +40,38 @@ const CourseCard = ({ index, data }) => {
               </span>
             </p>
           </div>
+        </div>
+        <div className="course-attend">
+          <span className={`${isOnline ? "online" : "in-person"}`}>
+            <svg
+              width="10"
+              height="10"
+              viewBox="0 0 10 10"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M4.99996 8.33341C6.84091 8.33341 8.33329 6.84103 8.33329 5.00008C8.33329 3.15913 6.84091 1.66675 4.99996 1.66675C3.15901 1.66675 1.66663 3.15913 1.66663 5.00008C1.66663 6.84103 3.15901 8.33341 4.99996 8.33341Z"
+                fill="#DF2121"
+              />
+            </svg>
+            {data.isOnline}
+          </span>
+          <span>
+            <svg
+              width="10"
+              height="10"
+              viewBox="0 0 10 10"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M4.99996 8.33341C6.84091 8.33341 8.33329 6.84103 8.33329 5.00008C8.33329 3.15913 6.84091 1.66675 4.99996 1.66675C3.15901 1.66675 1.66663 3.15913 1.66663 5.00008C1.66663 6.84103 3.15901 8.33341 4.99996 8.33341Z"
+                fill="#1B45B4"
+              />
+            </svg>
+            {data.hadaf}
+          </span>
         </div>
         <p>
           هنا يكتب تفاصيل المحتوي للدورة هنا يكتب تفاصيل المحتوي للدورة هنا يكتب
