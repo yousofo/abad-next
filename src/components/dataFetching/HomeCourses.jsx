@@ -28,7 +28,7 @@ const HomeCourses = () => {
     <div className="flex flex-col items-center gap-4 sm:gap-6 md:gap-8 home-courses container px-4 max-w-screen-lg py-10 mx-auto min-h-[450px]">
       {/* courses preview mode options */}
       <div className="flex justify-between items-center w-full px-2">
-        <h3 className="text-lg md:text-4xl font-bold text-[#1E1E1E] noto">
+        <h3 className="text-base md:text-4xl font-bold text-[#1E1E1E]">
           دورات أباد للتدريب
         </h3>
         <ul className="flex justify-center items-center gap-2">
