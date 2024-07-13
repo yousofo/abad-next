@@ -6,7 +6,7 @@ import {
 } from "@/components/GlobalState/Features/authSlice";
 import { reset } from "@/components/GlobalState/Features/navListSlice";
 // import { useRouter } from "next/navigation";
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 async function fetchSignIn(data) {
@@ -18,10 +18,16 @@ async function fetchSignIn(data) {
     body: JSON.stringify(data),
   });
   const dataToReturn = await fetcheData.json();
-  console.log(dataToReturn)
+  console.log(dataToReturn);
   return dataToReturn;
 }
+//
+//
+//
+//
+
 const SignIn = () => {
+  const [error, setError] = useState("");
   const isSignIn = useSelector((state) => state.auth.signIn);
   const dispatch = useDispatch();
   const email = useRef();
@@ -42,6 +48,8 @@ const SignIn = () => {
     if (result.token) {
       dispatch(toggleSignedIn());
       dispatch(reset());
+    } else {
+      setError(result);
     }
   }
   return (
@@ -85,9 +93,11 @@ const SignIn = () => {
         </div>
         <div className="flex justify-between items-center">
           <div className="flex gap-1.5 items-center">
-            <input type="checkbox" name=""
-            //  id=""
-              />
+            <input
+              type="checkbox"
+              name=""
+              //  id=""
+            />
             <label htmlFor="" className="text-[#68718B]">
               تذكرني
             </label>
@@ -107,17 +117,24 @@ const SignIn = () => {
           تسجيل الدخول
         </button>
       </form>
-      <p className="text-sm text-center mt-auto">
-        <span className="text-[#68718B]">ليس لديك حساب؟</span>
-        &nbsp;
-        {/* to sign up */}
-        <button
-          onClick={() => dispatch(toggleSignUp())}
-          className="text-[#133491]"
+      <div className="flex flex-col items-center gap-2">
+        <span
+          className={`${!error && "hidden"} text-red-500 `}
         >
-          سجل الان
-        </button>
-      </p>
+          {error}
+        </span>
+        <p className="text-sm text-center mt-auto">
+          <span className="text-[#68718B]">ليس لديك حساب؟</span>
+          &nbsp;
+          {/* to sign up */}
+          <button
+            onClick={() => dispatch(toggleSignUp())}
+            className="text-[#133491]"
+          >
+            سجل الان
+          </button>
+        </p>
+      </div>
     </div>
   );
 };

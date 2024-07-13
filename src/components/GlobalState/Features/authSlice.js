@@ -5,6 +5,9 @@ import { createSlice } from '@reduxjs/toolkit';
 const initialState = {
   isHidden: true,
   isSignedIn: false,
+  user:{
+    
+  },
   signIn: false,
   signUp: false,
   forgotPassword: false,
