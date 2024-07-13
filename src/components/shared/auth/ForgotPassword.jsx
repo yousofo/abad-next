@@ -22,7 +22,7 @@ const ForgotPassword = () => {
             type="email"
             name=""
             placeholder="أدخل بريدك الإلكتروني"
-            id=""
+            // id=""
           />
         </div>
         <button className="login text-white font-bold" type="submit">

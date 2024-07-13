@@ -69,7 +69,7 @@ const SignIn = () => {
             name=""
             required
             placeholder="أدخل بريدك الإلكتروني"
-            id=""
+            // id=""
           />
         </div>
         <div className="input">
@@ -80,12 +80,14 @@ const SignIn = () => {
             type="email"
             name=""
             placeholder="أدخل كلمة المرور"
-            id=""
+            // id=""
           />
         </div>
         <div className="flex justify-between items-center">
           <div className="flex gap-1.5 items-center">
-            <input type="checkbox" name="" id="" />
+            <input type="checkbox" name=""
+            //  id=""
+              />
             <label htmlFor="" className="text-[#68718B]">
               تذكرني
             </label>
