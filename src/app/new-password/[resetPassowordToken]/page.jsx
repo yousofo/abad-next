@@ -3,12 +3,13 @@ import React from "react";
 import "./newPassword.css";
 import { useDispatch } from "react-redux";
 import { toggleNewPassword } from "@/components/GlobalState/Features/authSlice";
-const NewPassword = () => {
+const NewPassword = ({params}) => {
   const dispatch = useDispatch();
   function handleClick(e){
     e.preventDefault()
     dispatch(toggleNewPassword())
   }
+  console.log(params.resetPassowordToken)
   return (
     <main className="pb-10">
       {/* HERO start  */}
