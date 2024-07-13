@@ -1,69 +1,102 @@
 "use client";
 import { toggleSignIn } from "@/components/GlobalState/Features/authSlice";
-import React, { useRef } from "react";
+import { useRouter } from "next/navigation";
+import React, { useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-
+async function sendRegisterData(data) {
+  console.log(data)
+  try{
+    const request = await fetch("/api/register", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+    const result = await request.json();
+    console.log(result)
+    return result;
+  }
+  catch(e){
+    console.log(e)
+  }
+}
 const SignUp = () => {
+  const [loading, setLoading] = useState(false);
   const isSignUp = useSelector((e) => e.auth.signUp);
   const dispatch = useDispatch();
-
-  const nameArabic = useRef(null);
-  const nameEnglish = useRef(null);
+  const router = useRouter()
+  const arabicName = useRef(null);
+  const englishName = useRef(null);
   const userId = useRef(null);
   const nationality = useRef(null);
   const emailAddress = useRef(null);
   const phone = useRef(null);
-  const birthdate = useRef(null);
+  const birthDate = useRef(null);
   const gender = useRef(null);
-  const degree = useRef(null);
+  const educationsType = useRef(null);
   const city = useRef(null);
   const password = useRef(null);
   const confirmPassword = useRef(null);
   const allInputs = [
-    nameArabic,
-    nameEnglish,
+    arabicName,
+    englishName,
     userId,
     nationality,
     emailAddress,
     phone,
-    birthdate,
+    birthDate,
     gender,
-    degree,
+    educationsType,
     city,
     password,
     confirmPassword,
   ];
-  /*
-{
+  const requiredInputs = [
+    arabicName,
+    englishName,
+    userId,
+    nationality,
+    emailAddress,
+    gender,
+    city,
+    password,
+    confirmPassword,
+  ];
 
-    "arabicName": "string",
-    "englishName": "string",
-    "idnumber": "stringstri",
-    "email": "mohamedgamal1455@gmail.com",
-    "phone": "string",
-    "gender": "string",
-    "birthDate": "2024-07-13T02:27:55.229",
-    "nationality": "string",
-    "password": "string",
-    "confirmPassword": "string",
-    "educationsType": "string",
-    "city": "string"
-}
-*/
   function switchAuthMode(e) {
     e.preventDefault();
     dispatch(toggleSignIn());
   }
-  function checkValidity(e) {
-    console.log(e.current.value)
-    return e.current.value != "";
-  }
-  function handleSubmit(e) {
+
+  async function handleSubmit(e) {
     e.preventDefault();
-    const isAllValid = allInputs.every(input=>checkValidity(input))
+    const isAllValid = allInputs.every(
+      (input) => input.current.value != ""
+    );
+    if (isAllValid) {
+      setLoading(true)
+      const result = await sendRegisterData({
+        arabicName: arabicName.current.value,
+        englishName: englishName.current.value,
+        idnumber: userId.current.value,
+        email: emailAddress.current.value,
+        phone: phone.current.value,
+        gender: gender.current.value,
+        birthDate: birthDate.current.value,
+        nationality: nationality.current.value,
+        password: password.current.value,
+        confirmPassword: confirmPassword.current.value,
+        educationsType: educationsType.current.value,
+        city: city.current.value,
+      });
+      console.log(result)
+      setLoading(false)
+      dispatch(toggleSignIn());
+    }
   }
   return (
-    <div className={`${!isSignUp && "hidden"}  flex flex-col gap-7 md:gap-10 `}>
+    <div className={`${!isSignUp && "hidden"}  relative flex flex-col gap-7 md:gap-10 `}>
       <div className="flex flex-col gap-3">
         <h2 className="text-[22px] sm:text-3xl font-bold text-[#03133D]">
           تسجيل حساب جديد
@@ -77,25 +110,25 @@ const SignUp = () => {
         <div className="input">
           <label htmlFor="">الاسم الرباعي بالعربي*</label>
           <input
-            ref={nameArabic}
+            ref={arabicName}
             required
             type="email"
             name=""
             placeholder="اكتب اسمك رباعي"
-            id=""
+            id="arabicName"
           />
         </div>
         {/* name english ! */}
         <div className="input">
           <label htmlFor="">الاسم الرباعي بالانجليزي*</label>
           <input
-            ref={nameEnglish}
+            ref={englishName}
             type="email"
             name=""
             required
             dir="ltr"
             placeholder="type your name"
-            id=""
+            id="englishName"
           />
         </div>
         {/* id ! */}
@@ -106,9 +139,8 @@ const SignUp = () => {
             ref={userId}
             type="email"
             name=""
-            dir="ltr"
             placeholder="ادخل رقم الهوية"
-            id=""
+            id="userId"
           />
         </div>
         {/* nationality ! */}
@@ -119,15 +151,15 @@ const SignUp = () => {
               required
               ref={nationality}
               name=""
-              id="signUpGender"
+              id="nationality"
               className="w-full focus:outline-none"
             >
               <option value="" className="hidden">
                 اختر الجنسية
               </option>
-              <option value="">سعودي</option>
-              <option value="">اردني</option>
-              <option value="">مصري</option>
+              <option value="سعودي">سعودي</option>
+              <option value="اردني">اردني</option>
+              <option value="مصري">مصري</option>
             </select>
           </div>
         </div>
@@ -140,7 +172,7 @@ const SignUp = () => {
             required
             name=""
             placeholder="أدخل بريدك الإلكتروني"
-            id=""
+            id="signUpEmail"
           />
         </div>
         {/* phone */}
@@ -151,16 +183,17 @@ const SignUp = () => {
             type="email"
             name=""
             placeholder="اكتب الهاتف"
-            id=""
+            id="phone"
           />
         </div>
-        {/* birthdate */}
+        {/* birthDate */}
         <div className="input">
           <label htmlFor="signUpDate">تاريخ الميلاد</label>
           <input
-            ref={birthdate}
+            ref={birthDate}
             type="date"
             name=""
+            required
             placeholder=""
             id="signUpDate"
           />
@@ -173,26 +206,26 @@ const SignUp = () => {
               ref={gender}
               required
               name=""
-              id="signUpGender"
+              id="gender"
               className="w-full focus:outline-none"
             >
               <option value="" className="hidden">
                 اختر الجنس
               </option>
-              <option value="">ذكر</option>
-              <option value="">انثي</option>
+              <option value="ذكر">ذكر</option>
+              <option value="انثي">انثي</option>
             </select>
           </div>
         </div>
-        {/* degree */}
+        {/* educationsType */}
         <div className="input">
           <label htmlFor="">المؤهل العلمي</label>
           <input
-            ref={degree}
+            ref={educationsType}
             type="email"
             name=""
             placeholder="اكتب المؤهل التعليمي"
-            id=""
+            id="educationsType"
           />
         </div>
         {/* city  ! */}
@@ -203,15 +236,15 @@ const SignUp = () => {
               ref={city}
               required
               name=""
-              id="signUpGender"
+              id="city"
               className="w-full focus:outline-none"
             >
               <option value="" className="hidden">
                 اختر المدينة
               </option>
-              <option value="">مكة</option>
-              <option value="">المدينة</option>
-              <option value="">الطائف</option>
+              <option value="مكة">مكة</option>
+              <option value="المدينة">المدينة</option>
+              <option value="الطائف">الطائف</option>
             </select>
           </div>
         </div>
@@ -224,7 +257,7 @@ const SignUp = () => {
             required
             name=""
             placeholder="ادخل كلمة المرور"
-            id=""
+            id="signUpPassword"
           />
         </div>
         {/* confirm password ! */}
@@ -236,14 +269,14 @@ const SignUp = () => {
             name=""
             required
             placeholder="تأكيد كلمة المرور*"
-            id=""
+            id="signUpConfirmPassword"
           />
         </div>
       </form>
       <div className="flex flex-col gap-4">
         {/* sign up BUTTON */}
         <button
-          onSubmit={handleSubmit}
+          onClick={handleSubmit}
           className="login text-white font-bold"
           type="submit"
         >
@@ -256,6 +289,10 @@ const SignUp = () => {
             تسجيل دخول
           </button>
         </p>
+      </div>
+      <div className={`${!loading && "hidden"} absolute z-10 w-24 h-24 pointer-events-none left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2`}>
+        <div className="animate-spin border-4 rounded-full h-full border-green-500 border-r-transparent bg-white bg-opacity-70"></div>
+        <span className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 leading-[96px] text-xs whitespace-nowrap">جاري التسجيل</span>
       </div>
     </div>
   );

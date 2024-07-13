@@ -1,26 +1,54 @@
 "use client";
-import {  toggleForgotPassword, toggleSignUp, toggleSignedIn } from "@/components/GlobalState/Features/authSlice";
+import {
+  toggleForgotPassword,
+  toggleSignUp,
+  toggleSignedIn,
+} from "@/components/GlobalState/Features/authSlice";
 import { reset } from "@/components/GlobalState/Features/navListSlice";
-import { useRouter } from "next/navigation";
-import React from "react";
+// import { useRouter } from "next/navigation";
+import React, { useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
+async function fetchSignIn(data) {
+  const fetcheData = await fetch("/api/login", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: data,
+  });
+  const dataToReturn = await fetcheData.json();
+  return dataToReturn;
+}
 const SignIn = () => {
   const isSignIn = useSelector((state) => state.auth.signIn);
   const dispatch = useDispatch();
+  const email = useRef();
+  const password = useRef();
   // const router = useRouter()
 
-  function handleForgotPassword(e){
-    e.preventDefault()
-    dispatch(toggleForgotPassword())
+  function handleForgotPassword(e) {
+    e.preventDefault();
+    dispatch(toggleForgotPassword());
   }
-  function handleSignIn(e){
-    e.preventDefault()
-    dispatch(toggleSignedIn())
-    dispatch(reset())
+
+  async function handleSignIn(e) {
+    e.preventDefault();
+    const result = await fetchSignIn({
+      email,
+      password,
+    });
+    if (result.token) {
+      dispatch(toggleSignedIn());
+      dispatch(reset());
+    }
   }
   return (
-    <div className={`${!isSignIn && "hidden"} flex flex-col w-full md:w-[573px] flex-1 gap-10 max-w-[573px] `}>
+    <div
+      className={`${
+        !isSignIn && "hidden"
+      } flex flex-col w-full md:w-[573px] flex-1 gap-10 max-w-[573px] `}
+    >
       <div className="flex flex-col gap-3">
         <h2 className="text-[22px] sm:text-3xl font-bold">
           <span className="text-[#03133D]">تسجيل الدخول إلى</span>
@@ -35,15 +63,24 @@ const SignIn = () => {
         <div className="input">
           <label htmlFor="">عنوان البريد الإلكتروني</label>
           <input
+            ref={email}
             type="email"
             name=""
+            required
             placeholder="أدخل بريدك الإلكتروني"
             id=""
           />
         </div>
         <div className="input">
           <label htmlFor="">كلمة المرور</label>
-          <input type="email" name="" placeholder="أدخل كلمة المرور" id="" />
+          <input
+            ref={password}
+            required
+            type="email"
+            name=""
+            placeholder="أدخل كلمة المرور"
+            id=""
+          />
         </div>
         <div className="flex justify-between items-center">
           <div className="flex gap-1.5 items-center">
@@ -59,7 +96,11 @@ const SignIn = () => {
             نسيت كلمة السر؟
           </button>
         </div>
-        <button className="login text-white font-bold" type="submit" onClick={handleSignIn}>
+        <button
+          className="login text-white font-bold"
+          type="submit"
+          onClick={handleSignIn}
+        >
           تسجيل الدخول
         </button>
       </form>
