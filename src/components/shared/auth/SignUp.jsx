@@ -1,31 +1,36 @@
 "use client";
-import { toggleSignIn } from "@/components/GlobalState/Features/authSlice";
+import {
+  addSignUpError,
+  toggleSignIn,
+} from "@/components/GlobalState/Features/authSlice";
 import { useRouter } from "next/navigation";
 import React, { useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 async function sendRegisterData(data) {
-  console.log(data)
-  try{
-    const request = await fetch("/api/register", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    });
-    const result = await request.json();
-    console.log(result)
-    return result;
+  console.log(data);
+  const request = await fetch("/api/register", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
+  });
+  const jsonData = await request.json();
+  console.log("jsondata");
+  if (typeof jsonData == "string") {
+    return JSON.parse(jsonData);
+  }else{
+    return jsonData;
+
   }
-  catch(e){
-    console.log(e)
-  }
+  // return { status: false, message: e };
 }
 const SignUp = () => {
   const [loading, setLoading] = useState(false);
+  const signUpError = useSelector((store) => store.auth.signUpError);
   const isSignUp = useSelector((e) => e.auth.signUp);
   const dispatch = useDispatch();
-  const router = useRouter()
+  const router = useRouter();
   const arabicName = useRef(null);
   const englishName = useRef(null);
   const userId = useRef(null);
@@ -68,14 +73,23 @@ const SignUp = () => {
     e.preventDefault();
     dispatch(toggleSignIn());
   }
+  let ttt = {
+    type: "https://tools.ietf.org/html/rfc7231#section-6.5.1",
+    title: "One or more validation errors occurred.",
+    status: 400,
+    traceId: "00-652938194de0e48395a27597a325ad03-71ab6125b301a4bf-00",
+    errors: {
+      Email: ["البريد الإلكتروني غير صالح"],
+      Idnumber: ["رقم الهوية 10 رقم"],
+      Password: ["كلمة المرور لاتقل عن 6 حروف"],
+    },
+  };
 
   async function handleSubmit(e) {
     e.preventDefault();
-    const isAllValid = allInputs.every(
-      (input) => input.current.value != ""
-    );
+    const isAllValid = allInputs.every((input) => input.current.value != "");
     if (isAllValid) {
-      setLoading(true)
+      setLoading(true);
       const result = await sendRegisterData({
         arabicName: arabicName.current.value,
         englishName: englishName.current.value,
@@ -90,13 +104,22 @@ const SignUp = () => {
         educationsType: educationsType.current.value,
         city: city.current.value,
       });
-      console.log(result)
-      setLoading(false)
-      dispatch(toggleSignIn());
+      console.log(result);
+      setLoading(false);
+      if (result.errors) {
+        dispatch(toggleSignIn());
+      } else {
+        console.log("error false");
+        dispatch(addSignUpError(`${result}`));
+      }
     }
   }
   return (
-    <div className={`${!isSignUp && "hidden"}  relative flex flex-col gap-7 md:gap-10 `}>
+    <div
+      className={`${
+        !isSignUp && "hidden"
+      }  relative flex flex-col gap-7 md:gap-10 `}
+    >
       <div className="flex flex-col gap-3">
         <h2 className="text-[22px] sm:text-3xl font-bold text-[#03133D]">
           تسجيل حساب جديد
@@ -290,9 +313,15 @@ const SignUp = () => {
           </button>
         </p>
       </div>
-      <div className={`${!loading && "hidden"} absolute z-10 w-24 h-24 pointer-events-none left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2`}>
+      <div
+        className={`${
+          !loading && "hidden"
+        } absolute z-10 w-24 h-24 pointer-events-none left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2`}
+      >
         <div className="animate-spin border-4 rounded-full h-full border-green-500 border-r-transparent bg-white bg-opacity-70"></div>
-        <span className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 leading-[96px] text-xs whitespace-nowrap">جاري التسجيل</span>
+        <span className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 leading-[96px] text-xs whitespace-nowrap">
+          جاري التسجيل
+        </span>
       </div>
     </div>
   );

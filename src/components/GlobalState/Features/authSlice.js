@@ -6,9 +6,11 @@ const initialState = {
   isHidden: true,
   isSignedIn: false,
   user:{
-    
+
   },
   signIn: false,
+  signInError:"",
+  signUpError:"",
   signUp: false,
   forgotPassword: false,
   newPassword: false,
@@ -20,12 +22,17 @@ export const authSlice = createSlice({
   initialState,
   reducers: {
     toggleSignIn: (state) => {
-      console.log(state.isHidden)
       return {
         ...initialState,
         isHidden: false,
         signIn: true,
       }
+    },
+    addSignInError: (state,action) => {
+      state.signInError = action.payload
+    },
+    addSignUpError: (state,action) => {
+      state.signUpError = action.payload
     },
     toggleSignUp: (state) => {
       return {
@@ -63,6 +70,6 @@ export const authSlice = createSlice({
   }
 })
 
-export const { toggleSignIn, toggleSignUp, toggleForgotPassword, toggleNewPassword, toggleSignedIn, reset } = authSlice.actions;
+export const { toggleSignIn,addSignInError,addSignUpError, toggleSignUp, toggleForgotPassword, toggleNewPassword, toggleSignedIn, reset } = authSlice.actions;
 
 export default authSlice.reducer;

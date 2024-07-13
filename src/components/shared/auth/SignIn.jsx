@@ -1,5 +1,6 @@
 "use client";
 import {
+  addSignInError,
   toggleForgotPassword,
   toggleSignUp,
   toggleSignedIn,
@@ -27,8 +28,8 @@ async function fetchSignIn(data) {
 //
 
 const SignIn = () => {
-  const [error, setError] = useState("");
   const isSignIn = useSelector((state) => state.auth.signIn);
+  const error = useSelector((state) => state.auth.signInError);
   const dispatch = useDispatch();
   const email = useRef();
   const password = useRef();
@@ -49,7 +50,7 @@ const SignIn = () => {
       dispatch(toggleSignedIn());
       dispatch(reset());
     } else {
-      setError(result);
+      dispatch(addSignInError(result));
     }
   }
   return (
@@ -119,7 +120,7 @@ const SignIn = () => {
       </form>
       <div className="flex flex-col items-center gap-2">
         <span
-          className={`${!error && "hidden"} text-red-500 `}
+          className={`${!error && "hidden"} text-red-500 animate-pulse`}
         >
           {error}
         </span>
