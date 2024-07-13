@@ -10,15 +10,15 @@ import React, { useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 async function fetchSignIn(data) {
-  console.log(data);
   const fetcheData = await fetch("/api/login", {
     method: "POST",
     headers: {
-      "Content-Type": "application/problem+json",
+      "Content-Type": "application/problem",
     },
-    body: data,
+    body: JSON.stringify(data),
   });
   const dataToReturn = await fetcheData.json();
+  console.log(dataToReturn)
   return dataToReturn;
 }
 const SignIn = () => {
