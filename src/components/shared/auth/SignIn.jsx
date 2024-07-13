@@ -20,7 +20,7 @@ const SignIn = () => {
     dispatch(reset())
   }
   return (
-    <div className={`${!isSignIn && "hidden"} flex flex-col  gap-10 `}>
+    <div className={`${!isSignIn && "hidden"} flex flex-col w-full md:w-[573px] flex-1 gap-10 max-w-[573px] `}>
       <div className="flex flex-col gap-3">
         <h2 className="text-[22px] sm:text-3xl font-bold">
           <span className="text-[#03133D]">تسجيل الدخول إلى</span>

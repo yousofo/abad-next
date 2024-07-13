@@ -12,7 +12,11 @@ const SignUp = () => {
     dispatch(toggleSignIn());
   }
   return (
-    <div className={`${!isSignUp && "hidden"} flex flex-col gap-7 md:gap-10 `}>
+    <div
+      className={`${
+        !isSignUp && "hidden"
+      }  flex flex-col gap-7 md:gap-10 `}
+    >
       <div className="flex flex-col gap-3">
         <h2 className="text-[22px] sm:text-3xl font-bold text-[#03133D]">
           تسجيل حساب جديد
@@ -22,10 +26,12 @@ const SignUp = () => {
         </p>
       </div>
       <form action="" className="grid md:grid-cols-2 gap-4">
+        {/* name arabic */}
         <div className="input">
           <label htmlFor="">الاسم الرباعي بالعربي*</label>
           <input type="email" name="" placeholder="اكتب اسمك رباعي" id="" />
         </div>
+        {/* name english */}
         <div className="input">
           <label htmlFor="">الاسم الرباعي بالانجليزي*</label>
           <input
@@ -36,6 +42,36 @@ const SignUp = () => {
             id=""
           />
         </div>
+        {/* id */}
+        <div className="input">
+          <label htmlFor="">رقم الهوية*</label>
+          <input
+            type="email"
+            name=""
+            dir="ltr"
+            placeholder="ادخل رقم الهوية"
+            id=""
+          />
+        </div>
+        {/* nationality */}
+        <div className="input">
+          <label htmlFor="signUpGender">الجنسية*</label>
+          <div className="select relative">
+            <select
+              name=""
+              id="signUpGender"
+              className="w-full focus:outline-none"
+            >
+              <option value="" className="hidden">
+                اختر الجنسية
+              </option>
+              <option value="">سعودي</option>
+              <option value="">اردني</option>
+              <option value="">مصري</option>
+            </select>
+          </div>
+        </div>
+        {/* email */}
         <div className="input">
           <label htmlFor="">عنوان البريد الإلكتروني*</label>
           <input
@@ -45,14 +81,17 @@ const SignUp = () => {
             id=""
           />
         </div>
+        {/* phone */}
         <div className="input">
           <label htmlFor="">الهاتف</label>
           <input type="email" name="" placeholder="اكتب الهاتف" id="" />
         </div>
+        {/* birthdate */}
         <div className="input">
           <label htmlFor="signUpDate">تاريخ الميلاد</label>
           <input type="date" name="" placeholder="" id="signUpDate" />
         </div>
+        {/* gender */}
         <div className="input">
           <label htmlFor="signUpGender">الجنس*</label>
           <div className="select relative">
@@ -69,6 +108,7 @@ const SignUp = () => {
             </select>
           </div>
         </div>
+        {/* degree */}
         <div className="input">
           <label htmlFor="">المؤهل العلمي</label>
           <input
@@ -78,9 +118,23 @@ const SignUp = () => {
             id=""
           />
         </div>
+        {/* city */}
         <div className="input">
-          <label htmlFor="">المدينة*</label>
-          <input type="email" name="" placeholder="" id="" />
+          <label htmlFor="signUpGender">المدينة*</label>
+          <div className="select relative">
+            <select
+              name=""
+              id="signUpGender"
+              className="w-full focus:outline-none"
+            >
+              <option value="" className="hidden">
+                اختر المدينة
+              </option>
+              <option value="">مكة</option>
+              <option value="">المدينة</option>
+              <option value="">الطائف</option>
+            </select>
+          </div>
         </div>
         <div className="input">
           <label htmlFor="">كلمة المرور*</label>

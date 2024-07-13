@@ -10,6 +10,7 @@ import PasswordReassigned from "./PasswordReassigned";
 
 const Authentication = () => {
   const isHidden = useSelector(e=>e.auth.isHidden)
+  const isSignUp = useSelector(e=>e.auth.signUp)
   const dispatch = useDispatch()
   function handleAuthClose(){
     dispatch(reset())
@@ -17,7 +18,7 @@ const Authentication = () => {
   }
   return (
     <div onClick={handleAuthClose} className={`${isHidden?"hidden":"flex"} auth`}>
-      <div onClick={(e)=>e.stopPropagation()} className="auth-container bg-white py-7 px-6 md:py-12 md:px-10 rounded-2xl h-fit w-full max-w-[573px]">
+      <div onClick={(e)=>e.stopPropagation()} className={`auth-container bg-white flex flex-col w-fit py-7 px-6 md:py-12 md:px-10 rounded-2xl h-fit ${isSignUp && "w-[814px]"} max-w-[814px]`}>
         <SignIn />
         <SignUp />
         <ForgotPassword/>

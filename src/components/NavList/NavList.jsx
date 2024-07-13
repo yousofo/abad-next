@@ -50,23 +50,7 @@ const NavList = () => {
             </Link>
           </li>
           <li>
-            <button className="flex justify-between items-center w-full">
-              <span>الدورات</span>
-              <svg
-                width="6"
-                height="9"
-                viewBox="0 0 6 9"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M5 1L2 4.5L5 8"
-                  stroke="black"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                />
-              </svg>
-            </button>
+            
           </li>
           <li>
             <Link onClick={() => dispatch(reset())} href="/articles">
