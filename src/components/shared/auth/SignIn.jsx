@@ -10,10 +10,11 @@ import React, { useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 async function fetchSignIn(data) {
+  console.log(data);
   const fetcheData = await fetch("/api/login", {
     method: "POST",
     headers: {
-      "Content-Type": "application/json",
+      "Content-Type": "application/problem+json",
     },
     body: data,
   });
@@ -35,8 +36,8 @@ const SignIn = () => {
   async function handleSignIn(e) {
     e.preventDefault();
     const result = await fetchSignIn({
-      email,
-      password,
+      email: email.current.value,
+      password: password.current.value,
     });
     if (result.token) {
       dispatch(toggleSignedIn());
