@@ -115,7 +115,7 @@ const SignUp = () => {
             type="email"
             name=""
             placeholder="اكتب اسمك رباعي"
-            id="arabicName"
+            // id="arabicName"
           />
         </div>
         {/* name english ! */}
@@ -128,7 +128,7 @@ const SignUp = () => {
             required
             dir="ltr"
             placeholder="type your name"
-            id="englishName"
+            // id="englishName"
           />
         </div>
         {/* id ! */}
@@ -140,7 +140,7 @@ const SignUp = () => {
             type="email"
             name=""
             placeholder="ادخل رقم الهوية"
-            id="userId"
+            // id="userId"
           />
         </div>
         {/* nationality ! */}
@@ -151,7 +151,7 @@ const SignUp = () => {
               required
               ref={nationality}
               name=""
-              id="nationality"
+              // id="nationality"
               className="w-full focus:outline-none"
             >
               <option value="" className="hidden">
@@ -172,7 +172,7 @@ const SignUp = () => {
             required
             name=""
             placeholder="أدخل بريدك الإلكتروني"
-            id="signUpEmail"
+            // id="signUpEmail"
           />
         </div>
         {/* phone */}
@@ -183,7 +183,7 @@ const SignUp = () => {
             type="email"
             name=""
             placeholder="اكتب الهاتف"
-            id="phone"
+            // id="phone"
           />
         </div>
         {/* birthDate */}
@@ -195,7 +195,7 @@ const SignUp = () => {
             name=""
             required
             placeholder=""
-            id="signUpDate"
+            // id="signUpDate"
           />
         </div>
         {/* gender ! */}
@@ -206,7 +206,7 @@ const SignUp = () => {
               ref={gender}
               required
               name=""
-              id="gender"
+              // id="gender"
               className="w-full focus:outline-none"
             >
               <option value="" className="hidden">
@@ -225,7 +225,7 @@ const SignUp = () => {
             type="email"
             name=""
             placeholder="اكتب المؤهل التعليمي"
-            id="educationsType"
+            // id="educationsType"
           />
         </div>
         {/* city  ! */}
@@ -236,7 +236,7 @@ const SignUp = () => {
               ref={city}
               required
               name=""
-              id="city"
+              // id="city"
               className="w-full focus:outline-none"
             >
               <option value="" className="hidden">
@@ -257,7 +257,7 @@ const SignUp = () => {
             required
             name=""
             placeholder="ادخل كلمة المرور"
-            id="signUpPassword"
+            // id="signUpPassword"
           />
         </div>
         {/* confirm password ! */}
@@ -269,7 +269,7 @@ const SignUp = () => {
             name=""
             required
             placeholder="تأكيد كلمة المرور*"
-            id="signUpConfirmPassword"
+            // id="signUpConfirmPassword"
           />
         </div>
       </form>
