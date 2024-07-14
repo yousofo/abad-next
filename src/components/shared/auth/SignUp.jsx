@@ -18,8 +18,11 @@ async function sendRegisterData(data) {
       body: JSON.stringify(data),
     });
     let jsonData;
-    console.log(request.headers.get("Content-Type"))
-    if (  request.headers.get("Content-Type").includes("application/json") || request.headers.get("Content-Type").includes("application/problem+json")) {
+    console.log(request.headers.get("Content-Type"));
+    if (
+      request.headers.get("Content-Type").includes("application/json") ||
+      request.headers.get("Content-Type").includes("application/problem+json")
+    ) {
       jsonData = await request.json();
     } else {
       jsonData = await request.text();
@@ -87,7 +90,7 @@ const SignUp = () => {
   // };
 
   async function handleSubmitSignUp(formData) {
-    setGeneralError("")
+    setGeneralError("");
     console.log("hh");
     setLoading(true);
     const result = await sendRegisterData({
@@ -110,8 +113,8 @@ const SignUp = () => {
       });
     } else if (result.message) {
       dispatch(toggleSignIn());
-    }else{
-      setGeneralError(result)
+    } else {
+      setGeneralError(result);
     }
     console.log(errors);
     console.log(result);
@@ -253,7 +256,9 @@ const SignUp = () => {
             name=""
             placeholder=""
             id="birthDate"
-            {...register("birthDate")}
+            {...register("birthDate", {
+              required: "يجب ادخال تاريخ الميلاد",
+            })}
           />
           <p className="text-xs my-1 text-red-500">
             {errors.birthDate?.message}
@@ -349,7 +354,13 @@ const SignUp = () => {
           </p>
         </div>
         {/* general error */}
-        <p className={`${!generalError && "hidden"} text-center col-span-2 text-xs my-1 text-red-500`}>{generalError}</p>
+        <p
+          className={`${
+            !generalError && "hidden"
+          } text-center col-span-2 text-xs my-1 text-red-500`}
+        >
+          {generalError}
+        </p>
       </form>
       <div className="flex flex-col gap-4">
         {/* sign up BUTTON */}

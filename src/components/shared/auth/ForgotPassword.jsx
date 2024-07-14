@@ -2,7 +2,40 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 
+async function fetchResetPassword(data) {
+  const request = await fetch("/api/resetPassword", {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/problem",
+    },
+    body: JSON.stringify(data),
+  });
+  if (
+    request.headers.get("Content-Type").includes("application/json") ||
+    request.headers.get("Content-Type").includes("application/problem+json")
+  ) {
+    const dataToReturn = await request.json();
+    console.log(dataToReturn);
+    if (dataToReturn.errors) {
+      let messages = Object.entries(dataToReturn.errors).map(([key,value])=>{
+        return value
+      })
+      return messages
+    }else{
+      return dataToReturn
+    }
+  } else {
+    const dataToReturn = await request.text();
+    return dataToReturn;
+  }
+}
+
+
+
+
+
 const ForgotPassword = () => {
+  "http://myserverhost-001-site2.dtempurl.com/api/Student/checkEmail?mail=mohamedgamal1455@gmail.com"
   const forgotPassword = useSelector((state) => state.auth.forgotPassword);
   const dispatch = useDispatch();
   return (
