@@ -34,8 +34,10 @@ const SignUp = () => {
   const router = useRouter();
 
   const signUpForm = useForm();
-  const { register, handleSubmit } = signUpForm;
+  const { register, handleSubmit, formState } = signUpForm;
   // const { name,ref,onChange,onBlur}=register("id")
+  const { errors } = formState;
+
   const arabicName = useRef(null);
   const englishName = useRef(null);
   const userId = useRef(null);
@@ -91,34 +93,34 @@ const SignUp = () => {
   //   },
   // };
 
-  async function handleSubmitSignUp(formData,event) {
+  async function handleSubmitSignUp(formData, event) {
     // const isAllValid = allInputs.every((input) => input.current.value != "");
     // if (isAllValid) {
-      setLoading(true);
-      // const result = await sendRegisterData({
-      //   arabicName: arabicName.current.value,
-      //   englishName: englishName.current.value,
-      //   idnumber: userId.current.value,
-      //   email: emailAddress.current.value,
-      //   phone: phone.current.value,
-      //   gender: gender.current.value,
-      //   birthDate: birthDate.current.value,
-      //   nationality: nationality.current.value,
-      //   password: password.current.value,
-      //   confirmPassword: confirmPassword.current.value,
-      //   educationsType: educationsType.current.value,
-      //   city: city.current.value,
-      // });
-      // const result = true
-      console.log(formData);
-      setLoading(false);
-      // if (!result.errors) {
-      //   console.log()
-      //   dispatch(toggleSignIn());
-      // } else {
-      //   console.log("error false");
-      //   dispatch(addSignUpError(`${result}`));
-      // }
+    setLoading(true);
+    // const result = await sendRegisterData({
+    //   arabicName: arabicName.current.value,
+    //   englishName: englishName.current.value,
+    //   idnumber: userId.current.value,
+    //   email: emailAddress.current.value,
+    //   phone: phone.current.value,
+    //   gender: gender.current.value,
+    //   birthDate: birthDate.current.value,
+    //   nationality: nationality.current.value,
+    //   password: password.current.value,
+    //   confirmPassword: confirmPassword.current.value,
+    //   educationsType: educationsType.current.value,
+    //   city: city.current.value,
+    // });
+    // const result = true
+    console.log(formData);
+    setLoading(false);
+    // if (!result.errors) {
+    //   console.log()
+    //   dispatch(toggleSignIn());
+    // } else {
+    //   console.log("error false");
+    //   dispatch(addSignUpError(`${result}`));
+    // }
     // }
   }
   return (
@@ -135,18 +137,27 @@ const SignUp = () => {
           املأ بياناتك لتسجيل حساب جديد
         </p>
       </div>
-      <form method="POST" onSubmit={handleSubmit(handleSubmitSignUp)} action="" id="signUpForm" className="grid md:grid-cols-2 gap-4">
+      <form
+        method="POST"
+        onSubmit={handleSubmit(handleSubmitSignUp)}
+        action=""
+        noValidate
+        id="signUpForm"
+        className="grid md:grid-cols-2 gap-4"
+      >
         {/* name arabic ! */}
         <div className="input">
           <label htmlFor="">الاسم الرباعي بالعربي*</label>
           <input
-            required
             type="text"
             name=""
             id="arabicName"
-            {...register("arabicName")}
+            {...register("arabicName",{
+              required:"يجب كتابة الاسم الرباعي بالعربي"
+            })}
             placeholder="اكتب اسمك رباعي"
           />
+          <p className="text-xs my-2 text-red-500">{errors.arabicName?.message}</p>
         </div>
         {/* name english ! */}
         <div className="input">
@@ -154,12 +165,13 @@ const SignUp = () => {
           <input
             type="text"
             name=""
-            required
             dir="ltr"
             id="englishName"
-            {...register("englishName")}
+            {...register("englishName",{
+              required:"يجب كتابة الاسم الرباعي بالانجليزي"
+            })}
             placeholder="type your name"
-          />
+          /><p className="text-xs my-1 text-red-500">{errors.englishName?.message}</p>
         </div>
         {/* id ! */}
         <div className="input">
@@ -169,19 +181,22 @@ const SignUp = () => {
             type="text"
             name=""
             id="userId"
-            {...register("userId")}
+            {...register("userId",{
+              required:"يجب كتابة رقم الهوية"
+            })}
             placeholder="ادخل رقم الهوية"
-          />
+          /><p className="text-xs my-1 text-red-500">{errors.userId?.message}</p>
         </div>
         {/* nationality ! */}
         <div className="input">
           <label htmlFor="signUpGender">الجنسية*</label>
           <div className="select relative">
             <select
-              required
               name=""
               id="nationality"
-              {...register("nationality")}
+              {...register("nationality",{
+                required:"يجب كتابة الجنسية"
+              })}
               className="w-full focus:outline-none"
             >
               <option value="" className="hidden">
@@ -191,19 +206,24 @@ const SignUp = () => {
               <option value="اردني">اردني</option>
               <option value="مصري">مصري</option>
             </select>
-          </div>
+          </div><p className="text-xs my-1 text-red-500">{errors.nationality?.message}</p>
         </div>
         {/* email !*/}
         <div className="input">
           <label htmlFor="">عنوان البريد الإلكتروني*</label>
           <input
             type="email"
-            required
             name=""
             id="signUpEmail"
-            {...register("signUpEmail")}
+            {...register("signUpEmail",{
+              pattern:{
+                value:/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g,
+                message:"يرجي كتابة عنوان بريد صحيح"
+              },
+              required:"يجب كتابة عنوان البريد الإلكتروني"
+            })}
             placeholder="أدخل بريدك الإلكتروني"
-          />
+          /><p className="text-xs my-1 text-red-500">{errors.signUpEmail?.message}</p>
         </div>
         {/* phone */}
         <div className="input">
@@ -214,7 +234,7 @@ const SignUp = () => {
             id="phone"
             {...register("phone")}
             placeholder="اكتب الهاتف"
-          />
+          /><p className="text-xs my-1 text-red-500">{errors.phone?.message}</p>
         </div>
         {/* birthDate */}
         <div className="input">
@@ -222,21 +242,21 @@ const SignUp = () => {
           <input
             type="date"
             name=""
-            required
             placeholder=""
             id="birthDate"
             {...register("birthDate")}
-          />
+          /><p className="text-xs my-1 text-red-500">{errors.birthDate?.message}</p>
         </div>
         {/* gender ! */}
         <div className="input">
           <label htmlFor="signUpGender">الجنس*</label>
           <div className="select relative">
             <select
-              required
               name=""
               id="gender"
-              {...register("gender")}
+              {...register("gender",{
+                required:"يجب اختيار الجنس"
+              })}
               className="w-full focus:outline-none"
             >
               <option value="" className="hidden">
@@ -245,7 +265,7 @@ const SignUp = () => {
               <option value="ذكر">ذكر</option>
               <option value="انثي">انثي</option>
             </select>
-          </div>
+          </div><p className="text-xs my-1 text-red-500">{errors.gender?.message}</p>
         </div>
         {/* educationsType */}
         <div className="input">
@@ -256,17 +276,18 @@ const SignUp = () => {
             id="educationType"
             {...register("educationType")}
             placeholder="اكتب المؤهل التعليمي"
-          />
+          /><p className="text-xs my-1 text-red-500">{errors.educationsType?.message}</p>
         </div>
         {/* city  ! */}
         <div className="input">
           <label htmlFor="signUpGender">المدينة*</label>
           <div className="select relative">
             <select
-              required
               name=""
               id="city"
-              {...register("city")}
+              {...register("city",{
+                required:"يجب اختيار المدينة"
+              })}
               className="w-full focus:outline-none"
             >
               <option value="" className="hidden">
@@ -276,19 +297,20 @@ const SignUp = () => {
               <option value="المدينة">المدينة</option>
               <option value="الطائف">الطائف</option>
             </select>
-          </div>
+          </div><p className="text-xs my-1 text-red-500">{errors.city?.message}</p>
         </div>
         {/* password ! */}
         <div className="input">
           <label htmlFor="">كلمة المرور*</label>
           <input
             type="password"
-            required
             name=""
             id="signUpPassword"
-            {...register("signUpPassword")}
+            {...register("signUpPassword",{
+              required:"يجب كتابة كلمة المرور"
+            })}
             placeholder="ادخل كلمة المرور"
-          />
+          /><p className="text-xs my-1 text-red-500">{errors.password?.message}</p>
         </div>
         {/* confirm password ! */}
         <div className="input">
@@ -296,11 +318,12 @@ const SignUp = () => {
           <input
             type="password"
             name=""
-            required
             id="signUpConfirmPassword"
-            {...register("signUpConfirmPassword")}
+            {...register("signUpConfirmPassword",{
+              required:"يجب تأكيد كلمة المرور"
+            })}
             placeholder="تأكيد كلمة المرور*"
-          />
+          /><p className="text-xs my-1 text-red-500">{errors.confirmPassword?.message}</p>
         </div>
       </form>
       <div className="flex flex-col gap-4">
