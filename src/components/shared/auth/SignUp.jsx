@@ -9,72 +9,63 @@ import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 async function sendRegisterData(data) {
   console.log(data);
-  const request = await fetch("/api/register", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(data),
-  });
-  const jsonData = await request.json();
-  console.log("jsondata");
-  if (typeof jsonData == "string") {
-    return JSON.parse(jsonData);
-  } else {
+  try {
+    const request = await fetch("/api/register", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+    let jsonData;
+    console.log(request.headers.get("Content-Type"))
+    if (  request.headers.get("Content-Type").includes("application/json") || request.headers.get("Content-Type").includes("application/problem+json")) {
+      jsonData = await request.json();
+    } else {
+      jsonData = await request.text();
+    }
+    console.log(jsonData);
+    // if (JSON.parse(jsonData)) {
+    // return JSON.parse(jsonData);
+    // } else {
     return jsonData;
+    // }
+  } catch (error) {
+    if (JSON.parse(error)) {
+      return JSON.parse(error);
+    } else {
+      return error;
+    }
   }
-  // return { status: false, message: e };
 }
 
 const SignUp = () => {
   const [loading, setLoading] = useState(false);
+  const [generalError, setGeneralError] = useState("");
   const signUpError = useSelector((store) => store.auth.signUpError);
   const isSignUp = useSelector((e) => e.auth.signUp);
   const dispatch = useDispatch();
   const router = useRouter();
 
-  const signUpForm = useForm();
-  const { register, handleSubmit, formState } = signUpForm;
+  const signUpForm = useForm({
+    defaultValues: {
+      arabicName: "test",
+      englishName: "test",
+      idnumber: "tatat3tata",
+      nationality: "سعودي",
+      signUpEmail: "test3@test.com",
+      phone: "12345890",
+      birthDate: "2024-07-04",
+      gender: "ذكر",
+      educationsType: "test",
+      city: "مكة",
+      password: "testtest",
+      confirmPassword: "testtest",
+    },
+  });
+  const { register, handleSubmit, formState, setError } = signUpForm;
   // const { name,ref,onChange,onBlur}=register("id")
-  const { errors } = formState;
-
-  const arabicName = useRef(null);
-  const englishName = useRef(null);
-  const userId = useRef(null);
-  const nationality = useRef(null);
-  const emailAddress = useRef(null);
-  const phone = useRef(null);
-  const birthDate = useRef(null);
-  const gender = useRef(null);
-  const educationsType = useRef(null);
-  const city = useRef(null);
-  const password = useRef(null);
-  const confirmPassword = useRef(null);
-  const allInputs = [
-    arabicName,
-    englishName,
-    userId,
-    nationality,
-    emailAddress,
-    phone,
-    birthDate,
-    gender,
-    educationsType,
-    city,
-    password,
-    confirmPassword,
-  ];
-  const requiredInputs = [
-    arabicName,
-    englishName,
-    userId,
-    nationality,
-    emailAddress,
-    gender,
-    city,
-    password,
-    confirmPassword,
-  ];
+  const { errors, isValid } = formState;
 
   function switchAuthMode(e) {
     e.preventDefault();
@@ -93,35 +84,36 @@ const SignUp = () => {
   //   },
   // };
 
-  async function handleSubmitSignUp(formData, event) {
-    // const isAllValid = allInputs.every((input) => input.current.value != "");
-    // if (isAllValid) {
+  async function handleSubmitSignUp(formData) {
+    setGeneralError("")
+    console.log("hh");
     setLoading(true);
-    // const result = await sendRegisterData({
-    //   arabicName: arabicName.current.value,
-    //   englishName: englishName.current.value,
-    //   idnumber: userId.current.value,
-    //   email: emailAddress.current.value,
-    //   phone: phone.current.value,
-    //   gender: gender.current.value,
-    //   birthDate: birthDate.current.value,
-    //   nationality: nationality.current.value,
-    //   password: password.current.value,
-    //   confirmPassword: confirmPassword.current.value,
-    //   educationsType: educationsType.current.value,
-    //   city: city.current.value,
-    // });
-    // const result = true
-    console.log(formData);
+    const result = await sendRegisterData({
+      ...formData,
+      email: formData.signUpEmail,
+      password: formData.signUpPassword,
+      confirmPassword: formData.signUpConfirmPassword,
+    });
+
+    if (result.errors) {
+      console.log("errrrr");
+      Object.entries(result.errors).forEach(([key, value]) => {
+        if (key == "$.birthDate") {
+          setError("birthDate", { type: "manual", message: value });
+        } else if (key == "Password") {
+          setError("signUpPassword", { type: "manual", message: value });
+        } else {
+          setError(`${key}`, { type: "manual", message: value });
+        }
+      });
+    } else if (result.message) {
+      dispatch(toggleSignIn());
+    }else{
+      setGeneralError(result)
+    }
+    console.log(errors);
+    console.log(result);
     setLoading(false);
-    // if (!result.errors) {
-    //   console.log()
-    //   dispatch(toggleSignIn());
-    // } else {
-    //   console.log("error false");
-    //   dispatch(addSignUpError(`${result}`));
-    // }
-    // }
   }
   return (
     <div
@@ -152,12 +144,14 @@ const SignUp = () => {
             type="text"
             name=""
             id="arabicName"
-            {...register("arabicName",{
-              required:"يجب كتابة الاسم الرباعي بالعربي"
+            {...register("arabicName", {
+              required: "يجب كتابة الاسم الرباعي بالعربي",
             })}
             placeholder="اكتب اسمك رباعي"
           />
-          <p className="text-xs my-2 text-red-500">{errors.arabicName?.message}</p>
+          <p className="text-xs my-2 text-red-500">
+            {errors.arabicName?.message}
+          </p>
         </div>
         {/* name english ! */}
         <div className="input">
@@ -167,11 +161,14 @@ const SignUp = () => {
             name=""
             dir="ltr"
             id="englishName"
-            {...register("englishName",{
-              required:"يجب كتابة الاسم الرباعي بالانجليزي"
+            {...register("englishName", {
+              required: "يجب كتابة الاسم الرباعي بالانجليزي",
             })}
             placeholder="type your name"
-          /><p className="text-xs my-1 text-red-500">{errors.englishName?.message}</p>
+          />
+          <p className="text-xs my-1 text-red-500">
+            {errors.englishName?.message}
+          </p>
         </div>
         {/* id ! */}
         <div className="input">
@@ -180,12 +177,15 @@ const SignUp = () => {
             required
             type="text"
             name=""
-            id="userId"
-            {...register("userId",{
-              required:"يجب كتابة رقم الهوية"
+            id="idnumber"
+            {...register("idnumber", {
+              required: "يجب كتابة رقم الهوية",
             })}
             placeholder="ادخل رقم الهوية"
-          /><p className="text-xs my-1 text-red-500">{errors.userId?.message}</p>
+          />
+          <p className="text-xs my-1 text-red-500">
+            {errors.idnumber?.message}
+          </p>
         </div>
         {/* nationality ! */}
         <div className="input">
@@ -194,8 +194,8 @@ const SignUp = () => {
             <select
               name=""
               id="nationality"
-              {...register("nationality",{
-                required:"يجب كتابة الجنسية"
+              {...register("nationality", {
+                required: "يجب كتابة الجنسية",
               })}
               className="w-full focus:outline-none"
             >
@@ -206,7 +206,10 @@ const SignUp = () => {
               <option value="اردني">اردني</option>
               <option value="مصري">مصري</option>
             </select>
-          </div><p className="text-xs my-1 text-red-500">{errors.nationality?.message}</p>
+          </div>
+          <p className="text-xs my-1 text-red-500">
+            {errors.nationality?.message}
+          </p>
         </div>
         {/* email !*/}
         <div className="input">
@@ -215,15 +218,18 @@ const SignUp = () => {
             type="email"
             name=""
             id="signUpEmail"
-            {...register("signUpEmail",{
-              pattern:{
-                value:/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g,
-                message:"يرجي كتابة عنوان بريد صحيح"
+            {...register("signUpEmail", {
+              pattern: {
+                value: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g,
+                message: "يرجي كتابة عنوان بريد صحيح",
               },
-              required:"يجب كتابة عنوان البريد الإلكتروني"
+              required: "يجب كتابة عنوان البريد الإلكتروني",
             })}
             placeholder="أدخل بريدك الإلكتروني"
-          /><p className="text-xs my-1 text-red-500">{errors.signUpEmail?.message}</p>
+          />
+          <p className="text-xs my-1 text-red-500">
+            {errors.signUpEmail?.message}
+          </p>
         </div>
         {/* phone */}
         <div className="input">
@@ -234,7 +240,8 @@ const SignUp = () => {
             id="phone"
             {...register("phone")}
             placeholder="اكتب الهاتف"
-          /><p className="text-xs my-1 text-red-500">{errors.phone?.message}</p>
+          />
+          <p className="text-xs my-1 text-red-500">{errors.phone?.message}</p>
         </div>
         {/* birthDate */}
         <div className="input">
@@ -245,7 +252,10 @@ const SignUp = () => {
             placeholder=""
             id="birthDate"
             {...register("birthDate")}
-          /><p className="text-xs my-1 text-red-500">{errors.birthDate?.message}</p>
+          />
+          <p className="text-xs my-1 text-red-500">
+            {errors.birthDate?.message}
+          </p>
         </div>
         {/* gender ! */}
         <div className="input">
@@ -254,8 +264,8 @@ const SignUp = () => {
             <select
               name=""
               id="gender"
-              {...register("gender",{
-                required:"يجب اختيار الجنس"
+              {...register("gender", {
+                required: "يجب اختيار الجنس",
               })}
               className="w-full focus:outline-none"
             >
@@ -265,7 +275,8 @@ const SignUp = () => {
               <option value="ذكر">ذكر</option>
               <option value="انثي">انثي</option>
             </select>
-          </div><p className="text-xs my-1 text-red-500">{errors.gender?.message}</p>
+          </div>
+          <p className="text-xs my-1 text-red-500">{errors.gender?.message}</p>
         </div>
         {/* educationsType */}
         <div className="input">
@@ -276,7 +287,10 @@ const SignUp = () => {
             id="educationType"
             {...register("educationType")}
             placeholder="اكتب المؤهل التعليمي"
-          /><p className="text-xs my-1 text-red-500">{errors.educationsType?.message}</p>
+          />
+          <p className="text-xs my-1 text-red-500">
+            {errors.educationsType?.message}
+          </p>
         </div>
         {/* city  ! */}
         <div className="input">
@@ -285,8 +299,8 @@ const SignUp = () => {
             <select
               name=""
               id="city"
-              {...register("city",{
-                required:"يجب اختيار المدينة"
+              {...register("city", {
+                required: "يجب اختيار المدينة",
               })}
               className="w-full focus:outline-none"
             >
@@ -297,7 +311,8 @@ const SignUp = () => {
               <option value="المدينة">المدينة</option>
               <option value="الطائف">الطائف</option>
             </select>
-          </div><p className="text-xs my-1 text-red-500">{errors.city?.message}</p>
+          </div>
+          <p className="text-xs my-1 text-red-500">{errors.city?.message}</p>
         </div>
         {/* password ! */}
         <div className="input">
@@ -306,11 +321,14 @@ const SignUp = () => {
             type="password"
             name=""
             id="signUpPassword"
-            {...register("signUpPassword",{
-              required:"يجب كتابة كلمة المرور"
+            {...register("signUpPassword", {
+              required: "يجب كتابة كلمة المرور",
             })}
             placeholder="ادخل كلمة المرور"
-          /><p className="text-xs my-1 text-red-500">{errors.password?.message}</p>
+          />
+          <p className="text-xs my-1 text-red-500">
+            {errors.signUpPassword?.message}
+          </p>
         </div>
         {/* confirm password ! */}
         <div className="input">
@@ -319,12 +337,17 @@ const SignUp = () => {
             type="password"
             name=""
             id="signUpConfirmPassword"
-            {...register("signUpConfirmPassword",{
-              required:"يجب تأكيد كلمة المرور"
+            {...register("signUpConfirmPassword", {
+              required: "يجب تأكيد كلمة المرور",
             })}
             placeholder="تأكيد كلمة المرور*"
-          /><p className="text-xs my-1 text-red-500">{errors.confirmPassword?.message}</p>
+          />
+          <p className="text-xs my-1 text-red-500">
+            {errors.signUpConfirmPassword?.message}
+          </p>
         </div>
+        {/* general error */}
+        <p className={`${!generalError && "hidden"} text-center col-span-2 text-xs my-1 text-red-500`}>{generalError}</p>
       </form>
       <div className="flex flex-col gap-4">
         {/* sign up BUTTON */}
@@ -332,6 +355,10 @@ const SignUp = () => {
           className="login text-white font-bold"
           type="submit"
           form="signUpForm"
+          onClick={() => {
+            console.log("clicked");
+            handleSubmit(handleSubmitSignUp);
+          }}
         >
           تسجيل
         </button>
