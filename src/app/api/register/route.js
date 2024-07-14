@@ -24,14 +24,14 @@ export async function POST(request) {
     } else {
       data = await response.text()
       return new Response(data, {
-        status: response.ok ? 200 : 401,
+        status: response.ok ? 200 : 400,
         headers: { 'Content-Type': response.headers.get('Content-Type') },
       });
     }
   } catch (error) {
     console.log("error register")
     return new Response(JSON.stringify({ error: error.message }), {
-      status: 402,
+      status: 400,
       headers: { 'Content-Type': 'application/json' },
     });
   }

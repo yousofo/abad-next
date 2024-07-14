@@ -38,16 +38,8 @@ async function sendRegisterData(data) {
     }
   }
 }
-
-const SignUp = () => {
-  const [loading, setLoading] = useState(false);
-  const [generalError, setGeneralError] = useState("");
-  const signUpError = useSelector((store) => store.auth.signUpError);
-  const isSignUp = useSelector((e) => e.auth.signUp);
-  const dispatch = useDispatch();
-  const router = useRouter();
-
-  const signUpForm = useForm({
+/*
+{
     defaultValues: {
       arabicName: "test",
       englishName: "test",
@@ -62,7 +54,17 @@ const SignUp = () => {
       password: "testtest",
       confirmPassword: "testtest",
     },
-  });
+  }
+*/
+const SignUp = () => {
+  const [loading, setLoading] = useState(false);
+  const [generalError, setGeneralError] = useState("");
+  const signUpError = useSelector((store) => store.auth.signUpError);
+  const isSignUp = useSelector((e) => e.auth.signUp);
+  const dispatch = useDispatch();
+  const router = useRouter();
+
+  const signUpForm = useForm();
   const { register, handleSubmit, formState, setError } = signUpForm;
   // const { name,ref,onChange,onBlur}=register("id")
   const { errors, isValid } = formState;
