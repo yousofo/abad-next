@@ -32,6 +32,7 @@
       textarea {
         border: 1px solid #cdd0d8;
         border-radius: 8px;
+        flex: 1;
         padding: 11px 17px;
         margin-top: 8px;
         @media (min-width: 640px) {
