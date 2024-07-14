@@ -294,10 +294,10 @@ main {
               color: #0dc00d;
             }
             span.in-person {
-              color: #DF2121;
+              color: #df2121;
             }
             span:nth-child(2) {
-              color: #1B45B4;
+              color: #1b45b4;
             }
           }
         }
@@ -507,4 +507,10 @@ main {
     }
   }
   /* contact page */
+}
+body:has(.auth.flex) {
+  & {
+      height: 100vh;
+      overflow: hidden;
+  }
 }

@@ -1,6 +1,5 @@
 import Image from "next/image";
 import "./main.css"
-import CourseRow from "@/components/shared/tables/CourseRow";
 import Link from "next/link";
 import ReviewsSwiper from "@/components/shared/swipers/ReviewsSwiper";
 import "swiper/css";
