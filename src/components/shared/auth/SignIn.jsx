@@ -18,15 +18,22 @@ async function fetchSignIn(data) {
     },
     body: JSON.stringify(data),
   });
-  if(request.headers.get("Content-Type").includes("application/json") || request.headers.get("Content-Type").includes("application/problem+json")){
+  if (
+    request.headers.get("Content-Type").includes("application/json") ||
+    request.headers.get("Content-Type").includes("application/problem+json")
+  ) {
     const dataToReturn = await request.json();
-    console.log(dataToReturn)
-    let messages = Object.entries(dataToReturn.errors).map(([key,value])=>{
-      return value
-    })
-    return messages
-  }else{
-    const dataToReturn = await request.text(); 
+    console.log(dataToReturn);
+    if (dataToReturn.errors) {
+      let messages = Object.entries(dataToReturn.errors).map(([key,value])=>{
+        return value
+      })
+      return messages
+    }else{
+      return dataToReturn
+    }
+  } else {
+    const dataToReturn = await request.text();
     return dataToReturn;
   }
 }
@@ -40,7 +47,7 @@ const SignIn = () => {
   const dispatch = useDispatch();
   const email = useRef();
   const password = useRef();
-  console.log(error)
+  console.log(error);
   // const router = useRouter()
 
   function handleForgotPassword(e) {
@@ -54,7 +61,7 @@ const SignIn = () => {
       email: email.current.value,
       password: password.current.value,
     });
-    console.log(result)
+    console.log(result);
     if (result.token) {
       dispatch(toggleSignedIn());
       dispatch(reset());
@@ -129,9 +136,13 @@ const SignIn = () => {
       </form>
       <div className="flex flex-col items-center gap-2">
         <span
-          className={`${!error && "hidden"} text-red-500 animate-pulse text-center`}
+          className={`${
+            !error && "hidden"
+          } text-red-500 animate-pulse text-center`}
         >
-          {error.split("*").map((e,i)=><p key={i}>{e}</p>)}
+          {error.split("*").map((e, i) => (
+            <p key={i}>{e}</p>
+          ))}
         </span>
         <p className="text-sm text-center mt-auto">
           <span className="text-[#68718B]">ليس لديك حساب؟</span>
