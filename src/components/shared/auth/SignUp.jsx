@@ -135,7 +135,7 @@ const SignUp = () => {
           املأ بياناتك لتسجيل حساب جديد
         </p>
       </div>
-      <form onSubmit={handleSubmit(handleSubmitSignUp)} action="" id="signUpForm" className="grid md:grid-cols-2 gap-4">
+      <form method="POST" onSubmit={handleSubmit(handleSubmitSignUp)} action="" id="signUpForm" className="grid md:grid-cols-2 gap-4">
         {/* name arabic ! */}
         <div className="input">
           <label htmlFor="">الاسم الرباعي بالعربي*</label>
