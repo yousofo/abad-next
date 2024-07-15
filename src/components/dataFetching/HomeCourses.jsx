@@ -383,7 +383,9 @@ const HomeCourses = () => {
           className={`${!isCards && "!hidden "} courses-cards min-h-[400px]`}
         >
           {data.map((e, i) => (
-            <CourseCard data={e} key={i} index={i} />
+            <Link key={i} href={`/courses/${1}`}>
+              <CourseCard data={e} index={i} />
+            </Link>
           ))}
         </div>
       </div>
