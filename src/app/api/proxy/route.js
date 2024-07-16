@@ -9,6 +9,8 @@ export async function GET(request) {
       }
     });
     const data = await response.json();
+    console.log("proxy==========================================")
+    console.log(data)
     return new Response(JSON.stringify(data), {
       headers: { 'Content-Type': 'application/json' },
     });

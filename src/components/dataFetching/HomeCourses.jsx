@@ -13,9 +13,17 @@ const HomeCourses = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    fetch("/api/proxy")
+    fetch("/api/proxy",{
+      headers: {
+        'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate',
+        'Pragma': 'no-cache',
+        'Expires': '0',
+        'Surrogate-Control': 'no-store'
+      }
+    })
       .then((response) => response.json())
       .then((data) => {
+        console.log(data)
         dispatch(setHomeCourses(data));
         setData(data);
       });

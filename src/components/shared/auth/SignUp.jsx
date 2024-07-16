@@ -1,6 +1,5 @@
 "use client";
 import {
-  addSignUpError,
   toggleSignIn,
 } from "@/components/GlobalState/Features/authSlice";
 import { useRouter } from "next/navigation";
