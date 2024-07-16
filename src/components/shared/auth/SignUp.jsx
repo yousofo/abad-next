@@ -290,8 +290,10 @@ const SignUp = () => {
           <input
             type="text"
             name=""
-            id="educationType"
-            {...register("educationType")}
+            id="educationsType"
+            {...register("educationsType",{
+              required:"يجب اختيار الؤهل العملي"
+            })}
             placeholder="اكتب المؤهل التعليمي"
           />
           <p className="text-xs my-1 text-red-500">

@@ -66,7 +66,11 @@ const SignIn = () => {
       dispatch(toggleSignedIn());
       dispatch(reset());
     } else {
-      dispatch(addSignInError(result.join("*")));
+      if(result.message){
+        dispatch(addSignInError(result.message));
+      }else{
+        dispatch(addSignInError(result.join("*")));
+      }
     }
   }
   return (

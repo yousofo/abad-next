@@ -1,6 +1,7 @@
 export async function GET(request) {
   // try {
-  const mail = await request.json();
+  const { searchParams } = new URL(request.url);
+  const mail = searchParams.get('mail');
 
   const response = await fetch(`http://myserverhost-001-site2.dtempurl.com/api/Student/checkEmail?mail=${mail}`, {
     method: "GET",

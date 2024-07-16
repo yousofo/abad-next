@@ -13,12 +13,12 @@ export const coursesNavSlice = createSlice({
     toggleCoursesNav: (state) => {
       state.active = !state.active
     },
-    reset: (state) => {
+    resetCoursesNav: (state) => {
       state.active =false
     },
   }
 })
 
-export const { toggleCoursesNav, reset } = coursesNavSlice.actions;
+export const { toggleCoursesNav, resetCoursesNav } = coursesNavSlice.actions;
 
 export default coursesNavSlice.reducer;

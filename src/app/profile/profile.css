@@ -30,6 +30,12 @@
         }
       }
     }
+    .change-pp{
+      input{
+        /* opacity: 0; */
+        /* cursor: pointer; */
+      }
+    }
   }
   .btns{
     display: flex;

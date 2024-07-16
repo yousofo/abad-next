@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { reset, toggleSignIn } from "../GlobalState/Features/authSlice";
 import { toggleNavList } from "../GlobalState/Features/navListSlice";
 import { toggleMiniNav } from "../GlobalState/Features/miniNavSlice";
-import { toggleCoursesNav } from "../GlobalState/Features/coursesNavSlice";
+import { resetCoursesNav, toggleCoursesNav } from "../GlobalState/Features/coursesNavSlice";
 import CoursesNav from "./CoursesNav";
 
 const Header = () => {
@@ -18,6 +18,9 @@ const Header = () => {
   }
   function handleCoursesNav() {
     dispatch(toggleCoursesNav());
+  }
+  function closeCoursesNav(){
+    dispatch(resetCoursesNav())
   }
   function handleSignOut() {
     dispatch(reset());
@@ -198,6 +201,8 @@ const Header = () => {
           <li
             className="flex relative items-center gap-1 cursor-pointer"
             onClick={handleCoursesNav}
+            onMouseEnter={handleCoursesNav}
+            onMouseLeave={closeCoursesNav}
           >
             <Link href="/courses">الدورات</Link>
             <AngleBottom fill={"#ffffff"} />
