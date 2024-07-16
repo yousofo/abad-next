@@ -1,6 +1,6 @@
 export async function POST(request) {
   // try {
-  const jsonData = request.json()
+  const jsonData = await request.json()
   console.log("=============================================")
   console.log("new Password")
   const response = await fetch(`http://myserverhost-001-site2.dtempurl.com/api/Student/newPassword`, {
@@ -14,9 +14,9 @@ export async function POST(request) {
     },
     body: JSON.stringify(jsonData)
   });
-  // data = await response.json();
-  console.log(response)
-  return new Response(JSON.stringify(response), {
+  let data = await response.json();
+  console.log(data)
+  return new Response(JSON.stringify(data), {
     headers: { 'Content-Type': 'application/json' },
   });
 

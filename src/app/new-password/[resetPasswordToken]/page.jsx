@@ -10,7 +10,9 @@ async function fetchNewPassword(data) {
       method: "POST",
       body: JSON.stringify(data),
     });
-    const jsonResult = result.json();
+    const jsonResult = await result.json();
+    console.log("jsonResult")
+    console.log(jsonResult)
     return jsonResult;
   } catch (error) {
     console.log(error);
