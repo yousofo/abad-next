@@ -12,7 +12,12 @@ export async function GET(request) {
     console.log("proxy==========================================")
     console.log(data)
     return new Response(JSON.stringify(data), {
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate',
+        'Pragma': 'no-cache',
+        'Expires': '0',
+        'Surrogate-Control': 'no-store'
+      }
     });
   } catch (error) {
     return new Response(JSON.stringify({ error: 'Failed to fetch data' }), {

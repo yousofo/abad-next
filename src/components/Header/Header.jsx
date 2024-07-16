@@ -188,7 +188,7 @@ const Header = () => {
         {/* abad logo */}
         <Link className="text-[#282828]" href="/">
           <img
-            src="/media/abad-logo.png"
+            src="/media/logos/abad-logo.png"
             alt=""
             className="min-w-36 max-w-44 w-full"
           />

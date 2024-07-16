@@ -79,7 +79,7 @@ const CourseCard = ({ index, data }) => {
         </p>
         <div className="course-info">
           <p>البرمجة</p>
-          <p>1500 ريال سعودي</p>
+          <p>{data.price} ريال سعودي</p>
         </div>
       </figcaption>
     </figure>
