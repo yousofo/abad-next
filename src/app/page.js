@@ -20,7 +20,7 @@ export default function Home() {
             &nbsp;
             <span >اباد للتدريب</span>
           </h2>
-          <h4 className="word-spacing md:text-lg md:leading-[2.5]">
+          <h4>
             معهد شبكة آباد للتدريب من المعاهد الرائدة في تقديم الدورات التطويرية
             المتخصصة في تقنية المعلومات.
           </h4>
@@ -29,7 +29,6 @@ export default function Home() {
           >
             <span>ابدأ التعلم</span>
             <svg
-              className="text-black rotate-180"
               xmlns="http://www.w3.org/2000/svg"
               width={24}
               height={24}
