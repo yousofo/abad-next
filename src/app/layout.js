@@ -6,7 +6,6 @@ import Authentication from "@/components/shared/auth/Authentication";
 import NavList from "@/components/NavList/NavList";
 import PopUps from "@/components/PopUps/PopUps";
 import BrowserWarning from "@/components/shared/browser-support/BrowserWarning";
-import CustomHead from "@/components/Head/Head";
 import Script from 'next/script'
 
 // import localFont from 'next/font/local'
@@ -111,7 +110,7 @@ export default function RootLayout({ children }) {
         </Script>
       </head>
       <body /*className={bukra.className}*/>
-        
+        <BrowserWarning/>
         <StateProvider>
           <Authentication />
           <NavList />

@@ -1,24 +1,45 @@
-"use client"
-import react, { useEffect } from 'react';
+"use client";
+import react, { useEffect, useState } from "react";
 
 const BrowserWarning = () => {
+  const [active, setActive] = useState(true);
   useEffect(() => {
     const { browserName, browserVersion } = getBrowserInfo();
-    console.log("hi")
+    console.log("hi");
     const outdatedBrowsers = {
       "Internet Explorer": "11",
-      "Safari": "11", // Safari 10 and below are considered outdated
-      "Chrome": "60",
-      "Firefox": "54",
-      "Edge": "15"
+      Safari: "11", // Safari 10 and below are considered outdated
+      Chrome: "60",
+      Firefox: "54",
+      Edge: "15",
     };
 
-    if (outdatedBrowsers[browserName] && parseFloat(browserVersion) < parseFloat(outdatedBrowsers[browserName])) {
-      alert(`You are using ${browserName} ${browserVersion}. Please update your browser or switch to a modern browser for the best experience.`);
+    if (
+      outdatedBrowsers[browserName] &&
+      parseFloat(browserVersion) < parseFloat(outdatedBrowsers[browserName])
+    ) {
+      // alert(`You are using ${browserName} ${browserVersion}. Please update your browser or switch to a modern browser for the best experience.`);
+    } else {
+      setActive(false);
     }
   }, []);
 
-  return null; // No need to render anything
+  return (
+    active && (
+      <div
+        style={{
+          position: "fixed",
+          zIndex: "9999999",
+          height: "100%",
+          width: "100%",
+          textAlign: "center",
+          backgroundColor: "white",
+        }}
+      >
+        <span style={{ lineHeight: "50vh" }}>يجب استخدام متصفح حديث</span>
+      </div>
+    )
+  );
 };
 
 function getBrowserInfo() {
