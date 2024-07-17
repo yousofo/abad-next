@@ -47,7 +47,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" dir="rtl">
       <head>
-      <Script strategy="beforeInteractive">
+      <Script id="borwserCheckingScript" strategy="beforeInteractive">
           {`(
           function() {
             function getBrowserInfo() {
