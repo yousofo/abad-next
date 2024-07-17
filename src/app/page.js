@@ -7,25 +7,27 @@ import PartnersSwiper from "@/components/shared/swipers/PartnersSwiper";
 import HomeCourses from "@/components/dataFetching/HomeCourses";
 
 export default function Home() {
+  // console.log(document.querySelectorAll("link[rel='preload'][as='style']"));
+  // document.querySelectorAll("link[rel='preload'][as='style']").forEach(link => link.rel = "stylesheet")
+
   return (
-    <main>
+    <main className="home">
       {/* HERO start  */}
-      <section className="hero h-dvh md:min-h-[600px] md:h-auto relative">
-        <div className="intro text-center absolute flex flex-col items-center justify-center gap-4 md:gap-7 text-white w-max max-w-full px-4">
-          <h2 className="text-2xl font-medium md:text-3xl lg:text-4xl xl:text-5xl max-w-60 sm:max-w-fit">
+      <section className="hero">
+        <div className="intro">
+          <h2>
             <span>تعلم بكل سهولة مع</span>
             &nbsp;
-            <span className="text-abad-gold whitespace-nowrap">اباد للتدريب</span>
+            <span >اباد للتدريب</span>
           </h2>
-          <h4 className="text-sm font-light word-spacing md:text-lg max-w-[650px] leading-loose md:leading-[2.5]">
+          <h4 className="word-spacing md:text-lg md:leading-[2.5]">
             معهد شبكة آباد للتدريب من المعاهد الرائدة في تقديم الدورات التطويرية
             المتخصصة في تقنية المعلومات.
           </h4>
           <a
             href="#"
-            className="bg-abad-gold flex items-center gap-5 rounded-xl p-2 px-4 text-black text-sm md:text-base"
           >
-            <span className="font-medium">ابدأ التعلم</span>
+            <span>ابدأ التعلم</span>
             <svg
               className="text-black rotate-180"
               xmlns="http://www.w3.org/2000/svg"
@@ -51,14 +53,14 @@ export default function Home() {
             </svg>
           </a>
         </div>
-        <div className="back-shape overflow-hidden w-full relative -z-10 h-full md:min-h-[600px] md:h-auto">
+        <div className="back-shape">
           <img
-            className="w-full h-full md:h-auto object-cover md:min-h-[600px]"
+            className="first"
             src="/media/BackgroundHero_rect.png"
             alt=""
           />
           <img
-            className="md:w-36 w-20 absolute top-[8vh] md:top-[10vh] right-0"
+            className="second"
             src="/media/hero-rectangle.png"
             alt=""
           />
@@ -66,24 +68,24 @@ export default function Home() {
       </section>
       {/* HERO end  */}
       {/* COURSES start */}
-      <section className="w-full h-fit relative -mt-20 sm:-mt-0">
+      <section className="courses-sec">
         <img
-          className="hidden xl:block absolute top-0 right-0 translate-x-[45%] w-64"
+          className=""
           src="/media/Animation - 1717986646627.gif"
           alt=""
         />
-        <HomeCourses/>
+        <HomeCourses />
       </section>
       {/* COURSES end   */}
       {/* PLAN start */}
-      <section className="plan relative p-10 overflow-hidden">
+      <section className="plan">
         <img
           src="/media/Share Section.png"
-          className="absolute left-0 top-0 w-full h-full object-cover -z-10"
+          className=""
           alt=""
         />
-        <div className="flex flex-col gap-6 md:flex-row container justify-between max-w-screen-lg mx-auto pt-6 md:pt-0">
-          <div className="flex items-center md:w-[45%]">
+        <div className="flex">
+          <div className="cards-title">
             <div className="about text-center md:text-start text-white flex flex-col gap-4 pt-16">
               <img
                 className="absolute w-32 top-5 right-5 lg:right-10"
@@ -131,7 +133,7 @@ export default function Home() {
               </button>
             </div>
           </div>
-          <div className="cards flex flex-wrap mx-auto flex-row gap-6 max-w-[500px]">
+          <div className="cards">
             <figure className="card">
               <div className="img">
                 <img src="/media/twitch.png" className="" alt="" />
@@ -185,24 +187,23 @@ export default function Home() {
       </section>
       {/* PLAN end */}
       {/* REVIEWS start */}
-      <section className="reviews relative p-10 overflow-hidden">
+      <section className="reviews">
         <img
           src="/media/Review Section.png"
-          className="absolute left-0 top-0 w-full h-full object-cover -z-10"
           alt=""
         />
-        <div className="container max-w-screen-lg mx-auto flex flex-col gap-5">
-          <h3 className="font-bold text-2xl md:text-4xl text-center text-[#172327]">
-            لماذا طلاب <span className="text-abad-gold">اباد للتدريب</span>
+        <div>
+          <h3>
+            لماذا طلاب <span>اباد للتدريب</span>
             <br />
-            <span className="inline-block py-2">يحبون التعلم معنا؟</span>
+            <span>يحبون التعلم معنا؟</span>
           </h3>
           {/* Slider main container */}
-          <div className="cards w-full">
+          <div className="cards">
             <div className="swiper-wrapper cards-wrapper">
               <ReviewsSwiper />
             </div>
-            <div className="flex justify-center gap-8 mt-8">
+            <div className="swiper-btns">
               <div className="swiper1-btn reviewsBtn swiper1-prev">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"

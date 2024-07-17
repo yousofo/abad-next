@@ -45,8 +45,8 @@ const Header = () => {
 
 
   return (
-    <header className="absolute w-full top-0 flex flex-col gap-4 z-50">
-      <div className="flex header-contact-bar text-white bg-[#334073] py-4 justify-center gap-8 noto">
+    <header className="">
+      <div className="header-contact-bar noto">
         <a className="hidden sm:inline-block" target="_blank" href="mailto:Info@abadnet.com.sa">
           <p>Info@abadnet.com.sa</p>
           <svg
@@ -184,17 +184,16 @@ const Header = () => {
           </svg>
         </a>
       </div>
-      <nav className="container max-w-screen-xl px-4 flex mx-auto justify-between items-center">
+      <nav className="container">
         {/* abad logo */}
-        <Link className="text-[#282828]" href="/">
+        <Link  href="/">
           <img
             src="/media/logos/abad-logo.png"
             alt=""
-            className="min-w-36 max-w-44 w-full"
           />
         </Link>
         {/* nav links */}
-        <ul className="nav-list cairo-font hidden absolute md:static md:flex flex-col md:flex-row bg-white md:bg-transparent p-4 lg:p-0 max-w-xl w-fit md:w-full justify-between items-center md:text-white text-sm lg:text-base px-4">
+        <ul className="nav-list cairo-font ">
           <li>
             <Link href="/">الرئيسية</Link>
           </li>
@@ -328,7 +327,7 @@ const Header = () => {
         ) : (
           <button
             href="#"
-            className="bg-abad-gold rounded-xl p-2 px-4 hidden md:block"
+            className=""
             onClick={() => dispatch(toggleSignIn())}
           >
             تسجيل الدخول
@@ -337,7 +336,7 @@ const Header = () => {
         {/* small screens nav icon */}
         <svg
           onClick={() => dispatch(toggleNavList())}
-          className="md:hidden toggle-nav-list cursor-pointer min-w-8"
+          className="toggle-nav-list"
           xmlns="http://www.w3.org/2000/svg"
           width={33}
           viewBox="0 0 31 28"
