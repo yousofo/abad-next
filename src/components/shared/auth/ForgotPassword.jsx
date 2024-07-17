@@ -1,7 +1,10 @@
 "use client";
-import { reset, toggleNewPassword } from "@/components/GlobalState/Features/authSlice";
+import {
+  reset,
+  toggleNewPassword,
+} from "@/components/GlobalState/Features/authSlice";
 import { useRouter } from "next/navigation";
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 async function fetchResetPassword(data) {
@@ -9,7 +12,7 @@ async function fetchResetPassword(data) {
     method: "GET",
     headers: {
       "Content-Type": "application/problem",
-    }
+    },
   });
   if (
     request.headers.get("Content-Type").includes("application/json") ||
@@ -32,16 +35,17 @@ async function fetchResetPassword(data) {
 }
 
 const ForgotPassword = () => {
+  const [error, setError] = useState(false)
   const forgotPassword = useSelector((state) => state.auth.forgotPassword);
   const dispatch = useDispatch();
-  let router = useRouter()
+  let router = useRouter();
   const mailRef = useRef(null);
   async function handleSubmit(e) {
-    e.preventDefault()
+    e.preventDefault();
     let result = await fetchResetPassword(mailRef.current.value);
-    console.log(result)
-    if(result.success){
-      dispatch(reset())
+    setError(!result.success)
+    if (result.success) {
+      dispatch(reset());
     }
   }
   return (
@@ -64,9 +68,9 @@ const ForgotPassword = () => {
             type="email"
             name=""
             placeholder="أدخل بريدك الإلكتروني"
-            // id=""
           />
         </div>
+        <p className="text-center text-xs text-red-500">{error && "البريد غير صحيح"}</p>
         <button className="login text-white font-bold" type="submit">
           ارسال
         </button>
