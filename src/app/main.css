@@ -2,8 +2,8 @@
   --abad-gold: #fdb614;
 }
 main {
- /* index page */
- /* contact page */
+  /* index page */
+  /* contact page */
 }
 main .hero {
   position: relative;
@@ -27,9 +27,9 @@ main .hero .intro {
 }
 main .hero .intro > h2 {
   font-size: 1.5rem;
- /* 24px */
+  /* 24px */
   line-height: 2rem;
- /* 32px */
+  /* 32px */
   font-weight: 500;
 }
 main .hero .intro > h2 span:nth-of-type(2) {
@@ -38,9 +38,9 @@ main .hero .intro > h2 span:nth-of-type(2) {
 }
 main .hero .intro > h4 {
   font-size: 1.5rem;
- /* 24px */
+  /* 24px */
   line-height: 2rem;
- /* 32px */
+  /* 32px */
   font-weight: 300;
   max-width: 650px;
   line-height: 2.5rem;
@@ -63,7 +63,7 @@ main .hero .intro > a {
   main .hero .intro > a {
     font-size: 1rem;
     line-height: 1.5rem;
- }
+  }
 }
 main .hero .intro > a span {
   font-weight: 500;
@@ -93,50 +93,50 @@ main .hero .back-shape .second {
 @media (min-width: 640px) {
   main .hero .intro h2 {
     max-width: fit-content;
- }
+  }
   main .hero .intro h4 {
     padding: 28px 0;
- }
+  }
 }
 @media (min-width: 768px) {
   main .hero {
     min-height: 600px;
     height: auto;
- }
+  }
   main .hero .intro h2 {
     font-size: 1.875rem;
-   /* 30px */
+    /* 30px */
     line-height: 2.25rem;
-   /* 36px */
- }
+    /* 36px */
+  }
   main .hero .back-shape {
     min-height: 600px;
     height: auto;
- }
+  }
   main .hero .back-shape .first {
     height: auto;
     min-height: 600px;
- }
+  }
   main .hero .back-shape .second {
     width: 9rem;
-   /* 144px */
+    /* 144px */
     top: 10vh;
- }
+  }
 }
 @media (min-width: 1024px) {
   main .hero .intro h2 {
     font-size: 2.25rem;
-   /* 36px */
+    /* 36px */
     line-height: 2.5rem;
-   /* 40px */
- }
+    /* 40px */
+  }
 }
 @media (min-width: 1280px) {
   main .hero .intro h2 {
     font-size: 3rem;
-   /* 48px */
+    /* 48px */
     line-height: 1;
- }
+  }
 }
 main .courses-sec {
   width: 100%;
@@ -155,7 +155,7 @@ main .courses-sec .home-courses > img {
 @media (min-width: 1280px) {
   main .courses-sec .home-courses > img {
     display: block;
- }
+  }
 }
 main .courses-sec .home-courses .courses-preview-mode {
   color: #0f1416;
@@ -178,7 +178,8 @@ main .courses-sec .home-courses .search-filter button {
   color: transparent;
   background-image: linear-gradient(83.79deg, #1b45b4 3.25%, #1c2792 96.85%);
 }
-main .courses-sec .home-courses .search-filter h3, main .courses-sec .home-courses .search-filter h4 {
+main .courses-sec .home-courses .search-filter h3,
+main .courses-sec .home-courses .search-filter h4 {
   color: #151318;
 }
 main .courses-sec .home-courses .search-filter label {
@@ -197,70 +198,85 @@ main .courses-sec .home-courses table td {
 main .courses-sec .home-courses table th {
   color: white;
 }
-main .courses-sec .home-courses table td, main .courses-sec .home-courses table th {
+main .courses-sec .home-courses table td,
+main .courses-sec .home-courses table th {
   display: block;
   padding: 2px;
   font-size: 12px;
   font-weight: 500;
   border: 1px solid transparent;
 }
-main .courses-sec .home-courses table td.course-name, main .courses-sec .home-courses table th.course-name {
+main .courses-sec .home-courses table td.course-name,
+main .courses-sec .home-courses table th.course-name {
   padding-top: 4px;
   font-size: 14px;
   font-weight: 500;
   flex-direction: column;
 }
-main .courses-sec .home-courses table td.course-name > div, main .courses-sec .home-courses table th.course-name > div {
+main .courses-sec .home-courses table td.course-name > div,
+main .courses-sec .home-courses table th.course-name > div {
   font-size: 10px !important;
   gap: 12px;
 }
-main .courses-sec .home-courses table td.course-name > div span, main .courses-sec .home-courses table th.course-name > div span {
+main .courses-sec .home-courses table td.course-name > div span,
+main .courses-sec .home-courses table th.course-name > div span {
   display: flex;
   align-items: center;
   gap: 3px;
 }
-main .courses-sec .home-courses table td.course-name > div span.online, main .courses-sec .home-courses table th.course-name > div span.online {
+main .courses-sec .home-courses table td.course-name > div span.online,
+main .courses-sec .home-courses table th.course-name > div span.online {
   color: #0dc00d;
 }
-main .courses-sec .home-courses table td.course-name > div span.in-person, main .courses-sec .home-courses table th.course-name > div span.in-person {
+main .courses-sec .home-courses table td.course-name > div span.in-person,
+main .courses-sec .home-courses table th.course-name > div span.in-person {
   color: #df2121;
 }
-main .courses-sec .home-courses table td.course-name > div span:nth-child(2), main .courses-sec .home-courses table th.course-name > div span:nth-child(2) {
+main .courses-sec .home-courses table td.course-name > div span:nth-child(2),
+main .courses-sec .home-courses table th.course-name > div span:nth-child(2) {
   color: #1b39a6;
 }
-main .courses-sec .home-courses table td.course-name p, main .courses-sec .home-courses table th.course-name p {
+main .courses-sec .home-courses table td.course-name p,
+main .courses-sec .home-courses table th.course-name p {
   font-weight: 700;
 }
 @media (min-width: 768px) {
-  main .courses-sec .home-courses table td.course-name, main .courses-sec .home-courses table th.course-name {
+  main .courses-sec .home-courses table td.course-name,
+  main .courses-sec .home-courses table th.course-name {
     font-size: 14px;
- }
-  main .courses-sec .home-courses table td.course-name > div, main .courses-sec .home-courses table th.course-name > div {
+  }
+  main .courses-sec .home-courses table td.course-name > div,
+  main .courses-sec .home-courses table th.course-name > div {
     order: 2 !important;
     font-size: 14px;
- }
-  main .courses-sec .home-courses table td.course-name p, main .courses-sec .home-courses table th.course-name p {
+  }
+  main .courses-sec .home-courses table td.course-name p,
+  main .courses-sec .home-courses table th.course-name p {
     font-weight: 500;
     order: 1 !important;
- }
+  }
 }
 @media (min-width: 768px) {
-  main .courses-sec .home-courses table td, main .courses-sec .home-courses table th {
+  main .courses-sec .home-courses table td,
+  main .courses-sec .home-courses table th {
     display: table-cell;
     padding: 16px !important;
- }
-  main .courses-sec .home-courses table td.course-start-date, main .courses-sec .home-courses table th.course-start-date {
+  }
+  main .courses-sec .home-courses table td.course-start-date,
+  main .courses-sec .home-courses table th.course-start-date {
     display: table-cell;
- }
+  }
 }
-main .courses-sec .home-courses table td:nth-child(3), main .courses-sec .home-courses table td:nth-child(2) {
+main .courses-sec .home-courses table td:nth-child(3),
+main .courses-sec .home-courses table td:nth-child(2) {
   font-size: 12px;
   font-weight: 400;
 }
 @media (min-width: 768px) {
-  main .courses-sec .home-courses table td:nth-child(3), main .courses-sec .home-courses table td:nth-child(2) {
+  main .courses-sec .home-courses table td:nth-child(3),
+  main .courses-sec .home-courses table td:nth-child(2) {
     font-weight: 500;
- }
+  }
 }
 main .courses-sec .home-courses table .btns {
   display: flex;
@@ -286,10 +302,10 @@ main .courses-sec .home-courses table .btns > * > * {
 @media (min-width: 768px) {
   main .courses-sec .home-courses table .btns {
     font-size: 12px;
- }
+  }
   main .courses-sec .home-courses table .btns > * {
     flex: auto;
- }
+  }
 }
 main .courses-sec .home-courses table .btns a:nth-child(1) button {
   background-color: #fdb614;
@@ -307,7 +323,7 @@ main .courses-sec .home-courses table tbody tr {
 @media (min-width: 640px) {
   main .courses-sec .home-courses table tbody tr {
     display: table-row;
- }
+  }
 }
 main .courses-sec .home-courses table td {
   font-size: 14px;
@@ -330,16 +346,16 @@ main .courses-sec .home-courses nav li button div svg {
 @media (min-width: 768px) {
   main .courses-sec .home-courses nav li {
     padding: 8px 12px;
- }
+  }
   main .courses-sec .home-courses nav li button {
     gap: 10px;
- }
+  }
   main .courses-sec .home-courses nav li button svg {
     min-width: 24px;
     min-height: 25px;
     width: 24px;
     height: max-content;
- }
+  }
 }
 main .courses-sec .home-courses nav li.active {
   color: white;
@@ -390,7 +406,14 @@ main .courses-sec .home-courses .courses-cards figure figcaption .course-date {
   padding-bottom: 12px;
   border-bottom: 1.01px solid rgba(0, 0, 0, 0.102);
 }
-main .courses-sec .home-courses .courses-cards figure figcaption .course-date div {
+main
+  .courses-sec
+  .home-courses
+  .courses-cards
+  figure
+  figcaption
+  .course-date
+  div {
   display: flex;
   align-items: center;
   gap: 8px;
@@ -409,41 +432,89 @@ main .courses-sec .home-courses .courses-cards figure figcaption .course-info {
   justify-content: space-between;
   font-weight: bold;
 }
-main .courses-sec .home-courses .courses-cards figure figcaption .course-info p:nth-child(1) {
- /* #5BB6D21A */
+main
+  .courses-sec
+  .home-courses
+  .courses-cards
+  figure
+  figcaption
+  .course-info
+  p:nth-child(1) {
+  /* #5BB6D21A */
   background-color: rgba(91, 182, 210, 0.102);
   border-radius: 4px;
   padding: 8px;
   font-size: 12px;
   color: #1b45b4;
 }
-main .courses-sec .home-courses .courses-cards figure figcaption .course-info p:nth-child(2) {
+main
+  .courses-sec
+  .home-courses
+  .courses-cards
+  figure
+  figcaption
+  .course-info
+  p:nth-child(2) {
   color: var(--abad-gold);
 }
-main .courses-sec .home-courses .courses-cards figure figcaption .course-attend {
+main
+  .courses-sec
+  .home-courses
+  .courses-cards
+  figure
+  figcaption
+  .course-attend {
   font-size: 10px !important;
   font-weight: 500;
   display: flex;
   gap: 12px;
 }
-main .courses-sec .home-courses .courses-cards figure figcaption .course-attend span {
+main
+  .courses-sec
+  .home-courses
+  .courses-cards
+  figure
+  figcaption
+  .course-attend
+  span {
   display: flex;
   align-items: center;
   gap: 3px;
 }
-main .courses-sec .home-courses .courses-cards figure figcaption .course-attend span.online {
+main
+  .courses-sec
+  .home-courses
+  .courses-cards
+  figure
+  figcaption
+  .course-attend
+  span.online {
   color: #0dc00d;
 }
-main .courses-sec .home-courses .courses-cards figure figcaption .course-attend span.in-person {
+main
+  .courses-sec
+  .home-courses
+  .courses-cards
+  figure
+  figcaption
+  .course-attend
+  span.in-person {
   color: #df2121;
 }
-main .courses-sec .home-courses .courses-cards figure figcaption .course-attend span:nth-child(2) {
+main
+  .courses-sec
+  .home-courses
+  .courses-cards
+  figure
+  figcaption
+  .course-attend
+  span:nth-child(2) {
   color: #1b45b4;
 }
 @media (min-width: 640px) {
   main .courses-sec {
     margin-top: 0;
- }
+  }
 }
 main .plan {
   position: relative;
@@ -472,7 +543,7 @@ main .plan > div {
   main .plan > div {
     padding-top: 0;
     flex-direction: row;
- }
+  }
 }
 main .plan > div .cards-title {
   display: flex;
@@ -481,7 +552,7 @@ main .plan > div .cards-title {
 @media (min-width: 768px) {
   main .plan > div .cards-title {
     width: 45%;
- }
+  }
 }
 main .plan > div .cards {
   display: flex;
@@ -543,27 +614,27 @@ main .reviews > div {
 @media (min-width: 640px) {
   main .reviews > div {
     max-width: 640px;
- }
+  }
 }
 @media (min-width: 768px) {
   main .reviews > div {
     max-width: 768px;
- }
+  }
 }
 @media (min-width: 1024px) {
   main .reviews > div {
     max-width: 1024px;
- }
+  }
 }
 @media (min-width: 1280px) {
   main .reviews > div {
     max-width: 1280px;
- }
+  }
 }
 @media (min-width: 1536px) {
   main .reviews > div {
     max-width: 1536px;
- }
+  }
 }
 main .reviews > div > h3 {
   font-size: 1.5rem;
@@ -576,7 +647,7 @@ main .reviews > div > h3 {
   main .reviews > div > h3 {
     font-size: 2.25rem;
     line-height: 2.5rem;
- }
+  }
 }
 main .reviews > div > h3 span:nth-of-type(1) {
   color: var(--abad-gold);
@@ -606,12 +677,28 @@ main .reviews > div .cards .cards-wrapper .card .card-wrapper .review-details {
   gap: 8px;
   font-family: "Noto Sans Arabic", sans-serif;
 }
-main .reviews > div .cards .cards-wrapper .card .card-wrapper .review-details h4 {
+main
+  .reviews
+  > div
+  .cards
+  .cards-wrapper
+  .card
+  .card-wrapper
+  .review-details
+  h4 {
   font-size: 18px;
   font-weight: bold;
   color: #1e1e1e;
 }
-main .reviews > div .cards .cards-wrapper .card .card-wrapper .review-details p {
+main
+  .reviews
+  > div
+  .cards
+  .cards-wrapper
+  .card
+  .card-wrapper
+  .review-details
+  p {
   font-size: 14px;
 }
 main .reviews > div .cards .cards-wrapper .card .card-wrapper .review-text {
@@ -625,7 +712,15 @@ main .reviews > div .cards .cards-wrapper .card .card-wrapper .review-stars {
   align-items: center;
   gap: 18px;
 }
-main .reviews > div .cards .cards-wrapper .card .card-wrapper .review-stars img {
+main
+  .reviews
+  > div
+  .cards
+  .cards-wrapper
+  .card
+  .card-wrapper
+  .review-stars
+  img {
   width: fit-content;
 }
 main .reviews > div .cards .swiper-btns {
@@ -646,7 +741,8 @@ main .reviews > div .cards .swiper1-btn {
   align-items: center;
   border-radius: 50%;
 }
-main .reviews > div .cards .swiper1-btn::before, main .reviews > div .cards .swiper1-btn::after {
+main .reviews > div .cards .swiper1-btn::before,
+main .reviews > div .cards .swiper1-btn::after {
   content: "";
   z-index: -1;
   left: 0;
@@ -674,33 +770,33 @@ main .reviews > div .cards .swiper1-btn.animate-review-btn::after {
 @keyframes growOpacityAni {
   from {
     opacity: 0;
- }
+  }
   to {
     opacity: 1;
- }
+  }
 }
 @keyframes reduceOpacityAni {
   from {
     opacity: 1;
- }
+  }
   to {
     opacity: 0;
- }
+  }
 }
 main .reviews > div .cards .swiper1-btn:focus-within {
- /* transition: 1s;
+  /* transition: 1s;
   background: #1e1e1e80;
   */
 }
 main .articles {
- /* padding: 12px;
+  /* padding: 12px;
   */
- /* max-width: 320px;
+  /* max-width: 320px;
   */
 }
 main .articles article {
   margin: 0 auto;
- /* @media (min-width: 767px) {
+  /* @media (min-width: 767px) {
     width: 32%;
  }
   */
@@ -746,17 +842,12 @@ main .contact form .input input {
 main .contact form .input input:focus::placeholder {
   display: none;
 }
-main .contact form .input input:not(:placeholder-shown) + span, main .contact form .input input:focus + span {
+main .contact form .input input:not(:placeholder-shown) + span,
+main .contact form .input input:focus + span {
   font-size: 10px;
   transform: translateY(-170%) !important;
 }
 body:has(.auth.flex) {
   height: 100vh;
   overflow: hidden;
-}
-.flex {
-  display: flex;
-}
-.hidden {
-  display: none;
 }
