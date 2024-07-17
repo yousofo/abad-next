@@ -70,9 +70,14 @@ header nav .nav-list {
 header nav .nav-list > li:nth-child(2) {
   display: flex;
   position: relative;
-  gap: 0.25rem;
   align-items: center;
   cursor: pointer;
+}
+header nav .nav-list > li:nth-child(2) img {
+  /* width: 10px; */
+  margin-right: 4px;
+  margin-top: 4px;
+  /* height: 7px; */
 }
 header nav .nav-list-drop {
   border-radius: 20px;

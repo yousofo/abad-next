@@ -31,7 +31,6 @@ const Header = () => {
       height="6"
       viewBox="0 0 9 6"
       fill={fill}
-      className={`h-fit p-1 w-max`}
       xmlns="http://www.w3.org/2000/svg"
     >
       <path
@@ -204,7 +203,7 @@ const Header = () => {
             onMouseLeave={closeCoursesNav}
           >
             <Link href="/courses">الدورات</Link>
-            <AngleBottom fill={"#ffffff"} />
+            <img src="/media/btns/angle-bottom.png" alt="" />
             <CoursesNav />
           </li>
           <li>
