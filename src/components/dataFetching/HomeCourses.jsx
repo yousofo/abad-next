@@ -372,7 +372,7 @@ const HomeCourses = () => {
         {/* courses table ROWS MODE */}
         <table className={`${isCards && "hidden "} courses-rows w-full`}>
           <thead className="bg-[#1D2A96]">
-            <tr className="abad-shadow rounded-lg hidden md:table-row">
+            <tr className="abad-shadow rounded-lg hidden md:!table-row">
               <th className="text-start">اسم الدورة</th>
               <th className="text-start">تاريخ بداية الدورة</th>
               <th className="text-start">وقت بداية الدورة</th>
@@ -380,7 +380,7 @@ const HomeCourses = () => {
             </tr>
           </thead>
           {/* rows data */}
-          <tbody className="flex flex-col gap-2 sm:table-row-group">
+          <tbody className="flex flex-col gap-2 sm:!table-row-group">
             {data.map((e, i) => (
               <CourseRow data={e} key={i} index={i} />
             ))}

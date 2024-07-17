@@ -514,3 +514,9 @@ body:has(.auth.flex) {
       overflow: hidden;
   }
 }
+.flex{
+  display: flex;
+}
+.hidden{
+  display: none;
+}

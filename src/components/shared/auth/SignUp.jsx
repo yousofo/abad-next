@@ -1,7 +1,5 @@
 "use client";
-import {
-  toggleSignIn,
-} from "@/components/GlobalState/Features/authSlice";
+import { toggleSignIn } from "@/components/GlobalState/Features/authSlice";
 import { useRouter } from "next/navigation";
 import React, { useRef, useState } from "react";
 import { useForm } from "react-hook-form";
@@ -45,7 +43,7 @@ async function sendRegisterData(data) {
     defaultValues: {
       arabicName: "test",
       englishName: "test",
-      idnumber: "tatat3tata",
+      idNumber: "tatat3tata",
       nationality: "سعودي",
       signUpEmail: "test3@test.com",
       phone: "12345890",
@@ -67,28 +65,16 @@ const SignUp = () => {
   const router = useRouter();
 
   const signUpForm = useForm();
-  const { register, handleSubmit, formState, setError } = signUpForm;
+  const { register, handleSubmit, formState, setError, reset } = signUpForm;
   // const { name,ref,onChange,onBlur}=register("id")
-  const { errors, isValid } = formState;
+  let { errors, isValid, isSubmitted } = formState;
 
   function switchAuthMode(e) {
     e.preventDefault();
     dispatch(toggleSignIn());
   }
-  //error message
-  //  {
-  //   type: "https://tools.ietf.org/html/rfc7231#section-6.5.1",
-  //   title: "One or more validation errors occurred.",
-  //   status: 400,
-  //   traceId: "00-652938194de0e48395a27597a325ad03-71ab6125b301a4bf-00",
-  //   errors: {
-  //     Email: ["البريد الإلكتروني غير صالح"],
-  //     Idnumber: ["رقم الهوية 10 رقم"],
-  //     Password: ["كلمة المرور لاتقل عن 6 حروف"],
-  //   },
-  // };
 
-  async function handleSubmitSignUp(formData) {
+  async function handleSubmitSignUp(formData, e) {
     setGeneralError("");
     console.log("hh");
     setLoading(true);
@@ -101,13 +87,18 @@ const SignUp = () => {
 
     if (result.errors) {
       console.log("errrrr");
+      console.log(Object.entries(result.errors))
       Object.entries(result.errors).forEach(([key, value]) => {
         if (key == "$.birthDate") {
-          setError("birthDate", { type: "manual", message: value });
+          setError("birthDate", { type: "manual", message: [...value] });
         } else if (key == "Password") {
-          setError("signUpPassword", { type: "manual", message: value });
+          setError("signUpPassword", { type: "manual", message: [...value] });
+        } else if (key == "Idnumber") {
+          setError("idNumber", { type: "manual", message: [...value] });
+        } else if (key == "ConfirmPassword") {
+          setError("confirmPassword", { type: "manual", message: [...value] });
         } else {
-          setError(`${key}`, { type: "manual", message: value });
+          setError(`${key}`, { type: "manual", message: [...value] });
         }
       });
     } else if (result.message) {
@@ -181,14 +172,14 @@ const SignUp = () => {
             required
             type="text"
             name=""
-            id="idnumber"
-            {...register("idnumber", {
+            id="idNumber"
+            {...register("idNumber", {
               required: "يجب كتابة رقم الهوية",
             })}
             placeholder="ادخل رقم الهوية"
           />
           <p className="text-xs my-1 text-red-500">
-            {errors.idnumber?.message}
+            {errors.idNumber?.message}
           </p>
         </div>
         {/* nationality ! */}
@@ -291,8 +282,8 @@ const SignUp = () => {
             type="text"
             name=""
             id="educationsType"
-            {...register("educationsType",{
-              required:"يجب اختيار الؤهل العملي"
+            {...register("educationsType", {
+              required: "يجب اختيار الؤهل العملي",
             })}
             placeholder="اكتب المؤهل التعليمي"
           />
@@ -367,10 +358,11 @@ const SignUp = () => {
         {/* sign up BUTTON */}
         <button
           className="login text-white font-bold"
-          type="submit"
           form="signUpForm"
           onClick={() => {
             console.log("clicked");
+            console.log(isSubmitted);
+            reset(undefined, { keepDirtyValues: true });
             handleSubmit(handleSubmitSignUp);
           }}
         >
