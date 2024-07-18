@@ -37,15 +37,15 @@ async function fetchResetPassword(data) {
 const ForgotPassword = () => {
   const forgotPassword = useSelector((state) => state.auth.forgotPassword);
   const [error, setError] = useState(false)
-  const [checkEmail, setCheckEmail] = useState(forgotPassword?"":"");
+  const [loading, setLoading] = useState(false)
+  const [checkEmail, setCheckEmail] = useState("");
 
-  if(forgotPassword){
-    setCheckEmail("")
-  }
+
   const dispatch = useDispatch();
   let router = useRouter();
   const mailRef = useRef(null);
   async function handleSubmit(e) {
+    setLoading(true)
     e.preventDefault();
     let result = await fetchResetPassword(mailRef.current.value);
     setError(!result.success)
@@ -53,9 +53,10 @@ const ForgotPassword = () => {
       // dispatch(reset());
       setCheckEmail("تفقد بريدك الألكتروني")
     }
+    setLoading(false)
   }
   return (
-    <div className={`${!forgotPassword && "hidden"} flex flex-col  gap-10 `}>
+    <div className={`${!forgotPassword && "hidden"} relative flex flex-col  gap-10 `}>
       <div className="flex flex-col gap-3">
         <h2 className="text-[22px] sm:text-3xl font-bold text-[#03133D]">
           نسيت كلمة السر؟
@@ -88,6 +89,17 @@ const ForgotPassword = () => {
           ارسال
         </button>
       </form>
+      {/* loader */}
+      <div
+        className={`${
+          !loading && "hidden"
+        } absolute z-10 w-24 h-24 pointer-events-none left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2`}
+      >
+        <div className="animate-spin border-4 rounded-full h-full border-green-500 border-r-transparent bg-white bg-opacity-70"></div>
+        <span className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 leading-[96px] text-xs whitespace-nowrap">
+          جاري التفقد
+         </span>
+      </div>
     </div>
   );
 };
