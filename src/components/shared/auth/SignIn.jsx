@@ -78,9 +78,7 @@ const SignIn = () => {
   }
   return (
     <div
-      className={`${
-        !isSignIn && "hidden"
-      } flex flex-col w-full md:w-[573px] flex-1 gap-10 max-w-[573px] relative`}
+      className={`flex flex-col w-full md:w-[573px] flex-1 gap-10 max-w-[573px] relative`}
     >
       <div className="flex flex-col gap-3">
         <h2 className="text-[22px] sm:text-3xl font-bold">

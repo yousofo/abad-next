@@ -38,24 +38,7 @@ async function sendRegisterData(data) {
     }
   }
 }
-/*
-{
-    defaultValues: {
-      arabicName: "test",
-      englishName: "test",
-      idNumber: "tatat3tata",
-      nationality: "سعودي",
-      signUpEmail: "test3@test.com",
-      phone: "12345890",
-      birthDate: "2024-07-04",
-      gender: "ذكر",
-      educationsType: "test",
-      city: "مكة",
-      password: "testtest",
-      confirmPassword: "testtest",
-    },
-  }
-*/
+
 const SignUp = () => {
   const [loading, setLoading] = useState(false);
   const [generalError, setGeneralError] = useState("");

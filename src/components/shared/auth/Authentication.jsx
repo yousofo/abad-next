@@ -12,6 +12,7 @@ const Authentication = () => {
   const isHidden = useSelector((e) => e.auth.isHidden);
   const isSignUp = useSelector((e) => e.auth.signUp);
   const isForgotPassword = useSelector((state) => state.auth.forgotPassword);
+  const isSignIn = useSelector((state) => state.auth.signIn);
 
   const dispatch = useDispatch();
   function handleAuthClose() {
@@ -29,8 +30,8 @@ const Authentication = () => {
           isSignUp && "w-[814px]"
         } max-w-[814px]`}
       >
-        <SignIn />
-        <SignUp />
+        {isSignIn && <SignIn />}
+        {isSignUp && <SignUp />}
         <PasswordReassigned />
         {isForgotPassword && <ForgotPassword />}
       </div>
