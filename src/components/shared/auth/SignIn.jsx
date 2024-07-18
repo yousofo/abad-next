@@ -107,7 +107,7 @@ const SignIn = () => {
           <input
             ref={password}
             required
-            type="email"
+            type="password"
             name=""
             placeholder="أدخل كلمة المرور"
             // id=""
