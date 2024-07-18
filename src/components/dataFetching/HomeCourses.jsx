@@ -15,6 +15,7 @@ const HomeCourses = () => {
 
   useEffect(() => {
     fetch("/api/proxy", {
+      method:"GET",
       headers: {
         "Cache-Control":
           "no-store, no-cache, must-revalidate, proxy-revalidate",
@@ -23,9 +24,11 @@ const HomeCourses = () => {
         "Surrogate-Control": "no-store",
       },
     })
-      .then((response) => response.json())
+      .catch((e) => console.log("home courses failed"))
+      .then((response) => {
+        return response.json();
+      })
       .then((data) => {
-        console.log(data);
         dispatch(setHomeCourses(data));
         setData(data);
       });
@@ -118,7 +121,7 @@ const HomeCourses = () => {
               </li>
               <li data-filter="design">
                 <button>
-                  <div >
+                  <div>
                     <svg
                       width="36"
                       height="34"
@@ -149,7 +152,7 @@ const HomeCourses = () => {
               </li>
               <li data-filter="programming">
                 <button>
-                  <div >
+                  <div>
                     <svg
                       width="36"
                       height="34"
@@ -180,7 +183,7 @@ const HomeCourses = () => {
               </li>
               <li data-filter="finance">
                 <button>
-                  <div >
+                  <div>
                     <svg
                       width="36"
                       height="34"
@@ -209,9 +212,9 @@ const HomeCourses = () => {
                   <span>المالية</span>
                 </button>
               </li>
-              <li  data-filter="art">
+              <li data-filter="art">
                 <button>
-                  <div >
+                  <div>
                     <svg
                       width="36"
                       height="34"
@@ -240,9 +243,9 @@ const HomeCourses = () => {
                   <span>الفن</span>
                 </button>
               </li>
-              <li  data-filter="science">
+              <li data-filter="science">
                 <button>
-                  <div >
+                  <div>
                     <svg
                       width="36"
                       height="34"
@@ -271,9 +274,9 @@ const HomeCourses = () => {
                   <span>العلوم</span>
                 </button>
               </li>
-              <li  data-filter="big-data">
+              <li data-filter="big-data">
                 <button>
-                  <div >
+                  <div>
                     <svg
                       width="36"
                       height="34"
@@ -302,9 +305,9 @@ const HomeCourses = () => {
                   <span>البيانات الكبيرة</span>
                 </button>
               </li>
-              <li  data-filter="art">
+              <li data-filter="art">
                 <button>
-                  <div >
+                  <div>
                     <svg
                       width="36"
                       height="34"
@@ -360,10 +363,7 @@ const HomeCourses = () => {
               </defs>
             </svg>
 
-            <input
-              type="text"
-              placeholder="ابحث عن اسم الدورة..."
-            />
+            <input type="text" placeholder="ابحث عن اسم الدورة..." />
           </div>
         </div>
         {/* courses table ROWS MODE */}
