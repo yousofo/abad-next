@@ -25,12 +25,12 @@ async function fetchSignIn(data) {
     const dataToReturn = await request.json();
     console.log(dataToReturn);
     if (dataToReturn.errors) {
-      let messages = Object.entries(dataToReturn.errors).map(([key,value])=>{
-        return value
-      })
-      return messages
-    }else{
-      return dataToReturn
+      let messages = Object.entries(dataToReturn.errors).map(([key, value]) => {
+        return value;
+      });
+      return messages;
+    } else {
+      return dataToReturn;
     }
   } else {
     const dataToReturn = await request.text();
@@ -42,6 +42,7 @@ async function fetchSignIn(data) {
 //
 //
 const SignIn = () => {
+  const [loading, setLoading] = useState(false);
   const isSignIn = useSelector((state) => state.auth.signIn);
   const error = useSelector((state) => state.auth.signInError);
   const dispatch = useDispatch();
@@ -57,6 +58,7 @@ const SignIn = () => {
 
   async function handleSignIn(e) {
     e.preventDefault();
+    setLoading(true);
     const result = await fetchSignIn({
       email: email.current.value,
       password: password.current.value,
@@ -66,18 +68,19 @@ const SignIn = () => {
       dispatch(toggleSignedIn());
       dispatch(reset());
     } else {
-      if(result.message){
+      if (result.message) {
         dispatch(addSignInError(result.message));
-      }else{
+      } else {
         dispatch(addSignInError(result.join("*")));
       }
     }
+    setLoading(false)
   }
   return (
     <div
       className={`${
         !isSignIn && "hidden"
-      } flex flex-col w-full md:w-[573px] flex-1 gap-10 max-w-[573px] `}
+      } flex flex-col w-full md:w-[573px] flex-1 gap-10 max-w-[573px] relative`}
     >
       <div className="flex flex-col gap-3">
         <h2 className="text-[22px] sm:text-3xl font-bold">
@@ -159,6 +162,17 @@ const SignIn = () => {
             سجل الان
           </button>
         </p>
+      </div>
+      {/* loader */}
+      <div
+        className={`${
+          !loading && "hidden"
+        } absolute z-10 w-24 h-24 pointer-events-none left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2`}
+      >
+        <div className="animate-spin border-4 rounded-full h-full border-green-500 border-r-transparent bg-white bg-opacity-70"></div>
+        <span className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 leading-[96px] text-xs whitespace-nowrap">
+          جاري التسجيل
+        </span>
       </div>
     </div>
   );

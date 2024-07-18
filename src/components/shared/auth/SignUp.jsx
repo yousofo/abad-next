@@ -104,7 +104,11 @@ const SignUp = () => {
     } else if (result.message) {
       dispatch(toggleSignIn());
     } else {
-      setGeneralError(result);
+      if(result.error){
+        setGeneralError(result.error);
+      }else{
+        setGeneralError(result);
+      }
     }
     console.log(errors);
     console.log(result);

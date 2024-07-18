@@ -1,4 +1,5 @@
 "use client";
+import "./homeCourses.css";
 import React, { useEffect, useState } from "react";
 import CourseRow from "../shared/tables/CourseRow";
 import { useDispatch, useSelector } from "react-redux";
@@ -13,17 +14,18 @@ const HomeCourses = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    fetch("/api/proxy",{
+    fetch("/api/proxy", {
       headers: {
-        'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate',
-        'Pragma': 'no-cache',
-        'Expires': '0',
-        'Surrogate-Control': 'no-store'
-      }
+        "Cache-Control":
+          "no-store, no-cache, must-revalidate, proxy-revalidate",
+        Pragma: "no-cache",
+        Expires: "0",
+        "Surrogate-Control": "no-store",
+      },
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log(data)
+        console.log(data);
         dispatch(setHomeCourses(data));
         setData(data);
       });
@@ -34,22 +36,19 @@ const HomeCourses = () => {
   }
 
   return (
-    <div className="flex flex-col items-center gap-4 sm:gap-6 md:gap-8 home-courses container px-1 max-w-screen-lg pb-5 sm:py-10 py-10 mx-auto min-h-[450px]">
+    <div className="home-courses">
       {/* courses preview mode options */}
-      <div className="flex justify-between items-center w-full px-2">
-        <h3 className="text-base md:text-4xl font-bold text-[#1E1E1E]">
-          دورات أباد للتدريب
-        </h3>
-        <ul className="flex justify-center items-center gap-2">
+      <div className="courses-preview-mode ">
+        <h3>دورات أباد للتدريب</h3>
+        <ul>
           <li
             data-mode="rows"
             onClick={handleCoursesPreviewMode}
             className={`${
               !isCards && "active"
-            } courses-preview-mode courses-preview-rows p-2 rounded-lg cursor-pointer`}
+            } courses-preview-mode courses-preview-rows `}
           >
             <svg
-              className="  "
               width={22}
               height={14}
               viewBox="0 0 22 14"
@@ -69,10 +68,9 @@ const HomeCourses = () => {
             data-mode="cards"
             className={`${
               isCards && "active"
-            } courses-preview-mode courses-preview-rows p-2 rounded-lg cursor-pointer`}
+            } courses-preview-mode courses-preview-rows`}
           >
             <svg
-              className="  "
               width={22}
               height={22}
               viewBox="0 0 22 22"
@@ -107,11 +105,12 @@ const HomeCourses = () => {
           </li>
         </ul>
       </div>
-      <div className="flex flex-col items-center gap-4 md:gap-6  w-full">
-        <div className="flex flex-col items-center gap-4 md:gap-6  w-full px-2">
+      {/* main courses content */}
+      <div className=" courses-contents ">
+        <div>
           {/* courses filter */}
-          <nav className="courses-filter text-[11px] md:text-sm w-full abad-drop-shadow rounded-full py-3 px-4">
-            <ul className="flex gap-1 md:gap-0 md:justify-between w-full font-bold items-center">
+          <nav className="courses-filter abad-drop-shadow">
+            <ul className="">
               <li className="active" data-filter="all">
                 <button>
                   <span>الكل</span>
@@ -119,7 +118,7 @@ const HomeCourses = () => {
               </li>
               <li data-filter="design">
                 <button>
-                  <div className="p-1 bg-black bg-opacity-5 rounded-full">
+                  <div >
                     <svg
                       width="36"
                       height="34"
@@ -150,7 +149,7 @@ const HomeCourses = () => {
               </li>
               <li data-filter="programming">
                 <button>
-                  <div className="p-1 bg-black bg-opacity-5 rounded-full">
+                  <div >
                     <svg
                       width="36"
                       height="34"
@@ -181,7 +180,7 @@ const HomeCourses = () => {
               </li>
               <li data-filter="finance">
                 <button>
-                  <div className="p-1 bg-black bg-opacity-5 rounded-full">
+                  <div >
                     <svg
                       width="36"
                       height="34"
@@ -210,9 +209,9 @@ const HomeCourses = () => {
                   <span>المالية</span>
                 </button>
               </li>
-              <li className="hidden md:list-item" data-filter="art">
+              <li  data-filter="art">
                 <button>
-                  <div className="p-1 bg-black bg-opacity-5 rounded-full">
+                  <div >
                     <svg
                       width="36"
                       height="34"
@@ -241,9 +240,9 @@ const HomeCourses = () => {
                   <span>الفن</span>
                 </button>
               </li>
-              <li className="hidden md:list-item" data-filter="science">
+              <li  data-filter="science">
                 <button>
-                  <div className="p-1 bg-black bg-opacity-5 rounded-full">
+                  <div >
                     <svg
                       width="36"
                       height="34"
@@ -272,9 +271,9 @@ const HomeCourses = () => {
                   <span>العلوم</span>
                 </button>
               </li>
-              <li className="hidden md:list-item" data-filter="big-data">
+              <li  data-filter="big-data">
                 <button>
-                  <div className="p-1 bg-black bg-opacity-5 rounded-full">
+                  <div >
                     <svg
                       width="36"
                       height="34"
@@ -303,9 +302,9 @@ const HomeCourses = () => {
                   <span>البيانات الكبيرة</span>
                 </button>
               </li>
-              <li className="hidden md:list-item" data-filter="art">
+              <li  data-filter="art">
                 <button>
-                  <div className="p-1 bg-black bg-opacity-5 rounded-full">
+                  <div >
                     <svg
                       width="36"
                       height="34"
@@ -337,9 +336,8 @@ const HomeCourses = () => {
             </ul>
           </nav>
           {/* search courese */}
-          <div className="flex items-center gap-2 sm:gap-2.5 abad-drop-shadow  p-3 sm:p-4 md:p-6 w-full rounded-full">
+          <div className="search-courses abad-drop-shadow">
             <svg
-              className="w-5 md:w-[32px] h-5 md:h-[32px]"
               viewBox="0 0 33 32"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
@@ -364,23 +362,25 @@ const HomeCourses = () => {
 
             <input
               type="text"
-              className="font-medium flex-1 text-xs sm:text-sm md:text-base focus:outline-none text-[#A79FB3]"
               placeholder="ابحث عن اسم الدورة..."
             />
           </div>
         </div>
         {/* courses table ROWS MODE */}
-        <table className={`${isCards && "hidden "} courses-rows w-full`}>
-          <thead className="bg-[#1D2A96]">
-            <tr className="abad-shadow rounded-lg hidden md:!table-row">
-              <th className="text-start">اسم الدورة</th>
-              <th className="text-start">تاريخ بداية الدورة</th>
-              <th className="text-start">وقت بداية الدورة</th>
-              <th className="text-start">الاجراءات</th>
+        <table
+          style={{ display: `${isCards ? "none" : "table"}` }}
+          className={` courses-rows`}
+        >
+          <thead>
+            <tr className="abad-shadow">
+              <th>اسم الدورة</th>
+              <th>تاريخ بداية الدورة</th>
+              <th>وقت بداية الدورة</th>
+              <th>الاجراءات</th>
             </tr>
           </thead>
           {/* rows data */}
-          <tbody className="flex flex-col gap-2 sm:!table-row-group">
+          <tbody>
             {data.map((e, i) => (
               <CourseRow data={e} key={i} index={i} />
             ))}
@@ -388,7 +388,8 @@ const HomeCourses = () => {
         </table>
         {/* courses table CARDS MODE */}
         <div
-          className={`${!isCards && "!hidden "} courses-cards min-h-[400px]`}
+          style={{ display: `${!isCards ? "none" : "grid"}` }}
+          className={` courses-cards `}
         >
           {data.map((e, i) => (
             <Link key={i} href={`/courses/${1}`}>
@@ -398,17 +399,9 @@ const HomeCourses = () => {
         </div>
       </div>
       {/* link to all courses page */}
-      <Link
-        href="/courses"
-        className="text-white text-[11px] mt-2 sm:mt-0 md:mb-10 sm:text-base cursor-pointer font-medium px-10 py-4 show-all flex items-center gap-5 rounded-xl"
-      >
+      <Link href="/courses" className="show-all">
         <span>عرض الكل</span>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          className={`w-4 h-4 sm:w-6 sm:h-6`}
-          viewBox="0 0 24 24"
-          fill="none"
-        >
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none">
           <path
             d="M19 12H5"
             stroke="white"

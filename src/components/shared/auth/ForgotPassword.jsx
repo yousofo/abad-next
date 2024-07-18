@@ -35,8 +35,13 @@ async function fetchResetPassword(data) {
 }
 
 const ForgotPassword = () => {
-  const [error, setError] = useState(false)
   const forgotPassword = useSelector((state) => state.auth.forgotPassword);
+  const [error, setError] = useState(false)
+  const [checkEmail, setCheckEmail] = useState(forgotPassword?"":"");
+
+  if(forgotPassword){
+    setCheckEmail("")
+  }
   const dispatch = useDispatch();
   let router = useRouter();
   const mailRef = useRef(null);
@@ -45,7 +50,8 @@ const ForgotPassword = () => {
     let result = await fetchResetPassword(mailRef.current.value);
     setError(!result.success)
     if (result.success) {
-      dispatch(reset());
+      // dispatch(reset());
+      setCheckEmail("تفقد بريدك الألكتروني")
     }
   }
   return (
@@ -71,6 +77,13 @@ const ForgotPassword = () => {
           />
         </div>
         <p className="text-center text-xs text-red-500">{error && "البريد غير صحيح"}</p>
+        <p
+          className={`${
+            !checkEmail && "hidden"
+          } text-center  text-xs text-green-600`}
+        >
+          {checkEmail}
+        </p>
         <button className="login text-white font-bold" type="submit">
           ارسال
         </button>
