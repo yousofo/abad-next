@@ -2,7 +2,7 @@
 import react, { useEffect, useState } from "react";
 
 const BrowserWarning = () => {
-  const [active, setActive] = useState(true);
+  const [active, setActive] = useState(false);
   useEffect(() => {
     const { browserName, browserVersion } = getBrowserInfo();
     console.log("hi");
@@ -18,9 +18,7 @@ const BrowserWarning = () => {
       outdatedBrowsers[browserName] &&
       parseFloat(browserVersion) < parseFloat(outdatedBrowsers[browserName])
     ) {
-      // alert(`You are using ${browserName} ${browserVersion}. Please update your browser or switch to a modern browser for the best experience.`);
-    } else {
-      setActive(false);
+      setActive(true);
     }
   }, []);
 
