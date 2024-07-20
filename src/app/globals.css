@@ -62,16 +62,14 @@ body {
   min-height: 100dvh;
   position: relative;
   justify-content: space-between;
-  main{
-    .hero {
-      position: relative;
-      .intro {
-        left: 50%;
-        top: 50%;
-        transform: translate(-50%, -50%);
-      }
-    }
-  }
+}
+body main .hero {
+  position: relative;
+}
+body main .hero .intro {
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
 }
 .abad-shadow {
   box-shadow: 0 -1px 3px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.1);
