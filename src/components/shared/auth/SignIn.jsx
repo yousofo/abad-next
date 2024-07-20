@@ -74,13 +74,11 @@ const SignIn = () => {
         dispatch(addSignInError(result.join("*")));
       }
     }
-    setLoading(false)
+    setLoading(false);
   }
   return (
-    <div
-      className={`flex flex-col w-full md:w-[573px] flex-1 gap-10 max-w-[573px] relative`}
-    >
-      <div className="flex flex-col gap-3">
+    <div className={`auth-signin`}>
+      <div>
         <h2 className="text-[22px] sm:text-3xl font-bold">
           <span className="text-[#03133D]">تسجيل الدخول إلى</span>
           &nbsp;
@@ -90,7 +88,7 @@ const SignIn = () => {
           املأ بريدك الإلكتروني وكلمة المرور لتسجيل الدخول
         </p>
       </div>
-      <form action="" className="flex flex-col gap-4">
+      <form action="">
         <div className="input">
           <label htmlFor="">عنوان البريد الإلكتروني</label>
           <input
@@ -139,7 +137,7 @@ const SignIn = () => {
           تسجيل الدخول
         </button>
       </form>
-      <div className="flex flex-col items-center gap-2">
+      <div>
         <span
           className={`${
             !error && "hidden"

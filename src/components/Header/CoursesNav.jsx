@@ -2,17 +2,12 @@ import React, { act, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 const NavListItem = ({ handleNavListItem, index }) => {
   return (
-    <>
-      <li className="relative">
-        <button
-          className="flex items-center gap-16"
-          onClick={(e) => handleNavListItem(e, index)}
-        >
-          <span>دورات سيسكو</span>
-          <AngleBottom fill={"#000000"} />
-        </button>
-      </li>
-    </>
+    <li>
+      <button onClick={(e) => handleNavListItem(e, index)}>
+        <span>دورات سيسكو</span>
+        <AngleBottom fill={"#000000"} />
+      </button>
+    </li>
   );
 };
 const AngleBottom = ({ fill }) => (
@@ -21,7 +16,7 @@ const AngleBottom = ({ fill }) => (
     height="6"
     viewBox="0 0 9 6"
     fill={fill}
-    className={`h-fit pt-1`}
+    style={{ height: "fit-content", borderTop: "0.25rem" }}
     xmlns="http://www.w3.org/2000/svg"
   >
     <path
@@ -48,11 +43,11 @@ const CoursesNav = () => {
     dispatch(toggleCoursesNav());
   }
   return (
-    <div className={`absolute text-sm right-0 -bottom-4 flex  h-fit translate-y-full`}>
+    <div>
       <ul
-        className={`relative w-max h-fit left-corner overflow-hidden drop-shadow mini-nav courses-nav courses-nav-1 z-10  ${
+        className={`left-corner mini-nav courses-nav courses-nav-1  ${
           isCoursesNav ? "max-h-[300px]" : "max-h-0"
-        } transition-all gap-1`}
+        }`}
       >
         <NavListItem handleNavListItem={handleNavListItem} index={0} />
         <NavListItem handleNavListItem={handleNavListItem} index={1} />
@@ -60,13 +55,13 @@ const CoursesNav = () => {
         <NavListItem handleNavListItem={handleNavListItem} index={3} />
       </ul>
 
-      <ul
-        className={`  text-black right-corner relative h-fit w-max drop-shadow bg-white overflow-hidden flex flex-col  mini-nav courses-nav z-10`}
-      >
+      <ul className={`right-corner mini-nav courses-nav `}>
         <li
-          className={`${
-            active && isCoursesNav && current % 2 == 0 ? "max-h-[280px]" : "max-h-0"
-          } transition-all !border-0 overflow-hidden no-padding`}
+          className={`no-padding`}
+          style={{
+            maxHeight:
+              active && isCoursesNav && current % 2 == 0 ? "280px" : "0",
+          }}
         >
           <ul>
             <li>شهادة سيسكو المعتمدة CCNA 200-301</li>
@@ -77,9 +72,11 @@ const CoursesNav = () => {
           </ul>
         </li>
         <li
-          className={`${
-            active && isCoursesNav && current % 2 != 0 ? "max-h-[280px]" : "max-h-0"
-          } transition-all overflow-hidden no-padding`}
+          className={`transition-all overflow-hidden no-padding`}
+          style={{
+            maxHeight:
+              active && isCoursesNav && current % 2 == 0 ? "280px" : "0",
+          }}
         >
           <ul>
             <li>شهادة سيسكو المعتمدة CCNA 200-301</li>

@@ -1,4 +1,5 @@
 "use client";
+import "./courseRow.css";
 import { toggleEnlistInCourse } from "@/components/GlobalState/Features/popUpsSlice";
 import Link from "next/link";
 import React from "react";
@@ -16,13 +17,12 @@ const CourseRow = ({ index, data }) => {
       data-time="من 06:00 م حتى 10:00 م"
       data-price="1500 ريال سعودي"
       category-id="1"
-      className={`${
-        index % 2 == 0 ? "bg-white" : "bg-[#F5F5F5]"
-      } shadow row rounded-lg overflow-hidden`}
+      style={{ backgroundColor: index % 2 == 0 ? "bg-white" : "bg-[#F5F5F5]" }}
+      className={` row course-row`}
     >
       <td className="course-name">
         <p>{data.courseName}</p>
-        <div className="hidden sm:flex">
+        <div>
           <span className={`${isOnline ? "online" : "in-person"}`}>
             <svg
               width="10"
@@ -38,7 +38,7 @@ const CourseRow = ({ index, data }) => {
             </svg>
             {data.isOnline}
           </span>
-          <span className={`${!hadaf && "!hidden"} ttt`}>
+          <span style={{ display: !hadaf ? "none" : "flex" }}>
             <svg
               width="10"
               height="10"
@@ -51,22 +51,20 @@ const CourseRow = ({ index, data }) => {
                 fill="currentColor"
               />
             </svg>
-            {data.hadaf}
+            {hadaf}
           </span>
         </div>
       </td>
-      <td className="course-start-date flex items-center">
-        <span className="sm:hidden">بداية الدورة</span>
-        <span className="px-1 sm:hidden">:</span>
-        <span className="font-medium">
-          {data.startDate.split("-").join("/")}
-        </span>
+      <td className="course-start-date">
+        <span>بداية الدورة</span>
+        <span>:</span>
+        <span>{data.startDate.split("-").join("/")}</span>
       </td>
       <td>
-        <span className="sm:hidden">التوقيت</span>
-        <span className="px-1 sm:hidden">:</span>
-
-        <span className="font-medium">
+        <span>التوقيت</span>
+        <span>:</span>
+        &nbsp;
+        <span>
           <span>من</span>
           &nbsp;
           <span>
@@ -84,8 +82,8 @@ const CourseRow = ({ index, data }) => {
           </span>
         </span>
       </td>
-      <td className="course-name !pb-2 sm:!hidden">
-        <div className="flex sm:hidden">
+      <td className="course-name">
+        <div>
           <span className={`${isOnline ? "online" : "in-person"}`}>
             <svg
               width="10"
@@ -101,7 +99,7 @@ const CourseRow = ({ index, data }) => {
             </svg>
             {data.isOnline}
           </span>
-          <span className={`${!hadaf && "!hidden"} ttt`}>
+          <span style={{ display: !hadaf ? "!hidden" : "inline" }}>
             <svg
               width="10"
               height="10"
@@ -114,7 +112,7 @@ const CourseRow = ({ index, data }) => {
                 fill="#1B45B4"
               />
             </svg>
-            {data.hadaf}
+            {hadaf}
           </span>
         </div>
       </td>

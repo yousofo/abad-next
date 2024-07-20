@@ -1,11 +1,13 @@
 "use client";
 import "./homeCourses.css";
 import React, { useEffect, useState } from "react";
-import CourseRow from "../shared/tables/CourseRow";
+import Link from "next/link";
+// redux tool kit
 import { useDispatch, useSelector } from "react-redux";
 import { setHomeCourses } from "../GlobalState/Features/fetchedDataSlice";
-import Link from "next/link";
 import { toggleCards } from "../GlobalState/Features/coursesFilterSlice";
+// components
+import CourseRow from "../shared/tables/CourseRow";
 import CourseCard from "../shared/tables/CourseCard";
 
 const HomeCourses = () => {

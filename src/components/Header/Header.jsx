@@ -6,7 +6,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { reset, toggleSignIn } from "../GlobalState/Features/authSlice";
 import { toggleNavList } from "../GlobalState/Features/navListSlice";
 import { toggleMiniNav } from "../GlobalState/Features/miniNavSlice";
-import { resetCoursesNav, toggleCoursesNav } from "../GlobalState/Features/coursesNavSlice";
+import {
+  resetCoursesNav,
+  toggleCoursesNav,
+} from "../GlobalState/Features/coursesNavSlice";
 import CoursesNav from "./CoursesNav";
 
 const Header = () => {
@@ -19,8 +22,8 @@ const Header = () => {
   function handleCoursesNav() {
     dispatch(toggleCoursesNav());
   }
-  function closeCoursesNav(){
-    dispatch(resetCoursesNav())
+  function closeCoursesNav() {
+    dispatch(resetCoursesNav());
   }
   function handleSignOut() {
     dispatch(reset());
@@ -42,11 +45,13 @@ const Header = () => {
     </svg>
   );
 
-
   return (
     <header className="">
       <div className="header-contact-bar noto">
-        <a className="hidden sm:inline-block" target="_blank" href="mailto:Info@abadnet.com.sa">
+        <a
+          target="_blank"
+          href="mailto:Info@abadnet.com.sa"
+        >
           <p>Info@abadnet.com.sa</p>
           <svg
             width="23"
@@ -93,7 +98,6 @@ const Header = () => {
             viewBox="0 0 25 24"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
-            className="w-[19px] sm:w-[25px]"
           >
             <g clipPath="url(#clip0_798_5097)">
               <g clipPath="url(#clip1_798_5097)">
@@ -142,7 +146,6 @@ const Header = () => {
             viewBox="0 0 25 24"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
-            className="w-[19px] sm:w-[25px]"
           >
             <g clipPath="url(#clip0_798_5088)">
               <g clipPath="url(#clip1_798_5088)">
@@ -185,11 +188,8 @@ const Header = () => {
       </div>
       <nav className="container">
         {/* abad logo */}
-        <Link  href="/">
-          <img
-            src="/media/logos/abad-logo.png"
-            alt=""
-          />
+        <Link href="/">
+          <img src="/media/logos/abad-logo.png" alt="" />
         </Link>
         {/* nav links */}
         <ul className="nav-list cairo-font ">
@@ -197,7 +197,6 @@ const Header = () => {
             <Link href="/">الرئيسية</Link>
           </li>
           <li
-            className="flex relative items-center gap-1 cursor-pointer"
             onClick={handleCoursesNav}
             onMouseEnter={handleCoursesNav}
             onMouseLeave={closeCoursesNav}
@@ -217,6 +216,7 @@ const Header = () => {
           </li>
         </ul>
         {/* logout btn */}
+        {/* user logged */}
         {isSignedIn ? (
           <div
             className=" text-white items-center gap-2 relative z-20  cursor-pointer hidden md:flex"

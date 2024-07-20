@@ -101,7 +101,7 @@ const SignUp = () => {
     <div
       className={`${
         !isSignUp && "hidden"
-      }  relative flex flex-col gap-7 md:gap-10 `}
+      }  relative flex flex-col gap-7 md:gap-10 auth-signup`}
     >
       <div className="flex flex-col gap-3">
         <h2 className="text-[22px] sm:text-3xl font-bold text-[#03133D]">

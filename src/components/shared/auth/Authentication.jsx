@@ -22,13 +22,13 @@ const Authentication = () => {
   return (
     <div
       onClick={handleAuthClose}
-      className={`${isHidden ? "hidden" : "flex"} auth`}
+      style={{ display: isHidden ? "none" : "flex" }}
+      className={`auth`}
     >
       <div
         onClick={(e) => e.stopPropagation()}
-        className={`auth-container bg-white flex flex-col py-7 px-6 md:py-12 md:px-10 rounded-2xl h-fit ${
-          isSignUp && "w-[814px]"
-        } max-w-[814px]`}
+        style={{ maxWidth: isSignUp ? "w-[814px]" : "auto" }}
+        className={`auth-container`}
       >
         {isSignIn && <SignIn />}
         {isSignUp && <SignUp />}

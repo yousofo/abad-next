@@ -1,12 +1,8 @@
 "use client";
-import { toggleEnlistInCourse } from "@/components/GlobalState/Features/popUpsSlice";
-import Link from "next/link";
 import React from "react";
-import { useDispatch } from "react-redux";
 
 const CourseCard = ({ index, data }) => {
   const isOnline = data.isOnline == "اونلاين" || data.isOnline == "أون لاين";
-  const dispatch = useDispatch();
   return (
     <figure data-type={data} className="course-card">
       <div className="img">
@@ -22,7 +18,7 @@ const CourseCard = ({ index, data }) => {
           <div>
             <img src="/media/combo sape.png" alt="" />
             <p>
-              <span className="">
+              <span>
                 <span>من</span>
                 <span>
                   {data.formattedTimeStart.substring(1) +
@@ -57,7 +53,7 @@ const CourseCard = ({ index, data }) => {
             </svg>
             {data.isOnline}
           </span>
-          <span className={`${!data.hadaf&& "!hidden"} ttt`}>
+          <span style={{ display: !data.hadaf ? "!hidden" : "inline" }}>
             <svg
               width="10"
               height="10"
