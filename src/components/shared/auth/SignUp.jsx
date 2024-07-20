@@ -70,7 +70,7 @@ const SignUp = () => {
 
     if (result.errors) {
       console.log("errrrr");
-      console.log(Object.entries(result.errors))
+      console.log(Object.entries(result.errors));
       Object.entries(result.errors).forEach(([key, value]) => {
         if (key == "$.birthDate") {
           setError("birthDate", { type: "manual", message: [...value] });
@@ -87,9 +87,9 @@ const SignUp = () => {
     } else if (result.message) {
       dispatch(toggleSignIn());
     } else {
-      if(result.error){
+      if (result.error) {
         setGeneralError(result.error);
-      }else{
+      } else {
         setGeneralError(result);
       }
     }
@@ -99,17 +99,12 @@ const SignUp = () => {
   }
   return (
     <div
-      className={`${
-        !isSignUp && "hidden"
-      }  relative flex flex-col gap-7 md:gap-10 auth-signup`}
+      style={{ display: isSignUp ? "flex" : "none" }}
+      className={`auth-signup`}
     >
-      <div className="flex flex-col gap-3">
-        <h2 className="text-[22px] sm:text-3xl font-bold text-[#03133D]">
-          تسجيل حساب جديد
-        </h2>
-        <p className="text-xs sm:text-lg text-[#68718B]">
-          املأ بياناتك لتسجيل حساب جديد
-        </p>
+      <div>
+        <h2>تسجيل حساب جديد</h2>
+        <p>املأ بياناتك لتسجيل حساب جديد</p>
       </div>
       <form
         method="POST"
@@ -117,7 +112,6 @@ const SignUp = () => {
         action=""
         noValidate
         id="signUpForm"
-        className="grid md:grid-cols-2 gap-4"
       >
         {/* name arabic ! */}
         <div className="input">
@@ -131,9 +125,7 @@ const SignUp = () => {
             })}
             placeholder="اكتب اسمك رباعي"
           />
-          <p className="text-xs my-2 text-red-500">
-            {errors.arabicName?.message}
-          </p>
+          <p className="input-error">{errors.arabicName?.message}</p>
         </div>
         {/* name english ! */}
         <div className="input">
@@ -148,9 +140,7 @@ const SignUp = () => {
             })}
             placeholder="type your name"
           />
-          <p className="text-xs my-1 text-red-500">
-            {errors.englishName?.message}
-          </p>
+          <p className="input-error">{errors.englishName?.message}</p>
         </div>
         {/* id ! */}
         <div className="input">
@@ -165,12 +155,10 @@ const SignUp = () => {
             })}
             placeholder="ادخل رقم الهوية"
           />
-          <p className="text-xs my-1 text-red-500">
-            {errors.idNumber?.message}
-          </p>
+          <p className="input-error">{errors.idNumber?.message}</p>
         </div>
         {/* nationality ! */}
-        <div className="input">
+        <div className="input nationality">
           <label htmlFor="signUpGender">الجنسية*</label>
           <div className="select relative">
             <select
@@ -179,9 +167,8 @@ const SignUp = () => {
               {...register("nationality", {
                 required: "يجب كتابة الجنسية",
               })}
-              className="w-full focus:outline-none"
             >
-              <option value="" className="hidden">
+              <option value="" style={{ display: "none" }}>
                 اختر الجنسية
               </option>
               <option value="سعودي">سعودي</option>
@@ -189,9 +176,7 @@ const SignUp = () => {
               <option value="مصري">مصري</option>
             </select>
           </div>
-          <p className="text-xs my-1 text-red-500">
-            {errors.nationality?.message}
-          </p>
+          <p className="input-error">{errors.nationality?.message}</p>
         </div>
         {/* email !*/}
         <div className="input">
@@ -209,9 +194,7 @@ const SignUp = () => {
             })}
             placeholder="أدخل بريدك الإلكتروني"
           />
-          <p className="text-xs my-1 text-red-500">
-            {errors.signUpEmail?.message}
-          </p>
+          <p className="input-error">{errors.signUpEmail?.message}</p>
         </div>
         {/* phone */}
         <div className="input">
@@ -223,7 +206,7 @@ const SignUp = () => {
             {...register("phone")}
             placeholder="اكتب الهاتف"
           />
-          <p className="text-xs my-1 text-red-500">{errors.phone?.message}</p>
+          <p className="input-error">{errors.phone?.message}</p>
         </div>
         {/* birthDate */}
         <div className="input">
@@ -237,9 +220,7 @@ const SignUp = () => {
               required: "يجب ادخال تاريخ الميلاد",
             })}
           />
-          <p className="text-xs my-1 text-red-500">
-            {errors.birthDate?.message}
-          </p>
+          <p className="input-error">{errors.birthDate?.message}</p>
         </div>
         {/* gender ! */}
         <div className="input">
@@ -251,16 +232,15 @@ const SignUp = () => {
               {...register("gender", {
                 required: "يجب اختيار الجنس",
               })}
-              className="w-full focus:outline-none"
             >
-              <option value="" className="hidden">
+              <option value="" style={{ display: "none" }}>
                 اختر الجنس
               </option>
               <option value="ذكر">ذكر</option>
               <option value="انثي">انثي</option>
             </select>
           </div>
-          <p className="text-xs my-1 text-red-500">{errors.gender?.message}</p>
+          <p className="input-error">{errors.gender?.message}</p>
         </div>
         {/* educationsType */}
         <div className="input">
@@ -274,9 +254,7 @@ const SignUp = () => {
             })}
             placeholder="اكتب المؤهل التعليمي"
           />
-          <p className="text-xs my-1 text-red-500">
-            {errors.educationsType?.message}
-          </p>
+          <p className="input-error">{errors.educationsType?.message}</p>
         </div>
         {/* city  ! */}
         <div className="input">
@@ -288,9 +266,8 @@ const SignUp = () => {
               {...register("city", {
                 required: "يجب اختيار المدينة",
               })}
-              className="w-full focus:outline-none"
             >
-              <option value="" className="hidden">
+              <option value="" style={{ display: "none" }}>
                 اختر المدينة
               </option>
               <option value="مكة">مكة</option>
@@ -298,7 +275,7 @@ const SignUp = () => {
               <option value="الطائف">الطائف</option>
             </select>
           </div>
-          <p className="text-xs my-1 text-red-500">{errors.city?.message}</p>
+          <p className="input-error">{errors.city?.message}</p>
         </div>
         {/* password ! */}
         <div className="input">
@@ -312,9 +289,7 @@ const SignUp = () => {
             })}
             placeholder="ادخل كلمة المرور"
           />
-          <p className="text-xs my-1 text-red-500">
-            {errors.signUpPassword?.message}
-          </p>
+          <p className="input-error">{errors.signUpPassword?.message}</p>
         </div>
         {/* confirm password ! */}
         <div className="input">
@@ -328,23 +303,20 @@ const SignUp = () => {
             })}
             placeholder="تأكيد كلمة المرور*"
           />
-          <p className="text-xs my-1 text-red-500">
-            {errors.signUpConfirmPassword?.message}
-          </p>
+          <p className="input-error">{errors.signUpConfirmPassword?.message}</p>
         </div>
         {/* general error */}
         <p
-          className={`${
-            !generalError && "hidden"
-          } text-center col-span-2 text-xs my-1 text-red-500`}
+          style={{ display: generalError ? "block" : "none" }}
+          className={`input-error`}
         >
           {generalError}
         </p>
       </form>
-      <div className="flex flex-col gap-4">
+      <div>
         {/* sign up BUTTON */}
         <button
-          className="login text-white font-bold"
+          className="signup-btn"
           form="signUpForm"
           onClick={() => {
             console.log("clicked");
@@ -355,24 +327,18 @@ const SignUp = () => {
         >
           تسجيل
         </button>
-        <p className="text-sm text-center">
-          <span className="text-[#68718B]">لديك حساب؟</span>
+        <p>
+          <span style={{ color: "#68718B" }}>لديك حساب؟</span>
           &nbsp;
-          <button onClick={switchAuthMode} className="text-[#133491]">
+          <button style={{ color: "#133491" }} onClick={switchAuthMode}>
             تسجيل دخول
           </button>
         </p>
       </div>
-      {/* register loader */}
-      <div
-        className={`${
-          !loading && "hidden"
-        } absolute z-10 w-24 h-24 pointer-events-none left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2`}
-      >
-        <div className="animate-spin border-4 rounded-full h-full border-green-500 border-r-transparent bg-white bg-opacity-70"></div>
-        <span className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 leading-[96px] text-xs whitespace-nowrap">
-          جاري التسجيل
-        </span>
+      {/* loader */}
+      <div className="loader" style={{ display: loading ? "block" : "none" }}>
+        <div></div>
+        <span>جاري التسجيل</span>
       </div>
     </div>
   );

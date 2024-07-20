@@ -13,6 +13,7 @@ const Authentication = () => {
   const isSignUp = useSelector((e) => e.auth.signUp);
   const isForgotPassword = useSelector((state) => state.auth.forgotPassword);
   const isSignIn = useSelector((state) => state.auth.signIn);
+  const isPasswordReassigned = useSelector((state) => state.auth.newPassword);
 
   const dispatch = useDispatch();
   function handleAuthClose() {
@@ -27,12 +28,15 @@ const Authentication = () => {
     >
       <div
         onClick={(e) => e.stopPropagation()}
-        style={{ maxWidth: isSignUp ? "w-[814px]" : "auto" }}
+        style={{
+          maxWidth: isSignUp ? "814px" : "fit-content",
+          width: isSignUp ? "814px" : "fit-content",
+        }}
         className={`auth-container`}
       >
         {isSignIn && <SignIn />}
         {isSignUp && <SignUp />}
-        <PasswordReassigned />
+        {isPasswordReassigned && <PasswordReassigned />}
         {isForgotPassword && <ForgotPassword />}
       </div>
     </div>

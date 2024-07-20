@@ -11,7 +11,7 @@ const PartnersSwiper = () => {
     "sendgrid-logo-svg-150px.png",
     "pendo-logo-svg-150px.png",
     "pingdom-dark.png",
-  ]
+  ];
   return (
     <Swiper
       modules={[Autoplay]}
@@ -26,19 +26,20 @@ const PartnersSwiper = () => {
       }}
       loop
       autoplay={{ delay: 1000 }}
-
     >
       {(function () {
         let partnerCards = [];
-        let imagesX2 = [...images,...images]
+        let imagesX2 = [...images, ...images];
 
-        imagesX2.forEach((e,i)=>partnerCards.push(
-          <SwiperSlide key={"partnerCard-"+i}>
-            <img className="mx-auto" src={`/media/${e}`} alt="" />
-          </SwiperSlide>
-        ))
+        imagesX2.forEach((e, i) =>
+          partnerCards.push(
+            <SwiperSlide key={"partnerCard-" + i}>
+              <img style={{ margin: "0 auto" }} src={`/media/${e}`} alt="" />
+            </SwiperSlide>
+          )
+        );
 
-        return  partnerCards;
+        return partnerCards;
       })()}
     </Swiper>
   );

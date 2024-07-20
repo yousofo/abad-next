@@ -79,14 +79,12 @@ const SignIn = () => {
   return (
     <div className={`auth-signin`}>
       <div>
-        <h2 className="text-[22px] sm:text-3xl font-bold">
-          <span className="text-[#03133D]">تسجيل الدخول إلى</span>
+        <h2>
+          <span>تسجيل الدخول إلى</span>
           &nbsp;
-          <span className="text-abad-gold">آباد</span>
+          <span>آباد</span>
         </h2>
-        <p className="text-xs sm:text-lg text-[#68718B]">
-          املأ بريدك الإلكتروني وكلمة المرور لتسجيل الدخول
-        </p>
+        <p>املأ بريدك الإلكتروني وكلمة المرور لتسجيل الدخول</p>
       </div>
       <form action="">
         <div className="input">
@@ -111,26 +109,23 @@ const SignIn = () => {
             // id=""
           />
         </div>
-        <div className="flex justify-between items-center">
-          <div className="flex gap-1.5 items-center">
+        <div>
+          <div>
             <input
               type="checkbox"
               name=""
               //  id=""
             />
-            <label htmlFor="" className="text-[#68718B]">
+            <label htmlFor="" style={{ color: "#68718B]" }}>
               تذكرني
             </label>
           </div>
-          <button
-            className="text-[#7C2BB8] text-sm"
-            onClick={handleForgotPassword}
-          >
+          <button className="forgot-password" onClick={handleForgotPassword}>
             نسيت كلمة السر؟
           </button>
         </div>
         <button
-          className="login text-white font-bold"
+          className="login-btn text-white font-bold"
           type="submit"
           onClick={handleSignIn}
         >
@@ -138,37 +133,27 @@ const SignIn = () => {
         </button>
       </form>
       <div>
-        <span
-          className={`${
-            !error && "hidden"
-          } text-red-500 animate-pulse text-center`}
-        >
+        <span style={{ display: error ? "inline" : "none" }}>
           {error.split("*").map((e, i) => (
             <p key={i}>{e}</p>
           ))}
         </span>
-        <p className="text-sm text-center mt-auto">
-          <span className="text-[#68718B]">ليس لديك حساب؟</span>
+        <p>
+          <span style={{ color: "#68718B" }}>ليس لديك حساب؟</span>
           &nbsp;
           {/* to sign up */}
           <button
             onClick={() => dispatch(toggleSignUp())}
-            className="text-[#133491]"
+            style={{ color: "#133491" }}
           >
             سجل الان
           </button>
         </p>
       </div>
       {/* loader */}
-      <div
-        className={`${
-          !loading && "hidden"
-        } absolute z-10 w-24 h-24 pointer-events-none left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2`}
-      >
-        <div className="animate-spin border-4 rounded-full h-full border-green-500 border-r-transparent bg-white bg-opacity-70"></div>
-        <span className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 leading-[96px] text-xs whitespace-nowrap">
-          جاري التسجيل
-        </span>
+      <div className="loader" style={{ display: loading ? "block" : "none" }}>
+        <div></div>
+        <span>جاري التسجيل</span>
       </div>
     </div>
   );

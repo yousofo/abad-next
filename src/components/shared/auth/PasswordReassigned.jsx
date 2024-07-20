@@ -11,17 +11,20 @@ const PasswordReassigned = () => {
   }
   return (
     <div
-      className={`${
-        !isPasswordReassigned && "hidden"
-      } flex flex-col items-center justify-center gap-6 sm:gap-10 `}
+      style={{
+        display: isPasswordReassigned ? "flex" : "none",
+      }}
+      className={` password-reassigned`}
     >
       {/* success logo */}
       <div
         style={{
           background:
             "linear-gradient(83.79deg, #1B45B4 3.25%, #1C2792 96.85%)",
+          borderRadius: "50%",
+          padding: "1.5rem",
+          width: "fit-content",
         }}
-        className="rounded-full w-fit p-6"
       >
         <svg
           width="81"
@@ -39,21 +42,12 @@ const PasswordReassigned = () => {
           />
         </svg>
       </div>
-      <div className="flex flex-col gap-3 text-center">
-        <h2 className="text-[11px] sm:text-3xl font-bold text-[#03133D]">
-          تم تعيين كلمة السر بنجاح
-        </h2>
-        <p className="text-xs sm:text-lg text-[#68718B]">
-          شكرا لثقتكم في اباد للتدريب
-        </p>
+      <div>
+        <h2>تم تعيين كلمة السر بنجاح</h2>
+        <p>شكرا لثقتكم في اباد للتدريب</p>
       </div>
       {/* to sign up */}
-      <button
-        onClick={handleClick}
-        className="py-3 sm:py-3.5 cursor-pointer px-14 rounded-2xl bg-[#FDB614] text-[#282828] font-medium w-full sm:w-fit"
-      >
-        دخول
-      </button>
+      <button onClick={handleClick}>دخول</button>
     </div>
   );
 };
