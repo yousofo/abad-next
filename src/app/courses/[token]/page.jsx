@@ -246,7 +246,8 @@ const Course = ({ params }) => {
             <figcaption className="flex flex-col gap-6">
               <h2
                 className="w-fit font-medium text-[29px] md:text-[32px]"
-                dir="ltr"
+                
+                dir="rtl"
               >
                 <span>{courseInfo.price}</span>
                 &nbsp;
