@@ -383,9 +383,8 @@ const HomeCourses = () => {
           </thead>
           {/* rows data */}
           <tbody>
-            {data?.map((e, i) => (
-              <CourseRow data={e} key={i} index={i} />
-            ))}
+            {Array.isArray(data) &&
+              data?.map((e, i) => <CourseRow data={e} key={i} index={i} />)}
           </tbody>
         </table>
         {/* courses table CARDS MODE */}
