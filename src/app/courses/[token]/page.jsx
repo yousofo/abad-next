@@ -66,7 +66,7 @@ const Course = ({ params }) => {
     ],
   });
   const token = params.token;
-
+  console.log(courseInfo)
   useEffect(() => {
     const fetchedResult = fetchCourseDetails(token);
     setCourseInfo(courseInfo);
@@ -218,7 +218,7 @@ const Course = ({ params }) => {
             </div>
             {/* accordions for large screens */}
             <div className="accordion !hidden sm:!flex">
-              <Accordion title="موعد الدورة">
+              <Accordion title="موعد الدورة" data={courseInfo}>
                 Content for موعد الدورة.
               </Accordion>
               <Accordion title="تفاصيل الاختبارات">
@@ -316,7 +316,7 @@ const Course = ({ params }) => {
             </figcaption>
           </figure>
           {/* COURSE CARD end */}
-          {/* ACCORDIONS start */}
+          {/* ACCORDIONS start SMALL SCREEEN */}
           <div className="accordion sm:!hidden">
             <Accordion title="موعد الدورة" data={courseInfo}>
               Content for موعد الدورة.

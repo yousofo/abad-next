@@ -4,6 +4,7 @@ import React, { useState } from "react";
 
 const Accordion = ({ title, data, children }) => {
   const [active, setActive] = useState(false);
+  console.log(data);
   return (
     <div className={`accordion-item  ${active && "active"}`}>
       <button className="accordion-header" onClick={() => setActive(!active)}>
@@ -35,7 +36,7 @@ const Accordion = ({ title, data, children }) => {
               </tr>
             </thead>
             <tbody>
-              {Array.from({ length: 3 }, (e, i) => (
+              {data?.openCourses.map((e, i) => (
                 <tr className="shadow" key={i}>
                   <td>{data?.startDate}</td>
                   <td>{data?.formattedTimeStart}</td>
