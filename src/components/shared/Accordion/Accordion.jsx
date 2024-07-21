@@ -2,7 +2,7 @@
 import "./accordion.css";
 import React, { useState } from "react";
 
-const Accordion = ({ title, children }) => {
+const Accordion = ({ title, data, children }) => {
   const [active, setActive] = useState(false);
   return (
     <div className={`accordion-item  ${active && "active"}`}>
@@ -35,10 +35,10 @@ const Accordion = ({ title, children }) => {
               </tr>
             </thead>
             <tbody>
-              {Array.from({ length: 3 }, (e,i) => (
+              {Array.from({ length: 3 }, (e, i) => (
                 <tr className="shadow" key={i}>
-                  <td>يوم الجمعة 17-11-2025</td>
-                  <td> الجمعة و السبت من الساعة ٦م الى الساعة ٩ م</td>
+                  <td>{data.startDate}</td>
+                  <td>{data.formattedTimeStart}</td>
                   <td>
                     <a href="/courses/1" className="enlist">
                       <svg

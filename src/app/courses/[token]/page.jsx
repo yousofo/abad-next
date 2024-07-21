@@ -307,7 +307,7 @@ const Course = ({ params }) => {
           {/* COURSE CARD end */}
           {/* ACCORDIONS start */}
           <div className="accordion sm:!hidden">
-            <Accordion title="موعد الدورة">Content for موعد الدورة.</Accordion>
+            <Accordion title="موعد الدورة" data={courseInfo}>Content for موعد الدورة.</Accordion>
             <Accordion title="تفاصيل الاختبارات">
               Content for تفاصيل الاختبارات.
             </Accordion>
