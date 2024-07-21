@@ -9,14 +9,9 @@ import { toggleCards } from "../GlobalState/Features/coursesFilterSlice";
 // components
 import CourseRow from "../shared/tables/CourseRow";
 import CourseCard from "../shared/tables/CourseCard";
-
-const HomeCourses = () => {
-  const [data, setData] = useState([]);
-  const isCards = useSelector((store) => store.coursesFilter.isCards);
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    fetch("/api/proxy", {
+async function fetchHomeCourse() {
+  try {
+    const request = await fetch("/api/proxy", {
       method: "GET",
       headers: {
         "Cache-Control":
@@ -25,15 +20,30 @@ const HomeCourses = () => {
         Expires: "0",
         "Surrogate-Control": "no-store",
       },
-    })
-      .then((response) => {
-        return response.json();
+    });
+    const data = await request.json();
+    console.log(data);
+    return data;
+  } catch (e) {
+    console.log(e);
+  }
+}
+
+const HomeCourses = () => {
+  const [data, setData] = useState([]);
+  const isCards = useSelector((store) => store.coursesFilter.isCards);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    fetchHomeCourse()
+      .then((e) => {
+        setData(e);
+        dispatch(setHomeCourses(e));
       })
-      .then((data) => {
-        dispatch(setHomeCourses(data));
-        setData(data);
-      })
-      .catch((e) => console.log("home courses failed"));
+      .catch((e) => {
+        console.log('home courses')
+        console.log(e);
+      });
   }, []);
 
   function handleCoursesPreviewMode() {
@@ -392,11 +402,12 @@ const HomeCourses = () => {
           style={{ display: `${!isCards ? "none" : "grid"}` }}
           className={` courses-cards `}
         >
-          {data.map((e, i) => (
-            <Link key={i} href={`/courses/${1}`}>
-              <CourseCard data={e} index={i} />
-            </Link>
-          ))}
+          {Array.isArray(data) &&
+            data?.map((e, i) => (
+              <Link key={i} href={`/courses/${1}`}>
+                <CourseCard data={e} index={i} />
+              </Link>
+            ))}
         </div>
       </div>
       {/* link to all courses page */}
