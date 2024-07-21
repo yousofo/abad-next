@@ -66,6 +66,10 @@ body {
 body main .hero {
   position: relative;
 }
+body.no-scroll{
+  height: 100vh;
+  overflow: hidden;
+}
 body main .hero .intro {
   left: 50%;
   top: 50%;

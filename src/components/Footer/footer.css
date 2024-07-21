@@ -1,36 +1,36 @@
 footer {
   line-height: 1;
-  .social-links {
-    & > svg {
-      cursor: pointer;
-    }
-  }
-  h4 {
-    font-size: 17px;
-    @media (min-width: 768px) {
-      font-size: 18px;
-    }
-    font-weight: 700;
-    margin-bottom: 4px;
-  }
-  li {
-    flex-direction: column;
-    a{
-      font-weight:300;
-    }
-    display: flex;
-    gap: 15px;
-    font-size: 15px;
-  }
 }
-@media (max-width:639px) {
-  .footer-contact{
+footer .social-links > svg {
+  cursor: pointer;
+}
+footer h4 {
+  font-size: 17px;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+@media (min-width: 768px) {
+  footer h4 {
+    font-size: 18px;
+ }
+}
+footer li {
+  flex-direction: column;
+  display: flex;
+  gap: 15px;
+  font-size: 15px;
+}
+footer li a {
+  font-weight: 300;
+}
+@media (max-width: 639px) {
+  .footer-contact {
     order: 2;
-  }
-  .footer-general{
+ }
+  .footer-general {
     order: 3;
-  }
-  .footer-pages{
+ }
+  .footer-pages {
     order: 4;
-  }
+ }
 }

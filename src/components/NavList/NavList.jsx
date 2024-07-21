@@ -1,20 +1,27 @@
 "use client";
-import "./navlist.css";
+import "./navlist.dev.css";
 import Link from "next/link";
 import { useDispatch, useSelector } from "react-redux";
 import { reset, toggleNavList } from "../GlobalState/Features/navListSlice";
 import { toggleSignIn, toggleSignUp } from "../GlobalState/Features/authSlice";
+import MiniNav from "./MiniNav";
 
 const NavList = () => {
   const active = useSelector((state) => state.navList.active);
+  if(active){
+    document.body.classList.add("no-scroll")
+  }else{
+    document.body.classList.remove("no-scroll")
+
+  }
   const dispatch = useDispatch();
   return (
     <div
       className={` ${
         !active && " -translate-x-full "
-      } transition-all fixed w-screen h-screen bg-white z-[100] `}
+      } transition-all fixed w-screen overflow-scroll h-dvh bg-white z-[100] `}
     >
-      <div className="navlist-sm wrapper h-dvh flex flex-col gap-7 py-6">
+      <div className="navlist-sm wrapper h-max min-h-screen flex flex-col gap-7 py-6">
         <div className="flex justify-between items-center px-5">
           <img src="/media/logos/NavListLogo.png" alt="" />
           <div
@@ -50,7 +57,7 @@ const NavList = () => {
             </Link>
           </li>
           <li>
-            
+            <MiniNav/>
           </li>
           <li>
             <Link onClick={() => dispatch(reset())} href="/articles">
