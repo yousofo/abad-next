@@ -7,8 +7,8 @@ import Accordion from "@/components/shared/Accordion/Accordion";
 async function fetchCourseDetails(token) {
   try {
     const courseDetails = await fetch(`/api/courseDetails/${token}`);
-    console.log(courseDetails.)
     const result = await courseDetails.json()
+    console.log(result)
     return result;
   } catch (e) {
     console.log(e);
