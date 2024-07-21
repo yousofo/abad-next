@@ -118,7 +118,7 @@ const CourseRow = ({ index, data }) => {
       </td>
       <td>
         <div className="btns">
-          <Link href="/courses/1">
+          <Link href={`/courses/${data.token}`}>
             <button>
               <svg
                 xmlns="http://www.w3.org/2000/svg"

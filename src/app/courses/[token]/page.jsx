@@ -1,8 +1,76 @@
+"use client";
+import { useEffect, useState } from "react";
 import "./course.css";
 
 import Accordion from "@/components/shared/Accordion/Accordion";
 
+async function fetchCourseDetails(token) {
+  try {
+    const courseDetails = await fetch(`/api/courseDetails/${token}`);
+    console.log(courseDetails.)
+    const result = await courseDetails.json()
+    return result;
+  } catch (e) {
+    console.log(e);
+  }
+}
+
 const Course = ({ params }) => {
+  const [courseImg, setCourseImg] = useState("/media/course/course-image.png")
+  const [courseInfo, setCourseInfo] = useState({
+    token: "e5f85c2b-33ef-43d3-9075-d8ee0966cb06",
+    courseName: "اسم الدوره بالانجليزي",
+    startDate: "2024-07-19",
+    isOnlineId: 0,
+    isOnline: "حضوري",
+    hadaf: "مدعومة من هدف",
+    categoryId: 1,
+    categoryName: "أمن المعلومات",
+    price: 1200,
+    imageUrl: "https://newabad.abadnet.com.sa/Admin/CoursesDataImage/1",
+    summaryAr: "<p><label>اسم الدوره بالانجليزي</label></p>",
+    goalsAr: "<p><label>اسم الدوره بالانجليزي</label></p>",
+    targetAr: "<p><label>اسم الدوره بالانجليزي</label></p>",
+    detailsAr: "<p><label>اسم الدوره بالانجليزي</label></p>",
+    testAr: "<p><label>اسم الدوره بالانجليزي</label></p>",
+    numberOfweeks: 5,
+    numberOfHours: 30,
+    trainerLanguage: null,
+    formattedTimeStart: "الجمعة والسبت من الساعة ٦م الى الساعة ٩م",
+    formattedTimeEnd: "الجمعة والسبت من الساعة ٦م الى الساعة ٩م",
+    openCourses: [
+      {
+        token: "e5f85c2b-33ef-43d3-9075-d8ee0966cb06",
+        courseName: "اسم الدوره بالانجليزي",
+        startDate: "2024-07-19",
+        isOnlineId: 0,
+        isOnline: null,
+        hadaf: null,
+        categoryId: 0,
+        categoryName: null,
+        price: 0,
+        imageUrl: null,
+        summaryAr: null,
+        goalsAr: null,
+        targetAr: null,
+        detailsAr: null,
+        testAr: null,
+        numberOfweeks: 0,
+        numberOfHours: 0,
+        trainerLanguage: null,
+        formattedTimeStart: "الجمعة والسبت من الساعة ٦م الى الساعة ٩م",
+        formattedTimeEnd: "الجمعة والسبت من الساعة ٦م الى الساعة ٩م",
+        openCourses: null,
+      },
+    ],
+  });
+  const token = params.token;
+
+  useEffect(() => {
+    const fetchedResult = fetchCourseDetails(token);
+    setCourseInfo(courseInfo);
+    setCourseImg(fetchedResult.imageUrl)
+  }, []);
   return (
     <main className="pb-10">
       <div className="hero relative">
@@ -168,13 +236,15 @@ const Course = ({ params }) => {
           {/* COURSE CONTENT end */}
           {/* COURSE CARD start */}
           <figure className="p-5 mx-auto md:p-6 text-[#252525] bg-white shadow rounded-xl md:rounded-2xl w-full max-w-[373px] h-fit">
-            <img src="/media/course/course-image.png" alt="" />
+            <img src={courseImg} alt="" onError={()=>setCourseImg("/media/course/course-image.png")}/>
             <figcaption className="flex flex-col gap-6">
               <h2
                 className="w-fit font-medium text-[29px] md:text-[32px]"
                 dir="ltr"
               >
-                300 ريال سعودي
+                <span>{courseInfo.price}</span>
+                &nbsp;
+                <span>ريال سعودي</span>
               </h2>
               <div className="flex flex-col gap-4">
                 <a href="">شراء الدورة التدريبية الآن</a>
@@ -200,16 +270,7 @@ const Course = ({ params }) => {
                 </div>
                 <div className="course-description flex flex-col gap-4 pt-2 border-t border-t-[##E0E0E0] text-[#252525]">
                   <h4 className="text-xl font-medium">وصف الدورة</h4>
-                  <p>
-                    هل تريد معرفة تعريفات التصميم الأكثر شيوعًا؟ ,تعتبر هذه
-                    الدورة التمهيدية مثالية لأولئك الجدد في مجال التصميم أو
-                    المحترفين ذوي الخبرة الذين يتطلعون إلى تحسين مصطلحات
-                    التصميم. ,تعرف على مكونات واجهة المستخدم (UI)، وتعريفات
-                    تجربة المستخدم (UX)، وحتى المصطلحات المتقدمة المضمونة لإبهار
-                    زملائك. ,هل تريد معرفة تعريفات التصميم الأكثر شيوعًا؟ ,هذه
-                    الدورة التمهيدية مثالية لأولئك الجدد في التصميم أو ذوي
-                    الخبرة.
-                  </p>
+                  <p>{courseInfo.summaryAr}</p>
                 </div>
                 <div className="course-card-details flex flex-col gap-6 text-[#252525]">
                   <h4 className="text-xl font-medium">تفاصيل الدورة</h4>
