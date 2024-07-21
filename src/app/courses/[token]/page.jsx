@@ -270,7 +270,7 @@ const Course = ({ params }) => {
                 </div>
                 <div className="course-description flex flex-col gap-4 pt-2 border-t border-t-[##E0E0E0] text-[#252525]">
                   <h4 className="text-xl font-medium">وصف الدورة</h4>
-                  <p>{courseInfo.summaryAr}</p>
+                  <p dangerouslySetInnerHTML={{ __html: courseInfo.summaryAr }}/>
                 </div>
                 <div className="course-card-details flex flex-col gap-6 text-[#252525]">
                   <h4 className="text-xl font-medium">تفاصيل الدورة</h4>
