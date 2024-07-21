@@ -17,7 +17,7 @@ const HomeCourses = () => {
 
   useEffect(() => {
     fetch("/api/proxy", {
-      method:"GET",
+      method: "GET",
       headers: {
         "Cache-Control":
           "no-store, no-cache, must-revalidate, proxy-revalidate",
@@ -26,14 +26,14 @@ const HomeCourses = () => {
         "Surrogate-Control": "no-store",
       },
     })
-      .catch((e) => console.log("home courses failed"))
       .then((response) => {
         return response.json();
       })
       .then((data) => {
         dispatch(setHomeCourses(data));
         setData(data);
-      });
+      })
+      .catch((e) => console.log("home courses failed"));
   }, []);
 
   function handleCoursesPreviewMode() {
