@@ -66,7 +66,7 @@ const Course = ({ params }) => {
     ],
   });
   const token = params.token;
-  console.log(courseInfo)
+  console.log(courseInfo);
   useEffect(() => {
     const fetchedResult = fetchCourseDetails(token);
     setCourseInfo(courseInfo);
@@ -248,9 +248,9 @@ const Course = ({ params }) => {
                 className="w-fit font-medium text-[29px] md:text-[32px]"
                 dir="ltr"
               >
-                <span>ريال سعودي</span>
-                &nbsp;
                 <span>{courseInfo.price}</span>
+                &nbsp;
+                <span>ريال سعودي</span>
               </h2>
               <div className="flex flex-col gap-4">
                 <a href="">شراء الدورة التدريبية الآن</a>
