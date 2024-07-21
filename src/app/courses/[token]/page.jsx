@@ -128,7 +128,7 @@ const Course = ({ params }) => {
                   />
                 </svg>
                 <p className="text-white   font-medium w-full sm:w-fit py-1.5">
-                  CCNA 200-301 شهادة سيسكو المعتمدة
+                  {courseInfo.summaryAr}
                 </p>
               </h6>
               <div className="flex flex-col items-start">
@@ -248,9 +248,9 @@ const Course = ({ params }) => {
                 className="w-fit font-medium text-[29px] md:text-[32px]"
                 dir="ltr"
               >
-                <span>{courseInfo.price}</span>
-                &nbsp;
                 <span>ريال سعودي</span>
+                &nbsp;
+                <span>{courseInfo.price}</span>
               </h2>
               <div className="flex flex-col gap-4">
                 <a href="">شراء الدورة التدريبية الآن</a>
