@@ -34,7 +34,7 @@
     padding-right: 2.5rem;
     padding-top: 3rem;
     padding-bottom: 3rem;
- }
+  }
 }
 .auth form .input {
   display: flex;
@@ -44,13 +44,15 @@
 @media (min-width: 640px) {
   .auth form .input {
     font-size: 15px;
- }
+  }
 }
 .auth form .input label {
   color: #03133d;
   font-weight: 700;
 }
-.auth form .input input, .auth form .input .select, .auth form .input textarea {
+.auth form .input input,
+.auth form .input .select,
+.auth form .input textarea {
   border: 1px solid #cdd0d8;
   border-radius: 8px;
   flex: 1;
@@ -58,14 +60,20 @@
   margin-top: 8px;
 }
 @media (min-width: 640px) {
-  .auth form .input input, .auth form .input .select, .auth form .input textarea {
+  .auth form .input input,
+  .auth form .input .select,
+  .auth form .input textarea {
     padding: 16px 24px;
- }
+  }
 }
-.auth form .input input:focus, .auth form .input .select:focus, .auth form .input textarea:focus {
+.auth form .input input:focus,
+.auth form .input .select:focus,
+.auth form .input textarea:focus {
   outline: none;
 }
-.auth form .input input::placeholder, .auth form .input .select::placeholder, .auth form .input textarea::placeholder {
+.auth form .input input::placeholder,
+.auth form .input .select::placeholder,
+.auth form .input textarea::placeholder {
   color: #cdd0d8;
 }
 .auth .password-reassigned {
@@ -90,7 +98,7 @@
   .auth .password-reassigned > div:nth-child(2) h2 {
     font-size: 1.875rem;
     line-height: 2.25rem;
- }
+  }
 }
 .auth .password-reassigned > div:nth-child(2) p {
   font-size: 0.75rem;
@@ -101,7 +109,7 @@
   .auth .password-reassigned > div:nth-child(2) p {
     font-size: 1.125rem;
     line-height: 1.75rem;
- }
+  }
 }
 .auth .password-reassigned > button {
   padding-top: 0.75rem;
@@ -120,12 +128,12 @@
     padding-top: 0.875rem;
     padding-bottom: 0.875rem;
     width: fit-content;
- }
+  }
 }
 @media (min-width: 640px) {
   .auth .password-reassigned {
     gap: 2.5rem;
- }
+  }
 }
 .auth .auth-forgot-password {
   display: flex;
@@ -147,7 +155,7 @@
   .auth .auth-forgot-password > div:nth-child(1) h2 {
     font-size: 1.875rem;
     line-height: 2.25rem;
- }
+  }
 }
 .auth .auth-forgot-password > div:nth-child(1) p {
   font-size: 0.75rem;
@@ -158,7 +166,7 @@
   .auth .auth-forgot-password > div:nth-child(1) p {
     font-size: 1.125rem;
     line-height: 1.75rem;
- }
+  }
 }
 .auth .auth-forgot-password > form:nth-child(2) {
   display: flex;
@@ -215,7 +223,7 @@
   .auth .auth-signin > div:nth-child(1) > h2 {
     font-size: 1.875rem;
     line-height: 2.25rem;
- }
+  }
 }
 .auth .auth-signin > div:nth-child(1) > p {
   font-size: 0.75rem;
@@ -226,7 +234,7 @@
   .auth .auth-signin > div:nth-child(1) > p {
     font-size: 1.125rem;
     line-height: 1.75rem;
- }
+  }
 }
 .auth .auth-signin > form:nth-child(2) {
   display: flex;
@@ -260,12 +268,13 @@
   animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
 @keyframes pulse {
-  0%, 100% {
+  0%,
+  100% {
     opacity: 1;
- }
+  }
   50% {
     opacity: 0.5;
- }
+  }
 }
 .auth .auth-signin > div:nth-child(3) > p {
   font-size: 0.875rem;
@@ -287,12 +296,12 @@
   .auth .auth-signin .login-btn {
     padding: 16px 32px;
     font-size: 16px;
- }
+  }
 }
 @media (min-width: 768px) {
   .auth .auth-signin {
     width: 573px;
- }
+  }
 }
 .auth .auth-signup {
   display: flex;
@@ -314,7 +323,7 @@
   .auth .auth-signup > div:nth-child(1) > h2 {
     font-size: 1.875rem;
     line-height: 2.25rem;
- }
+  }
 }
 .auth .auth-signup > div:nth-child(1) > p {
   font-size: 0.75rem;
@@ -325,7 +334,7 @@
   .auth .auth-signup > div:nth-child(1) > p {
     font-size: 1.125rem;
     line-height: 1.75rem;
- }
+  }
 }
 .auth .auth-signup > form:nth-child(2) {
   display: grid;
@@ -334,7 +343,7 @@
 @media (min-width: 768px) {
   .auth .auth-signup > form:nth-child(2) {
     gap: 1rem;
- }
+  }
 }
 .auth .auth-signup > form:nth-child(2) .input-error {
   margin-top: 0.5rem;
@@ -344,7 +353,9 @@
   color: #ef4444;
 }
 .auth .auth-signup > form:nth-child(2) > p {
-  grid-column: span 2 / span 2;
+  @media (min-width: 768px) {
+    grid-column: span 2 / span 2;
+  }
   text-align: center;
 }
 .auth .auth-signup > form:nth-child(2) select {
@@ -357,7 +368,7 @@
 @media (min-width: 768px) {
   .auth .auth-signup > form:nth-child(2) {
     grid-template-columns: repeat(2, minmax(0, 1fr));
- }
+  }
 }
 .auth .auth-signup > div:nth-child(3) {
   display: flex;
@@ -381,7 +392,7 @@
 @media (min-width: 768px) {
   .auth .auth-signup {
     gap: 2.5rem;
- }
+  }
 }
 .auth .loader {
   position: absolute;
@@ -405,10 +416,10 @@
 @keyframes spin {
   from {
     transform: rotate(0deg);
- }
+  }
   to {
     transform: rotate(360deg);
- }
+  }
 }
 .auth .loader > span {
   position: absolute;
