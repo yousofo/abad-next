@@ -9,9 +9,10 @@ import MiniNav from "./MiniNav";
 const NavList = () => {
   const active = useSelector((state) => state.navList.active);
   if(active){
-    document.body.classList.add("no-scroll")
+    console.log("ttt")
+    window.document.body.classList.add("no-scroll")
   }else{
-    document.body.classList.remove("no-scroll")
+    window.document.body.classList.remove("no-scroll")
 
   }
   const dispatch = useDispatch();
