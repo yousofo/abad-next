@@ -1,10 +1,10 @@
-import "./course.css"
+import "./course.css";
 
-import Accordion from '@/components/shared/Accordion/Accordion'
+import Accordion from "@/components/shared/Accordion/Accordion";
 
 const Course = ({ params }) => {
   return (
-    <main className='pb-10'>
+    <main className="pb-10">
       <div className="hero relative">
         {/* BACKGROUND IMG start*/}
         <div className="back-shape h-dvh md:min-h-[600px] md:h-auto overflow-hidden w-full absolute -z-10">
@@ -57,19 +57,22 @@ const Course = ({ params }) => {
                     strokeLinejoin="round"
                   />
                 </svg>
-                <p className="text-white font-medium w-full sm:w-fit py-1.5">
+                <p className="text-white   font-medium w-full sm:w-fit py-1.5">
                   CCNA 200-301 شهادة سيسكو المعتمدة
                 </p>
               </h6>
               <div className="flex flex-col items-start">
-                <h1 className="text-2xl text-[#F9F9F9] flex justify-end pb-2 w-fit">
-                  <span dir="rtl" style={{ unicodeBidi: "bidi-override" }}>
-                    شهادة سيسكو المعتمدة CCNA 200-301{" "}
-                  </span>
-                </h1>
+                <h2
+                  className="md:text-2xl text-[#F9F9F9] font-medium pb-2 w-fit"
+                  style={{ unicodeBidi: "bidi-override" }}
+                >
+                  <span>شهادة سيسكو المعتمدة</span>
+                  &nbsp;
+                  <span dir="ltr">CCNA 200-301</span>
+                </h2>
                 <h3 className="text-[#E0E0E0] max-w-lg leading-relaxed text-sm md:text-base">
-                  تعرف على مبادئ أساسيات شهادة سيسكوالأكثر شيوعًا والمستخدمة في جميع
-                  شركات Fortune 500 الكبرى.
+                  تعرف على مبادئ أساسيات شهادة سيسكوالأكثر شيوعًا والمستخدمة في
+                  جميع شركات Fortune 500 الكبرى.
                 </h3>
               </div>
               <div>
@@ -198,13 +201,14 @@ const Course = ({ params }) => {
                 <div className="course-description flex flex-col gap-4 pt-2 border-t border-t-[##E0E0E0] text-[#252525]">
                   <h4 className="text-xl font-medium">وصف الدورة</h4>
                   <p>
-                    هل تريد معرفة تعريفات التصميم الأكثر شيوعًا؟ ,تعتبر هذه الدورة
-                    التمهيدية مثالية لأولئك الجدد في مجال التصميم أو المحترفين ذوي
-                    الخبرة الذين يتطلعون إلى تحسين مصطلحات التصميم. ,تعرف على مكونات
-                    واجهة المستخدم (UI)، وتعريفات تجربة المستخدم (UX)، وحتى
-                    المصطلحات المتقدمة المضمونة لإبهار زملائك. ,هل تريد معرفة
-                    تعريفات التصميم الأكثر شيوعًا؟ ,هذه الدورة التمهيدية مثالية
-                    لأولئك الجدد في التصميم أو ذوي الخبرة.
+                    هل تريد معرفة تعريفات التصميم الأكثر شيوعًا؟ ,تعتبر هذه
+                    الدورة التمهيدية مثالية لأولئك الجدد في مجال التصميم أو
+                    المحترفين ذوي الخبرة الذين يتطلعون إلى تحسين مصطلحات
+                    التصميم. ,تعرف على مكونات واجهة المستخدم (UI)، وتعريفات
+                    تجربة المستخدم (UX)، وحتى المصطلحات المتقدمة المضمونة لإبهار
+                    زملائك. ,هل تريد معرفة تعريفات التصميم الأكثر شيوعًا؟ ,هذه
+                    الدورة التمهيدية مثالية لأولئك الجدد في التصميم أو ذوي
+                    الخبرة.
                   </p>
                 </div>
                 <div className="course-card-details flex flex-col gap-6 text-[#252525]">
@@ -242,9 +246,7 @@ const Course = ({ params }) => {
           {/* COURSE CARD end */}
           {/* ACCORDIONS start */}
           <div className="accordion sm:!hidden">
-            <Accordion title="موعد الدورة">
-              Content for موعد الدورة.
-            </Accordion>
+            <Accordion title="موعد الدورة">Content for موعد الدورة.</Accordion>
             <Accordion title="تفاصيل الاختبارات">
               Content for تفاصيل الاختبارات.
             </Accordion>
@@ -262,7 +264,7 @@ const Course = ({ params }) => {
         </div>
       </div>
     </main>
-  )
-}
+  );
+};
 
-export default Course
+export default Course;
