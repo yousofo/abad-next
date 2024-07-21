@@ -7,8 +7,8 @@ import Accordion from "@/components/shared/Accordion/Accordion";
 async function fetchCourseDetails(token) {
   try {
     const courseDetails = await fetch(`/api/courseDetails/${token}`);
-    const result = await courseDetails.json()
-    console.log(result)
+    const result = await courseDetails.json();
+    console.log(result);
     return result;
   } catch (e) {
     console.log(e);
@@ -16,7 +16,8 @@ async function fetchCourseDetails(token) {
 }
 
 const Course = ({ params }) => {
-  const [courseImg, setCourseImg] = useState("/media/course/course-image.png")
+  const [courseImg, setCourseImg] = useState("/media/course/course-image.png");
+  const [fetched, setFetched] = useState(false);
   const [courseInfo, setCourseInfo] = useState({
     token: "e5f85c2b-33ef-43d3-9075-d8ee0966cb06",
     courseName: "اسم الدوره بالانجليزي",
@@ -69,7 +70,8 @@ const Course = ({ params }) => {
   useEffect(() => {
     const fetchedResult = fetchCourseDetails(token);
     setCourseInfo(courseInfo);
-    setCourseImg(fetchedResult.imageUrl)
+    setCourseImg(fetchedResult.imageUrl);
+    setFetched(true);
   }, []);
   return (
     <main className="pb-10">
@@ -236,7 +238,11 @@ const Course = ({ params }) => {
           {/* COURSE CONTENT end */}
           {/* COURSE CARD start */}
           <figure className="p-5 mx-auto md:p-6 text-[#252525] bg-white shadow rounded-xl md:rounded-2xl w-full max-w-[373px] h-fit">
-            <img src={courseImg} alt="" onError={()=>setCourseImg("/media/course/course-image.png")}/>
+            <img
+              src={courseImg}
+              alt=""
+              onError={() => setCourseImg("/media/course/course-image.png")}
+            />
             <figcaption className="flex flex-col gap-6">
               <h2
                 className="w-fit font-medium text-[29px] md:text-[32px]"
@@ -270,7 +276,12 @@ const Course = ({ params }) => {
                 </div>
                 <div className="course-description flex flex-col gap-4 pt-2 border-t border-t-[##E0E0E0] text-[#252525]">
                   <h4 className="text-xl font-medium">وصف الدورة</h4>
-                  <p dangerouslySetInnerHTML={{ __html: courseInfo.summaryAr }}/>
+
+                  {fetched && (
+                    <p
+                      dangerouslySetInnerHTML={{ __html: courseInfo.summaryAr }}
+                    />
+                  )}
                 </div>
                 <div className="course-card-details flex flex-col gap-6 text-[#252525]">
                   <h4 className="text-xl font-medium">تفاصيل الدورة</h4>
@@ -307,7 +318,9 @@ const Course = ({ params }) => {
           {/* COURSE CARD end */}
           {/* ACCORDIONS start */}
           <div className="accordion sm:!hidden">
-            <Accordion title="موعد الدورة" data={courseInfo}>Content for موعد الدورة.</Accordion>
+            <Accordion title="موعد الدورة" data={courseInfo}>
+              Content for موعد الدورة.
+            </Accordion>
             <Accordion title="تفاصيل الاختبارات">
               Content for تفاصيل الاختبارات.
             </Accordion>

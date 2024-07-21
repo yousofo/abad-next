@@ -37,10 +37,10 @@ const Accordion = ({ title, data, children }) => {
             <tbody>
               {Array.from({ length: 3 }, (e, i) => (
                 <tr className="shadow" key={i}>
-                  <td>{data.startDate}</td>
-                  <td>{data.formattedTimeStart}</td>
+                  <td>{data?.startDate}</td>
+                  <td>{data?.formattedTimeStart}</td>
                   <td>
-                    <a href="/courses/1" className="enlist">
+                    <a href="/courses/1" className="w-fit enlist">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width={14}
