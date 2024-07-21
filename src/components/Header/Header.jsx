@@ -46,7 +46,7 @@ const Header = () => {
   );
 
   return (
-    <header className="">
+    <header className="whitespace-nowrap">
       <div className="header-contact-bar noto">
         <a
           target="_blank"
@@ -219,7 +219,7 @@ const Header = () => {
         {/* user logged */}
         {isSignedIn ? (
           <div
-            className=" text-white items-center gap-2 relative z-20  cursor-pointer hidden md:flex"
+            className=" text-white items-center gap-2 relative z-20  cursor-pointer hidden lg:flex"
             onClick={handleMiniNav}
           >
             <img src="/media/placeholders/user-image.png" alt="" />

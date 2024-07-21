@@ -114,8 +114,8 @@ const HomeCourses = () => {
       <div className=" courses-contents ">
         <div>
           {/* courses filter */}
-          <nav className="courses-filter abad-drop-shadow">
-            <ul className="">
+          <nav className="courses-filter abad-drop-shadow  whitespace-nowrap">
+            <ul className="overflow-x-scroll lg:overflow-auto">
               <li className="active" data-filter="all">
                 <button>
                   <span>الكل</span>

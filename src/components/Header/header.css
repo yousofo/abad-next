@@ -100,7 +100,7 @@ header nav .nav-list {
   line-height: 1.25rem;
   background-color: #fff;
 }
-@media (min-width: 768px) {
+@media (min-width: 1024px) {
   header nav .nav-list {
     display: flex;
     position: static;
@@ -199,7 +199,7 @@ header nav > button {
   border-radius: 0.75rem;
   background-color: var(--abad-gold);
 }
-@media (min-width: 768px) {
+@media (min-width: 1024px) {
   header nav > button {
     display: block;
  }
@@ -208,7 +208,7 @@ header nav > svg {
   cursor: pointer;
   min-width: 2rem;
 }
-@media (min-width: 768px) {
+@media (min-width: 1024px) {
   header nav > svg {
     display: none;
  }

@@ -53,7 +53,7 @@ const CourseCard = ({ index, data }) => {
             </svg>
             {data.isOnline}
           </span>
-          <span style={{ display: !data.hadaf ? "!hidden" : "inline" }}>
+          <span style={{ display: !data.hadaf ? "none" : "flex" }}>
             <svg
               width="10"
               height="10"
