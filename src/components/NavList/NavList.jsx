@@ -11,7 +11,6 @@ const NavList = () => {
   const active = useSelector((state) => state.navList.active);
   useEffect(() => {
     if (active) {
-      console.log("ttt");
       window.document.body.classList.add("no-scroll");
     } else {
       window.document.body.classList.remove("no-scroll");
