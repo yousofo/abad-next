@@ -209,7 +209,7 @@ const Header = () => {
             <Link href="/articles">المقالات</Link>
           </li>
           <li>
-            <Link href="">الاعتمادات والشركاء</Link>
+            <Link href="/privacy">الاعتمادات والشركاء</Link>
           </li>
           <li>
             <Link href="/contact">اتصل بنا</Link>
