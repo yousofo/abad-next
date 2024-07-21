@@ -1,5 +1,5 @@
 "use client";
-import "./navlist.dev.css";
+import "./navlist.css";
 import Link from "next/link";
 import { useDispatch, useSelector } from "react-redux";
 import { reset, toggleNavList } from "../GlobalState/Features/navListSlice";

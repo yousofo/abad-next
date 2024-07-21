@@ -266,10 +266,17 @@
     }
     .login-btn {
       background: linear-gradient(83.79deg, #1b45b4 3.25%, #1c2792 96.85%);
-      padding: 16px 32px;
       width: 100%;
       border-radius: 10px;
       line-height: 22px;
+      padding: 10px 19px;
+      font-weight: 700;
+      font-size: 10px;
+      color: white;
+      @media (min-width: 768px) {
+        padding: 16px 32px;
+        font-size: 16px;
+      }
     }
     @media (min-width: 768px) {
       width: 573px;
@@ -279,7 +286,7 @@
     display: flex;
     position: relative;
     flex-direction: column;
-    gap: 1.75;
+    gap: 1.75rem;
     > div:nth-child(1) {
       display: flex;
       flex-direction: column;
@@ -307,7 +314,10 @@
     }
     > form:nth-child(2) {
       display: grid;
-      gap: 1rem;
+      gap: 0.5rem;
+      @media (min-width: 768px) {
+        gap: 1rem;
+      }
       .input-error {
         margin-top: 0.5rem;
         margin-bottom: 0.5rem;

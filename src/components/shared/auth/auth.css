@@ -275,10 +275,19 @@
 }
 .auth .auth-signin .login-btn {
   background: linear-gradient(83.79deg, #1b45b4 3.25%, #1c2792 96.85%);
-  padding: 16px 32px;
   width: 100%;
   border-radius: 10px;
   line-height: 22px;
+  padding: 10px 19px;
+  font-weight: 700;
+  font-size: 10px;
+  color: white;
+}
+@media (min-width: 768px) {
+  .auth .auth-signin .login-btn {
+    padding: 16px 32px;
+    font-size: 16px;
+ }
 }
 @media (min-width: 768px) {
   .auth .auth-signin {
@@ -289,7 +298,7 @@
   display: flex;
   position: relative;
   flex-direction: column;
-  gap: 1.75;
+  gap: 1.75rem;
 }
 .auth .auth-signup > div:nth-child(1) {
   display: flex;
@@ -320,7 +329,12 @@
 }
 .auth .auth-signup > form:nth-child(2) {
   display: grid;
-  gap: 1rem;
+  gap: 0.5rem;
+}
+@media (min-width: 768px) {
+  .auth .auth-signup > form:nth-child(2) {
+    gap: 1rem;
+ }
 }
 .auth .auth-signup > form:nth-child(2) .input-error {
   margin-top: 0.5rem;

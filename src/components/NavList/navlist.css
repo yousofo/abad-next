@@ -4,6 +4,10 @@
   padding: 24px 12px;
   margin: 0 12px;
 }
+.navlist-sm > ul > li > button > ul li ul li {
+  width: fit-content;
+  padding-right: 10px;
+}
 .navlist-sm > ul > li:not(:nth-last-child(1)) {
   border-bottom: 1px solid #e7e7e7;
 }
@@ -15,4 +19,11 @@
 }
 .navlist-sm .navlist-auth button:nth-child(1) {
   background: linear-gradient(83.79deg, #1b45b4 3.25%, #1c2792 96.85%);
+}
+.angle-down {
+  position: relative;
+  transition: 0.1s;
+}
+.angle-down.active {
+  transform: rotate(-90deg);
 }

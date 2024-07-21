@@ -125,7 +125,7 @@ const SignIn = () => {
           </button>
         </div>
         <button
-          className="login-btn text-white font-bold"
+          className="login-btn"
           type="submit"
           onClick={handleSignIn}
         >
