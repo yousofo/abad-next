@@ -5,16 +5,18 @@ import { useDispatch, useSelector } from "react-redux";
 import { reset, toggleNavList } from "../GlobalState/Features/navListSlice";
 import { toggleSignIn, toggleSignUp } from "../GlobalState/Features/authSlice";
 import MiniNav from "./MiniNav";
+import { useEffect } from "react";
 
 const NavList = () => {
   const active = useSelector((state) => state.navList.active);
-  if(active){
-    console.log("ttt")
-    window.document.body.classList.add("no-scroll")
-  }else{
-    window.document.body.classList.remove("no-scroll")
-
-  }
+  useEffect(() => {
+    if (active) {
+      console.log("ttt");
+      window.document.body.classList.add("no-scroll");
+    } else {
+      window.document.body.classList.remove("no-scroll");
+    }
+  }, []);
   const dispatch = useDispatch();
   return (
     <div
@@ -58,7 +60,7 @@ const NavList = () => {
             </Link>
           </li>
           <li>
-            <MiniNav/>
+            <MiniNav />
           </li>
           <li>
             <Link onClick={() => dispatch(reset())} href="/articles">
@@ -77,8 +79,18 @@ const NavList = () => {
           </li>
         </ul>
         <div className="navlist-auth mt-auto px-5 flex justify-center gap-2">
-          <button onClick={()=>dispatch(toggleSignIn())} className="text-white">تسجل دخول</button>
-          <button onClick={()=>dispatch(toggleSignUp())} className="text-[#7F7F7F]">تسجيل جديد</button>
+          <button
+            onClick={() => dispatch(toggleSignIn())}
+            className="text-white"
+          >
+            تسجل دخول
+          </button>
+          <button
+            onClick={() => dispatch(toggleSignUp())}
+            className="text-[#7F7F7F]"
+          >
+            تسجيل جديد
+          </button>
         </div>
       </div>
     </div>
