@@ -99,7 +99,7 @@ const CourseRow = ({ index, data }) => {
             </svg>
             {data.isOnline}
           </span>
-          <span style={{ display: !hadaf ? "!hidden" : "inline" }}>
+          <span style={{ display: !hadaf ? "none" : "flex" }}>
             <svg
               width="10"
               height="10"

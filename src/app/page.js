@@ -11,7 +11,7 @@ export default function Home() {
   // document.querySelectorAll("link[rel='preload'][as='style']").forEach(link => link.rel = "stylesheet")
 
   return (
-    <main className="home">
+    <main className="home home-page">
       {/* HERO start  */}
       <section className="hero">
         <div className="intro">
