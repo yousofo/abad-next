@@ -4,7 +4,7 @@ import "./myCourse.css";
 import Accordion from "@/components/shared/Accordion/Accordion";
 import { useRouter } from "next/navigation";
 import { useSelector } from "react-redux";
-const page = () => {
+const MyCourse = () => {
   const isSignedIn = useSelector((store) => store.auth.isSignedIn);
   let router = useRouter();
   if (!isSignedIn) {
@@ -83,4 +83,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default MyCourse;
