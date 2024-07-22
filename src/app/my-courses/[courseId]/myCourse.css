@@ -1,35 +1,17 @@
-.enlist {
-  font-size: 10px;
-  font-weight: 500;
-  padding: 6px 12px;
-  border-radius: 4px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  background-color: #f0f6ec;
-  color: #6ea641;
+.my-course .intro .btns {
+  width: 100%;
 }
-@media (min-width: 768px) {
-  .enlist {
-    font-size: 12px;
+.my-course .intro .btns button {
+  word-spacing: 2px;
+  width: 100%;
+}
+@media (min-width: 640px) {
+  .my-course .intro .btns {
+    width: fit-content;
   }
-}
-
-table {
-  color: #3f3e43;
-  font-weight: 500 !important;
-}
-table th, table td {
-  font-weight: inherit;
-  font-size: 12px;
-  padding: 16px;
-  text-align: start;
-}
-table td:nth-child(1) {
-  font-size: 14px;
-}
-table td:nth-child(2) {
-  font-weight: 700;
+  .my-course .intro .btns button {
+    width: fit-content;
+  }
 }
 
 .accordion {

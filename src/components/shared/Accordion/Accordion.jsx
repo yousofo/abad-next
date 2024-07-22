@@ -8,7 +8,7 @@ const Accordion = ({ title, data, children }) => {
   return (
     <div className={`accordion-item  ${active && "active"}`}>
       <button className="accordion-header" onClick={() => setActive(!active)}>
-        <span className="text-lg font-medium text-[#252525]">{title}</span>
+        <span className="text-sm md:text-lg font-medium text-[#252525]">{title}</span>
         <svg
           width={20}
           height={20}
