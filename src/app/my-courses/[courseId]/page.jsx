@@ -1,7 +1,15 @@
+"use client";
 import React from "react";
 import "./myCourse.css";
 import Accordion from "@/components/shared/Accordion/Accordion";
+import { useRouter } from "next/navigation";
+import { useSelector } from "react-redux";
 const page = () => {
+  const isSignedIn = useSelector((store) => store.auth.isSignedIn);
+  let router = useRouter();
+  if (!isSignedIn) {
+    router.replace("/");
+  }
   return (
     <main className="pb-10 sm:pb-24 relative">
       {/* HERO start  */}
