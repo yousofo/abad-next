@@ -2,14 +2,16 @@
 import "./navlist.css";
 import Link from "next/link";
 import { useDispatch, useSelector } from "react-redux";
-import { reset, toggleNavList } from "../GlobalState/Features/navListSlice";
-import { toggleSignIn, toggleSignUp } from "../GlobalState/Features/authSlice";
+import { reset as toggleResetNavList, toggleNavList } from "../GlobalState/Features/navListSlice";
+import { toggleResetAuth, toggleSignIn, toggleSignUp } from "../GlobalState/Features/authSlice";
 import MiniNav from "./MiniNav";
 import { useEffect } from "react";
+import { useRouter } from "next/navigation";
 
 const NavList = () => {
   const active = useSelector((state) => state.navList.active);
   const isSignedIn = useSelector((store) => store.auth.isSignedIn);
+  const router= useRouter()
   useEffect(() => {
     if (active) {
       window.document.body.classList.add("no-scroll");
@@ -17,6 +19,14 @@ const NavList = () => {
       window.document.body.classList.remove("no-scroll");
     }
   }, []);
+  function handleSignOut(){
+    dispatch(toggleResetAuth())
+    handleResetNavList()
+    router.push("/")
+  }
+  function handleResetNavList(){
+    dispatch(toggleResetNavList())
+  }
   const dispatch = useDispatch();
   return (
     <div
@@ -55,7 +65,7 @@ const NavList = () => {
         </div>
         <ul className="text-[#424242]">
           <li className="font-[700]">
-            <Link onClick={() => dispatch(reset())} href="/">
+            <Link onClick={handleResetNavList} href="/">
               الرئيسية
             </Link>
           </li>
@@ -63,23 +73,26 @@ const NavList = () => {
             <MiniNav />
           </li>
           <li>
-            <Link onClick={() => dispatch(reset())} href="/articles">
+            <Link onClick={handleResetNavList} href="/articles">
               المقالات
             </Link>
           </li>
           <li>
-            <Link onClick={() => dispatch(reset())} href="/">
+            <Link onClick={handleResetNavList} href="/">
               الشركاء
             </Link>
           </li>
           <li>
-            <Link onClick={() => dispatch(reset())} href="/contact">
+            <Link onClick={handleResetNavList} href="/contact">
               تواصل معنا
             </Link>
           </li>
         </ul>
         {isSignedIn ? (
-          <button className="mt-auto px-5 flex justify-center">
+          <button
+            className="mt-auto px-5 flex gap-1 w-fit items-center"
+            onClick={handleSignOut}
+          >
             <svg
               width="22"
               height="18"

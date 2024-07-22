@@ -61,7 +61,7 @@ export const authSlice = createSlice({
         isSignedIn: true,
       }
     },
-    reset: (state) => {
+    toggleResetAuth: (state) => {
       return initialState
     },
     // incrementByAmount: (state, action) => {
@@ -70,6 +70,6 @@ export const authSlice = createSlice({
   }
 })
 
-export const { toggleSignIn,addSignInError,addSignUpError, toggleSignUp, toggleForgotPassword, toggleNewPassword, toggleSignedIn, reset } = authSlice.actions;
+export const { toggleSignIn,addSignInError,addSignUpError, toggleSignUp, toggleForgotPassword, toggleNewPassword, toggleSignedIn, toggleResetAuth } = authSlice.actions;
 
 export default authSlice.reducer;

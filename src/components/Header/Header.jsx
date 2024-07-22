@@ -3,7 +3,7 @@ import React, { act, useState } from "react";
 import "./header.css";
 import Link from "next/link";
 import { useDispatch, useSelector } from "react-redux";
-import { reset, toggleSignIn } from "../GlobalState/Features/authSlice";
+import { toggleResetAuth, toggleSignIn } from "../GlobalState/Features/authSlice";
 import { toggleNavList } from "../GlobalState/Features/navListSlice";
 import { toggleMiniNav } from "../GlobalState/Features/miniNavSlice";
 import {
@@ -26,7 +26,7 @@ const Header = () => {
     dispatch(resetCoursesNav());
   }
   function handleSignOut() {
-    dispatch(reset());
+    dispatch(toggleResetAuth());
   }
   const AngleBottom = ({ fill }) => (
     <svg
