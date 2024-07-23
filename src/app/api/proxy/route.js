@@ -1,6 +1,6 @@
 export async function GET(request) {
   try {
-    const response = await fetch('https://kh.abadnet.com.sa/api/Home/latest', {
+    const response = await fetch('http://myserverhost-001-site2.dtempurl.com/api/Home/latest', {
       method:"GET",
       headers: {
         'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate',

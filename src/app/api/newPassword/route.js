@@ -3,7 +3,7 @@ export async function POST(request) {
   const jsonData = await request.json()
   console.log("=============================================")
   console.log("new Password")
-  const response = await fetch(`https://kh.abadnet.com.sa/api/Student/newPassword`, {
+  const response = await fetch(`http://myserverhost-001-site2.dtempurl.com/api/Student/newPassword`, {
     method: "POST",
     headers: {
       'Content-Type': 'application/json',

@@ -3,8 +3,8 @@ export async function POST(request) {
     // Parse the request body (assuming JSON format)
     const requestData = await request.json();
 
-    const response = await fetch('https://kh.abadnet.com.sa/api/Student/register', {
-      method: "POST",
+    const response = await fetch('http://myserverhost-001-site2.dtempurl.com/api/Student/register', {
+      method: "POST",http://myserverhost-001-site2.dtempurl.com
       headers: {
         'Content-Type': 'application/json',
         'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate',

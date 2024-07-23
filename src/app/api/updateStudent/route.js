@@ -1,8 +1,8 @@
-export async function GET(request,{params}) {
+export async function PUT(request,{params}) {
   // try {
   const { token } = params;
-//http://myserverhost-001-site2.dtempurl.com/swagger/index.html
-  const response = await fetch(`http://myserverhost-001-site2.dtempurl.com/api/Home/getByToken?token=${token}`, {
+  const requestData = request.json()
+  const response = await fetch(`http://myserverhost-001-site2.dtempurl.com/api/Student/update/${token}`, {
     method: "GET",
     headers: {
       'Content-Type': 'application/json',
