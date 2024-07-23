@@ -1,77 +1,41 @@
-"use client"
-import React from "react";
+"use client";
+import React, { useEffect, useState } from "react";
 import "./my-courses.css";
 import Link from "next/link";
 import { useSelector } from "react-redux";
 import { useRouter } from "next/navigation";
-const MyCourses = () => {
-  const isSignedIn = useSelector(store=>store.auth.isSignedIn)
-  let router = useRouter()
-  if(!isSignedIn){
-    router.replace("/")
+
+async function FetchStudentCourses(token) {
+  try {
+    const request = await fetch(`/api/studentCourses/${token}`);
+    const jsonData = await request.json();
+    return jsonData;
+  } catch (e) {
+    console.log("student courses");
+    console.log(e);
   }
-  let items = new Array(4).fill(
-    <div className="course">
-      <div className="info">
-        <img className="max-w-20 md:max-w-fit" src="/media/placeholders/my-courses-item.png" alt="" />
-        <div className="details">
-          <div className="flex gap-2 flex-col sm:flex-row">
-            <h4
-              className="text-[#3F3E43] text-sm sm:text-lg font-bold order-3 md:order-1"
-              dir="rtl"
-            >
-              <bdi>CCNA 200-301 شهادة سيسكو المعتمدة</bdi>
-            </h4>
-            <div className="flex items-center order-2">
-              <svg
-                width="15"
-                height="15"
-                viewBox="0 0 15 15"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M7.5 13.125C10.6066 13.125 13.125 10.6066 13.125 7.5C13.125 4.3934 10.6066 1.875 7.5 1.875C4.3934 1.875 1.875 4.3934 1.875 7.5C1.875 10.6066 4.3934 13.125 7.5 13.125Z"
-                  fill="#008000"
-                />
-              </svg>
-              <span className="text-[#008000] text-[10px] md:text-base">أونلاين</span>
-            </div>
-          </div>
-          <div className="flex gap-1 items-center">
-            <svg
-              width="19"
-              height="18"
-              className="w-[14px] sm:w-[19px] h-[13px] sm:h-[18px]"
-              viewBox="0 0 19 18"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                fill-rule="evenodd"
-                clip-rule="evenodd"
-                d="M1.40625 9.00008C1.40625 4.74289 5.02995 1.29175 9.5 1.29175C13.9701 1.29175 17.5937 4.74289 17.5937 9.00008C17.5937 13.2573 13.9701 16.7084 9.5 16.7084C5.02995 16.7084 1.40625 13.2573 1.40625 9.00008ZM9.5 0.041748C4.30507 0.041748 0.09375 4.05253 0.09375 9.00008C0.09375 13.9476 4.30507 17.9584 9.5 17.9584C14.6949 17.9584 18.9062 13.9476 18.9062 9.00008C18.9062 4.05253 14.6949 0.041748 9.5 0.041748ZM9.49858 3.37506C9.13615 3.37506 8.84233 3.65488 8.84233 4.00006V7.45455C8.20099 7.70179 7.74858 8.30061 7.74858 9.00006C7.74858 9.92054 8.53208 10.6667 9.49858 10.6667C10.4651 10.6667 11.2486 9.92054 11.2486 9.00006C11.2486 8.30061 10.7962 7.70179 10.1548 7.45455V4.00006C10.1548 3.65488 9.86102 3.37506 9.49858 3.37506Z"
-                fill="#F178B6"
-              />
-            </svg>
-            <h5 className="text-[#3F3E43] text-xs sm:text-lg">
-              من 6 م : الي 9 م - يوميا
-            </h5>
-          </div>
-          <p className="text-[#8A8394] text-xs">
-            هنا يكتب تفاصيل المحتوي للدورة هنا يكتب تفاصيل المحتوي للدورة هنا
-            يكتب تفاصيل المحتوي للدورة 
-          </p>
-        </div>
-      </div>
-      <Link
-        href="/my-courses/1"
-        className="bg-abad-gold py-3 px-6 text-[11px] md:text-base font-medium rounded-2xl w-full text-center sm:w-max h-fit"
-      >
-        الدخول الي الدورة
-      </Link>
-    </div>
-  );
+}
+const MyCourses = () => {
+  const isSignedIn = useSelector((store) => store.auth.isSignedIn);
+  const user = useSelector((store) => store.auth.user);
+  const userJson = JSON.parse(user)
+  const [data, setData] = useState([]);
+  let router = useRouter();
+
+  if (!isSignedIn) {
+    router.replace("/");
+  }
+  useEffect(() => {
+    if (userJson.token) {
+      FetchStudentCourses(userJson.token)
+        .then((e) => {
+          console.log("fetched");
+          console.log(e);
+          setData(e);
+        })
+        .catch((e) => console.log(e));
+    }
+  }, [userJson.token]);
   return (
     <main className="pb-10 sm:pb-24">
       {/* HERO start  */}
@@ -97,7 +61,74 @@ const MyCourses = () => {
       {/* HERO end  */}
       {/* main content start */}
       <section className="my-courses flex flex-col gap-4 sm:gap-6 max-w-screen-xl mx-auto px-4">
-        {items}
+        {data.forEach((e, i) => (
+          <div className="course" key={i}>
+            <div className="info">
+              <img
+                className="max-w-20 md:max-w-fit"
+                src="/media/placeholders/my-courses-item.png"
+                alt=""
+              />
+              <div className="details">
+                <div className="flex gap-2 flex-col sm:flex-row">
+                  <h4
+                    className="text-[#3F3E43] text-sm sm:text-lg font-bold order-3 md:order-1"
+                    dir="rtl"
+                  >
+                    <bdi>CCNA 200-301 شهادة سيسكو المعتمدة</bdi>
+                  </h4>
+                  <div className="flex items-center order-2">
+                    <svg
+                      width="15"
+                      height="15"
+                      viewBox="0 0 15 15"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M7.5 13.125C10.6066 13.125 13.125 10.6066 13.125 7.5C13.125 4.3934 10.6066 1.875 7.5 1.875C4.3934 1.875 1.875 4.3934 1.875 7.5C1.875 10.6066 4.3934 13.125 7.5 13.125Z"
+                        fill="#008000"
+                      />
+                    </svg>
+                    <span className="text-[#008000] text-[10px] md:text-base">
+                      أونلاين
+                    </span>
+                  </div>
+                </div>
+                <div className="flex gap-1 items-center">
+                  <svg
+                    width="19"
+                    height="18"
+                    className="w-[14px] sm:w-[19px] h-[13px] sm:h-[18px]"
+                    viewBox="0 0 19 18"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      clip-rule="evenodd"
+                      d="M1.40625 9.00008C1.40625 4.74289 5.02995 1.29175 9.5 1.29175C13.9701 1.29175 17.5937 4.74289 17.5937 9.00008C17.5937 13.2573 13.9701 16.7084 9.5 16.7084C5.02995 16.7084 1.40625 13.2573 1.40625 9.00008ZM9.5 0.041748C4.30507 0.041748 0.09375 4.05253 0.09375 9.00008C0.09375 13.9476 4.30507 17.9584 9.5 17.9584C14.6949 17.9584 18.9062 13.9476 18.9062 9.00008C18.9062 4.05253 14.6949 0.041748 9.5 0.041748ZM9.49858 3.37506C9.13615 3.37506 8.84233 3.65488 8.84233 4.00006V7.45455C8.20099 7.70179 7.74858 8.30061 7.74858 9.00006C7.74858 9.92054 8.53208 10.6667 9.49858 10.6667C10.4651 10.6667 11.2486 9.92054 11.2486 9.00006C11.2486 8.30061 10.7962 7.70179 10.1548 7.45455V4.00006C10.1548 3.65488 9.86102 3.37506 9.49858 3.37506Z"
+                      fill="#F178B6"
+                    />
+                  </svg>
+                  <h5 className="text-[#3F3E43] text-xs sm:text-lg">
+                    من 6 م : الي 9 م - يوميا
+                  </h5>
+                </div>
+                <p className="text-[#8A8394] text-xs">
+                  هنا يكتب تفاصيل المحتوي للدورة هنا يكتب تفاصيل المحتوي للدورة
+                  هنا يكتب تفاصيل المحتوي للدورة
+                </p>
+              </div>
+            </div>
+            <Link
+              href="/my-courses/1"
+              className="bg-abad-gold py-3 px-6 text-[11px] md:text-base font-medium rounded-2xl w-full text-center sm:w-max h-fit"
+            >
+              الدخول الي الدورة
+            </Link>
+          </div>
+        ))}
       </section>
       {/* main content end */}
     </main>

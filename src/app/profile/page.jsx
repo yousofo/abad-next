@@ -1,8 +1,70 @@
+"use client";
 import React from "react";
 import "./profile.css";
 import Link from "next/link";
+import { useForm } from "react-hook-form";
+import { useSelector } from "react-redux";
+
+async function fetchUpdateStudent(data) {
+  console.log(data);
+  try {
+    const request = await fetch(`/api/updateStudent/${data.token}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Cache-Control":
+          "no-store, no-cache, must-revalidate, proxy-revalidate",
+        Pragma: "no-cache",
+        Expires: "0",
+        "Surrogate-Control": "no-store",
+      },
+      body: JSON.stringify(data.data),
+    });
+    const jsonResult = await request.json();
+    return jsonResult;
+  } catch (e) {
+    console.log("update student!");
+    console.log(e);
+  }
+}
 
 const Profile = () => {
+  const userData = useSelector((store) => store.auth.user);
+  const userJsonData = JSON.parse(userData);
+  console.log("profile");
+  const signUpForm = useForm({
+    defaultValues: {
+      ...userJsonData,
+      birthDate: new Date(userJsonData.birthDate).toISOString().split("T")[0],
+    },
+  });
+  const { register, handleSubmit, formState, setError, reset } = signUpForm;
+  // const { name,ref,onChange,onBlur}=register("id")
+  let { errors, isValid, isSubmitted } = formState;
+  async function handleFormSubmit(formData, e) {
+    console.log("sending data");
+    console.log(formData);
+
+    const result = await fetchUpdateStudent({
+      data: {
+        arabicName: formData.arabicName,
+        englishName: formData.englishName,
+        idnumber: formData.idnumber,
+        email: formData.email,
+        phone: formData.phone,
+        gender: formData.gender,
+        birthDate: formData.birthDate,
+        nationality: formData.nationality,
+        educationsType: formData.educationsType,
+        city: formData.city,
+        password: formData.token,
+        confirmPassword: formData.token,
+      },
+      token: userJsonData.token,
+    });
+    console.log("result");
+    console.log(result);
+  }
   return (
     <main className="pb-10 sm:pb-24">
       {/* HERO start  */}
@@ -30,8 +92,13 @@ const Profile = () => {
       {/* HERO end  */}
       {/* main content start */}
       <section className="profile flex flex-col gap-8 max-w-screen-xl mx-auto px-4">
-        <form action="" className="grid md:grid-cols-2 gap-4">
-          <div className="input col-span-2  mx-auto change-pp abad-shadow py-4 px-8 rounded">
+        <form
+          onSubmit={handleSubmit(handleFormSubmit)}
+          action=""
+          id="updateStudentForm"
+          className="grid md:grid-cols-2 gap-4"
+        >
+          {/* <div className="input col-span-2  mx-auto change-pp abad-shadow py-4 px-8 rounded">
             <div className="input relative mx-auto change-pp  w-24 h-24 overflow-hidden">
               <input
                 type="file"
@@ -64,44 +131,112 @@ const Profile = () => {
             <div>
               <label>أحمد البسطويسي</label>
             </div>
+          </div> */}
+          {/* token HIDDEN*/}
+          <div className="input" style={{ display: "none" }}>
+            <input {...register("token")} type="text" name="" id="token" />
           </div>
+          {/* arabic name */}
           <div className="input">
             <label htmlFor="">الاسم الرباعي بالعربي*</label>
-            <input type="email" name="" placeholder="اكتب اسمك رباعي" id="" />
+            <input
+              {...register("arabicName")}
+              type="text"
+              name=""
+              placeholder="اكتب اسمك رباعي"
+              id="updateArabicName"
+            />
           </div>
+          {/* english name */}
           <div className="input">
             <label htmlFor="">الاسم الرباعي بالانجليزي*</label>
             <input
-              type="email"
+              {...register("englishName")}
+              type="text"
               name=""
               dir="ltr"
               placeholder="type your name"
-              id=""
+              id="updateEnglishName"
             />
           </div>
+          {/* id ! */}
           <div className="input">
-            <label htmlFor="">عنوان البريد الإلكتروني*</label>
+            <label htmlFor="">رقم الهوية*</label>
             <input
-              type="email"
+              required
+              type="text"
               name=""
-              placeholder="أدخل بريدك الإلكتروني"
-              id=""
+              id="idnumber"
+              {...register("idnumber", {
+                required: "يجب كتابة رقم الهوية",
+              })}
+              placeholder="ادخل رقم الهوية"
             />
+            <p className="input-error">{errors.idNumber?.message}</p>
           </div>
-          <div className="input">
-            <label htmlFor="">الهاتف</label>
-            <input type="email" name="" placeholder="اكتب الهاتف" id="" />
-          </div>
-          <div className="input">
-            <label htmlFor="signUpDate">تاريخ الميلاد</label>
-            <input type="date" name="" placeholder="" id="signUpDate" />
-          </div>
-          <div className="input">
-            <label htmlFor="signUpGender">الجنس*</label>
+          {/* nationality ! */}
+          <div className="input nationality">
+            <label htmlFor="nationality">الجنسية*</label>
             <div className="select relative">
               <select
                 name=""
-                id="signUpGender"
+                className="w-full"
+                id="nationality"
+                {...register("nationality", {
+                  required: "يجب كتابة الجنسية",
+                })}
+              >
+                <option value="t" style={{ display: "none" }}>
+                  اختر الجنسية
+                </option>
+                <option value="سعودي">سعودي</option>
+                <option value="اردني">اردني</option>
+                <option value="مصري">مصري</option>
+              </select>
+            </div>
+            <p className="input-error">{errors.nationality?.message}</p>
+          </div>
+          {/* email */}
+          <div className="input">
+            <label htmlFor="">عنوان البريد الإلكتروني*</label>
+            <input
+              {...register("email")}
+              type="email"
+              name=""
+              placeholder="أدخل بريدك الإلكتروني"
+              id="updateEmail"
+            />
+          </div>
+          {/* phone */}
+          <div className="input">
+            <label htmlFor="">الهاتف</label>
+            <input
+              {...register("phone")}
+              type="text"
+              name=""
+              placeholder="اكتب الهاتف"
+              id="updatePhone"
+            />
+          </div>
+          {/* birthdate */}
+          <div className="input">
+            <label htmlFor="updateBirthDate">تاريخ الميلاد</label>
+            <input
+              {...register("birthDate")}
+              type="date"
+              name=""
+              placeholder=""
+              id="updateBirthDate"
+            />
+          </div>
+          {/* gender */}
+          <div className="input">
+            <label htmlFor="updateGender">الجنس*</label>
+            <div className="select relative">
+              <select
+                {...register("gender")}
+                name=""
+                id="updateGender"
                 className="w-full focus:outline-none"
               >
                 <option value="">ذكر</option>
@@ -109,38 +244,51 @@ const Profile = () => {
               </select>
             </div>
           </div>
+          {/* educations type */}
           <div className="input">
             <label htmlFor="">المؤهل العلمي</label>
             <input
-              type="email"
+              {...register("educationsType")}
+              type="text"
               name=""
               placeholder="اكتب المؤهل التعليمي"
-              id=""
+              id="updateEducation"
             />
           </div>
+          {/* city */}
           <div className="input">
-            <label htmlFor="">المدينة*</label>
-            <input type="email" name="" placeholder="" id="" />
-          </div>
-          <div className="input">
-            <label htmlFor="">كلمة المرور*</label>
-            <input type="email" name="" placeholder="ادخل كلمة المرور" id="" />
-          </div>
-          <div className="input">
-            <label htmlFor="">تأكيد كلمة المرور*</label>
-            <input
-              type="email"
-              name=""
-              placeholder="تأكيد كلمة المرور*"
-              id=""
-            />
+            <label htmlFor="signUpGender">المدينة*</label>
+            <div className="select relative">
+              <select
+                name=""
+                id="city"
+                className="w-full"
+                {...register("city", {
+                  required: "يجب اختيار المدينة",
+                })}
+              >
+                <option value="t" style={{ display: "none" }}>
+                  اختر المدينة
+                </option>
+                <option value="مكة">مكة</option>
+                <option value="المدينة"> المدينة المنورة</option>
+                <option value="الطائف">الطائف</option>
+              </select>
+            </div>
+            <p className="input-error">{errors.city?.message}</p>
           </div>
         </form>
         <div className="btns">
           <Link href="/profile/change-password" className="text-[#8D8181]">
             تغيير الرقم السري
           </Link>
-          <button className="bg-abad-gold text-[#282828]">حفظ التغييرات</button>
+          <button
+            type="submit"
+            form="updateStudentForm"
+            className="bg-abad-gold text-[#282828]"
+          >
+            حفظ التغييرات
+          </button>
         </div>
       </section>
       {/* main content end */}

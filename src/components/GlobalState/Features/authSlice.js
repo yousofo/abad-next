@@ -5,12 +5,22 @@ import { createSlice } from '@reduxjs/toolkit';
 const initialState = {
   isHidden: true,
   isSignedIn: false,
-  user:{
-
-  },
+  user: JSON.stringify({
+    "arabicName": "",
+    "englishName": "",
+    "idnumber": "",
+    "email": "",
+    "phone": "",
+    "gender": "",
+    "birthDate": "",
+    "nationality": "",
+    "educationsType": "",
+    "city": "",
+    "token": ""
+  }),
   signIn: false,
-  signInError:"",
-  signUpError:"",
+  signInError: "",
+  signUpError: "",
   signUp: false,
   forgotPassword: false,
   newPassword: false,
@@ -28,10 +38,10 @@ export const authSlice = createSlice({
         signIn: true,
       }
     },
-    addSignInError: (state,action) => {
+    addSignInError: (state, action) => {
       state.signInError = action.payload
     },
-    addSignUpError: (state,action) => {
+    addSignUpError: (state, action) => {
       state.signUpError = action.payload
     },
     toggleSignUp: (state) => {
@@ -64,12 +74,15 @@ export const authSlice = createSlice({
     toggleResetAuth: (state) => {
       return initialState
     },
+    toggleUser: (state, action) => {
+      state.user = action.payload
+    }
     // incrementByAmount: (state, action) => {
     //     state.value += action.payload;
     // }
   }
 })
 
-export const { toggleSignIn,addSignInError,addSignUpError, toggleSignUp, toggleForgotPassword, toggleNewPassword, toggleSignedIn, toggleResetAuth } = authSlice.actions;
+export const { toggleSignIn, addSignInError, addSignUpError, toggleSignUp, toggleForgotPassword, toggleNewPassword, toggleSignedIn, toggleUser, toggleResetAuth } = authSlice.actions;
 
 export default authSlice.reducer;

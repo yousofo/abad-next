@@ -4,6 +4,7 @@ import {
   toggleForgotPassword,
   toggleSignUp,
   toggleSignedIn,
+  toggleUser,
 } from "@/components/GlobalState/Features/authSlice";
 import { reset } from "@/components/GlobalState/Features/navListSlice";
 // import { useRouter } from "next/navigation";
@@ -66,6 +67,8 @@ const SignIn = () => {
     console.log(result);
     if (result.token) {
       dispatch(toggleSignedIn());
+      dispatch(toggleUser(JSON.stringify(result)));
+      console.log(result)
       dispatch(reset());
     } else {
       if (result.message) {
@@ -94,6 +97,7 @@ const SignIn = () => {
             type="email"
             name=""
             required
+            value="user3@example.com"
             placeholder="أدخل بريدك الإلكتروني"
             // id=""
           />
@@ -105,6 +109,7 @@ const SignIn = () => {
             required
             type="password"
             name=""
+            value="string"
             placeholder="أدخل كلمة المرور"
             // id=""
           />
@@ -124,11 +129,7 @@ const SignIn = () => {
             نسيت كلمة السر؟
           </button>
         </div>
-        <button
-          className="login-btn"
-          type="submit"
-          onClick={handleSignIn}
-        >
+        <button className="login-btn" type="submit" onClick={handleSignIn}>
           تسجيل الدخول
         </button>
       </form>
