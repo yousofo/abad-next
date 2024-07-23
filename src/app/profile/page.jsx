@@ -31,11 +31,12 @@ async function fetchUpdateStudent(data) {
 const Profile = () => {
   const userData = useSelector((store) => store.auth.user);
   const userJsonData = JSON.parse(userData);
+  const newDate = new Date(userJsonData.birthDate)
   console.log("profile");
   const signUpForm = useForm({
     defaultValues: {
       ...userJsonData,
-      birthDate: new Date(userJsonData.birthDate).toISOString().split("T")[0],
+      birthDate: newDate.toISOString().split("T")[0],
     },
   });
   const { register, handleSubmit, formState, setError, reset } = signUpForm;
