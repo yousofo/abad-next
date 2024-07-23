@@ -4,7 +4,7 @@ import SignIn from "./SignIn";
 import SignUp from "./SignUp";
 import "./auth.css";
 import { useDispatch, useSelector } from "react-redux";
-import { reset } from "@/components/GlobalState/Features/authSlice";
+import { toggleResetAuth } from "@/components/GlobalState/Features/authSlice";
 import ForgotPassword from "./ForgotPassword";
 import PasswordReassigned from "./PasswordReassigned";
 
@@ -17,7 +17,7 @@ const Authentication = () => {
 
   const dispatch = useDispatch();
   function handleAuthClose() {
-    dispatch(reset());
+    dispatch(toggleResetAuth());
     console.log(isHidden);
   }
   return (
