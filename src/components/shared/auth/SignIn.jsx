@@ -68,7 +68,7 @@ const SignIn = () => {
     if (result.token) {
       dispatch(toggleSignedIn());
       dispatch(toggleUser(JSON.stringify(result)));
-      console.log(result)
+      console.log(result);
       dispatch(reset());
     } else {
       if (result.message) {
@@ -97,7 +97,7 @@ const SignIn = () => {
             type="email"
             name=""
             required
-            value="user3@example.com"
+            // value="user3@example.com"
             placeholder="أدخل بريدك الإلكتروني"
             // id=""
           />
@@ -107,7 +107,7 @@ const SignIn = () => {
           <input
             ref={password}
             required
-            type="password"
+            // type="password"
             name=""
             value="string"
             placeholder="أدخل كلمة المرور"
