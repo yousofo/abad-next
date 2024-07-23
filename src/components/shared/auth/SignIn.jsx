@@ -68,7 +68,7 @@ const SignIn = () => {
     if (result.token) {
       dispatch(toggleSignedIn());
       dispatch(toggleUser(JSON.stringify(result)));
-      console.log(result);
+      console.log(result)
       dispatch(reset());
     } else {
       if (result.message) {
@@ -107,9 +107,9 @@ const SignIn = () => {
           <input
             ref={password}
             required
-            // type="password"
+            type="password"
             name=""
-            value="string"
+            // value="string"
             placeholder="أدخل كلمة المرور"
             // id=""
           />
