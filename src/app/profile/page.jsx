@@ -36,7 +36,7 @@ const Profile = () => {
   const signUpForm = useForm({
     defaultValues: {
       ...userJsonData,
-      birthDate: newDate.toISOString().split("T")[0],
+      birthDate: newDate?.toISOString()?.split("T")[0],
     },
   });
   const { register, handleSubmit, formState, setError, reset } = signUpForm;
