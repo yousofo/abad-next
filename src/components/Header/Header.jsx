@@ -222,7 +222,7 @@ const Header = () => {
             className=" text-white items-center gap-2 relative z-20  cursor-pointer hidden lg:flex"
             onClick={handleMiniNav}
           >
-            <img src="/media/placeholders/user-image.png" alt="" />
+            <img src="/media/placeholders/user-image.png" className="max-w-12" alt="" />
             <p>أحمد البسطويسي</p>
             <svg
               width="20"
