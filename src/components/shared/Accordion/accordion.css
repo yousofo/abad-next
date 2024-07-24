@@ -60,7 +60,7 @@ table td:nth-child(2) {
   rotate: 180deg;
 }
 .accordion-item.active .accordion-content {
-  max-height: 500px;
+  max-height: 800px;
 }
 
 .accordion-item:last-child {
@@ -87,7 +87,7 @@ table td:nth-child(2) {
 
 .accordion-content {
   max-height: 0;
-  transition: 0.3s max-height;
+  transition: 0.3s;
   background-color: #fff;
 }
 .accordion-content .wrapper {

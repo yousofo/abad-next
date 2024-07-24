@@ -6,7 +6,16 @@ import Accordion from "@/components/shared/Accordion/Accordion";
 
 async function fetchCourseDetails(token) {
   try {
-    const courseDetails = await fetch(`/api/courseDetails/${token}`);
+    const courseDetails = await fetch(`/api/courseDetails/${token}`, {
+      headers: {
+        "Content-Type": "application/json",
+        "Cache-Control":
+          "no-store, no-cache, must-revalidate, proxy-revalidate",
+        Pragma: "no-cache",
+        Expires: "0",
+        "Surrogate-Control": "no-store",
+      },
+    });
     const result = await courseDetails.json();
     console.log(result);
     return result;
@@ -65,13 +74,15 @@ const Course = ({ params }) => {
       },
     ],
   });
-  const token = params.token;
   console.log(courseInfo);
   useEffect(() => {
-    const fetchedResult = fetchCourseDetails(token);
-    setCourseInfo(courseInfo);
-    setCourseImg(fetchedResult.imageUrl);
-    setFetched(true);
+    fetchCourseDetails(params.token)
+      .then((e) => {
+        setCourseInfo(e);
+        setCourseImg(e.imageUrl);
+        setFetched(true);
+      })
+      .catch((e) => console.log(e));
   }, []);
   return (
     <main className="pb-10">
@@ -128,7 +139,7 @@ const Course = ({ params }) => {
                   />
                 </svg>
                 <p className="text-white   font-medium w-full sm:w-fit py-1.5">
-                  {courseInfo.summaryAr}
+                  {courseInfo.courseName}
                 </p>
               </h6>
               <div className="flex flex-col items-start">
@@ -136,14 +147,12 @@ const Course = ({ params }) => {
                   className="md:text-2xl text-[#F9F9F9] font-medium pb-2 w-fit"
                   style={{ unicodeBidi: "bidi-override" }}
                 >
-                  <span>شهادة سيسكو المعتمدة</span>
-                  &nbsp;
-                  <span dir="ltr">CCNA 200-301</span>
+                  <bdi>{courseInfo.courseName}</bdi>
                 </h2>
-                <h3 className="text-[#E0E0E0] max-w-lg leading-relaxed text-sm md:text-base">
-                  تعرف على مبادئ أساسيات شهادة سيسكوالأكثر شيوعًا والمستخدمة في
-                  جميع شركات Fortune 500 الكبرى.
-                </h3>
+                <h3
+                  className="text-[#E0E0E0] max-w-lg leading-relaxed text-sm md:text-base"
+                  dangerouslySetInnerHTML={{ __html: courseInfo.summaryAr }}
+                />
               </div>
               <div>
                 <p className="noto text-[#E0E0E0]">
@@ -218,21 +227,18 @@ const Course = ({ params }) => {
             </div>
             {/* accordions for large screens */}
             <div className="accordion !hidden sm:!flex">
-              <Accordion title="موعد الدورة" data={courseInfo}>
-                Content for موعد الدورة.
-              </Accordion>
-              <Accordion title="تفاصيل الاختبارات">
-                Content for تفاصيل الاختبارات.
-              </Accordion>
-              <Accordion title="مهارات وكفاءات">
-                Content for مهارات وكفاءات.
-              </Accordion>
-              <Accordion title="من يحتاج هذة الدورة">
-                Content for من يحتاج هذة الدورة.
-              </Accordion>
-              <Accordion title="اهداف الدورة">
-                Content for اهداف الدورة.
-              </Accordion>
+              <Accordion title="موعد الدورة" table={courseInfo.openCourses} active={true}/>
+
+              <Accordion title="تفاصيل الاختبارات" data={courseInfo.testAr} />
+
+              <Accordion title="مهارات وكفاءات" data={courseInfo.testAr} />
+
+              <Accordion
+                title="من يحتاج هذة الدورة"
+                data={courseInfo.targetAr}
+              />
+
+              <Accordion title="اهداف الدورة" data={courseInfo.goalsAr} />
             </div>
           </section>
           {/* COURSE CONTENT end */}
@@ -241,12 +247,12 @@ const Course = ({ params }) => {
             <img
               src={courseImg}
               alt=""
+              className="mx-auto mb-2 md:mb-4"
               onError={() => setCourseImg("/media/course/course-image.png")}
             />
             <figcaption className="flex flex-col gap-6">
               <h2
                 className="w-fit font-medium text-[29px] md:text-[32px]"
-                
                 dir="rtl"
               >
                 <span>{courseInfo.price}</span>
@@ -256,7 +262,7 @@ const Course = ({ params }) => {
               <div className="flex flex-col gap-4">
                 <a href="">شراء الدورة التدريبية الآن</a>
                 <div className="action-btns flex gap-4">
-                  <button className="flex-1">إضافة الي السلة</button>
+                  <button className="flex-1 bg-[#FDB614]">إضافة الي السلة</button>
                   <button>
                     <svg
                       width={20}

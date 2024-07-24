@@ -1,15 +1,42 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./myCourse.css";
-import Accordion from "@/components/shared/Accordion/Accordion";
 import { useRouter } from "next/navigation";
 import { useSelector } from "react-redux";
-const MyCourse = () => {
+import RegisteredCourseAccordion from "@/components/shared/Accordion/RegisteredCourseAccordion";
+
+async function fetchUserCourseDetails(token) {
+  try {
+    const request = await fetch(`/api/userCourseDetails/${token}`, {
+      method: "GET",
+      headers: {
+        "Cache-Control":
+          "no-store, no-cache, must-revalidate, proxy-revalidate",
+        Pragma: "no-cache",
+        Expires: "0",
+        "Surrogate-Control": "no-store",
+      },
+    });
+    const data = await request.json();
+    console.log(data);
+    return data;
+  } catch (e) {
+    console.log(e);
+  }
+}
+
+const MyCourse = ({ params }) => {
   const isSignedIn = useSelector((store) => store.auth.isSignedIn);
   let router = useRouter();
-  if (!isSignedIn) {
-    router.replace("/");
-  }
+  const [data, setData] = useState([]);
+  // if (!isSignedIn) {
+  //   router.replace("/");
+  // }
+  useEffect(() => {
+    fetchUserCourseDetails(params.courseId)
+      .then((e) => setData(e))
+      .catch((e) => console.log(e));
+  }, []);
   return (
     <main className="pb-10 sm:pb-24 relative">
       {/* HERO start  */}
@@ -30,41 +57,45 @@ const MyCourse = () => {
       <section className="my-course flex flex-col gap-4 mt-52  sm:gap-6 max-w-screen-lg mx-auto px-4">
         <div className="intro flex flex-col gap-6 p-6 shadow bg-white rounded-xl">
           <img
-            className="w-full h-full max-h-[165px] md:max-h-[183px] object-cover rounded-md"
-            src="/media/placeholders/my-course-placeholder.png"
+            className="w-fit mx-auto h-full max-h-[165px] md:max-h-[183px] object-cover rounded-md"
+            src={data?.imageUrl}
             alt=""
           />
           <div className="flex flex-col gap-2 sm:flex-row items-center justify-between">
             <h2 className="font-medium text-lg md:text-xl">
-              <bdi>CCNA 200-301 شهادة سيسكو المعتمدة</bdi>
+              <bdi>{data.courseName}</bdi>
             </h2>
-            <div className="font-bold btns flex flex-col sm:flex-row gap-3">
-              <button
+            <div className="font-bold btns text-center flex flex-col sm:flex-row gap-3">
+              <a
                 className="text-white py-3 px-7 md:py-4 md:px-8 rounded-full"
                 style={{
                   background:
                     "linear-gradient(83.79deg, #1B45B4 3.25%, #1C2792 96.85%)",
                 }}
+                href={data.whatsAppLink}
               >
                 قروب واتس آب الدورة
-              </button>
-              <button className="bg-[#FDB614] py-3 px-7 md:py-4 md:px-8 rounded-full">
+              </a>
+              <a
+                download={`course${
+                  data.downloadLink?.split("/")[
+                    data.downloadLink?.split("/").length - 1
+                  ]
+                }`}
+                href={data.downloadLink}
+                className="bg-[#FDB614] py-3 px-7 md:py-4 md:px-8 rounded-full"
+              >
                 تحميل الحزمة التدريبية
-              </button>
+              </a>
             </div>
           </div>
           <div className="border border-b-[#E0E0E0]"></div>
           <div className="flex gap-4 flex-col">
             <h3 className="font-medium text-lg md:text-xl">وصف الدورة</h3>
-            <p className="text-[#252525] leading-6 text-sm md:text-base">
-              هل تريد معرفة تعريفات التصميم الأكثر شيوعًا؟ ,تعتبر هذه الدورة
-              التمهيدية مثالية لأولئك الجدد في مجال التصميم أو المحترفين ذوي
-              الخبرة الذين يتطلعون إلى تحسين مصطلحات التصميم. ,تعرف على مكونات
-              واجهة المستخدم (UI)، وتعريفات تجربة المستخدم (UX)، وحتى المصطلحات
-              المتقدمة المضمونة لإبهار زملائك. ,هل تريد معرفة تعريفات التصميم
-              الأكثر شيوعًا؟ ,هذه الدورة التمهيدية مثالية لأولئك الجدد في
-              التصميم أو ذوي الخبرة.
-            </p>
+            <p
+              className="text-[#252525] leading-6 text-sm md:text-base"
+              dangerouslySetInnerHTML={{ __html: data.description }}
+            />
           </div>
         </div>
         <div className="flex flex-col gap-2">
@@ -72,9 +103,9 @@ const MyCourse = () => {
             مواعيد الدورة
           </h2>
           <div className="flex flex-col gap-2">
-            <Accordion title="الاسبوع الاول" />
-            <Accordion title="الاسبوع الثاني" />
-            <Accordion title="الاسبوع الثالث" />
+            {data.sessions?.map((e, i) => (
+              <RegisteredCourseAccordion title={e.weekName} data={e.sessions} />
+            ))}
           </div>
         </div>
       </section>

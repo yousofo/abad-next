@@ -1,0 +1,16 @@
+.popups .login {
+  background: linear-gradient(83.79deg, #1b45b4 3.25%, #1c2792 96.85%);
+  width: 100%;
+  border-radius: 10px;
+  line-height: 22px;
+  padding: 10px 19px;
+  font-weight: 700;
+  font-size: 10px;
+  color: white;
+}
+@media (min-width: 768px) {
+  .popups .login {
+    padding: 16px 32px;
+    font-size: 16px;
+  }
+}
