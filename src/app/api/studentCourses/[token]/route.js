@@ -1,7 +1,8 @@
 export async function GET(request, { params }) {
   // try {
   const { token } = params;
-  const response = await fetch(`http://myserverhost-001-site2.dtempurl.com/api/Home/basic/${token}`, {
+  const tempToken = "3a96b4a5-84c9-4a75-92da-82b99dcdafa2"
+  const response = await fetch(`http://myserverhost-001-site2.dtempurl.com/api/Home/basic/${tempToken}`, {
     method: "GET",
     headers: {
       'Content-Type': 'application/json',

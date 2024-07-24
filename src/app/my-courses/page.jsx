@@ -18,23 +18,21 @@ async function FetchStudentCourses(token) {
 const MyCourses = () => {
   const isSignedIn = useSelector((store) => store.auth.isSignedIn);
   const user = useSelector((store) => store.auth.user);
-  const userJson = JSON.parse(user)
+  const userJson = JSON.parse(user);
   const [data, setData] = useState([]);
   let router = useRouter();
-
+  console.log(userJson?.token);
   if (!isSignedIn) {
     router.replace("/");
   }
   useEffect(() => {
-    if (userJson.token) {
-      FetchStudentCourses(userJson.token)
-        .then((e) => {
-          console.log("fetched");
-          console.log(e);
-          setData(e);
-        })
-        .catch((e) => console.log(e));
-    }
+    FetchStudentCourses(userJson.token)
+      .then((e) => {
+        console.log("fetched");
+        console.log(e);
+        setData(e);
+      })
+      .catch((e) => console.log(e));
   }, [userJson.token]);
   return (
     <main className="pb-10 sm:pb-24">
@@ -61,7 +59,7 @@ const MyCourses = () => {
       {/* HERO end  */}
       {/* main content start */}
       <section className="my-courses flex flex-col gap-4 sm:gap-6 max-w-screen-xl mx-auto px-4">
-        {data.forEach((e, i) => (
+        {data.map((e, i) => (
           <div className="course" key={i}>
             <div className="info">
               <img
@@ -75,24 +73,27 @@ const MyCourses = () => {
                     className="text-[#3F3E43] text-sm sm:text-lg font-bold order-3 md:order-1"
                     dir="rtl"
                   >
-                    <bdi>CCNA 200-301 شهادة سيسكو المعتمدة</bdi>
+                    <bdi>{e.courseName}</bdi>
                   </h4>
                   <div className="flex items-center order-2">
-                    <svg
-                      width="15"
-                      height="15"
-                      viewBox="0 0 15 15"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M7.5 13.125C10.6066 13.125 13.125 10.6066 13.125 7.5C13.125 4.3934 10.6066 1.875 7.5 1.875C4.3934 1.875 1.875 4.3934 1.875 7.5C1.875 10.6066 4.3934 13.125 7.5 13.125Z"
-                        fill="#008000"
-                      />
-                    </svg>
-                    <span className="text-[#008000] text-[10px] md:text-base">
-                      أونلاين
-                    </span>
+                    <div className="flex items-center gap-0.5">
+                      <svg
+                        width="15"
+                        height="15"
+                        viewBox="0 0 15 15"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="mb-1"
+                      >
+                        <path
+                          d="M7.5 13.125C10.6066 13.125 13.125 10.6066 13.125 7.5C13.125 4.3934 10.6066 1.875 7.5 1.875C4.3934 1.875 1.875 4.3934 1.875 7.5C1.875 10.6066 4.3934 13.125 7.5 13.125Z"
+                          fill="#008000"
+                        />
+                      </svg>
+                      <span className="text-[#008000] text-[10px] md:text-base">
+                        أونلاين
+                      </span>
+                    </div>
                   </div>
                 </div>
                 <div className="flex gap-1 items-center">
@@ -111,18 +112,20 @@ const MyCourses = () => {
                       fill="#F178B6"
                     />
                   </svg>
-                  <h5 className="text-[#3F3E43] text-xs sm:text-lg">
-                    من 6 م : الي 9 م - يوميا
+                  <h5 className="text-[#3F3E43] flex items-center gap-1 text-xs sm:text-lg">
+                    <span>{e.schedule}</span>
+                    <span>-</span>
+                    <span>{e.periodDays}</span>
                   </h5>
                 </div>
-                <p className="text-[#8A8394] text-xs">
-                  هنا يكتب تفاصيل المحتوي للدورة هنا يكتب تفاصيل المحتوي للدورة
-                  هنا يكتب تفاصيل المحتوي للدورة
-                </p>
+                <p
+                  className="text-[#8A8394] text-xs"
+                  dangerouslySetInnerHTML={{ __html: e.summary }}
+                />
               </div>
             </div>
             <Link
-              href="/my-courses/1"
+              href={`/my-courses/${e.token}`}
               className="bg-abad-gold py-3 px-6 text-[11px] md:text-base font-medium rounded-2xl w-full text-center sm:w-max h-fit"
             >
               الدخول الي الدورة

@@ -227,7 +227,11 @@ const Course = ({ params }) => {
             </div>
             {/* accordions for large screens */}
             <div className="accordion !hidden sm:!flex">
-              <Accordion title="موعد الدورة" table={courseInfo.openCourses} active={true}/>
+              <Accordion
+                title="موعد الدورة"
+                table={courseInfo.openCourses}
+                active={true}
+              />
 
               <Accordion title="تفاصيل الاختبارات" data={courseInfo.testAr} />
 
@@ -262,7 +266,9 @@ const Course = ({ params }) => {
               <div className="flex flex-col gap-4">
                 <a href="">شراء الدورة التدريبية الآن</a>
                 <div className="action-btns flex gap-4">
-                  <button className="flex-1 bg-[#FDB614]">إضافة الي السلة</button>
+                  <button className="flex-1 bg-[#FDB614]">
+                    إضافة الي السلة
+                  </button>
                   <button>
                     <svg
                       width={20}
@@ -325,21 +331,19 @@ const Course = ({ params }) => {
           {/* COURSE CARD end */}
           {/* ACCORDIONS start SMALL SCREEEN */}
           <div className="accordion sm:!hidden">
-            <Accordion title="موعد الدورة" data={courseInfo}>
-              Content for موعد الدورة.
-            </Accordion>
-            <Accordion title="تفاصيل الاختبارات">
-              Content for تفاصيل الاختبارات.
-            </Accordion>
-            <Accordion title="مهارات وكفاءات">
-              Content for مهارات وكفاءات.
-            </Accordion>
-            <Accordion title="من يحتاج هذة الدورة">
-              Content for من يحتاج هذة الدورة.
-            </Accordion>
-            <Accordion title="اهداف الدورة">
-              Content for اهداف الدورة.
-            </Accordion>
+            <Accordion
+              title="موعد الدورة"
+              table={courseInfo.openCourses}
+              active={true}
+            />
+
+            <Accordion title="تفاصيل الاختبارات" data={courseInfo.testAr} />
+
+            <Accordion title="مهارات وكفاءات" data={courseInfo.testAr} />
+
+            <Accordion title="من يحتاج هذة الدورة" data={courseInfo.targetAr} />
+
+            <Accordion title="اهداف الدورة" data={courseInfo.goalsAr} />
           </div>
           {/* ACCORDIONS end */}
         </div>
