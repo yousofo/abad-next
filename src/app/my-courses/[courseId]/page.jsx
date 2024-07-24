@@ -104,7 +104,7 @@ const MyCourse = ({ params }) => {
           </h2>
           <div className="flex flex-col gap-2">
             {data.sessions?.map((e, i) => (
-              <RegisteredCourseAccordion title={e.weekName} data={e.sessions} />
+              <RegisteredCourseAccordion key={i} title={e.weekName} data={e.sessions} />
             ))}
           </div>
         </div>
