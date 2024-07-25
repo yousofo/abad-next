@@ -2,7 +2,20 @@
 
 import { createSlice } from '@reduxjs/toolkit';
 
-const userData = (typeof window != undefined) ? window.localStorage.getItem("userData") : null
+const getUserData = () => {
+  if (typeof window != undefined) {
+    return window.localStorage.getItem('userData');
+  }
+  return null;
+};
+const deleteUserData = () => {
+  if (typeof window != undefined) {
+    return window.localStorage.removeItem('userData');
+  }
+  return null;
+};
+
+const userData = getUserData()
 console.log(window.localStorage.getItem("userData"))
 console.log("user from store")
 console.log(userData)
@@ -29,6 +42,7 @@ const initialState = {
   forgotPassword: false,
   newPassword: false,
 }
+
 
 let finalInitialState = userData ? { ...initialState, user: userData, isSignedIn: true } : initialState
 export const authSlice = createSlice({
@@ -76,7 +90,7 @@ export const authSlice = createSlice({
       }
     },
     toggleResetAuth: (state) => {
-      if (typeof window != undefined) window.localStorage.removeItem("userData")
+      deleteUserData()
       return initialState
     },
     toggleUser: (state, action) => {
