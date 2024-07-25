@@ -59,7 +59,7 @@ const SignIn = () => {
     e.preventDefault();
     dispatch(toggleForgotPassword());
   }
-
+  //
   async function handleSignIn(e) {
     e.preventDefault();
     setLoading(true);
@@ -74,7 +74,8 @@ const SignIn = () => {
       dispatch(toggleUser(jsonStringData));
 
       // save user data if remember me is chekced
-      if (remember && window) window.localStorage.setItem("userData", jsonStringData);
+      if (remember && typeof window != undefined)
+        window.localStorage.setItem("userData", jsonStringData);
 
       dispatch(reset());
     } else {

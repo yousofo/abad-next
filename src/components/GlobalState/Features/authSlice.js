@@ -2,7 +2,7 @@
 
 import { createSlice } from '@reduxjs/toolkit';
 
-const userData = window.localStorage.getItem("userData") || null
+const userData = (typeof window != undefined) ? window.localStorage.getItem("userData") : null
 console.log(window.localStorage.getItem("userData"))
 console.log("user from store")
 console.log(userData)
@@ -76,7 +76,7 @@ export const authSlice = createSlice({
       }
     },
     toggleResetAuth: (state) => {
-      window.localStorage.removeItem("userData")
+      if (typeof window != undefined) window.localStorage.removeItem("userData")
       return initialState
     },
     toggleUser: (state, action) => {
