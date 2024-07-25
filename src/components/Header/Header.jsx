@@ -1,9 +1,12 @@
 "use client";
-import React, { act, useState } from "react";
+import React, { act, useEffect, useState } from "react";
 import "./header.css";
 import Link from "next/link";
 import { useDispatch, useSelector } from "react-redux";
-import { toggleResetAuth, toggleSignIn } from "../GlobalState/Features/authSlice";
+import {
+  toggleResetAuth,
+  toggleSignIn,
+} from "../GlobalState/Features/authSlice";
 import { toggleNavList } from "../GlobalState/Features/navListSlice";
 import { toggleMiniNav } from "../GlobalState/Features/miniNavSlice";
 import {
@@ -16,8 +19,9 @@ const Header = () => {
   const isSignedIn = useSelector((state) => state.auth.isSignedIn);
   const isMiniNav = useSelector((state) => state.miniNav.active);
   const authData = useSelector((state) => state.auth.user);
-  const userData = JSON.parse(authData)
+  const userData = JSON.parse(authData);
   const dispatch = useDispatch();
+  const [singedInState, setSingedInState] = useState(false);
   function handleMiniNav() {
     dispatch(toggleMiniNav());
   }
@@ -46,14 +50,13 @@ const Header = () => {
       />
     </svg>
   );
-
+  useEffect(() => {
+    setSingedInState(isSignedIn);
+  }, [isSignedIn]);
   return (
-    <header className="whitespace-nowrap" suppressHydrationWarning >
+    <header className="whitespace-nowrap" suppressHydrationWarning>
       <div className="header-contact-bar noto">
-        <a
-          target="_blank"
-          href="mailto:Info@abadnet.com.sa"
-        >
+        <a target="_blank" href="mailto:Info@abadnet.com.sa">
           <p>Info@abadnet.com.sa</p>
           <svg
             width="23"
@@ -188,7 +191,7 @@ const Header = () => {
           </svg>
         </a>
       </div>
-      <nav className="container">
+      <nav className="">
         {/* abad logo */}
         <Link href="/">
           <img src="/media/logos/abad-logo.png" alt="" />
@@ -219,12 +222,16 @@ const Header = () => {
         </ul>
         {/* logout btn */}
         {/* user logged */}
-        {isSignedIn ? (
+        {singedInState ? (
           <div
             className=" text-white items-center gap-2 relative z-20  cursor-pointer hidden lg:flex"
             onClick={handleMiniNav}
           >
-            <img src="/media/placeholders/user-image.png" className="max-w-12" alt="" />
+            <img
+              src="/media/placeholders/user-image.png"
+              className="max-w-12"
+              alt=""
+            />
             <p>{userData.arabicName}</p>
             <svg
               width="20"
@@ -326,11 +333,7 @@ const Header = () => {
             </ul>
           </div>
         ) : (
-          <button
-            href="#"
-            className=""
-            onClick={() => dispatch(toggleSignIn())}
-          >
+          <button className="" onClick={() => dispatch(toggleSignIn())}>
             تسجيل الدخول
           </button>
         )}

@@ -86,11 +86,11 @@ const NavList = () => {
           </div>
         </div>
         <ul className="text-[#424242]">
-          {isSignedIn && (
+          {/* {isSignedIn && (
             <li>
               <User />
             </li>
-          )}
+          )} */}
           <li className="font-[700]">
             <Link onClick={handleResetNavList} href="/">
               الرئيسية
@@ -115,7 +115,7 @@ const NavList = () => {
             </Link>
           </li>
         </ul>
-        {isSignedIn ? (
+        {/* {isSignedIn ? (
           <button
             suppressHydrationWarning={true}
             className="mt-auto px-5 flex gap-1 w-fit items-center"
@@ -154,7 +154,7 @@ const NavList = () => {
               تسجيل جديد
             </button>
           </div>
-        )}
+        )} */}
       </div>
     </div>
   );

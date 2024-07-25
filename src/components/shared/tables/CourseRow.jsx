@@ -60,6 +60,7 @@ const CourseRow = ({ index, data }) => {
         <span>:</span>
         <span>{data.startDate.split("-").join("/")}</span>
       </td>
+      {/* course time */}
       <td>
         <span>التوقيت</span>
         <span>:</span>
