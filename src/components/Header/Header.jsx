@@ -46,7 +46,7 @@ const Header = () => {
   );
 
   return (
-    <header className="whitespace-nowrap">
+    <header className="whitespace-nowrap" >
       <div className="header-contact-bar noto">
         <a
           target="_blank"

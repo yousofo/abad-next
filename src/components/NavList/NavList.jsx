@@ -14,6 +14,7 @@ import {
 import MiniNav from "./MiniNav";
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
+import User from "./User";
 
 const NavList = () => {
   const active = useSelector((state) => state.navList.active);
@@ -50,6 +51,7 @@ const NavList = () => {
   const dispatch = useDispatch();
   return (
     <div
+      suppressHydrationWarning={true}
       className={` ${
         !active && " -translate-x-full "
       } transition-all fixed w-screen full-height navlist-sm-wrapper overflow-scroll bg-white z-[100] `}
@@ -84,6 +86,11 @@ const NavList = () => {
           </div>
         </div>
         <ul className="text-[#424242]">
+          {isSignedIn && (
+            <li>
+              <User />
+            </li>
+          )}
           <li className="font-[700]">
             <Link onClick={handleResetNavList} href="/">
               الرئيسية
@@ -110,6 +117,7 @@ const NavList = () => {
         </ul>
         {isSignedIn ? (
           <button
+            suppressHydrationWarning={true}
             className="mt-auto px-5 flex gap-1 w-fit items-center"
             onClick={handleSignOut}
           >
@@ -132,12 +140,14 @@ const NavList = () => {
         ) : (
           <div className="navlist-auth mt-auto px-5 flex justify-center gap-2">
             <button
+              suppressHydrationWarning={true}
               onClick={() => dispatch(toggleSignIn())}
               className="text-white"
             >
               تسجل دخول
             </button>
             <button
+              suppressHydrationWarning={true}
               onClick={() => dispatch(toggleSignUp())}
               className="text-[#7F7F7F]"
             >

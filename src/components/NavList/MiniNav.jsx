@@ -9,7 +9,7 @@ const MiniNavItem = () => {
   }
 
   return (
-    <li className={`flex flex-col text-sm ${innerList ? " gap-2" : "gap-0"} w-full`} onClick={handleClick}>
+    <li suppressHydrationWarning={true} className={`flex flex-col text-sm ${innerList ? " gap-2" : "gap-0"} w-full`} onClick={handleClick}>
       <div className={`flex justify-between w-full gap-2 `}>
         <span className="w-fit">دورات سيسكو</span>
         <svg
@@ -43,7 +43,7 @@ const MiniNavItem = () => {
 const MiniNav = () => {
   const [outerList, setOuterList] = useState(false);
   return (
-    <button
+    <button suppressHydrationWarning={true}
       onClick={() => setOuterList(!outerList)}
       className={`flex flex-col  w-full ${outerList ? "gap-4" : "gap-0"}`}
     >
