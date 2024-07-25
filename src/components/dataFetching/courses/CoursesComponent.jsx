@@ -219,34 +219,27 @@ const CoursesComponent = () => {
         <div className="flex flex-col md:flex-row gap-4 md:gap-24 lg:gap-4 lg:flex-col ">
           <div className="flex flex-col gap-[10px]">
             <h4 className="font-bold text-xs ">الفئة</h4>
-            <div>
-              <input type="checkbox" name="" id="filterAll" />
+            <div
+              onClick={() => setActiveCategory("all")}
+              className={`courses-form-filter ${
+                activeCategory == "all" ? "active" : ""
+              }`}
+            >
+              <input type="checkbox" name="filterAll" id="filterAll" />
               <label htmlFor="filterAll">الكل</label>
             </div>
-            <div>
-              <input type="checkbox" name="" id="filterDesign" />
-              <label htmlFor="filterDesign">التصميم</label>
-            </div>
-            <div>
-              <input type="checkbox" name="" id="filterBusiness" />
-              <label htmlFor="filterBusiness">الأعمال</label>
-            </div>
-            <div>
-              <input type="checkbox" name="" id="filterProgramming" />
-              <label htmlFor="filterProgramming">البرمجة</label>
-            </div>
-            <div>
-              <input type="checkbox" name="" id="filterHealth" />
-              <label htmlFor="filterHealth">الصحة</label>
-            </div>
-            <div>
-              <input type="checkbox" name="" id="filterFinance" />
-              <label htmlFor="filterFinance">المالية</label>
-            </div>
-            <div>
-              <input type="checkbox" name="" id="filterArt" />
-              <label htmlFor="filterArt">الفن</label>
-            </div>
+            {coursesCategories.map((e, i) => (
+              <div
+                onClick={() => setActiveCategory(e.code)}
+                key={i}
+                className={`courses-form-filter ${
+                  activeCategory == e.code ? "active" : ""
+                }`}
+              >
+                <input type="checkbox" name="" id={`${e.arabicName}`} />
+                <label htmlFor={`${e.arabicName}`}>{e.arabicName}</label>
+              </div>
+            ))}
           </div>
           <div className="flex flex-col gap-4">
             <div className="max-w-64">

@@ -153,6 +153,11 @@
       font-size: 14px;
       font-weight: 500;
     }
+    .courses-form-filter{
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
   }
   table {
     border-spacing: 0 10px;
