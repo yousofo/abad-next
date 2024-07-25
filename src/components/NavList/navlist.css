@@ -1,6 +1,13 @@
 /* border-image-source: linear-gradient(0deg, #E7E7E7, #E7E7E7), linear-gradient(0deg, #E7E7E7, #E7E7E7), linear-gradient(0deg, #E7E7E7, #E7E7E7);
  */
- .navlist-sm > ul > li {
+:root {
+  --vh: 100vh; /* Fallback */
+}
+
+.full-height {
+  height: calc(var(--vh, 1vh) * 100);
+}
+.navlist-sm > ul > li {
   padding: 24px 12px;
   margin: 0 12px;
 }

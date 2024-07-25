@@ -2,8 +2,15 @@
 import "./navlist.css";
 import Link from "next/link";
 import { useDispatch, useSelector } from "react-redux";
-import { reset as toggleResetNavList, toggleNavList } from "../GlobalState/Features/navListSlice";
-import { toggleResetAuth, toggleSignIn, toggleSignUp } from "../GlobalState/Features/authSlice";
+import {
+  reset as toggleResetNavList,
+  toggleNavList,
+} from "../GlobalState/Features/navListSlice";
+import {
+  toggleResetAuth,
+  toggleSignIn,
+  toggleSignUp,
+} from "../GlobalState/Features/authSlice";
 import MiniNav from "./MiniNav";
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
@@ -11,28 +18,41 @@ import { useRouter } from "next/navigation";
 const NavList = () => {
   const active = useSelector((state) => state.navList.active);
   const isSignedIn = useSelector((store) => store.auth.isSignedIn);
-  const router= useRouter()
+  const router = useRouter();
   useEffect(() => {
     if (active) {
       window.document.body.classList.add("no-scroll");
     } else {
       window.document.body.classList.remove("no-scroll");
     }
+    const updateVhUnit = () => {
+      const vh = window.innerHeight * 0.01;
+      document.documentElement.style.setProperty("--vh", `${vh}px`);
+    };
+
+    // Initial update
+    updateVhUnit();
+
+    // Update on resize
+    window.addEventListener("resize", updateVhUnit);
+
+    // Cleanup event listener on component unmount
+    return () => window.removeEventListener("resize", updateVhUnit);
   }, []);
-  function handleSignOut(){
-    dispatch(toggleResetAuth())
-    handleResetNavList()
-    router.push("/")
+  function handleSignOut() {
+    dispatch(toggleResetAuth());
+    handleResetNavList();
+    router.push("/");
   }
-  function handleResetNavList(){
-    dispatch(toggleResetNavList())
+  function handleResetNavList() {
+    dispatch(toggleResetNavList());
   }
   const dispatch = useDispatch();
   return (
     <div
       className={` ${
         !active && " -translate-x-full "
-      } transition-all fixed w-screen overflow-scroll h-dvh bg-white z-[100] `}
+      } transition-all fixed w-screen full-height navlist-sm-wrapper overflow-scroll bg-white z-[100] `}
     >
       <div className="navlist-sm wrapper h-max min-h-screen flex flex-col gap-7 py-6">
         <div className="flex justify-between items-center px-5">

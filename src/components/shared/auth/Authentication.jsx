@@ -14,7 +14,7 @@ const Authentication = () => {
   const isForgotPassword = useSelector((state) => state.auth.forgotPassword);
   const isSignIn = useSelector((state) => state.auth.signIn);
   const isPasswordReassigned = useSelector((state) => state.auth.newPassword);
-
+  console.log(useSelector((e) => e.auth));
   const dispatch = useDispatch();
   function handleAuthClose() {
     dispatch(toggleResetAuth());

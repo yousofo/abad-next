@@ -2,6 +2,10 @@
 
 import { createSlice } from '@reduxjs/toolkit';
 
+const userData = window.localStorage.getItem("userData") || null
+console.log(window.localStorage.getItem("userData"))
+console.log("user from store")
+console.log(userData)
 const initialState = {
   isHidden: true,
   isSignedIn: false,
@@ -26,10 +30,10 @@ const initialState = {
   newPassword: false,
 }
 
-
+let finalInitialState = userData ? { ...initialState, user: userData, isSignedIn: true } : initialState
 export const authSlice = createSlice({
   name: 'auth',
-  initialState,
+  initialState: finalInitialState,
   reducers: {
     toggleSignIn: (state) => {
       return {
@@ -72,6 +76,7 @@ export const authSlice = createSlice({
       }
     },
     toggleResetAuth: (state) => {
+      window.localStorage.removeItem("userData")
       return initialState
     },
     toggleUser: (state, action) => {

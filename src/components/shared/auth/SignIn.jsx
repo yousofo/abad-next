@@ -44,11 +44,14 @@ async function fetchSignIn(data) {
 //
 const SignIn = () => {
   const [loading, setLoading] = useState(false);
-  const isSignIn = useSelector((state) => state.auth.signIn);
-  const error = useSelector((state) => state.auth.signInError);
-  const dispatch = useDispatch();
+  const [remember, setRemember] = useState(false);
+
   const email = useRef();
   const password = useRef();
+
+  const error = useSelector((state) => state.auth.signInError);
+  const dispatch = useDispatch();
+
   console.log(error);
   // const router = useRouter()
 
@@ -64,11 +67,15 @@ const SignIn = () => {
       email: email.current.value,
       password: password.current.value,
     });
-    console.log(result);
     if (result.token) {
+      const jsonStringData = JSON.stringify(result);
+
       dispatch(toggleSignedIn());
-      dispatch(toggleUser(JSON.stringify(result)));
-      console.log(result)
+      dispatch(toggleUser(jsonStringData));
+
+      // save user data if remember me is chekced
+      if (remember) window.localStorage.setItem("userData", jsonStringData);
+
       dispatch(reset());
     } else {
       if (result.message) {
@@ -118,10 +125,12 @@ const SignIn = () => {
           <div>
             <input
               type="checkbox"
-              name=""
-              //  id=""
+              name="rememberMe"
+              value={remember}
+              onChange={(e) => setRemember(e.target.value)}
+              id="rememberMe"
             />
-            <label htmlFor="" style={{ color: "#68718B]" }}>
+            <label htmlFor="rememberMe" style={{ color: "#68718B]" }}>
               تذكرني
             </label>
           </div>

@@ -4,7 +4,7 @@ import Link from "next/link";
 import ReviewsSwiper from "@/components/shared/swipers/ReviewsSwiper";
 import "swiper/css";
 import PartnersSwiper from "@/components/shared/swipers/PartnersSwiper";
-import HomeCourses from "@/components/dataFetching/HomeCourses";
+import HomeCourses from "@/components/dataFetching/home/HomeCourses";
 
 export default function Home() {
   // console.log(document.querySelectorAll("link[rel='preload'][as='style']"));

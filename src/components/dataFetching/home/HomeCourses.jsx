@@ -4,11 +4,11 @@ import React, { useEffect, useState } from "react";
 import Link from "next/link";
 // redux tool kit
 import { useDispatch, useSelector } from "react-redux";
-import { setHomeCourses } from "../GlobalState/Features/fetchedDataSlice";
-import { toggleCards } from "../GlobalState/Features/coursesFilterSlice";
+import { setHomeCourses } from "../../GlobalState/Features/fetchedDataSlice";
+import { toggleCards } from "../../GlobalState/Features/coursesFilterSlice";
 // components
-import CourseRow from "../shared/tables/CourseRow";
-import CourseCard from "../shared/tables/CourseCard";
+import CourseRow from "../../shared/tables/CourseRow";
+import CourseCard from "../../shared/tables/CourseCard";
 
 async function fetchHomeCourse() {
   try {
