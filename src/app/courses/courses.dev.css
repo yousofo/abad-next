@@ -1,3 +1,6 @@
+:root {
+  --abad-gold: #fdb614;
+}
 .courses-page {
   .courses-preview-mode {
     display: flex;
