@@ -74,7 +74,7 @@ const SignIn = () => {
       dispatch(toggleUser(jsonStringData));
 
       // save user data if remember me is chekced
-      if (remember) window.localStorage.setItem("userData", jsonStringData);
+      if (remember && window) window.localStorage.setItem("userData", jsonStringData);
 
       dispatch(reset());
     } else {
