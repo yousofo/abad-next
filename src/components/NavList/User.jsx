@@ -1,12 +1,17 @@
 import Link from "next/link";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { reset as toggleResetNavList } from "../GlobalState/Features/navListSlice";
 
 const User = () => {
   const [active, setActive] = useState(false);
   const dispatch = useDispatch();
   const authData = useSelector((state) => state.auth.user);
   const userData = JSON.parse(authData);
+
+  function handleCloseNavList() {
+    dispatch(toggleResetNavList());
+  }
   return (
     <div
       suppressHydrationWarning={true}
@@ -44,7 +49,7 @@ const User = () => {
         } transition-all`}
       >
         <li>
-          <Link href="/my-courses">
+          <Link onClick={handleCloseNavList} href="/my-courses">
             <svg
               width="24"
               height="24"
@@ -74,7 +79,7 @@ const User = () => {
           </Link>
         </li>
         <li>
-          <Link href="/profile">
+          <Link onClick={handleCloseNavList} href="/profile">
             <svg
               width="24"
               height="24"
