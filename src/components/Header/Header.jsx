@@ -15,6 +15,8 @@ import CoursesNav from "./CoursesNav";
 const Header = () => {
   const isSignedIn = useSelector((state) => state.auth.isSignedIn);
   const isMiniNav = useSelector((state) => state.miniNav.active);
+  const authData = useSelector((state) => state.auth.user);
+  const userData = JSON.parse(authData)
   const dispatch = useDispatch();
   function handleMiniNav() {
     dispatch(toggleMiniNav());
@@ -46,7 +48,7 @@ const Header = () => {
   );
 
   return (
-    <header className="whitespace-nowrap" >
+    <header className="whitespace-nowrap" suppressHydrationWarning >
       <div className="header-contact-bar noto">
         <a
           target="_blank"
@@ -223,7 +225,7 @@ const Header = () => {
             onClick={handleMiniNav}
           >
             <img src="/media/placeholders/user-image.png" className="max-w-12" alt="" />
-            <p>أحمد البسطويسي</p>
+            <p>{userData.arabicName}</p>
             <svg
               width="20"
               height="20"

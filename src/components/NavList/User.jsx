@@ -1,11 +1,12 @@
 import Link from "next/link";
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 const User = () => {
   const [active, setActive] = useState(false);
   const dispatch = useDispatch();
-
+  const authData = useSelector((state) => state.auth.user);
+  const userData = JSON.parse(authData);
   return (
     <div
       suppressHydrationWarning={true}
@@ -20,7 +21,7 @@ const User = () => {
           className="max-w-12"
           alt=""
         />
-        <p>{"authData.arabicName"}</p>
+        <p>{userData.arabicName}</p>
         <svg
           width="6"
           height="9"
