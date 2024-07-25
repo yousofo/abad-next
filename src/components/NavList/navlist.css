@@ -7,6 +7,9 @@
 .full-height {
   height: calc(var(--vh, 1vh) * 100);
 }
+.min-full-height{
+  min-height: calc(var(--vh, 1vh) * 100);
+}
 .navlist-sm > ul > li {
   padding: 24px 12px;
   margin: 0 12px;
