@@ -3,7 +3,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const getUserData = () => {
-  if (typeof window != undefined) {
+  if (typeof window !== 'undefined') {
     return window.localStorage.getItem('userData');
   }
   return null;
@@ -16,9 +16,6 @@ const deleteUserData = () => {
 };
 
 const userData = getUserData()
-console.log(window.localStorage.getItem("userData"))
-console.log("user from store")
-console.log(userData)
 const initialState = {
   isHidden: true,
   isSignedIn: false,
