@@ -260,14 +260,14 @@ const HomeCourses = () => {
         >
           {activeCategory == "all" && Array.isArray(data)
             ? data.map((e, i) => (
-                <Link key={i} href={`/courses/${1}`}>
+                <Link key={i} href={`/courses/${e.token}`}>
                   <CourseCard data={e} index={i} />
                 </Link>
               ))
             : data
                 ?.filter((e) => e.categoryId == activeCategory)
                 .map((e, i) => (
-                  <Link key={i} href={`/courses/${1}`}>
+                  <Link key={i} href={`/courses/${e.token}`}>
                     <CourseCard data={e} index={i} />
                   </Link>
                 ))}

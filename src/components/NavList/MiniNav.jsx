@@ -37,10 +37,10 @@ const MiniNavItem = ({ data }) => {
       </div>
       <ul
         className={`${
-          innerList ? "max-h-56" : "max-h-0"
+          innerList ? "max-h-60" : "max-h-0"
         } overflow-hidden transition-all font-light flex flex-col gap-2`}
       >
-        {data.courses.map((e,i) => (
+        {data.courses.map((e, i) => (
           <li key={i}>
             <Link href={`/courses/${e.courseToken}`}>{e.courseName}</Link>
           </li>
@@ -104,7 +104,7 @@ const MiniNav = () => {
       </div>
       <ul
         className={`${
-          outerList ? "max-h-56" : "max-h-0"
+          outerList ? "max-h-96" : "max-h-0"
         } overflow-hidden transition-all flex flex-col gap-2 w-full`}
       >
         {data.map((e, i) => (
