@@ -10,7 +10,8 @@ import { toggleCards } from "../../GlobalState/Features/coursesFilterSlice";
 import CourseRow from "../../shared/tables/CourseRow";
 import CourseCard from "../../shared/tables/CourseCard";
 import MultiRangeSlider from "./dualSwiper/MultiRangeSlider";
-import { useSortBy, useTable } from "react-table";
+import { useGlobalFilter, useSortBy, useTable } from "react-table";
+import SeachFilter from "./SeachFilter";
 
 async function fetchHomeCourse() {
   try {
@@ -383,10 +384,20 @@ const CoursesComponent = () => {
 
   const tableInstance = useTable(
     { columns: tableColumns, data: sortedData },
+    useGlobalFilter,
     useSortBy
   );
-  const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
-    tableInstance;
+  const {
+    getTableProps,
+    getTableBodyProps,
+    state,
+    setGlobalFilter,
+    headerGroups,
+    rows,
+    prepareRow,
+  } = tableInstance;
+
+  const { globalFilter } = state;
   function handleChecked(e, code) {
     if (e.target.checked == true) {
       console.log(code);
@@ -396,183 +407,190 @@ const CoursesComponent = () => {
       setActiveCategory((pre) => pre.filter((ele) => ele != code));
     }
   }
+  console.log(globalFilter);
   return (
     <>
       {/* SERACH FILTER start */}
-      <form className="search-filter h-fit w-full lg:w-max mx-auto abad-shadow p-5 flex flex-col gap-4 rounded-lg">
-        <div className="flex items-center justify-between gap-12 pb-3 border-b border-b-[#D8D1E2]">
-          <h3 className="font-bold">تصفية</h3>
-          <button type="reset" className="text-xs font-bold">
-            إعادة تعيين التصفية
-          </button>
-        </div>
-        <div className="flex flex-col md:flex-row gap-4 md:gap-24 lg:gap-4 lg:flex-col ">
-          <div className="flex flex-col gap-[10px]">
-            <h4 className="font-bold text-xs ">الفئة</h4>
-            <div
-              className={`courses-form-filter ${
-                activeCategory.includes("all") ? "active" : ""
-              }`}
-            >
-              <input
-                onClick={(ev) => handleChecked(ev, "all")}
-                type="checkbox"
-                name="filterAll"
-                id="filterAll"
-                ref={allCatRef}
-              />
-              <label htmlFor="filterAll">الكل</label>
-            </div>
-            {coursesCategories.map((e, i) => (
+      <SeachFilter
+        hiden={true}
+        searchFilter={globalFilter}
+        setSearchFilter={setGlobalFilter}
+      />
+      <div className="flex flex-col gap-8 lg:gap-4 lg:flex-row">
+        <form className="search-filter h-fit w-full lg:w-max mx-auto abad-shadow p-5 flex flex-col gap-4 rounded-lg">
+          <div className="flex items-center justify-between gap-12 pb-3 border-b border-b-[#D8D1E2]">
+            <h3 className="font-bold">تصفية</h3>
+            <button type="reset" className="text-xs font-bold">
+              إعادة تعيين التصفية
+            </button>
+          </div>
+          <div className="flex flex-col md:flex-row gap-4 md:gap-24 lg:gap-4 lg:flex-col ">
+            <div className="flex flex-col gap-[10px]">
+              <h4 className="font-bold text-xs ">الفئة</h4>
               <div
-                key={i}
                 className={`courses-form-filter ${
-                  activeCategory == e.code ? "active" : ""
+                  activeCategory.includes("all") ? "active" : ""
                 }`}
               >
                 <input
-                  onClick={(ev) => handleChecked(ev, e.code)}
+                  onClick={(ev) => handleChecked(ev, "all")}
                   type="checkbox"
-                  name=""
-                  id={`${e.arabicName}`}
+                  name="filterAll"
+                  id="filterAll"
+                  ref={allCatRef}
                 />
-                <label htmlFor={`${e.arabicName}`}>{e.arabicName}</label>
+                <label htmlFor="filterAll">الكل</label>
               </div>
-            ))}
+              {coursesCategories.map((e, i) => (
+                <div
+                  key={i}
+                  className={`courses-form-filter ${
+                    activeCategory == e.code ? "active" : ""
+                  }`}
+                >
+                  <input
+                    onClick={(ev) => handleChecked(ev, e.code)}
+                    type="checkbox"
+                    name=""
+                    id={`${e.arabicName}`}
+                  />
+                  <label htmlFor={`${e.arabicName}`}>{e.arabicName}</label>
+                </div>
+              ))}
+            </div>
+            <div className="flex flex-col gap-4">
+              <div className="max-w-64">
+                <h4 className="font-bold text-xs">السعر</h4>
+                <MultiRangeSlider
+                  min={0}
+                  max={1000}
+                  onChange={({ min, max }) =>
+                    console.log(`min = ${min}, max = ${max}`)
+                  }
+                />
+              </div>
+              <div className="flex flex-col gap-[10px]">
+                <h4 className="font-bold text-xs ">الحضور</h4>
+                <div>
+                  <input type="checkbox" name="" id="filterAttendence" />
+                  <label htmlFor="filterAttendence">حضوري</label>
+                </div>
+                <div>
+                  <input type="checkbox" name="" id="filterOnline" />
+                  <label htmlFor="filterOnline">اونلاين</label>
+                </div>
+              </div>
+              <div className="flex flex-col gap-[10px]">
+                <h4 className="font-bold text-xs ">شهادات مدعومة</h4>
+                <div>
+                  <input type="checkbox" name="" id="filterGoal" />
+                  <label htmlFor="filterGoal">هدف</label>
+                </div>
+              </div>
+            </div>
           </div>
-          <div className="flex flex-col gap-4">
-            <div className="max-w-64">
-              <h4 className="font-bold text-xs">السعر</h4>
-              <MultiRangeSlider
-                min={0}
-                max={1000}
-                onChange={({ min, max }) =>
-                  console.log(`min = ${min}, max = ${max}`)
-                }
-              />
-            </div>
-            <div className="flex flex-col gap-[10px]">
-              <h4 className="font-bold text-xs ">الحضور</h4>
-              <div>
-                <input type="checkbox" name="" id="filterAttendence" />
-                <label htmlFor="filterAttendence">حضوري</label>
-              </div>
-              <div>
-                <input type="checkbox" name="" id="filterOnline" />
-                <label htmlFor="filterOnline">اونلاين</label>
-              </div>
-            </div>
-            <div className="flex flex-col gap-[10px]">
-              <h4 className="font-bold text-xs ">شهادات مدعومة</h4>
-              <div>
-                <input type="checkbox" name="" id="filterGoal" />
-                <label htmlFor="filterGoal">هدف</label>
-              </div>
-            </div>
-          </div>
-        </div>
-      </form>
-      {/* SERACH FILTER end */}
-      <div className="flex flex-1 flex-col items-center gap-8 courses">
-        {/* courses preview options */}
-        <div className="flex px-6 items-center w-full gap-8 courses-preview-mode">
-          <div className="flex flex-col md:flex-row flex-1 justify-between lg:items-center">
-            <h4 className="md:text-lg font-bold text-[#9891A3]">
-              <span>عرض</span>
-              &nbsp;
-              <span>:</span>
-              &nbsp;
-              <span>{data.length}</span>
-              &nbsp;
-              <span>نتيجة</span>
-            </h4>
-            <div className="flex items-center">
-              <h4 className="text-xs md:text-lg font-bold text-[#9891A3]">
-                ترتيب حسب :
+        </form>
+        {/* SERACH FILTER end */}
+        <div className="flex flex-1 flex-col items-center gap-8 courses">
+          {/* courses preview options */}
+          <div className="flex px-6 items-center w-full gap-8 courses-preview-mode">
+            <div className="flex flex-col md:flex-row flex-1 justify-between lg:items-center">
+              <h4 className="md:text-lg font-bold text-[#9891A3]">
+                <span>عرض</span>
+                &nbsp;
+                <span>:</span>
+                &nbsp;
+                <span>{data.length}</span>
+                &nbsp;
+                <span>نتيجة</span>
               </h4>
-              <select
-                className="text-[#151318] text-xs md:text-base font-bold w-auto"
-                name=""
-                id=""
-                onChange={(e) => {
-                  console.log(e.target.value);
-                  setSortOrder(e.target.value);
-                }}
-              >
-                <option value="latest">الأحدث</option>
-                <option value="oldest">الأقدم</option>
-              </select>
+              <div className="flex items-center">
+                <h4 className="text-xs md:text-lg font-bold text-[#9891A3]">
+                  ترتيب حسب :
+                </h4>
+                <select
+                  className="text-[#151318] text-xs md:text-base font-bold w-auto"
+                  name=""
+                  id=""
+                  onChange={(e) => {
+                    console.log(e.target.value);
+                    setSortOrder(e.target.value);
+                  }}
+                >
+                  <option value="latest">الأحدث</option>
+                  <option value="oldest">الأقدم</option>
+                </select>
+              </div>
             </div>
+            <ul>
+              <li
+                data-mode="rows"
+                onClick={handleCoursesPreviewMode}
+                className={`${
+                  !isCards && "active"
+                } courses-preview-mode courses-preview-rows `}
+              >
+                <svg
+                  width={22}
+                  height={14}
+                  viewBox="0 0 22 14"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M9 1H15M9 9H15M9 5H21M9 13H21M3 5C1.89543 5 1 4.10457 1 3C1 1.89543 1.89543 1 3 1C4.10457 1 5 1.89543 5 3C5 4.10457 4.10457 5 3 5ZM3 13C1.89543 13 1 12.1046 1 11C1 9.89543 1.89543 9 3 9C4.10457 9 5 9.89543 5 11C5 12.1046 4.10457 13 3 13Z"
+                    stroke="currentColor"
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
+                  />
+                </svg>
+              </li>
+              <li
+                onClick={handleCoursesPreviewMode}
+                data-mode="cards"
+                className={`${
+                  isCards && "active"
+                } courses-preview-mode courses-preview-rows`}
+              >
+                <svg
+                  width={22}
+                  height={22}
+                  viewBox="0 0 22 22"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M1 3C1 1.89543 1.89543 1 3 1H7C8.10457 1 9 1.89543 9 3V7C9 8.10457 8.10457 9 7 9H3C1.89543 9 1 8.10457 1 7V3Z"
+                    stroke="currentColor"
+                    strokeWidth="1.5"
+                    strokeLinejoin="round"
+                  />
+                  <path
+                    d="M13 3C13 1.89543 13.8954 1 15 1H19C20.1046 1 21 1.89543 21 3V7C21 8.10457 20.1046 9 19 9H15C13.8954 9 13 8.10457 13 7V3Z"
+                    stroke="currentColor"
+                    strokeWidth="1.5"
+                    strokeLinejoin="round"
+                  />
+                  <path
+                    d="M1 15C1 13.8954 1.89543 13 3 13H7C8.10457 13 9 13.8954 9 15V19C9 20.1046 8.10457 21 7 21H3C1.89543 21 1 20.1046 1 19V15Z"
+                    stroke="currentColor"
+                    strokeWidth="1.5"
+                    strokeLinejoin="round"
+                  />
+                  <path
+                    d="M13 15C13 13.8954 13.8954 13 15 13H19C20.1046 13 21 13.8954 21 15V19C21 20.1046 20.1046 21 19 21H15C13.8954 21 13 20.1046 13 19V15Z"
+                    stroke="currentColor"
+                    strokeWidth="1.5"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </li>
+            </ul>
           </div>
-          <ul>
-            <li
-              data-mode="rows"
-              onClick={handleCoursesPreviewMode}
-              className={`${
-                !isCards && "active"
-              } courses-preview-mode courses-preview-rows `}
-            >
-              <svg
-                width={22}
-                height={14}
-                viewBox="0 0 22 14"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M9 1H15M9 9H15M9 5H21M9 13H21M3 5C1.89543 5 1 4.10457 1 3C1 1.89543 1.89543 1 3 1C4.10457 1 5 1.89543 5 3C5 4.10457 4.10457 5 3 5ZM3 13C1.89543 13 1 12.1046 1 11C1 9.89543 1.89543 9 3 9C4.10457 9 5 9.89543 5 11C5 12.1046 4.10457 13 3 13Z"
-                  stroke="currentColor"
-                  strokeWidth="1.5"
-                  strokeLinecap="round"
-                />
-              </svg>
-            </li>
-            <li
-              onClick={handleCoursesPreviewMode}
-              data-mode="cards"
-              className={`${
-                isCards && "active"
-              } courses-preview-mode courses-preview-rows`}
-            >
-              <svg
-                width={22}
-                height={22}
-                viewBox="0 0 22 22"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M1 3C1 1.89543 1.89543 1 3 1H7C8.10457 1 9 1.89543 9 3V7C9 8.10457 8.10457 9 7 9H3C1.89543 9 1 8.10457 1 7V3Z"
-                  stroke="currentColor"
-                  strokeWidth="1.5"
-                  strokeLinejoin="round"
-                />
-                <path
-                  d="M13 3C13 1.89543 13.8954 1 15 1H19C20.1046 1 21 1.89543 21 3V7C21 8.10457 20.1046 9 19 9H15C13.8954 9 13 8.10457 13 7V3Z"
-                  stroke="currentColor"
-                  strokeWidth="1.5"
-                  strokeLinejoin="round"
-                />
-                <path
-                  d="M1 15C1 13.8954 1.89543 13 3 13H7C8.10457 13 9 13.8954 9 15V19C9 20.1046 8.10457 21 7 21H3C1.89543 21 1 20.1046 1 19V15Z"
-                  stroke="currentColor"
-                  strokeWidth="1.5"
-                  strokeLinejoin="round"
-                />
-                <path
-                  d="M13 15C13 13.8954 13.8954 13 15 13H19C20.1046 13 21 13.8954 21 15V19C21 20.1046 20.1046 21 19 21H15C13.8954 21 13 20.1046 13 19V15Z"
-                  stroke="currentColor"
-                  strokeWidth="1.5"
-                  strokeLinejoin="round"
-                />
-              </svg>
-            </li>
-          </ul>
-        </div>
-        {/* courses filter */}
+          {/* courses filter */}
 
-        {/* courses table ROWS MODE */}
-        {/* <table
+          {/* courses table ROWS MODE */}
+          {/* <table
           style={{ display: `${isCards ? "none" : "table"}` }}
           className="courses-rows w-full px-3 md:px-6 "
         >
@@ -592,60 +610,67 @@ const CoursesComponent = () => {
                   .map((e, i) => <CourseRow2 data={e} key={i} index={i} />)}
           </tbody>
         </table> */}
-        <table
-          {...getTableProps()}
-          style={{ display: `${isCards ? "none" : "table"}` }}
-          className="courses-rows w-full"
-        >
-          <thead className="abad-shadow rounded-lg hidden md:table-row-group">
-            {headerGroups.map((headerGroup,i) => (
-              <tr {...headerGroup.getHeaderGroupProps()} key={i} >
-                {headerGroup.headers.map((column,i) => (
-                  <th
-                    {...column.getHeaderProps(column.getSortByToggleProps())}
-                    className="text-start"
+          <table
+            {...getTableProps()}
+            style={{ display: `${isCards ? "none" : "table"}` }}
+            className="courses-rows w-full"
+          >
+            <thead className="abad-shadow rounded-lg hidden md:table-row-group">
+              {headerGroups.map((headerGroup, i) => (
+                <tr {...headerGroup.getHeaderGroupProps()} key={i}>
+                  {headerGroup.headers.map((column, i) => (
+                    <th
+                      {...column.getHeaderProps(column.getSortByToggleProps())}
+                      className="text-start"
+                      key={i}
+                    >
+                      {column.render("Header")}
+                    </th>
+                  ))}
+                </tr>
+              ))}
+            </thead>
+            <tbody {...getTableBodyProps()}>
+              {rows.map((row, i) => {
+                prepareRow(row);
+                return (
+                  <tr
+                    {...row.getRowProps()}
+                    className="shadow rounded-lg"
                     key={i}
                   >
-                    {column.render("Header")}
-                  </th>
-                ))}
-              </tr>
-            ))}
-          </thead>
-          <tbody {...getTableBodyProps()}>
-            {rows.map((row,i) => {
-              prepareRow(row);
-              return (
-                <tr {...row.getRowProps()} className="shadow rounded-lg" key={i} >
-                  {row.cells.map((cell,i) => {
-                    return (
-                      <td  {...cell.getCellProps()} key={i}>{cell.render("Cell")}</td>
-                    );
-                  })}
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
+                    {row.cells.map((cell, i) => {
+                      return (
+                        <td {...cell.getCellProps()} key={i}>
+                          {cell.render("Cell")}
+                        </td>
+                      );
+                    })}
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
 
-        {/* courses table CARDS MODE */}
-        <div
-          style={{ display: `${!isCards ? "none" : "grid"}` }}
-          className={` courses-cards `}
-        >
-          {activeCategory == "all" && Array.isArray(sortedData)
-            ? sortedData.map((e, i) => (
-                <Link key={i} href={`/courses/${1}`}>
-                  <CourseCard data={e} index={i} />
-                </Link>
-              ))
-            : sortedData
-                ?.filter((e) => e.categoryId == activeCategory)
-                .map((e, i) => (
+          {/* courses table CARDS MODE */}
+          <div
+            style={{ display: `${!isCards ? "none" : "grid"}` }}
+            className={` courses-cards `}
+          >
+            {activeCategory == "all" && Array.isArray(sortedData)
+              ? sortedData.map((e, i) => (
                   <Link key={i} href={`/courses/${1}`}>
                     <CourseCard data={e} index={i} />
                   </Link>
-                ))}
+                ))
+              : sortedData
+                  ?.filter((e) => e.categoryId == activeCategory)
+                  .map((e, i) => (
+                    <Link key={i} href={`/courses/${1}`}>
+                      <CourseCard data={e} index={i} />
+                    </Link>
+                  ))}
+          </div>
         </div>
       </div>
     </>
