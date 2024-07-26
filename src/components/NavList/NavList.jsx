@@ -12,15 +12,17 @@ import {
   toggleSignUp,
 } from "../GlobalState/Features/authSlice";
 import MiniNav from "./MiniNav";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import User from "./User";
 
 const NavList = () => {
   const active = useSelector((state) => state.navList.active);
   const isSignedIn = useSelector((store) => store.auth.isSignedIn);
+  const [data, setData] = useState([]);
   const router = useRouter();
   useEffect(() => {
+    
     if (active) {
       window.document.body.classList.add("no-scroll");
     } else {
@@ -86,11 +88,11 @@ const NavList = () => {
           </div>
         </div>
         <ul className="text-[#424242]">
-          {/* {isSignedIn && (
+          {isSignedIn && (
             <li>
               <User />
             </li>
-          )} */}
+          )}
           <li className="font-[700]">
             <Link onClick={handleResetNavList} href="/">
               الرئيسية
@@ -115,7 +117,7 @@ const NavList = () => {
             </Link>
           </li>
         </ul>
-        {/* {isSignedIn ? (
+        {isSignedIn ? (
           <button
             suppressHydrationWarning={true}
             className="mt-auto px-5 flex gap-1 w-fit items-center"
@@ -154,7 +156,7 @@ const NavList = () => {
               تسجيل جديد
             </button>
           </div>
-        )} */}
+        )}
       </div>
     </div>
   );

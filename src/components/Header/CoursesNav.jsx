@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React, { act, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -104,7 +105,7 @@ const CoursesNav = () => {
         >
           <ul>
             {current.map((e, i) => (
-              <li key={i}>{e.courseName}</li>
+              <li key={i}><Link href={`/courses/${e.courseToken}`}>{e.courseName}</Link></li>
             ))}
           </ul>
         </li>

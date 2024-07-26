@@ -249,7 +249,7 @@
       a:nth-child(1) button {
         background-color: #f6f6f6;
       }
-      a:nth-child(2) button {
+      button:nth-child(2) {
         background-color: #f0f6ec;
         color: #6ea641;
       }

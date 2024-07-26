@@ -1,7 +1,8 @@
 "use client";
-import React, { useState } from "react";
+import Link from "next/link";
+import React, { useEffect, useState } from "react";
 
-const MiniNavItem = () => {
+const MiniNavItem = ({ data }) => {
   const [innerList, setInnerList] = useState(false);
   function handleClick(e) {
     e.stopPropagation();
@@ -9,9 +10,15 @@ const MiniNavItem = () => {
   }
 
   return (
-    <li suppressHydrationWarning={true} className={`flex flex-col text-sm ${innerList ? " gap-2" : "gap-0"} w-full`} onClick={handleClick}>
+    <li
+      suppressHydrationWarning={true}
+      className={`flex flex-col text-sm ${
+        innerList ? " gap-2" : "gap-0"
+      } w-full`}
+      onClick={handleClick}
+    >
       <div className={`flex justify-between w-full gap-2 `}>
-        <span className="w-fit">دورات سيسكو</span>
+        <span className="w-fit">{data.typeName}</span>
         <svg
           width="6"
           height="9"
@@ -33,17 +40,47 @@ const MiniNavItem = () => {
           innerList ? "max-h-56" : "max-h-0"
         } overflow-hidden transition-all font-light flex flex-col gap-2`}
       >
-        <li>شهادة سيسكو المعتمدة CCNA 200-301</li>
-        <li>شهادة سيسكو المعتمدة CCNA 200-301</li>
+        {data.courses.map((e,i) => (
+          <li key={i}>
+            <Link href={`/courses/${e.courseToken}`}>{e.courseName}</Link>
+          </li>
+        ))}
       </ul>
     </li>
   );
 };
 
+async function fetchCoursesWithTypes() {
+  try {
+    const request = await fetch("/api/coursesWithTypes", {
+      method: "GET",
+      headers: {
+        "Cache-Control":
+          "no-store, no-cache, must-revalidate, proxy-revalidate",
+        Pragma: "no-cache",
+        Expires: "0",
+        "Surrogate-Control": "no-store",
+      },
+    });
+    const data = await request.json();
+    console.log(data);
+    return data;
+  } catch (e) {
+    console.log(e);
+  }
+}
+
 const MiniNav = () => {
   const [outerList, setOuterList] = useState(false);
+  const [data, setData] = useState([]);
+  useEffect(() => {
+    fetchCoursesWithTypes()
+      .then((e) => setData(e))
+      .catch((e) => console.log(e));
+  }, []);
   return (
-    <button suppressHydrationWarning={true}
+    <button
+      suppressHydrationWarning={true}
       onClick={() => setOuterList(!outerList)}
       className={`flex flex-col  w-full ${outerList ? "gap-4" : "gap-0"}`}
     >
@@ -70,9 +107,9 @@ const MiniNav = () => {
           outerList ? "max-h-56" : "max-h-0"
         } overflow-hidden transition-all flex flex-col gap-2 w-full`}
       >
-        <MiniNavItem />
-        <MiniNavItem />
-        <MiniNavItem />
+        {data.map((e, i) => (
+          <MiniNavItem data={e} key={i} />
+        ))}
       </ul>
     </button>
   );

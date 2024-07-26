@@ -226,6 +226,7 @@ const Header = () => {
           <div
             className=" text-white items-center gap-2 relative z-20  cursor-pointer hidden lg:flex"
             onClick={handleMiniNav}
+            suppressHydrationWarning
           >
             <img
               src="/media/placeholders/user-image.png"
@@ -333,7 +334,7 @@ const Header = () => {
             </ul>
           </div>
         ) : (
-          <button className="" onClick={() => dispatch(toggleSignIn())}>
+          <button suppressHydrationWarning className="" onClick={() => dispatch(toggleSignIn())}>
             تسجيل الدخول
           </button>
         )}
