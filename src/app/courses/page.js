@@ -1,5 +1,5 @@
 import React from 'react'
-import "./courses.css"
+import "./courses.dev.css"
 import CoursesComponent from '@/components/dataFetching/courses/CoursesComponent'
 
 const Courses = () => {

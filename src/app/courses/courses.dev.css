@@ -173,7 +173,7 @@
       font-weight: bold;
       color: #3f3e43;
       border: 1px solid transparent;
-      &.course-name {
+      & .course-name {
         padding-top: 4px;
         font-size: 13px;
         display: flex;
@@ -211,13 +211,13 @@
           }
         }
       }
-      &.course-start-date {
+      & .course-start-date {
         display: none;
       }
       @media (min-width: 768px) {
         display: table-cell;
         padding: 14px !important;
-        &.course-start-date {
+        & .course-start-date {
           display: table-cell;
         }
       }
