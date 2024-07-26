@@ -105,7 +105,7 @@
   .courses-cards {
     display: grid;
     width: 100%;
-    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
     justify-content: center;
     gap: 28px;
     figure {

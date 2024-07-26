@@ -57,7 +57,6 @@ async function fetchCoursesCategories() {
   }
 }
 
-
 const COLUMNS = [
   {
     Header: "اسم الدورة",
@@ -207,8 +206,6 @@ const CoursesComponent = () => {
   const isCards = useSelector((store) => store.coursesFilter.isCards);
   const dispatch = useDispatch();
 
-
-
   function handleCoursesPreviewMode() {
     dispatch(toggleCards());
   }
@@ -284,7 +281,7 @@ const CoursesComponent = () => {
     fetchHomeCourse()
       .then((e) => {
         setData(e);
-        setPageSize(6)
+        setPageSize(6);
       })
       .catch((e) => {
         console.log("home courses");
@@ -534,6 +531,43 @@ const CoursesComponent = () => {
               })}
             </tbody>
           </table>
+
+          {/* courses table CARDS MODE */}
+          {/* <div
+            style={{ display: `${!isCards ? "none" : "grid"}` }}
+            className={` courses-cards `}
+          >
+            {activeCategory == "all" && Array.isArray(sortedData)
+              ? sortedData.map((e, i) => (
+                  <Link key={i} href={`/courses/${1}`}>
+                    <CourseCard data={e} index={i} />
+                  </Link>
+                ))
+              : sortedData
+                  ?.filter((e) => e.categoryId == activeCategory)
+                  .map((e, i) => (
+                    <Link key={i} href={`/courses/${1}`}>
+                      <CourseCard data={e} index={i} />
+                    </Link>
+                  ))}
+          </div> */}
+          <div
+            style={{ display: `${!isCards ? "none" : "grid"}` }}
+            className="courses-cards"
+            // className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"
+          >
+            {page.map((row) => {
+              prepareRow(row);
+              const { courseName, formattedTimeStart, startDate } =
+                row.original;
+              return (
+                <Link key={row.id} href={`/courses/${row.original.token}`}>
+                  <CourseCard data={row.original} />
+                </Link>
+              );
+            })}
+          </div>
+          {/* TABLE PAGINATION */}
           <div>
             <div>
               <bdi>
@@ -552,25 +586,6 @@ const CoursesComponent = () => {
             <button onClick={previousPage} disabled={!canPreviousPage}>
               السابق
             </button>
-          </div>
-          {/* courses table CARDS MODE */}
-          <div
-            style={{ display: `${!isCards ? "none" : "grid"}` }}
-            className={` courses-cards `}
-          >
-            {activeCategory == "all" && Array.isArray(sortedData)
-              ? sortedData.map((e, i) => (
-                  <Link key={i} href={`/courses/${1}`}>
-                    <CourseCard data={e} index={i} />
-                  </Link>
-                ))
-              : sortedData
-                  ?.filter((e) => e.categoryId == activeCategory)
-                  .map((e, i) => (
-                    <Link key={i} href={`/courses/${1}`}>
-                      <CourseCard data={e} index={i} />
-                    </Link>
-                  ))}
           </div>
         </div>
       </div>
