@@ -1,10 +1,15 @@
-import React, { act, useState } from "react";
+import React, { act, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-const NavListItem = ({ handleNavListItem, index }) => {
+
+const NavListItem = ({ data, handleNavListItem, index }) => {
   return (
-    <li>
-      <button onClick={(e) => handleNavListItem(e, index)}>
-        <span>دورات سيسكو</span>
+    <li className="w-full">
+      <button
+        className="w-full justify-between"
+        onClick={(e) => handleNavListItem(e, data.courses)}
+        // onMouseEnter={(e) => handleNavListItem(e, data.courses)}
+      >
+        <span>{data.typeName}</span>
         <AngleBottom fill={"#000000"} />
       </button>
     </li>
@@ -28,20 +33,45 @@ const AngleBottom = ({ fill }) => (
   </svg>
 );
 
+async function fetchCoursesWithTypes() {
+  try {
+    const request = await fetch("/api/coursesWithTypes", {
+      method: "GET",
+      headers: {
+        "Cache-Control":
+          "no-store, no-cache, must-revalidate, proxy-revalidate",
+        Pragma: "no-cache",
+        Expires: "0",
+        "Surrogate-Control": "no-store",
+      },
+    });
+    const data = await request.json();
+    console.log(data);
+    return data;
+  } catch (e) {
+    console.log(e);
+  }
+}
+
 const CoursesNav = () => {
-  const [active, setActive] = useState(false);
-  const [current, setCurrent] = useState(0);
+  const [active, setActive] = useState(true);
+  const [data, setData] = useState([]);
+  const [current, setCurrent] = useState([]);
   const isCoursesNav = useSelector((state) => state.coursesNav.active);
   const dispatch = useDispatch();
 
-  function handleNavListItem(e, i) {
+  function handleNavListItem(e, cur) {
     e.stopPropagation();
-    setActive(true);
-    setCurrent(i);
+    setCurrent(cur);
   }
   function handleCoursesNav() {
     dispatch(toggleCoursesNav());
   }
+  useEffect(() => {
+    fetchCoursesWithTypes()
+      .then((e) => setData(e))
+      .catch((e) => console.log(e));
+  }, []);
   return (
     <div>
       <ul
@@ -49,41 +79,33 @@ const CoursesNav = () => {
           isCoursesNav ? "max-h-[300px]" : "max-h-0"
         }`}
       >
-        <NavListItem handleNavListItem={handleNavListItem} index={0} />
-        <NavListItem handleNavListItem={handleNavListItem} index={1} />
-        <NavListItem handleNavListItem={handleNavListItem} index={2} />
-        <NavListItem handleNavListItem={handleNavListItem} index={3} />
+        {data.map((e, i) => (
+          <NavListItem
+            key={i}
+            handleNavListItem={handleNavListItem}
+            data={e}
+            index={i}
+          />
+        ))}
       </ul>
 
-      <ul className={`right-corner mini-nav courses-nav `}>
+      <ul
+        className={`right-corner mini-nav courses-nav `}
+        style={{
+          maxHeight: isCoursesNav && active ? "280px" : "0",
+        }}
+      >
         <li
           className={`no-padding`}
           style={{
             maxHeight:
-              active && isCoursesNav && current % 2 == 0 ? "280px" : "0",
+              active && isCoursesNav ? "280px" : "0",
           }}
         >
           <ul>
-            <li>شهادة سيسكو المعتمدة CCNA 200-301</li>
-            <li>شهادة سيسكو المعتمدة CCNA 200-301</li>
-            <li>شهادة سيسكو المعتمدة CCNA 200-301</li>
-            <li>شهادة سيسكو المعتمدة CCNA 200-301</li>
-            <li>شهادة سيسكو المعتمدة CCNA 200-301</li>
-          </ul>
-        </li>
-        <li
-          className={`transition-all overflow-hidden no-padding`}
-          style={{
-            maxHeight:
-              active && isCoursesNav && current % 2 == 0 ? "280px" : "0",
-          }}
-        >
-          <ul>
-            <li>شهادة سيسكو المعتمدة CCNA 200-301</li>
-            <li>شهادة سيسكو المعتمدة CCNA 200-301</li>
-            <li>شهادة سيسكو المعتمدة CCNA 200-301</li>
-            <li>شهادة سيسكو المعتمدة CCNA 200-301</li>
-            <li>شهادة سيسكو المعتمدة CCNA 200-301</li>
+            {current.map((e, i) => (
+              <li key={i}>{e.courseName}</li>
+            ))}
           </ul>
         </li>
       </ul>
