@@ -616,9 +616,9 @@ const CoursesComponent = () => {
               prepareRow(row);
               return (
                 <tr {...row.getRowProps()} className="shadow rounded-lg">
-                  {row.cells.map((cell) => {
+                  {row.cells.map((cell,i) => {
                     return (
-                      <td {...cell.getCellProps()}>{cell.render("Cell")}</td>
+                      <td key={i} {...cell.getCellProps()}>{cell.render("Cell")}</td>
                     );
                   })}
                 </tr>
