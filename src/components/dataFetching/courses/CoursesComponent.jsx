@@ -598,12 +598,13 @@ const CoursesComponent = () => {
           className="courses-rows w-full"
         >
           <thead className="abad-shadow rounded-lg hidden md:table-row-group">
-            {headerGroups.map((headerGroup) => (
-              <tr {...headerGroup.getHeaderGroupProps()}>
-                {headerGroup.headers.map((column) => (
+            {headerGroups.map((headerGroup,i) => (
+              <tr {...headerGroup.getHeaderGroupProps()} key={i} >
+                {headerGroup.headers.map((column,i) => (
                   <th
                     {...column.getHeaderProps(column.getSortByToggleProps())}
                     className="text-start"
+                    key={i}
                   >
                     {column.render("Header")}
                   </th>
@@ -612,13 +613,13 @@ const CoursesComponent = () => {
             ))}
           </thead>
           <tbody {...getTableBodyProps()}>
-            {rows.map((row) => {
+            {rows.map((row,i) => {
               prepareRow(row);
               return (
-                <tr {...row.getRowProps()} className="shadow rounded-lg">
+                <tr {...row.getRowProps()} className="shadow rounded-lg" key={i} >
                   {row.cells.map((cell,i) => {
                     return (
-                      <td key={i} {...cell.getCellProps()}>{cell.render("Cell")}</td>
+                      <td  {...cell.getCellProps()} key={i}>{cell.render("Cell")}</td>
                     );
                   })}
                 </tr>
