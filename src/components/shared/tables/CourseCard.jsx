@@ -6,7 +6,7 @@ const CourseCard = ({ index, data }) => {
   return (
     <figure data-type={data} className="course-card">
       <div className="img">
-        <img src="/media/abad-course-card.png" alt="" />
+        <img src={data.imageUrl} alt="" />
       </div>
       <figcaption>
         <h4>{data.courseName}</h4>
