@@ -309,7 +309,7 @@
     gap: 24px;
     figure {
       padding: 18px;
-      box-shadow: 4.27px 3.41px 25.6px 0px #0000000D;
+      box-shadow: 4.27px 3.41px 25.6px 0px rgba(0, 0, 0, 0.051);
       width: 100%;
       .img {
         img {
@@ -352,7 +352,7 @@
           font-weight: bold;
           p:nth-child(1) {
             /* #5BB6D21A */
-            background-color: #5bb6d21a;
+            background-color: rgba(91, 182, 210, 0.102);
             border-radius: 4px;
             padding: 8px;
             color: #1b45b4;

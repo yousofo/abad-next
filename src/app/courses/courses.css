@@ -165,47 +165,47 @@
   color: #3f3e43;
   border: 1px solid transparent;
 }
-.courses-page table td.course-name, .courses-page table th.course-name {
+.courses-page table td .course-name, .courses-page table th .course-name {
   padding-top: 4px;
   font-size: 13px;
   display: flex;
   font-weight: 500;
   flex-direction: column;
 }
-.courses-page table td.course-name > div, .courses-page table th.course-name > div {
+.courses-page table td .course-name > div, .courses-page table th .course-name > div {
   order: 1;
   font-size: 12px;
   display: flex;
   gap: 12px;
 }
-.courses-page table td.course-name > div span, .courses-page table th.course-name > div span {
+.courses-page table td .course-name > div span, .courses-page table th .course-name > div span {
   display: flex;
   align-items: center;
   gap: 3px;
 }
-.courses-page table td.course-name > div span:nth-child(1), .courses-page table th.course-name > div span:nth-child(1) {
+.courses-page table td .course-name > div span:nth-child(1), .courses-page table th .course-name > div span:nth-child(1) {
   color: #6ea641;
 }
-.courses-page table td.course-name > div span:nth-child(2), .courses-page table th.course-name > div span:nth-child(2) {
+.courses-page table td .course-name > div span:nth-child(2), .courses-page table th .course-name > div span:nth-child(2) {
   font-size: 12px;
   color: #1b39a6;
 }
-.courses-page table td.course-name > p, .courses-page table th.course-name > p {
+.courses-page table td .course-name > p, .courses-page table th .course-name > p {
   order: 2;
 }
 @media (min-width: 768px) {
-  .courses-page table td.course-name, .courses-page table th.course-name {
+  .courses-page table td .course-name, .courses-page table th .course-name {
     font-size: 14px;
  }
-  .courses-page table td.course-name > div, .courses-page table th.course-name > div {
+  .courses-page table td .course-name > div, .courses-page table th .course-name > div {
     order: 2 !important;
     font-size: 14px;
  }
-  .courses-page table td.course-name p, .courses-page table th.course-name p {
+  .courses-page table td .course-name p, .courses-page table th .course-name p {
     order: 1 !important;
  }
 }
-.courses-page table td.course-start-date, .courses-page table th.course-start-date {
+.courses-page table td .course-start-date, .courses-page table th .course-start-date {
   display: none;
 }
 @media (min-width: 768px) {
@@ -213,7 +213,7 @@
     display: table-cell;
     padding: 14px !important;
  }
-  .courses-page table td.course-start-date, .courses-page table th.course-start-date {
+  .courses-page table td .course-start-date, .courses-page table th .course-start-date {
     display: table-cell;
  }
 }
@@ -248,7 +248,7 @@
 .courses-page table .btns a:nth-child(1) button {
   background-color: #f6f6f6;
 }
-.courses-page table .btns a:nth-child(2) button {
+.courses-page table .btns button:nth-child(2) {
   background-color: #f0f6ec;
   color: #6ea641;
 }
@@ -295,13 +295,13 @@
 .courses-page .courses-cards {
   display: grid;
   width: 100%;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 350px));
+  grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
   justify-content: center;
-  gap: 32px;
+  gap: 24px;
 }
 .courses-page .courses-cards figure {
-  padding: 24px;
-  box-shadow: 0 -1px 2px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.05);
+  padding: 18px;
+  box-shadow: 4.27px 3.41px 25.6px 0px rgba(0, 0, 0, 0.051);
   width: 100%;
 }
 .courses-page .courses-cards figure .img img {
@@ -345,13 +345,13 @@
 }
 .courses-page .courses-cards figure figcaption .course-info p:nth-child(1) {
  /* #5BB6D21A */
-  background-color: #5bb6d21a;
+  background-color: rgba(91, 182, 210, 0.102);
   border-radius: 4px;
   padding: 8px;
   color: #1b45b4;
 }
 .courses-page .courses-cards figure figcaption .course-info p:nth-child(2) {
-  color: var(--gold);
+  color: var(--abad-gold);
 }
 .hero {
   position: relative;
