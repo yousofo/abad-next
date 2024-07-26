@@ -25,7 +25,7 @@ const Courses = () => {
       </section>
       {/* HERO end */}
       {/* COURSES start */}
-      <section className="relative flex flex-col gap-32 md:gap-48 container px-4 max-w-screen-xl  md:py-10 mx-auto z-50">
+      <section className="relative flex flex-col gap-32 md:gap-48 container px-4 max-w-screen-xl  md:py-10 mx-auto z-40">
         {/* SERACH FILTER start */}
         <CoursesComponent/>
       </section>
