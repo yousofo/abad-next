@@ -12,7 +12,7 @@ export async function GET(request) {
     const data = await response.json();
     console.log("proxy==========================================")
     console.log(data)
-    return new Response(JSON.stringify(data), {
+    return new Response(JSON.stringify([...data, ...data, ...data, ...data, ...data]), {
       headers: {
         'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate',
         'Pragma': 'no-cache',

@@ -10,7 +10,12 @@ import { toggleCards } from "../../GlobalState/Features/coursesFilterSlice";
 import CourseRow from "../../shared/tables/CourseRow";
 import CourseCard from "../../shared/tables/CourseCard";
 import MultiRangeSlider from "./dualSwiper/MultiRangeSlider";
-import { useGlobalFilter, useSortBy, useTable } from "react-table";
+import {
+  useGlobalFilter,
+  usePagination,
+  useSortBy,
+  useTable,
+} from "react-table";
 import SeachFilter from "./SeachFilter";
 
 async function fetchHomeCourse() {
@@ -51,134 +56,7 @@ async function fetchCoursesCategories() {
     console.log(e);
   }
 }
-const CourseRow2 = ({ data, index }) => {
-  return (
-    <tr
-      data-type="programming"
-      data-name="شهادة سيسكو المعتمدة CCNA 200-301"
-      data-date="16 مارس 2024"
-      data-time="من 06:00 م حتى 10:00 م"
-      data-price="1500 ريال سعودي"
-      className="shadow row rounded-lg"
-    >
-      <td className="course-name">
-        <p>{data.courseName}</p>
-        <div>
-          {data.isOnline ? (
-            <span>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width={12}
-                height={12}
-                viewBox="0 0 12 12"
-                fill="none"
-              >
-                <path
-                  d="M6 12C9.31371 12 12 9.31371 12 6C12 2.68629 9.31371 0 6 0C2.68629 0 0 2.68629 0 6C0 9.31371 2.68629 12 6 12Z"
-                  fill="currentColor"
-                />
-              </svg>
-              {data.isOnline}
-            </span>
-          ) : (
-            ""
-          )}
-          {data.hadaf && (
-            <span>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width={12}
-                height={12}
-                viewBox="0 0 12 12"
-                fill="none"
-              >
-                <path
-                  d="M6 12C9.31371 12 12 9.31371 12 6C12 2.68629 9.31371 0 6 0C2.68629 0 0 2.68629 0 6C0 9.31371 2.68629 12 6 12Z"
-                  fill="currentColor"
-                />
-              </svg>
-              مدعومة من هدف
-            </span>
-          )}
-        </div>
-      </td>
-      {/* course date */}
-      <td className="course-start-date">{data.startDate}</td>
-      {/* course time */}
-      <td>
-        <span>التوقيت</span>
-        <span>:</span>
-        &nbsp;
-        <span>
-          <span>من</span>
-          &nbsp;
-          <span>
-            {data.formattedTimeStart.substring(1) +
-              " " +
-              data.formattedTimeStart[0]}
-          </span>
-          &nbsp;
-          <span>حتي</span>
-          &nbsp;
-          <span>
-            {data.formattedTimeEnd.substring(1) +
-              " " +
-              data.formattedTimeEnd[0]}
-          </span>
-        </span>
-      </td>
-      <td>
-        <div className="btns">
-          <a href="/course-details.html">
-            <button>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width={17}
-                height={16}
-                viewBox="0 0 17 16"
-                fill="none"
-              >
-                <path
-                  d="M10.8866 7.99995C10.8866 9.31995 9.81995 10.3866 8.49995 10.3866C7.17995 10.3866 6.11328 9.31995 6.11328 7.99995C6.11328 6.67995 7.17995 5.61328 8.49995 5.61328C9.81995 5.61328 10.8866 6.67995 10.8866 7.99995Z"
-                  fill="#3F3E43"
-                  stroke="#3F3E43"
-                  strokeWidth="1.5"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-                <path
-                  d="M8.4999 13.5131C10.8532 13.5131 13.0466 12.1264 14.5732 9.7264C15.1732 8.7864 15.1732 7.2064 14.5732 6.2664C13.0466 3.8664 10.8532 2.47974 8.4999 2.47974C6.14656 2.47974 3.95323 3.8664 2.42656 6.2664C1.82656 7.2064 1.82656 8.7864 2.42656 9.7264C3.95323 12.1264 6.14656 13.5131 8.4999 13.5131Z"
-                  stroke="#3F3E43"
-                  strokeWidth="1.5"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
-              التفاصيل
-            </button>
-          </a>
-          <a href="/course-details.html">
-            <button>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width={14}
-                height={11}
-                viewBox="0 0 14 11"
-                fill="none"
-              >
-                <path
-                  d="M6.66667 7.33333H5.33333C4.23973 7.33292 3.16682 7.63143 2.23058 8.1966C1.29435 8.76178 0.530401 9.57211 0.0213343 10.54C0.00702532 10.3604 -9.15218e-05 10.1802 8.88408e-07 10C8.88408e-07 6.318 2.98467 3.33333 6.66667 3.33333V0L13.3333 5.33333L6.66667 10.6667V7.33333Z"
-                  fill="#71A23F"
-                />
-              </svg>
-              تسجيل
-            </button>
-          </a>
-        </div>
-      </td>
-    </tr>
-  );
-};
+
 
 const COLUMNS = [
   {
@@ -271,7 +149,7 @@ const COLUMNS = [
     Cell: ({ row }) => (
       <div>
         <div className="btns">
-          <Link href="/course-details.html">
+          <Link href={`/courses/${row.original.token}`}>
             <button>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -329,26 +207,7 @@ const CoursesComponent = () => {
   const isCards = useSelector((store) => store.coursesFilter.isCards);
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    allCatRef.current.checked = true;
-    fetchCoursesCategories()
-      .then((e) => {
-        setCoursesCategories(e);
-      })
-      .catch((e) => {
-        console.log("home courses");
-        console.log(e);
-      });
-    fetchHomeCourse()
-      .then((e) => {
-        setData(e);
-        dispatch(setHomeCourses(e));
-      })
-      .catch((e) => {
-        console.log("home courses");
-        console.log(e);
-      });
-  }, []);
+
 
   function handleCoursesPreviewMode() {
     dispatch(toggleCards());
@@ -383,16 +242,23 @@ const CoursesComponent = () => {
   const tableInstance = useTable(
     { columns: tableColumns, data: sortedData },
     useGlobalFilter,
-    useSortBy
+    useSortBy,
+    usePagination
   );
   const {
     getTableProps,
     getTableBodyProps,
-    state,
     setGlobalFilter,
     headerGroups,
-    rows,
+    page,
+    nextPage,
+    previousPage,
+    canPreviousPage,
+    canNextPage,
     prepareRow,
+    state,
+    setPageSize,
+    pageOptions,
   } = tableInstance;
 
   const { globalFilter } = state;
@@ -405,7 +271,26 @@ const CoursesComponent = () => {
       setActiveCategory((pre) => pre.filter((ele) => ele != code));
     }
   }
-  console.log(globalFilter);
+  useEffect(() => {
+    allCatRef.current.checked = true;
+    fetchCoursesCategories()
+      .then((e) => {
+        setCoursesCategories(e);
+      })
+      .catch((e) => {
+        console.log("home courses");
+        console.log(e);
+      });
+    fetchHomeCourse()
+      .then((e) => {
+        setData(e);
+        setPageSize(6)
+      })
+      .catch((e) => {
+        console.log("home courses");
+        console.log(e);
+      });
+  }, []);
   return (
     <>
       {/* SERACH FILTER start */}
@@ -629,7 +514,7 @@ const CoursesComponent = () => {
               ))}
             </thead>
             <tbody {...getTableBodyProps()}>
-              {rows.map((row, i) => {
+              {page.map((row, i) => {
                 prepareRow(row);
                 return (
                   <tr
@@ -649,7 +534,25 @@ const CoursesComponent = () => {
               })}
             </tbody>
           </table>
-
+          <div>
+            <div>
+              <bdi>
+                <span>الصفحة</span>
+                &nbsp;
+                <span>{state.pageIndex + 1}</span>
+                &nbsp;
+                <span>من</span>
+                &nbsp;
+                <span>{pageOptions.length}</span>
+              </bdi>
+            </div>
+            <button onClick={nextPage} disabled={!canNextPage}>
+              التالي
+            </button>
+            <button onClick={previousPage} disabled={!canPreviousPage}>
+              السابق
+            </button>
+          </div>
           {/* courses table CARDS MODE */}
           <div
             style={{ display: `${!isCards ? "none" : "grid"}` }}

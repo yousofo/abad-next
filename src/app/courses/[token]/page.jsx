@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import "./course.css";
 
 import Accordion from "@/components/shared/Accordion/Accordion";
+import { notFound, useRouter } from "next/navigation";
 
 async function fetchCourseDetails(token) {
   try {
@@ -27,6 +28,8 @@ async function fetchCourseDetails(token) {
 const Course = ({ params }) => {
   const [courseImg, setCourseImg] = useState("/media/course/course-image.png");
   const [fetched, setFetched] = useState(false);
+  const [error, setError] = useState("");
+  const router= useRouter()
   const [courseInfo, setCourseInfo] = useState({
     token: "e5f85c2b-33ef-43d3-9075-d8ee0966cb06",
     courseName: "اسم الدوره بالانجليزي",
@@ -78,11 +81,15 @@ const Course = ({ params }) => {
   useEffect(() => {
     fetchCourseDetails(params.token)
       .then((e) => {
+        if (e.status >= 400) router.replace("/not-found");
         setCourseInfo(e);
         setCourseImg(e.imageUrl);
         setFetched(true);
       })
-      .catch((e) => console.log(e));
+      .catch((e) => {
+        console.log(e);
+        notFound();
+      });
   }, []);
   return (
     <main className="pb-10">

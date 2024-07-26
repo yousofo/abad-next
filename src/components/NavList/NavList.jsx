@@ -19,10 +19,9 @@ import User from "./User";
 const NavList = () => {
   const active = useSelector((state) => state.navList.active);
   const isSignedIn = useSelector((store) => store.auth.isSignedIn);
-  const [data, setData] = useState([]);
+  const [isClient, setIsClient] = useState(false);
   const router = useRouter();
   useEffect(() => {
-    
     if (active) {
       window.document.body.classList.add("no-scroll");
     } else {
@@ -32,7 +31,7 @@ const NavList = () => {
       const vh = window.innerHeight * 0.01;
       document.documentElement.style.setProperty("--vh", `${vh}px`);
     };
-
+    setIsClient(true)
     // Initial update
     updateVhUnit();
 
@@ -51,6 +50,9 @@ const NavList = () => {
     dispatch(toggleResetNavList());
   }
   const dispatch = useDispatch();
+  if(!isClient){
+    return null
+  }
   return (
     <div
       suppressHydrationWarning={true}
@@ -140,7 +142,10 @@ const NavList = () => {
             <span>تسجيل خروج</span>
           </button>
         ) : (
-          <div className="navlist-auth mt-auto px-5 flex justify-center gap-2">
+          <div
+            suppressHydrationWarning={true}
+            className="navlist-auth mt-auto px-5 flex justify-center gap-2"
+          >
             <button
               suppressHydrationWarning={true}
               onClick={() => dispatch(toggleSignIn())}
