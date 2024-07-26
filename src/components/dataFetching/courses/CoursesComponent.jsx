@@ -500,7 +500,7 @@ const CoursesComponent = () => {
                 &nbsp;
                 <span>:</span>
                 &nbsp;
-                <span>{data.length}</span>
+                <span>{sortedData.length}</span>
                 &nbsp;
                 <span>نتيجة</span>
               </h4>
