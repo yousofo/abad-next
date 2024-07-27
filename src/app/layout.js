@@ -38,15 +38,44 @@ import Script from 'next/script'
 // })
 
 export const metadata = {
-  title: "ABAD",
-  description: "description for abad",
+  title: "ABAD | آباد للتدريب",
+  description: "معهد شبكة آباد للتدريب من المعاهد الرائدة في تقديم الدورات التطويرية المتخصصة في تقنية المعلومات.",
+  keywords: [
+    "معهد شبكة أباد في الرياض الذي يُعتبر الأفضل لتدريب وتعليم دورات تقنية المعلومات",
+    " شبكات",
+    " وأمان المعلومات في المملكة العربية السعودية. يُقدم المعهد مجموعة واسعة من الدورات",
+    " بما في ذلك Cisco",
+    " Microsoft",
+    " CCNA",
+    " CCNP",
+    " CCIE",
+    " MCSA",
+    " صيانة الحاسوب والدعم الفني",
+    " وأمان المعلومات مع تركيز على سيبر سيكيورتي وشهادة Security Plus. يقدم المعهد شهادات احترافية ومعتمدة في مجالات الشبكات وأمان المعلومات",
+    " مما يساعد الطلاب على تعزيز مهاراتهم والاعتراف بخبراتهم من قبل الصناعة. التدريب يشمل جوانب عملية على رواترات وسويتشات",
+    " Security Plus",
+    " ITIL",
+    " اختبارات CCNA وITIL",
+    " إدارة المشاريع PMP عن بعد",
+    " eLearn",
+    " CEH (Certified Ethical Hacker)",
+    " اختراق الشبكات والجوال",
+    " شركة EC-Council",
+    " فايروول",
+    " CCNP Security",
+    " تطبيقات عملية في داتا سينتر وكلاود أون لاين",
+    " وإدارة وحماية السيرفرات حضوريًا في الرياض. توفير الدورات في مجال أمان المعلومات والسايبر سيكيورتي لجميع التخصصات",
+    " بالإضافة إلى دورات في برمجة الويب باستخدام ASP.NET و Oracle",
+    " ولغات البرمجة C# و Java",
+    " والتعامل مع قواعد البيانات باستخدام SQL و Oracle.تمدة في وظائف تقنية المعلومات أمن الشبكات"
+  ]
 };
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en" dir="rtl">
       <head>
-      <Script id="borwserCheckingScript" strategy="beforeInteractive">
+        <Script id="borwserCheckingScript" strategy="beforeInteractive">
           {`(
           function() {
             function getBrowserInfo() {
@@ -110,7 +139,7 @@ export default function RootLayout({ children }) {
         </Script>
       </head>
       <body /*className={bukra.className}*/>
-        <BrowserWarning/>
+        <BrowserWarning />
         <StateProvider>
           <Authentication />
           <NavList />

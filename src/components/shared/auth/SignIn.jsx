@@ -20,8 +20,8 @@ async function fetchSignIn(data) {
     body: JSON.stringify(data),
   });
   if (
-    request.headers.get("Content-Type").includes("application/json") ||
-    request.headers.get("Content-Type").includes("application/problem+json")
+    request.headers.get("Content-Type")?.includes("application/json") ||
+    request.headers.get("Content-Type")?.includes("application/problem+json")
   ) {
     const dataToReturn = await request.json();
     console.log(dataToReturn);

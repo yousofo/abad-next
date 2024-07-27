@@ -60,7 +60,7 @@ const NavList = () => {
         !active && " -translate-x-full "
       } transition-all fixed w-screen  h-screen navlist-sm-wrapper overflow-scroll bg-white z-[1000] `}
     >
-      <div className="navlist-sm wrapper full-height h-max min-full-height flex flex-col gap-7 py-6">
+      <div className="navlist-sm wrapper h-max min-full-height flex flex-col gap-7 py-6">
         <div className="flex justify-between items-center px-5">
           <img src="/media/logos/NavListLogo.png" alt="" />
           <div

@@ -2,7 +2,7 @@ import React from "react";
 
 const SeachFilter = ({ searchFilter, setSearchFilter }) => {
   return (
-    <div className="intro text-center -mt-[500px] sm:-mt-[470px] mb-40 flex flex-col items-center justify-center gap-5 md:gap-7 text-white w-full max-w-full px-4">
+    <div className="intro text-center flex flex-col items-center justify-center gap-5 md:gap-7 text-white w-full max-w-full px-4">
       <h2 className="text-2xl font-medium md:text-3xl lg:text-4xl xl:text-5xl max-w-60 sm:max-w-fit">
         <span>ابحث في دورات</span>
         &nbsp;

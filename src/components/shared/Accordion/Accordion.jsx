@@ -37,9 +37,10 @@ const Accordion = ({ title, data, table, active: starting }) => {
                   <th>الاجراءات</th>
                 </tr>
               </thead>
-              <tbody className="flex sm:table-row-group w-full">
+              <tbody className="flex flex-col gap-2 sm:table-row-group w-full">
                 {table?.map((e, i) => (
                   <tr
+                  style={{boxShadow: "5px 4px 30px 0px #00000014"}}
                     className="shadow w-full p-2 [&>td]:p-0 sm:[&>td]:p-4 flex flex-col gap-2 sm:table-row"
                     key={i}
                   >

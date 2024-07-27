@@ -64,37 +64,33 @@ const COLUMNS = [
     Cell: ({ row }) => (
       <div className="course-name">
         <p>{row.original.courseName}</p>
-        <div>
-          {row.original.isOnline ? (
-            <span>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width={12}
-                height={12}
-                viewBox="0 0 12 12"
-                fill="none"
-              >
-                <path
-                  d="M6 12C9.31371 12 12 9.31371 12 6C12 2.68629 9.31371 0 6 0C2.68629 0 0 2.68629 0 6C0 9.31371 2.68629 12 6 12Z"
-                  fill="currentColor"
-                />
-              </svg>
-              {row.original.isOnline}
-            </span>
-          ) : (
-            ""
-          )}
+        <div className="[&>*]:!text-[10px] hidden sm:flex">
+          <span className="text-[#DF2121] ">
+            <svg
+              width="10"
+              height="10"
+              viewBox="0 0 10 10"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M4.99996 8.33341C6.84091 8.33341 8.33329 6.84103 8.33329 5.00008C8.33329 3.15913 6.84091 1.66675 4.99996 1.66675C3.15901 1.66675 1.66663 3.15913 1.66663 5.00008C1.66663 6.84103 3.15901 8.33341 4.99996 8.33341Z"
+                fill="currentColor"
+              />
+            </svg>
+            {row.original.isOnline ? row.original.isOnline : "حضوري"}
+          </span>
           {row.original.hadaf && (
             <span>
               <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width={12}
-                height={12}
-                viewBox="0 0 12 12"
+                width="10"
+                height="10"
+                viewBox="0 0 10 10"
                 fill="none"
+                xmlns="http://www.w3.org/2000/svg"
               >
                 <path
-                  d="M6 12C9.31371 12 12 9.31371 12 6C12 2.68629 9.31371 0 6 0C2.68629 0 0 2.68629 0 6C0 9.31371 2.68629 12 6 12Z"
+                  d="M4.99996 8.33341C6.84091 8.33341 8.33329 6.84103 8.33329 5.00008C8.33329 3.15913 6.84091 1.66675 4.99996 1.66675C3.15901 1.66675 1.66663 3.15913 1.66663 5.00008C1.66663 6.84103 3.15901 8.33341 4.99996 8.33341Z"
                   fill="currentColor"
                 />
               </svg>
@@ -109,8 +105,10 @@ const COLUMNS = [
     Header: "تاريخ بداية الدورة",
     accessor: "startDate",
     Cell: ({ row }) => (
-      <div className="course-start-date whitespace-nowrap">
-        {row.original.startDate}
+      <div className="course-start-date whitespace-nowrap flex items-center gap-1">
+        <span className="sm:hidden">بداية الدورة</span>
+        <span className="sm:hidden">:</span>
+        <span>{row.original.startDate.split("-").join("/")}</span>
       </div>
     ),
   },
@@ -118,10 +116,9 @@ const COLUMNS = [
     Header: "وقت بداية الدورة",
     accessor: "formattedTimeStart",
     Cell: ({ row }) => (
-      <div>
-        <span>التوقيت</span>
-        <span>:</span>
-        &nbsp;
+      <div className="flex items-center gap-1">
+        <span className="sm:hidden">التوقيت</span>
+        <span className="sm:hidden">:</span>
         <span>
           <span>من</span>
           &nbsp;
@@ -146,7 +143,41 @@ const COLUMNS = [
     Header: "الاجراءات",
     accessor: "",
     Cell: ({ row }) => (
-      <div>
+      <div className="">
+        <div className="my-3  sm:hidden [&>*]:!text-[10px] [&>span]:flex [&>span]:items-center [&>span]:gap-1 flex items-center gap-3">
+          <span className="text-[#DF2121] ">
+            <svg
+              width="10"
+              height="10"
+              viewBox="0 0 10 10"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M4.99996 8.33341C6.84091 8.33341 8.33329 6.84103 8.33329 5.00008C8.33329 3.15913 6.84091 1.66675 4.99996 1.66675C3.15901 1.66675 1.66663 3.15913 1.66663 5.00008C1.66663 6.84103 3.15901 8.33341 4.99996 8.33341Z"
+                fill="currentColor"
+              />
+            </svg>
+            {row.original.isOnline ? row.original.isOnline : "حضوري"}
+          </span>
+          {row.original.hadaf && (
+            <span className="text-[#1b39a6]">
+              <svg
+                width="10"
+                height="10"
+                viewBox="0 0 10 10"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M4.99996 8.33341C6.84091 8.33341 8.33329 6.84103 8.33329 5.00008C8.33329 3.15913 6.84091 1.66675 4.99996 1.66675C3.15901 1.66675 1.66663 3.15913 1.66663 5.00008C1.66663 6.84103 3.15901 8.33341 4.99996 8.33341Z"
+                  fill="currentColor"
+                />
+              </svg>
+              مدعومة من هدف
+            </span>
+          )}
+        </div>
         <div className="btns">
           <Link href={`/courses/${row.original.token}`}>
             <button>
@@ -182,16 +213,14 @@ const COLUMNS = [
               width={14}
               height={11}
               viewBox="0 0 14 11"
-              fill="none"
+              fill="currentColor"
             >
-              <path
-                d="M6.66667 7.33333H5.33333C4.23973 7.33292 3.16682 7.63143 2.23058 8.1966C1.29435 8.76178 0.530401 9.57211 0.0213343 10.54C0.00702532 10.3604 -9.15218e-05 10.1802 8.88408e-07 10C8.88408e-07 6.318 2.98467 3.33333 6.66667 3.33333V0L13.3333 5.33333L6.66667 10.6667V7.33333Z"
-                fill="#71A23F"
-              />
+              <path d="M6.66667 7.33333H5.33333C4.23973 7.33292 3.16682 7.63143 2.23058 8.1966C1.29435 8.76178 0.530401 9.57211 0.0213343 10.54C0.00702532 10.3604 -9.15218e-05 10.1802 8.88408e-07 10C8.88408e-07 6.318 2.98467 3.33333 6.66667 3.33333V0L13.3333 5.33333L6.66667 10.6667V7.33333Z" />
             </svg>
             تسجيل
           </button>
         </div>
+        
       </div>
     ),
   },
@@ -203,6 +232,9 @@ const CoursesComponent = () => {
   const allCatRef = useRef(null);
   const [coursesCategories, setCoursesCategories] = useState([]);
   const [activeCategory, setActiveCategory] = useState(["all"]);
+  const [extraFilter, setExtraFilter] = useState([]);
+  const [isCourseOnline, setIsCourseOnline] = useState("");
+  const [isCourseHadaf, setIsCourseHadaf] = useState(false);
   const isCards = useSelector((store) => store.coursesFilter.isCards);
   const dispatch = useDispatch();
 
@@ -218,12 +250,47 @@ const CoursesComponent = () => {
     () =>
       data.filter((e) => {
         if (activeCategory.includes("all")) {
-          return true;
+          if (isCourseOnline == "online") {
+            if (isCourseHadaf) {
+              console.log("here");
+              return e.isOnline.length > 1 && e.hadaf?.length > 1;
+            } else {
+              return e.isOnline.length > 1;
+            }
+          } else if (isCourseOnline) {
+            if (isCourseHadaf) {
+              return !(e.isOnline.length > 1) && e.hadaf?.length > 1;
+            } else {
+              return !(e.isOnline.length > 1);
+            }
+          } else if (isCourseHadaf) {
+            console.log("in hadaf");
+            return e.hadaf?.length > 1;
+          } else {
+            return true;
+          }
         } else {
-          return activeCategory.includes(e.categoryId);
+          const isCategory = activeCategory.includes(e.categoryId);
+          if (isCourseOnline == "online") {
+            if (isCourseHadaf) {
+              return e.isOnline && isCategory && e.hadaf;
+            } else {
+              return e.isOnline && isCategory;
+            }
+          } else if (isCourseOnline) {
+            if (isCourseHadaf) {
+              return !e.isOnline && isCategory && e.hadaf;
+            } else {
+              return !e.isOnline && isCategory;
+            }
+          } else if (isCourseHadaf) {
+            return e.hadaf && isCategory;
+          } else {
+            return isCategory;
+          }
         }
       }),
-    [activeCategory, data.length]
+    [activeCategory, data.length, isCourseHadaf, isCourseOnline]
   );
 
   const sortedData = React.useMemo(() => {
@@ -261,8 +328,6 @@ const CoursesComponent = () => {
   const { globalFilter } = state;
   function handleChecked(e, code) {
     if (e.target.checked == true) {
-      console.log(code);
-
       setActiveCategory((pre) => [...pre, code]);
     } else {
       setActiveCategory((pre) => pre.filter((ele) => ele != code));
@@ -297,7 +362,7 @@ const CoursesComponent = () => {
         setSearchFilter={setGlobalFilter}
       />
       <div className="flex flex-col gap-8 lg:gap-4 lg:flex-row">
-        <form className="search-filter h-fit w-full lg:w-max mx-auto abad-shadow p-5 flex flex-col gap-4 rounded-lg">
+        <form className="search-filter bg-white h-fit w-full lg:w-max mx-auto abad-shadow p-5 flex flex-col gap-4 rounded-lg">
           <div className="flex items-center justify-between gap-12 pb-3 border-b border-b-[#D8D1E2]">
             <h3 className="font-bold">تصفية</h3>
             <button type="reset" className="text-xs font-bold">
@@ -349,21 +414,38 @@ const CoursesComponent = () => {
                   }
                 />
               </div>
-              <div className="flex flex-col gap-[10px]">
+              <div className="flex flex-col gap-[10px] [&>div]:flex [&>div]:items-center [&>div]:gap-1">
                 <h4 className="font-bold text-xs ">الحضور</h4>
                 <div>
-                  <input type="checkbox" name="" id="filterAttendence" />
+                  <input
+                    onClick={(ev) => setIsCourseOnline("attendance")}
+                    type="radio"
+                    name="isOnline"
+                    id="filterAttendence"
+                  />
                   <label htmlFor="filterAttendence">حضوري</label>
                 </div>
                 <div>
-                  <input type="checkbox" name="" id="filterOnline" />
+                  <input
+                    onClick={(ev) => setIsCourseOnline("online")}
+                    type="radio"
+                    name="isOnline"
+                    id="filterOnline"
+                  />
                   <label htmlFor="filterOnline">اونلاين</label>
                 </div>
               </div>
               <div className="flex flex-col gap-[10px]">
                 <h4 className="font-bold text-xs ">شهادات مدعومة</h4>
-                <div>
-                  <input type="checkbox" name="" id="filterGoal" />
+                <div className="flex items-center gap-1">
+                  <input
+                    onClick={(ev) =>
+                      setIsCourseHadaf(ev.target.checked ? "hadaf" : "")
+                    }
+                    type="checkbox"
+                    name=""
+                    id="filterGoal"
+                  />
                   <label htmlFor="filterGoal">هدف</label>
                 </div>
               </div>
@@ -501,7 +583,7 @@ const CoursesComponent = () => {
                   {headerGroup.headers.map((column, i) => (
                     <th
                       {...column.getHeaderProps(column.getSortByToggleProps())}
-                      className="text-start"
+                      className="text-start bg-[#1D2A96] !text-white"
                       key={i}
                     >
                       {column.render("Header")}

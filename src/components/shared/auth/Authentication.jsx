@@ -18,7 +18,6 @@ const Authentication = () => {
   const dispatch = useDispatch();
   function handleAuthClose() {
     dispatch(toggleResetAuth());
-    console.log(isHidden);
   }
   return (
     <div
