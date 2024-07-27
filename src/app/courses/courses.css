@@ -170,7 +170,7 @@
 }
 @media (min-width: 640px) {
   .courses-page table tbody {
-    display: table-row;
+    display: table-row-group;
  }
 }
 @media (min-width: 640px) {
