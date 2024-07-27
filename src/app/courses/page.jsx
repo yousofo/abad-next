@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import "./courses.dev.css";
+import "./courses.css";
 import CoursesComponent from "@/components/dataFetching/courses/CoursesComponent";
 import SeachFilter from "@/components/dataFetching/courses/SeachFilter";
 

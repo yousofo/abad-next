@@ -125,7 +125,7 @@
 .home-courses .courses-contents > div:nth-of-type(1) nav ul li button div {
   padding: 0.25rem;
   border-radius: 9999px;
-  background-color: rgba(0, 0, 0,0.05);
+  background-color: #000;
 }
 .home-courses .courses-contents > div:nth-of-type(1) nav ul li button div svg {
   width: 17px;
@@ -153,7 +153,7 @@
   background-color: transparent;
 }
 .home-courses .courses-contents > div:nth-of-type(1) nav ul li:nth-child(n + 5) {
-  /* display: none; */
+  display: none;
 }
 @media (min-width: 768px) {
   .home-courses .courses-contents > div:nth-of-type(1) nav ul li:nth-child(n + 5) {
