@@ -125,7 +125,7 @@
 .home-courses .courses-contents > div:nth-of-type(1) nav ul li button div {
   padding: 0.25rem;
   border-radius: 9999px;
-  background-color: #000;
+  background-color: rgb(0, 0, 0, 0.05);
 }
 .home-courses .courses-contents > div:nth-of-type(1) nav ul li button div svg {
   width: 17px;
