@@ -8,7 +8,7 @@ import { useSelector } from "react-redux";
 async function fetchUpdateStudent(data) {
   console.log(data);
   try {
-    const request = await fetch(`/api/updateStudent/${data.token}`, {
+    const request = await fetch(`/api/student/updateStudent/${data.token}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -240,8 +240,8 @@ const Profile = () => {
                 id="updateGender"
                 className="w-full focus:outline-none"
               >
-                <option value="">ذكر</option>
-                <option value="">انثي</option>
+                <option value="ذكر">ذكر</option>
+                <option value="انثي">انثي</option>
               </select>
             </div>
           </div>
