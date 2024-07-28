@@ -55,6 +55,20 @@ const HomeCourses = () => {
   const [activeCategory, setActiveCategory] = useState("all");
   const isCards = useSelector((store) => store.coursesFilter.isCards);
   const dispatch = useDispatch();
+  const [filteredCourses, setFilteredCourses] = useState(data);
+  const [searchInput, setSearchInput] = useState("");
+
+  const handleSearch = (event) => {
+    console.log(event.target.value)
+    const input = event.target.value.toLowerCase();
+    setSearchInput(input);
+
+    const filtered = data.filter((course) =>
+      course.courseName.toLowerCase().includes(input)
+    );
+
+    setFilteredCourses(filtered);
+  };
 
   useEffect(() => {
     fetchCoursesCategories()
@@ -68,6 +82,7 @@ const HomeCourses = () => {
     fetchHomeCourse()
       .then((e) => {
         setData(e);
+        setFilteredCourses(e);
         dispatch(setHomeCourses(e));
       })
       .catch((e) => {
@@ -155,7 +170,7 @@ const HomeCourses = () => {
         <div>
           {/* courses filter */}
           <nav className="courses-filter abad-drop-shadow  whitespace-nowrap">
-            <ul className="overflow-x-scroll lg:overflow-auto">
+            <ul className="overflow-x-auto lg:overflow-auto">
               <li
                 className={activeCategory == "all" ? "active" : ""}
                 onClick={() => setActiveCategory("all")}
@@ -228,7 +243,12 @@ const HomeCourses = () => {
                 </clipPath>
               </defs>
             </svg>
-            <input type="text" placeholder="ابحث عن اسم الدورة..." />
+            <input
+              value={searchInput}
+              onChange={handleSearch}
+              type="text"
+              placeholder="ابحث عن اسم الدورة..."
+            />
           </div>
         </div>
         {/* courses table ROWS MODE */}
@@ -247,8 +267,8 @@ const HomeCourses = () => {
           {/* rows data */}
           <tbody>
             {activeCategory == "all" && Array.isArray(data)
-              ? data.map((e, i) => <CourseRow data={e} key={i} index={i} />)
-              : data
+              ? filteredCourses.map((e, i) => <CourseRow data={e} key={i} index={i} />)
+              : filteredCourses
                   ?.filter((e) => e.categoryId == activeCategory)
                   .map((e, i) => <CourseRow data={e} key={i} index={i} />)}
           </tbody>
@@ -259,12 +279,12 @@ const HomeCourses = () => {
           className={` courses-cards `}
         >
           {activeCategory == "all" && Array.isArray(data)
-            ? data.map((e, i) => (
+            ? filteredCourses.map((e, i) => (
                 <Link key={i} href={`/courses/${e.token}`}>
                   <CourseCard data={e} index={i} />
                 </Link>
               ))
-            : data
+            : filteredCourses
                 ?.filter((e) => e.categoryId == activeCategory)
                 .map((e, i) => (
                   <Link key={i} href={`/courses/${e.token}`}>
