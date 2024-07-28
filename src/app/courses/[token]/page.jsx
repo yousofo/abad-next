@@ -382,10 +382,6 @@ const Course = ({ params }) => {
                 <div className="course-card-details flex flex-col gap-6 text-[#252525]">
                   <h4 className="text-xl font-medium">تفاصيل الدورة</h4>
                   <ul className="flex flex-col gap-6">
-                    <li className="flex items-center gap-2">
-                      <img className="" src="/media/course/Users.png" alt="" />
-                      <span>2.100 المسجلين</span>
-                    </li>
                     <li
                       className={`${
                         !courseInfo.numberOfHours && "hidden"
@@ -410,12 +406,10 @@ const Course = ({ params }) => {
                         <span>: {courseInfo.numberOfweeks}</span>
                       </span>
                     </li>
-                    <li className="flex items-center gap-2">
+                    <li  className={`${!courseInfo.trainerLanguage && "hidden "} flex items-center gap-2`}>
                       <img className="" src="/media/course/Users.png" alt="" />
                       <span>
-                        {courseInfo.trainerLanguage
-                          ? courseInfo.trainerLanguage
-                          : "اللغة العربية"}
+                        {courseInfo.trainerLanguage}
                       </span>
                     </li>
                     <li className="flex items-center gap-2">
