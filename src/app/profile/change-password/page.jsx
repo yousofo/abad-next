@@ -18,7 +18,7 @@ async function fetchUpdatePassword(data, token) {
   }
 }
 
-const changePassword = () => {
+const ChangePassword = () => {
   const user = useSelector((store) => store.auth.user);
   const userJson = JSON.parse(user);
   let oldPassword = useRef(null);
@@ -124,4 +124,4 @@ const changePassword = () => {
   );
 };
 
-export default changePassword;
+export default ChangePassword;
