@@ -20,7 +20,7 @@ import SeachFilter from "./SeachFilter";
 
 async function fetchHomeCourse() {
   try {
-    const request = await fetch("/api/allCourses", {
+    const request = await fetch("/api/home/allCourses", {
       method: "GET",
       headers: {
         "Cache-Control":
@@ -39,7 +39,7 @@ async function fetchHomeCourse() {
 }
 async function fetchCoursesCategories() {
   try {
-    const request = await fetch("/api/coursesCategories", {
+    const request = await fetch("/api/categories/coursesCategories", {
       method: "GET",
       headers: {
         "Cache-Control":

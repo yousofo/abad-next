@@ -1,16 +1,19 @@
-export async function GET(request, { params }) {
+export async function POST(request, { params }) {
   // try {
   const { token } = params;
-  const tempToken = "3a96b4a5-84c9-4a75-92da-82b99dcdafa2"
-  const response = await fetch(`http://myserverhost-001-site2.dtempurl.com/api/Home/basic/${tempToken}`, {
-    method: "GET",
+  const requestData = await request.json()
+  console.log("===============================================================")
+  console.log(requestData)
+  const response = await fetch(`${process.env.NEXT_PUBLIC_ROOT_URL}/api/Student/update/${token}`, {
+    method: "POST",
     headers: {
       'Content-Type': 'application/json',
       'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate',
       'Pragma': 'no-cache',
       'Expires': '0',
       'Surrogate-Control': 'no-store'
-    }
+    },
+    body: JSON.stringify(requestData)
   });
   let data;
   if (response.headers.get('Content-Type').includes('application/json')) {

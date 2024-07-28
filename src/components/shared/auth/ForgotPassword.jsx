@@ -4,7 +4,7 @@ import React, { useRef, useState } from "react";
 import { useSelector } from "react-redux";
 
 async function fetchResetPassword(data) {
-  const request = await fetch(`/api/resetPassword?mail=${data}`, {
+  const request = await fetch(`/api/student/resetPassword?mail=${data}`, {
     method: "GET",
     headers: {
       "Content-Type": "application/problem",

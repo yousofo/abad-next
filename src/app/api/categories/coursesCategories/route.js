@@ -1,6 +1,6 @@
 export async function GET(request) {
   try {
-    const response = await fetch('http://myserverhost-001-site2.dtempurl.com/api/Home/latest', {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_ROOT_URL}/api/Category/courses-types`, {
       method:"GET",
       headers: {
         'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate',

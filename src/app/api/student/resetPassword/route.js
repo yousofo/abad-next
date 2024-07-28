@@ -3,7 +3,7 @@ export async function GET(request) {
   const { searchParams } = new URL(request.url);
   const mail = searchParams.get('mail');
 
-  const response = await fetch(`http://myserverhost-001-site2.dtempurl.com/api/Student/checkEmail?mail=${mail}`, {
+  const response = await fetch(`${process.env.NEXT_PUBLIC_ROOT_URL}/api/Student/checkEmail?mail=${mail}`, {
     method: "GET",
     headers: {
       'Content-Type': 'application/json',

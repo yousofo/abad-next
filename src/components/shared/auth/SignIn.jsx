@@ -12,7 +12,7 @@ import React, { useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 async function fetchSignIn(data) {
-  const request = await fetch("/api/login", {
+  const request = await fetch("/api/student/login", {
     method: "POST",
     headers: {
       "Content-Type": "application/problem",

@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 async function sendRegisterData(data) {
   console.log(data);
   try {
-    const request = await fetch("/api/register", {
+    const request = await fetch("/api/student/register", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

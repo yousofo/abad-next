@@ -2,7 +2,7 @@ export async function POST(request) {
   // try {
   const requestData = await request.json();
 
-  const response = await fetch('http://myserverhost-001-site2.dtempurl.com/api/Student/login', {
+  const response = await fetch(`${process.env.NEXT_PUBLIC_ROOT_URL}/api/Student/login`, {
     method: "POST",
       headers: {
         'Content-Type': 'application/json',

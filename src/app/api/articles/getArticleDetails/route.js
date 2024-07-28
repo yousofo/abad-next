@@ -2,7 +2,7 @@ export async function GET(request) {
   // try {
   const url = new URL(request.url);
   const token = url.searchParams.get('token');
-  const response = await fetch(`http://myserverhost-001-site2.dtempurl.com/api/Articles/GetArticleDetails?token=${token}`, {
+  const response = await fetch(`${process.env.NEXT_PUBLIC_ROOT_URL}/api/Articles/GetArticleDetails?token=${token}`, {
     method: "GET",
     headers: {
       'Content-Type': 'application/json',

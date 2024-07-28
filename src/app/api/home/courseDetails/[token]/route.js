@@ -1,8 +1,7 @@
 export async function GET(request,{params}) {
   // try {
   const { token } = params;
-//http://myserverhost-001-site2.dtempurl.com/swagger/index.html
-  const response = await fetch(`http://myserverhost-001-site2.dtempurl.com/api/Home/details/${token}`, {
+  const response = await fetch(`${process.env.NEXT_PUBLIC_ROOT_URL}/api/Home/getByToken?token=${token}`, {
     method: "GET",
     headers: {
       'Content-Type': 'application/json',
