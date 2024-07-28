@@ -8,7 +8,7 @@ import { useSelector } from "react-redux";
 
 async function fetchCourseDetails(token) {
   try {
-    const courseDetails = await fetch(`/api/courseDetails/${token}`, {
+    const courseDetails = await fetch(`/api/home/courseDetails/${token}`, {
       headers: {
         "Content-Type": "application/json",
         "Cache-Control":

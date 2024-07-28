@@ -7,7 +7,7 @@ import RegisteredCourseAccordion from "@/components/shared/Accordion/RegisteredC
 
 async function fetchUserCourseDetails(token) {
   try {
-    const request = await fetch(`/api/userCourseDetails/${token}`, {
+    const request = await fetch(`/api/student/userCourseDetails/${token}`, {
       method: "GET",
       headers: {
         "Cache-Control":

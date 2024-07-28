@@ -7,7 +7,7 @@ import { useRouter } from "next/navigation";
 
 async function FetchStudentCourses(token) {
   try {
-    const request = await fetch(`/api/studentCourses/${token}`);
+    const request = await fetch(`/api/student/studentCourses/${token}`);
     const jsonData = await request.json();
     return jsonData;
   } catch (e) {
