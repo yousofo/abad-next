@@ -12,7 +12,7 @@ import CourseCard from "../../shared/tables/CourseCard";
 
 async function fetchHomeCourse() {
   try {
-    const request = await fetch("http://myserverhost-001-site2.dtempurl.com/api/Home/getAll", {
+    const request = await fetch("/api/proxy", {
       method: "GET",
       headers: {
         "Cache-Control":
