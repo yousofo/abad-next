@@ -1,9 +1,8 @@
 "use client";
 import React, { useState } from "react";
-import "./loader.css";
-const PageLoader = ({ loading }) => {
+const Loader = ({ loading }) => {
   return (
-    <div className="fixed z-[999999] w-full h-full">
+    <div className="absolute z-[999999] w-full h-full">
       <div
         className={`${
           !loading && "hidden"
@@ -18,4 +17,4 @@ const PageLoader = ({ loading }) => {
   );
 };
 
-export default PageLoader;
+export default Loader;
