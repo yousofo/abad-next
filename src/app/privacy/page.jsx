@@ -1,5 +1,5 @@
 import React from "react";
-
+import "./privacy.css"
 const page = () => {
   return (
     <main>
