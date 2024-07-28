@@ -36,7 +36,7 @@ const AngleBottom = ({ fill }) => (
 
 async function fetchCoursesWithTypes() {
   try {
-    const request = await fetch("/api/coursesWithTypes", {
+    const request = await fetch("/api/categories/coursesWithTypes", {
       method: "GET",
       headers: {
         "Cache-Control":

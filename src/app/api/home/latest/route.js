@@ -1,3 +1,4 @@
+export const fetchCache = 'force-no-store';
 export async function GET(request) {
   try {
     const response = await fetch(`${process.env.NEXT_PUBLIC_ROOT_URL}/api/Home/latest`, {
@@ -12,6 +13,7 @@ export async function GET(request) {
     const data = await response.json();
     console.log("proxy==========================================")
     console.log(data)
+    
     return new Response(JSON.stringify(data), {
       headers: {
         'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate',

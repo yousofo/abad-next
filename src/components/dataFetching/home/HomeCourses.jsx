@@ -31,7 +31,7 @@ async function fetchHomeCourse() {
 }
 async function fetchCoursesCategories() {
   try {
-    const request = await fetch("/api/home/coursesCategories", {
+    const request = await fetch("/api/categories/coursesCategories", {
       method: "GET",
       headers: {
         "Cache-Control":

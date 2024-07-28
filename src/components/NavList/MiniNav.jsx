@@ -2,6 +2,27 @@
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 
+async function fetchCoursesWithTypes() {
+  try {
+    const request = await fetch("/api/categories/coursesWithTypes", {
+      method: "GET",
+      headers: {
+        "Cache-Control":
+          "no-store, no-cache, must-revalidate, proxy-revalidate",
+        Pragma: "no-cache",
+        Expires: "0",
+        "Surrogate-Control": "no-store",
+      },
+    });
+    const data = await request.json();
+    console.log(data);
+    return data;
+  } catch (e) {
+    console.log(e);
+  }
+}
+
+//helper component
 const MiniNavItem = ({ data }) => {
   const [innerList, setInnerList] = useState(false);
   function handleClick(e) {
@@ -50,26 +71,7 @@ const MiniNavItem = ({ data }) => {
   );
 };
 
-async function fetchCoursesWithTypes() {
-  try {
-    const request = await fetch("/api/coursesWithTypes", {
-      method: "GET",
-      headers: {
-        "Cache-Control":
-          "no-store, no-cache, must-revalidate, proxy-revalidate",
-        Pragma: "no-cache",
-        Expires: "0",
-        "Surrogate-Control": "no-store",
-      },
-    });
-    const data = await request.json();
-    console.log(data);
-    return data;
-  } catch (e) {
-    console.log(e);
-  }
-}
-
+//main component
 const MiniNav = () => {
   const [outerList, setOuterList] = useState(false);
   const [data, setData] = useState([]);

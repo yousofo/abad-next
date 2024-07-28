@@ -1,11 +1,9 @@
-"use client";
-import React, { useState } from "react";
+import { cookies, headers } from "next/headers";
 import "./courses.css";
 import CoursesComponent from "@/components/dataFetching/courses/CoursesComponent";
-import SeachFilter from "@/components/dataFetching/courses/SeachFilter";
 
 const Courses = () => {
-  const [searchFilter, setSearchFilter] = useState("");
+  headers()
   return (
     <main className="courses-page relative">
       {/* HERO start  */}

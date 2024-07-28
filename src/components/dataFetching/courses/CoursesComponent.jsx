@@ -31,10 +31,12 @@ async function fetchHomeCourse() {
       },
     });
     const data = await request.json();
+    console.log("not error")
     console.log(data);
     return data;
-  } catch (e) {
-    console.log(e);
+  } catch (error) {
+    console.log("error")
+    console.log(error);
   }
 }
 async function fetchCoursesCategories() {
