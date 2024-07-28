@@ -7,9 +7,9 @@ const CourseCard = ({ index, data }) => {
     data.isOnline == "أون لاين" ||
     data.isOnline == "أونلاين";
   return (
-    <figure data-type={data} className="course-card">
-      <div className="img">
-        <img src={data.imageUrl} alt="" />
+    <figure data-type={data} className="course-card h-full flex flex-col">
+      <div className="img flex-1 flex items-center justify-center">
+        <img  src={data.imageUrl} alt="" />
       </div>
       <figcaption>
         <h4>{data.courseName}</h4>
