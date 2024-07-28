@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from "react";
-const Loader = ({ loading }) => {
+const Loader = ({ loading, text }) => {
   return (
     <div
       className={`${
@@ -12,7 +12,7 @@ const Loader = ({ loading }) => {
       >
         <div className="animate-spin border-8 rounded-full h-full border-green-500 border-r-transparent bg-white bg-opacity-50"></div>
         <span className="absolute font-medium left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 leading-[96px] text-xs whitespace-nowrap">
-          جاري التسجيل
+          {text ? text : "جاري التسجيل"}
         </span>
       </div>
     </div>

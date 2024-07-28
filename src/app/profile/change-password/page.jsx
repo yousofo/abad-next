@@ -119,7 +119,7 @@ const changePassword = () => {
         </div>
       </section>
       {/* main content end */}
-      <Loader loading={loading} />
+      <Loader loading={loading}/>
     </main>
   );
 };

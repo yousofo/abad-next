@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import React, { useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
+
 async function sendRegisterData(data) {
   console.log(data);
   try {
@@ -39,6 +40,10 @@ async function sendRegisterData(data) {
   }
 }
 
+const scrollToTop=(element)=>{
+  element.scrollIntoView({ behavior: "instant", block: "start" })
+}
+
 const SignUp = () => {
   const [loading, setLoading] = useState(false);
   const [generalError, setGeneralError] = useState("");
@@ -46,7 +51,7 @@ const SignUp = () => {
   const isSignUp = useSelector((e) => e.auth.signUp);
   const dispatch = useDispatch();
   const router = useRouter();
-
+  let signUpContainer = useRef(null)
   const signUpForm = useForm();
   const { register, handleSubmit, formState, setError, reset } = signUpForm;
   // const { name,ref,onChange,onBlur}=register("id")
@@ -69,6 +74,7 @@ const SignUp = () => {
     });
 
     if (result.errors) {
+      scrollToTop(signUpContainer.current)
       console.log("errrrr");
       console.log(Object.entries(result.errors));
       Object.entries(result.errors).forEach(([key, value]) => {
@@ -97,10 +103,12 @@ const SignUp = () => {
     console.log(result);
     setLoading(false);
   }
+
   return (
     <div
       style={{ display: isSignUp ? "flex" : "none" }}
       className={`auth-signup`}
+      ref={signUpContainer}
     >
       <div>
         <h2>تسجيل حساب جديد</h2>
