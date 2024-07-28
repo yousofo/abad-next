@@ -2,6 +2,7 @@ import React from 'react'
 import "./articles.css"
 import Link from 'next/link';
 import ArticlesComp from '@/components/dataFetching/articles/ArticlesComp';
+
 const Articles = () => {
 
   return (

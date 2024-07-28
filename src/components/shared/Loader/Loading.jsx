@@ -2,6 +2,7 @@
 import React from "react";
 import "./loader.css"
 const Loading = () => {
+  const loading = false
   return (
     <div
       //  register loader

@@ -17,14 +17,14 @@ async function fetchArticles() {
     const data = await result.json();
     return data;
   } catch (e) {
-    console.log("fetch e")
+    console.log("fetch e");
     console.log(e);
   }
 }
 
 const Article = ({ data }) => {
   const [image, setImage] = useState(true);
-console.log("article")
+  console.log("article");
   return (
     <Link href={`/articles/${data?.token}`} className="h-full">
       <article className="h-full">
@@ -43,7 +43,7 @@ console.log("article")
               } h-full max-h-[188px] object-cover w-full`}
               src={data?.image}
               alt=""
-              onLoad={()=>setImage(false)}
+              onLoad={() => setImage(false)}
             />
             <span className="abosulute article-tag article-tag-yellow">
               القصص
@@ -61,7 +61,7 @@ console.log("article")
 
 const ArticlesComp = () => {
   const [data, setData] = useState([]);
-console.log("article com")
+  console.log("article com");
   useEffect(() => {
     fetchArticles()
       .then((e) => setData(e))
@@ -70,8 +70,8 @@ console.log("article com")
 
   return (
     <>
-      {data.map((e) => (
-        <Article data={e} />
+      {data.map((e,i) => (
+        <Article key={i} data={e} />
       ))}
     </>
   );
