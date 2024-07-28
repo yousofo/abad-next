@@ -28,6 +28,7 @@ async function fetchCourseDetails(token) {
 async function fetchRegisterAttendanceCourse(data) {
   try {
     const courseDetails = await fetch(`/api/reservations/addOfflineCourse`, {
+      method: "POST",
       headers: {
         "Content-Type": "application/json",
         "Cache-Control":
@@ -48,6 +49,7 @@ async function fetchRegisterAttendanceCourse(data) {
 async function fetchAddToBasket(data) {
   try {
     const courseDetails = await fetch(`/api/reservations/addToBasket`, {
+      method: "POST",
       headers: {
         "Content-Type": "application/json",
         "Cache-Control":
@@ -139,14 +141,18 @@ const Course = ({ params }) => {
       CourseToken: params.token,
       userToken: userJson.token,
     });
-    console.log(result)
+    console.log(result);
   }
   async function handleAddToBasket() {
+    console.log({
+      CourseToken: params.token,
+      userToken: userJson.token,
+    });
     const result = await fetchAddToBasket({
       CourseToken: params.token,
       userToken: userJson.token,
     });
-    console.log(result)
+    console.log(result);
   }
   return (
     <main className="pb-10">
@@ -336,7 +342,10 @@ const Course = ({ params }) => {
                 ) : (
                   <>
                     <a href="#">شراء الدورة التدريبية الآن</a>
-                    <div className="action-btns flex gap-4" onClick={handleAddToBasket}>
+                    <div
+                      className="action-btns flex gap-4"
+                      onClick={handleAddToBasket}
+                    >
                       <button className="flex-1 bg-[#FDB614]">
                         إضافة الي السلة
                       </button>
@@ -377,13 +386,37 @@ const Course = ({ params }) => {
                       <img className="" src="/media/course/Users.png" alt="" />
                       <span>2.100 المسجلين</span>
                     </li>
-                    <li className="flex items-center gap-2">
+                    <li
+                      className={`${
+                        !courseInfo.numberOfHours && "hidden"
+                      } flex items-center gap-2`}
+                    >
                       <img className="" src="/media/course/Users.png" alt="" />
-                      <span>40 دقيقة للانتهاء</span>
+                      <span>
+                        <span>عدد الساعات للانتهاء</span>
+                        &nbsp;
+                        <span>: {courseInfo.numberOfHours}</span>
+                      </span>
+                    </li>
+                    <li
+                      className={`${
+                        !courseInfo.numberOfHours && "hidden"
+                      } flex items-center gap-2`}
+                    >
+                      <img className="" src="/media/course/Users.png" alt="" />
+                      <span>
+                        <span>عدد الاسابيع للانتهاء</span>
+                        &nbsp;
+                        <span>: {courseInfo.numberOfweeks}</span>
+                      </span>
                     </li>
                     <li className="flex items-center gap-2">
                       <img className="" src="/media/course/Users.png" alt="" />
-                      <span>اللغة الإنجليزية</span>
+                      <span>
+                        {courseInfo.trainerLanguage
+                          ? courseInfo.trainerLanguage
+                          : "اللغة العربية"}
+                      </span>
                     </li>
                     <li className="flex items-center gap-2">
                       <img className="" src="/media/course/Users.png" alt="" />
