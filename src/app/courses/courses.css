@@ -127,12 +127,12 @@
 }
 .courses-page .courses-cards figure figcaption .course-attend span.online,
 tr span.online {
-  color: #df2121;
+  color: #0dc00d;
 }
 
 .courses-page .courses-cards figure figcaption .course-attend span.in-person,
 tr span.in-person {
-  color: #0dc00d;
+  color: #df2121;
 }
 .courses-page
   .courses-cards

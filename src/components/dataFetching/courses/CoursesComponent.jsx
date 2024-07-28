@@ -67,7 +67,11 @@ const COLUMNS = [
       <div className="course-name">
         <p>{row.original.courseName}</p>
         <div className="[&>*]:!text-[10px] hidden sm:flex">
-          <span className={`${row.original.isOnline == "أونلاين"?"online":"in-person"}`}>
+          <span
+            className={`${
+              row.original.isOnline == "أونلاين" ? "online" : "in-person"
+            }`}
+          >
             <svg
               width="10"
               height="10"
@@ -147,7 +151,11 @@ const COLUMNS = [
     Cell: ({ row }) => (
       <div className="">
         <div className="my-3  sm:hidden [&>*]:!text-[10px] [&>span]:flex [&>span]:items-center [&>span]:gap-1 flex items-center gap-3">
-          <span className={`${row.original.isOnline == "أونلاين"?"online":"in-person"}`}>
+          <span
+            className={`${
+              row.original.isOnline == "أونلاين" ? "online" : "in-person"
+            }`}
+          >
             <svg
               width="10"
               height="10"
@@ -561,7 +569,11 @@ const CoursesComponent = () => {
           >
             <thead className="abad-shadow rounded-lg hidden md:table-row-group">
               {headerGroups.map((headerGroup, i) => (
-                <tr {...headerGroup.getHeaderGroupProps()} key={i}>
+                <tr
+                  {...headerGroup.getHeaderGroupProps()}
+                  key={i}
+                  className="[&>th]:whitespace-nowrap"
+                >
                   {headerGroup.headers.map((column, i) => (
                     <th
                       {...column.getHeaderProps(column.getSortByToggleProps())}

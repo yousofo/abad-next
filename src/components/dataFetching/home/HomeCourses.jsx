@@ -257,7 +257,7 @@ const HomeCourses = () => {
           className={` courses-rows`}
         >
           <thead>
-            <tr className="abad-shadow [&>th]:text-start">
+            <tr className="abad-shadow [&>th]:text-start [&>th]:whitespace-nowrap">
               <th>اسم الدورة</th>
               <th>تاريخ بداية الدورة</th>
               <th>وقت بداية الدورة</th>
