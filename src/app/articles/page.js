@@ -1,28 +1,9 @@
 import React from 'react'
 import "./articles.css"
 import Link from 'next/link';
+import ArticlesComp from '@/components/dataFetching/articles/ArticlesComp';
 const Articles = () => {
-  let articles = [];
-  for (let i = 0; i < 12; i++) {
-    articles.push(
-      <Link href={`/articles/${i+1}`}>
-        <article>
-          <div className="article-wrapper">
-            <div className="img relative">
-              <img src="/media/Iamge.png" alt="" />
-              <span className="abosulute article-tag article-tag-yellow">
-                القصص
-              </span>
-            </div>
-            <div>
-              <p>5 مايو 2022 | ,قراءة 4 دقائق</p>
-              <h3>كيف يمكن أن يساعد التسويق عملك أكثر من أي شيء آخر.</h3>
-            </div>
-          </div>
-        </article>
-      </Link>
-    )
-  }
+
   return (
     <main>
       {/* HERO start  */}
@@ -59,7 +40,7 @@ const Articles = () => {
           <input
             className="flex-1 text-[#A79FB3] focus:outline-none min-w-48"
             type="text"
-            placeholder="بحث في المقالات|"
+            placeholder="بحث في المقالات"
           />
           <svg
             className="rounded min-w-8"
@@ -97,7 +78,7 @@ const Articles = () => {
         {/* search bar end */}
         {/* ARTICLES start */}
         <div className="articles relative mx-auto grid sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:pb-[5%] pt-10 ">
-          {articles}
+          <ArticlesComp/>
         </div>
         {/* ARTICLES end */}
       </section>

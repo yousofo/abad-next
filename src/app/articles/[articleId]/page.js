@@ -1,7 +1,37 @@
-import React from "react";
+"use client"
+import React, { useEffect, useState } from "react";
 import "./article.css";
 
-const Article = () => {
+async function fetchArticle(token) {
+  try {
+    const result = await fetch(`/api/articles/getArticleDetails?token=${token}`, {
+      method: "GET",
+      headers: {
+        "Cache-Control":
+          "no-store, no-cache, must-revalidate, proxy-revalidate",
+        Pragma: "no-cache",
+        Expires: "0",
+        "Surrogate-Control": "no-store",
+      },
+    });
+    const data = await result.json();
+    return data;
+  } catch (e) {
+    console.log(e);
+  }
+}
+
+const Article = ({ params }) => {
+  const [autherImg, setAuthorImage] = useState(false)
+  const [articleImg, setArticleImg] = useState(false)
+  const [loading, setLoading] = useState(true)
+
+  const [data, setData] = useState(null)
+  console.log(data)
+  useEffect(() => {
+    fetchArticle(params.articleId).then(e => setData(e)).catch(e => console.log(e))
+  }, [])
+
   return (
     <main className="pb-10">
       {/* HERO start  */}
@@ -35,12 +65,17 @@ const Article = () => {
         <div className="flex flex-col gap-3.5 sm:flex-row justify-between items-center">
           <div className="flex w-full max-w-[260px] gap-3 items-center">
             <img
-              className="w-14 h-14 object-cover rounded-full"
+              className={`${autherImg && "hidden"} w-14 h-14 object-cover rounded-full`}
               src="/media/article-user.png"
-            ></img>
+              />
+            <img
+              className={`${!autherImg && "hidden"} w-14 h-14 object-cover rounded-full`}
+              onLoad={() => setAuthorImage(true)}
+              src={data?.authorImage}
+            />
             <div>
-              <h2 className="text-[#151318] text-sm">احمد البسطويسي</h2>
-              <p className="text-[#8A8394] text-xs">مصمم تجربة المستخدم</p>
+              <h2 className="text-[#151318] text-sm">{data?.author}</h2>
+              <p className="text-[#8A8394] text-xs">{data?.authorJob}</p>
             </div>
           </div>
           <nav className="social-share-links w-full max-w-[260px] sm:w-fit justify-between flex sm:gap-3 items-center">
@@ -101,44 +136,10 @@ const Article = () => {
             </a>
           </nav>
         </div>
-        <img className="w-full" src="/media/article-image.png" alt="" />
-        <div className="flex flex-col gap-8 text-[#151318]">
-          <p className="text-lg font-medium">
-            هناك حقيقة مثبتة منذ زمن طويل وهي أن المحتوى المقروء لصفحة ما سيلهي
-            القارئ عن التركيز على الشكل الخارجي للنص أو شكل توضع الفقرات في
-            الصفحة التي يقرأها. ولذلك يتم استخدام طريقة لوريم إيبسوم لأنها تعطي
-            توزيعاَ طبيعياَ -إلى حد ما- للأحرف عوضاً عن استخدام هنا يوجد محتوى
-            نصي، هنا يوجد محتوى نصي فتجعلها تبدو (أي الأحرف) وكأنها نص مقروء.
-            العديد من برامح النشر المكتبي وبرامح تحرير صفحات الويب تستخدم لوريم
-            إيبسوم بشكل إفتراضي كنموذج
-          </p>
-          <ol className=" md:text-lg font-bold flex flex-col gap-8">
-            <li>
-              <p>تلبية العديد من الاحتياجات من خلال التعلم متعدد الوسائط</p>
-              <p>
-                هناك حقيقة مثبتة منذ زمن طويل وهي أن المحتوى المقروء لصفحة ما
-                سيلهي القارئ عن التركيز على الشكل الخارجي للنص أو شكل توضع
-                الفقرات في الصفحة التي يقرأها. ولذلك يتم استخدام طريقة لوريم
-                إيبسوم لأنها تعطي توزيعاَ طبيعياَ -إلى حد ما- للأحرف عوضاً عن
-                استخدام هنا يوجد محتوى نصي، هنا يوجد محتوى نصي فتجعلها تبدو
-                (أي الأحرف) وكأنها نص مقروء. العديد من برامح النشر المكتبي
-                وبرامح تحرير صفحات الويب تستخدم لوريم إيبسوم بشكل إفتراضي كنموذج
-              </p>
-            </li>
-            <li>
-              <p> تلبية العديد من الاحتياجات من خلال التعلم متعدد الوسائط</p>
-              <p>
-                هناك حقيقة مثبتة منذ زمن طويل وهي أن المحتوى المقروء لصفحة ما
-                سيلهي القارئ عن التركيز على الشكل الخارجي للنص أو شكل توضع
-                الفقرات في الصفحة التي يقرأها. ولذلك يتم استخدام طريقة لوريم
-                إيبسوم لأنها تعطي توزيعاَ طبيعياَ -إلى حد ما- للأحرف عوضاً عن
-                استخدام هنا يوجد محتوى نصي، هنا يوجد محتوى نصي فتجعلها تبدو
-                (أي الأحرف) وكأنها نص مقروء. العديد من برامح النشر المكتبي
-                وبرامح تحرير صفحات الويب تستخدم لوريم إيبسوم بشكل إفتراضي كنموذج
-              </p>
-            </li>
-          </ol>
-        </div>
+        <img className={`${articleImg && "hidden"} w-full`} src="/media/article-image.png" alt="" />
+        <img className={`${!articleImg && "hidden"} w-full`} src={data?.articleImage} alt="" onLoad={() => setArticleImg(true)}
+        />
+        <div className="flex flex-col gap-8 text-[#151318]" dangerouslySetInnerHTML={{ __html: data?.content }} />
       </article>
     </main>
   );
