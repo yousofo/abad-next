@@ -7,7 +7,10 @@ import { useDispatch } from "react-redux";
 
 const CourseRow = ({ index, data }) => {
   const dispatch = useDispatch();
-  const isOnline = data.isOnline == "اونلاين" || data.isOnline == "أون لاين";
+  const isOnline =
+    data.isOnline == "اونلاين" ||
+    data.isOnline == "أون لاين" ||
+    data.isOnline == "أونلاين";
   const hadaf = data.hadaf;
   return (
     <tr

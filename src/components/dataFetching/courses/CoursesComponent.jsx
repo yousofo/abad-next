@@ -31,11 +31,11 @@ async function fetchHomeCourse() {
       },
     });
     const data = await request.json();
-    console.log("not error")
+    console.log("not error");
     console.log(data);
     return data;
   } catch (error) {
-    console.log("error")
+    console.log("error");
     console.log(error);
   }
 }
@@ -67,7 +67,7 @@ const COLUMNS = [
       <div className="course-name">
         <p>{row.original.courseName}</p>
         <div className="[&>*]:!text-[10px] hidden sm:flex">
-          <span className="text-[#DF2121] ">
+          <span className={`${row.original.isOnline == "أونلاين"?"online":"in-person"}`}>
             <svg
               width="10"
               height="10"
@@ -80,7 +80,7 @@ const COLUMNS = [
                 fill="currentColor"
               />
             </svg>
-            {row.original.isOnline ? row.original.isOnline : "حضوري"}
+            {row.original.isOnline}
           </span>
           {row.original.hadaf && (
             <span>
@@ -147,7 +147,7 @@ const COLUMNS = [
     Cell: ({ row }) => (
       <div className="">
         <div className="my-3  sm:hidden [&>*]:!text-[10px] [&>span]:flex [&>span]:items-center [&>span]:gap-1 flex items-center gap-3">
-          <span className="text-[#DF2121] ">
+          <span className={`${row.original.isOnline == "أونلاين"?"online":"in-person"}`}>
             <svg
               width="10"
               height="10"
@@ -160,7 +160,7 @@ const COLUMNS = [
                 fill="currentColor"
               />
             </svg>
-            {row.original.isOnline ? row.original.isOnline : "حضوري"}
+            {row.original.isOnline}
           </span>
           {row.original.hadaf && (
             <span className="text-[#1b39a6]">
@@ -222,7 +222,6 @@ const COLUMNS = [
             تسجيل
           </button>
         </div>
-        
       </div>
     ),
   },
@@ -554,26 +553,7 @@ const CoursesComponent = () => {
           {/* courses filter */}
 
           {/* courses table ROWS MODE */}
-          {/* <table
-          style={{ display: `${isCards ? "none" : "table"}` }}
-          className="courses-rows w-full px-3 md:px-6 "
-        >
-          <thead>
-            <tr className="abad-shadow rounded-lg hidden md:table-row">
-              <th className="text-start">اسم الدورة</th>
-              <th className="text-start">تاريخ بداية الدورة</th>
-              <th className="text-start">وقت بداية الدورة</th>
-              <th className="text-start">الاجراءات</th>
-            </tr>
-          </thead>
-          <tbody>
-            {activeCategory == "all" && Array.isArray(data)
-              ? data.map((e, i) => <CourseRow2 data={e} key={i} index={i} />)
-              : data
-                  ?.filter((e) => e.categoryId == activeCategory)
-                  .map((e, i) => <CourseRow2 data={e} key={i} index={i} />)}
-          </tbody>
-        </table> */}
+          {/* <table */}
           <table
             {...getTableProps()}
             style={{ display: `${isCards ? "none" : "table"}` }}
@@ -617,33 +597,12 @@ const CoursesComponent = () => {
           </table>
 
           {/* courses table CARDS MODE */}
-          {/* <div
-            style={{ display: `${!isCards ? "none" : "grid"}` }}
-            className={` courses-cards `}
-          >
-            {activeCategory == "all" && Array.isArray(sortedData)
-              ? sortedData.map((e, i) => (
-                  <Link key={i} href={`/courses/${1}`}>
-                    <CourseCard data={e} index={i} />
-                  </Link>
-                ))
-              : sortedData
-                  ?.filter((e) => e.categoryId == activeCategory)
-                  .map((e, i) => (
-                    <Link key={i} href={`/courses/${1}`}>
-                      <CourseCard data={e} index={i} />
-                    </Link>
-                  ))}
-          </div> */}
           <div
             style={{ display: `${!isCards ? "none" : "grid"}` }}
             className="courses-cards"
-            // className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"
           >
             {page.map((row) => {
               prepareRow(row);
-              const { courseName, formattedTimeStart, startDate } =
-                row.original;
               return (
                 <Link key={row.id} href={`/courses/${row.original.token}`}>
                   <CourseCard data={row.original} />

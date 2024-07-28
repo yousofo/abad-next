@@ -2,7 +2,10 @@
 import React from "react";
 
 const CourseCard = ({ index, data }) => {
-  const isOnline = data.isOnline == "اونلاين" || data.isOnline == "أون لاين";
+  const isOnline =
+    data.isOnline == "اونلاين" ||
+    data.isOnline == "أون لاين" ||
+    data.isOnline == "أونلاين";
   return (
     <figure data-type={data} className="course-card">
       <div className="img">

@@ -339,10 +339,10 @@
   gap: 3px;
 }
 .home-courses .courses-contents .courses-cards figure figcaption .course-attend span.online {
-  color: #0dc00d;
+  color: #df2121;
 }
 .home-courses .courses-contents .courses-cards figure figcaption .course-attend span.in-person {
-  color: #df2121;
+  color: #0dc00d;
 }
 .home-courses .courses-contents .courses-cards figure figcaption .course-attend span:nth-child(2) {
   color: #1b45b4;
