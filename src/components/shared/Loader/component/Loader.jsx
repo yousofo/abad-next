@@ -1,11 +1,11 @@
 "use client";
-import React, { useState } from "react";
+import React from "react";
 const Loader = ({ loading, text }) => {
   return (
     <div
       className={`${
         !loading && "hidden"
-      } absolute z-[999999] w-full h-full left-0 top-0 bg-black bg-opacity-30`}
+      } absolute z-[999999] w-full h-full left-0 top-0 bg-black bg-opacity-50`}
     >
       <div
         className={` absolute z-10 w-32 h-32 pointer-events-none left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2`}

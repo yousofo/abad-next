@@ -5,6 +5,7 @@ import "./course.dev.css";
 import Accordion from "@/components/shared/Accordion/Accordion";
 import { notFound, useRouter } from "next/navigation";
 import { useSelector } from "react-redux";
+import Loader from "@/components/shared/Loader/component/Loader";
 
 async function fetchCourseDetails(token) {
   try {
@@ -155,7 +156,7 @@ const Course = ({ params }) => {
     console.log(result);
   }
   return (
-    <main className="pb-10">
+    <main className="pb-10 relative">
       <div className="hero relative">
         {/* BACKGROUND IMG start*/}
         <div className="back-shape h-dvh md:min-h-[600px] md:h-auto overflow-hidden w-full absolute -z-10">
@@ -449,6 +450,7 @@ const Course = ({ params }) => {
           {/* ACCORDIONS end */}
         </div>
       </div>
+      <Loader loading={!fetched} text="قيد التحميل"/>
     </main>
   );
 };
