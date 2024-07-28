@@ -46,7 +46,7 @@ const Accordion = ({ title, data, table, active: starting }) => {
                   >
                     <td>
                       <div className="flex items-center gap-1">
-                        <span> بداية الدورة :</span>
+                        <span className="inline sm:hidden"> بداية الدورة :</span>
                         <span className="font-medium">{e?.startDate}</span>
                       </div>
                     </td>

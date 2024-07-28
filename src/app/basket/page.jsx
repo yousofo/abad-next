@@ -1,5 +1,5 @@
 import React from "react";
-import "./basket.css";
+import "./basket.dev.css";
 const Basket = () => {
   let items = new Array(2).fill(
     <div>
@@ -16,8 +16,8 @@ const Basket = () => {
         xmlns="http://www.w3.org/2000/svg"
       >
         <path
-          fill-rule="evenodd"
-          clip-rule="evenodd"
+          fillRule="evenodd"
+          clipRule="evenodd"
           d="M18 19C18 19.551 17.552 20 17 20H7C6.448 20 6 19.551 6 19V8H18V19ZM10 4.328C10 4.173 10.214 4 10.5 4H13.5C13.786 4 14 4.173 14 4.328V6H10V4.328ZM21 6H20H16V4.328C16 3.044 14.879 2 13.5 2H10.5C9.121 2 8 3.044 8 4.328V6H4H3C2.45 6 2 6.45 2 7C2 7.55 2.45 8 3 8H4V19C4 20.654 5.346 22 7 22H17C18.654 22 20 20.654 20 19V8H21C21.55 8 22 7.55 22 7C22 6.45 21.55 6 21 6Z"
           fill="#CDD0D8"
         />
@@ -31,8 +31,8 @@ const Basket = () => {
           height="20"
         >
           <path
-            fill-rule="evenodd"
-            clip-rule="evenodd"
+            fillRule="evenodd"
+            clipRule="evenodd"
             d="M18 19C18 19.551 17.552 20 17 20H7C6.448 20 6 19.551 6 19V8H18V19ZM10 4.328C10 4.173 10.214 4 10.5 4H13.5C13.786 4 14 4.173 14 4.328V6H10V4.328ZM21 6H20H16V4.328C16 3.044 14.879 2 13.5 2H10.5C9.121 2 8 3.044 8 4.328V6H4H3C2.45 6 2 6.45 2 7C2 7.55 2.45 8 3 8H4V19C4 20.654 5.346 22 7 22H17C18.654 22 20 20.654 20 19V8H21C21.55 8 22 7.55 22 7C22 6.45 21.55 6 21 6Z"
             fill="white"
           />
@@ -74,7 +74,7 @@ const Basket = () => {
       {/* HERO end  */}
       {/* main content start */}
       <section className="basket max-w-screen-xl mx-auto px-4 flex flex-col gap-2 sm:gap-8 -mt-40 sm:mt-0">
-        <div className="sm:p-10 sm:pb-6 sm:drop-shadow-abad">
+        <div className="sm:p-10 sm:pb-6 drop-shadow-abad">
           <h3 className="w-full hidden sm:flex item-title  justify-between">
             <span>الصورة</span>
             <span>اسم الدورة</span>
@@ -82,10 +82,12 @@ const Basket = () => {
           </h3>
           <section className="items">{items}</section>
         </div>
-        <div className="purchase p-2.5 sm:p-10 drop-shadow-abad-2 flex gap-6 flex-wrap justify-between items-center font-bold">
+        <div className="purchase p-2.5 rounded-lg sm:p-10 drop-shadow-abad-2  bg-white flex gap-6 flex-wrap justify-between items-center font-bold">
           <h3 className="text-[#221638] md:text-xl">الاجمالي</h3>
           <h3 className="text-[#1B45B4] text-xs md:text-xl">3000 ريال سعودي</h3>
-          <button className="w-full p-4 rounded-[10px] text-white text-xs sm:text-lg">شراء الان</button>
+          <button className="w-full p-4 rounded-[10px] text-white text-xs sm:text-lg">
+            شراء الان
+          </button>
         </div>
       </section>
       {/* main content end */}

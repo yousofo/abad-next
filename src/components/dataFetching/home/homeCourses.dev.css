@@ -141,13 +141,6 @@
               background-color: var(--abad-gold);
             }
           }
-          li:nth-child(n + 5) {
-            display: none;
-
-            @media (min-width: 768px) {
-              display: list-item;
-            }
-          }
           @media (min-width: 768px) {
             gap: 0;
             justify-content: space-between;
