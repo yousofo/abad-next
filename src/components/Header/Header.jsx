@@ -1,6 +1,6 @@
 "use client";
-import React, { act, useEffect, useState } from "react";
-import "./header.css";
+import React, { useEffect, useState } from "react";
+import "./header.dev.css";
 import Link from "next/link";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -362,7 +362,7 @@ const Header = () => {
         {/* small screens nav icon */}
         <svg
           onClick={() => dispatch(toggleNavList())}
-          className="toggle-nav-list"
+          className="toggle-nav-list lg:hidden"
           xmlns="http://www.w3.org/2000/svg"
           width={33}
           viewBox="0 0 31 28"

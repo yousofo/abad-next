@@ -1,3 +1,5 @@
+export const fetchCache = 'force-no-store';
+
 export async function GET(request) {
   try {
     const response = await fetch(`${process.env.NEXT_PUBLIC_ROOT_URL}/api/Category/GetAllCoursesWithType`, {

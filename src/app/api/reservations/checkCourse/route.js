@@ -1,8 +1,11 @@
 export const fetchCache = 'force-no-store';
 
-export async function GET(request,{params}) {
+export async function GET(request) {
+
+  const url = new URL(request.url)
+  const token = url.searchParams.get('token');
   try {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_ROOT_URL}/api/Articles/GetArticles`, {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_ROOT_URL}/api/Reservations/CheckCourse?tokenCourse=${token}`, {
       method: "GET",
       headers: {
         'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate',
@@ -12,8 +15,7 @@ export async function GET(request,{params}) {
       }
     });
     const data = await response.json();
-    console.log("proxy==========================================")
-    console.log(data)
+    
     return new Response(JSON.stringify(data), {
       headers: {
         'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate',

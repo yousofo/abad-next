@@ -1,6 +1,49 @@
-import Link from "next/link";
-import React, { act, useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useRouter } from "next/navigation";
+import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+
+async function fetchCoursesWithTypes() {
+  try {
+    const request = await fetch("/api/categories/coursesWithTypes", {
+      method: "GET",
+      headers: {
+        "Cache-Control":
+          "no-store, no-cache, must-revalidate, proxy-revalidate",
+        Pragma: "no-cache",
+        Expires: "0",
+        "Surrogate-Control": "no-store",
+      },
+    });
+    const data = await request.json();
+    console.log(data);
+    return data;
+  } catch (e) {
+    console.log(e);
+  }
+}
+
+async function fetchCheckCourse(courseToken) {
+  try {
+    const request = await fetch(
+      `/api/reservations/checkCourse?token=${courseToken}`,
+      {
+        method: "GET",
+        headers: {
+          "Cache-Control":
+            "no-store, no-cache, must-revalidate, proxy-revalidate",
+          Pragma: "no-cache",
+          Expires: "0",
+          "Surrogate-Control": "no-store",
+        },
+      }
+    );
+    const data = await request.json();
+    console.log(data);
+    return data;
+  } catch (e) {
+    console.log(e);
+  }
+}
 
 const NavListItem = ({ data, handleNavListItem, index }) => {
   return (
@@ -34,81 +77,64 @@ const AngleBottom = ({ fill }) => (
   </svg>
 );
 
-async function fetchCoursesWithTypes() {
-  try {
-    const request = await fetch("/api/categories/coursesWithTypes", {
-      method: "GET",
-      headers: {
-        "Cache-Control":
-          "no-store, no-cache, must-revalidate, proxy-revalidate",
-        Pragma: "no-cache",
-        Expires: "0",
-        "Surrogate-Control": "no-store",
-      },
-    });
-    const data = await request.json();
-    console.log(data);
-    return data;
-  } catch (e) {
-    console.log(e);
-  }
-}
-
+//3ab6540e-b68a-474a-8e3c-5218c3a6e280
 const CoursesNav = () => {
   const [active, setActive] = useState(true);
   const [data, setData] = useState([]);
   const [current, setCurrent] = useState([]);
   const isCoursesNav = useSelector((state) => state.coursesNav.active);
-  const dispatch = useDispatch();
+  const router = useRouter();
+  console.log(current);
 
-  function handleNavListItem(e, cur) {
+  function handleNavListItem(e, categoryCourses) {
     e.stopPropagation();
-    setCurrent(cur);
+    setCurrent(categoryCourses);
   }
-  function handleCoursesNav() {
-    dispatch(toggleCoursesNav());
+
+  async function handleCourseClicked(courseToken) {
+    const result = await fetchCheckCourse(courseToken);
+    if (result.courseExists) {
+      router.push(`/courses/${courseToken}`);
+    } else {
+      router.push(`/courses/register`);
+    }
   }
   useEffect(() => {
     fetchCoursesWithTypes()
-      .then((e) => setData(e))
+      .then((e) => {
+        setData(e);
+        console.log(e)
+      })
       .catch((e) => console.log(e));
   }, []);
   return (
-    <div>
+    <div className="mini-nav">
       <ul
-        className={`left-corner mini-nav courses-nav courses-nav-1  ${
+        className={`left-corner courses-nav courses-nav-1  ${
           isCoursesNav ? "max-h-[300px]" : "max-h-0"
         }`}
       >
-        {data.map((e, i) => (
+        {data.map((course, i) => (
           <NavListItem
             key={i}
-            handleNavListItem={handleNavListItem}
-            data={e}
+            handleNavListItem={(e) => handleNavListItem(e, course.courses)}
+            data={course}
             index={i}
           />
         ))}
       </ul>
 
       <ul
-        className={`right-corner mini-nav courses-nav `}
+        className={`right-corner courses-nav courses-nav-2 no-padding overflow-auto`}
         style={{
           maxHeight: isCoursesNav && active ? "280px" : "0",
         }}
       >
-        <li
-          className={`no-padding`}
-          style={{
-            maxHeight:
-              active && isCoursesNav ? "280px" : "0",
-          }}
-        >
-          <ul>
-            {current.map((e, i) => (
-              <li key={i}><Link href={`/courses/${e.courseToken}`}>{e.courseName}</Link></li>
-            ))}
-          </ul>
-        </li>
+        {current.map((e, i) => (
+          <li key={i} onClick={()=>handleCourseClicked(e.courseToken)}>
+            <span>{e.courseName}</span>
+          </li>
+        ))}
       </ul>
     </div>
   );
