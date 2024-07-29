@@ -57,7 +57,7 @@ const Header = () => {
     setSingedInState(isSignedIn);
   }, [isSignedIn]);
   return (
-    <header className="whitespace-nowrap z-[100]">
+    <header className="whitespace-nowrap main-header z-[100]">
       <div className="header-contact-bar noto">
         <a target="_blank" href="mailto:Info@abadnet.com.sa">
           <p>Info@abadnet.com.sa</p>

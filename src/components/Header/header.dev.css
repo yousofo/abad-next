@@ -1,7 +1,7 @@
 :root {
   --abad-gold: #fdb614;
 }
-header {
+header.main-header {
   display: flex;
   position: absolute;
   top: 0;

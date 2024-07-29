@@ -1,11 +1,164 @@
 "use client";
+import { useForm } from "react-hook-form";
 import "./accordion.css";
 import React, { useState } from "react";
 
-const Accordion = ({ title, data, table, active: starting }) => {
+const AccordionForm = ({ form, token }) => {
+  const { fetchRegisterCourseRequest, setLoading } = form;
+  console.log(form);
+  const [generalError, setGeneralError] = useState("");
+  // react-hook-form
+  const registerCourseForm = useForm();
+  const { register, handleSubmit, formState, setError, reset } =
+    registerCourseForm;
+  // const { name,ref,onChange,onBlur}=register("id")
+  let { errors, isValid, isSubmitted } = formState;
+
+  async function handleSubmitRegisterCourse(formData, e) {
+    setGeneralError("");
+    console.log("hh");
+    setLoading(true);
+    const result = await fetchRegisterCourseRequest({
+      tokenCourse: token,
+      usserName: formData.registerCourseArabicName,
+      usserEmail: formData.registerCourseEmail,
+      userPhone: formData.registerCoursePhone,
+      userCity: formData.registerCourseCity,
+      nots: "string",
+    });
+    console.log(result)
+    if (result.errors) {
+      console.log("errrrr");
+      console.log(Object.entries(result.errors));
+      // Object.entries(result.errors).forEach(([key, value]) => {
+      //   if (key == "$.birthDate") {
+      //     setError("birthDate", { type: "manual", message: [...value] });
+      //   }
+      // });
+    } else if (result.message) {
+      dispatch(toggleSignIn());
+    } else {
+      if (result.error) {
+        setGeneralError(result.error);
+      } else {
+        setGeneralError(result);
+      }
+    }
+    console.log(errors);
+    console.log(result);
+    setLoading(false);
+  }
+
+  return (
+    <form
+      method="POST"
+      onSubmit={handleSubmit(handleSubmitRegisterCourse)}
+      action=""
+      noValidate
+      className="register-course-request flex flex-col gap-4 py-6 px-4 md:p-5"
+      id="registerCourseForm"
+    >
+      {/* name arabic ! */}
+      <div className="input">
+        <label htmlFor="">الاسم الرباعي بالعربي*</label>
+        <input
+          type="text"
+          name=""
+          id="registerCourseArabicName"
+          {...register("registerCourseArabicName", {
+            required: "يجب كتابة الاسم الرباعي بالعربي",
+          })}
+          placeholder="اكتب اسمك رباعي"
+        />
+        <p className="input-error">
+          {errors.registerCourseArabicName?.message}
+        </p>
+      </div>
+      {/* email !*/}
+      <div className="input">
+        <label htmlFor="">عنوان البريد الإلكتروني*</label>
+        <input
+          type="email"
+          name=""
+          id="registerCourseEmail"
+          {...register("registerCourseEmail", {
+            pattern: {
+              value: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g,
+              message: "يرجي كتابة عنوان بريد صحيح",
+            },
+            required: "يجب كتابة عنوان البريد الإلكتروني",
+          })}
+          placeholder="أدخل بريدك الإلكتروني"
+        />
+        <p className="input-error">{errors.registerCourseEmail?.message}</p>
+      </div>
+      {/* phone */}
+      <div className="input">
+        <label htmlFor="">الهاتف</label>
+        <input
+          type="text"
+          name=""
+          id="registerCoursePhone"
+          {...register("registerCoursePhone", {
+            required: "يجب كتابة رقم الهاتف",
+          })}
+          placeholder="اكتب الهاتف"
+        />
+        <p className="input-error">{errors.registerCoursePhone?.message}</p>
+      </div>
+      {/* city  ! */}
+      <div className="select">
+        <label htmlFor="registerCourseCity">المدينة*</label>
+        <div className="select relative">
+          <select
+            name=""
+            id="registerCourseCity"
+            className="focus:outline-none"
+            {...register("registerCourseCity", {
+              required: "يجب اختيار المدينة",
+            })}
+          >
+            <option value="" style={{ display: "none" }}>
+              اختر المدينة
+            </option>
+            <option value="مكة">مكة</option>
+            <option value="المدينة">المدينة</option>
+            <option value="الطائف">الطائف</option>
+          </select>
+        </div>
+        <p className="input-error">{errors.city?.message}</p>
+      </div>
+      {/* general error */}
+      <p
+        style={{ display: generalError ? "block" : "none" }}
+        className={`input-error`}
+      >
+        {generalError}
+      </p>
+      {/* submit */}
+      <button
+        className="py-3 w-full sm:w-fit ms-auto mt-1 smmt-4 px-6 md:py-4 md:px-8 text-white rounded-lg md:rounded-[10px] font-bold text-[11px] sm:text-sm md:text-base"
+        style={{
+          background:
+            "linear-gradient(83.79deg, #1B45B4 3.25%, #1C2792 96.85%)",
+          letterSpacing: "0.5px",
+        }}
+        type="submit"
+      >
+        تسجيل في الدورة
+      </button>
+    </form>
+  );
+};
+
+const Accordion = ({ title, data, table, active: starting, form, token }) => {
   const [active, setActive] = useState(starting ? true : false);
   return (
-    <div className={`accordion-item  ${active && "active"}`}>
+    <div
+      className={`accordion-item  ${active && "active"} ${
+        !(data || table || form) && " !hidden "
+      }`}
+    >
       <button className="accordion-header" onClick={() => setActive(!active)}>
         <span className="text-sm md:text-lg font-medium text-[#252525]">
           {title}
@@ -40,13 +193,16 @@ const Accordion = ({ title, data, table, active: starting }) => {
               <tbody className="flex flex-col gap-2 sm:table-row-group w-full">
                 {table?.map((e, i) => (
                   <tr
-                  style={{boxShadow: "5px 4px 30px 0px #00000014"}}
+                    style={{ boxShadow: "5px 4px 30px 0px #00000014" }}
                     className="shadow w-full p-2 [&>td]:p-0 sm:[&>td]:p-4 flex flex-col gap-2 sm:table-row"
                     key={i}
                   >
                     <td>
                       <div className="flex items-center gap-1">
-                        <span className="inline sm:hidden"> بداية الدورة :</span>
+                        <span className="inline sm:hidden">
+                          {" "}
+                          بداية الدورة :
+                        </span>
                         <span className="font-medium">{e?.startDate}</span>
                       </div>
                     </td>
@@ -75,6 +231,7 @@ const Accordion = ({ title, data, table, active: starting }) => {
             </table>
           )}
           {data && <div dangerouslySetInnerHTML={{ __html: data }} />}
+          {form && <AccordionForm form={form} token={token} />}
         </div>
       </div>
     </div>

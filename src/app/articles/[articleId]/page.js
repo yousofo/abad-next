@@ -1,10 +1,9 @@
-"use client"
-import React, { useEffect, useState } from "react";
 import "./article.css";
+export const fetchCache = 'force-no-store';
 
-async function fetchArticle(token) {
+async function getData(token) {
   try {
-    const result = await fetch(`/api/articles/getArticleDetails?token=${token}`, {
+    const result = await fetch(`${process.env.NEXT_PUBLIC_ROOT_URL}/api/Articles/GetArticleDetails?token=${token}`, {
       method: "GET",
       headers: {
         "Cache-Control":
@@ -21,16 +20,42 @@ async function fetchArticle(token) {
   }
 }
 
-const Article = ({ params }) => {
-  const [autherImg, setAuthorImage] = useState(false)
-  const [articleImg, setArticleImg] = useState(false)
-  const [loading, setLoading] = useState(true)
+export async function generateMetadata({ params }, parent) {
+  // read route params
 
-  const [data, setData] = useState(null)
-  console.log(data)
-  useEffect(() => {
-    fetchArticle(params.articleId).then(e => setData(e)).catch(e => console.log(e))
-  }, [])
+  // fetch data
+  const product = await getData(params.articleId)
+
+  // optionally access and extend (rather than replace) parent metadata
+  // const previousImages = (await parent).openGraph?.images || []
+  console.log(product)
+  return {
+    openGraph: {
+      description: product?.content,
+      url: `https://abad-next.netlify.app/articles/${params.articleId}`,
+      siteName: 'ABAD | آباد للتدريب',
+      images: [
+        {
+          url: product?.articleImage,
+          width: 800,
+          height: 600,
+        },
+      ],
+      locale: 'ar_SA',
+      type: 'website',
+    },
+  }
+}
+
+export default async function Article({ params }) {
+  // const [autherImg, setAuthorImage] = useState(false)
+  // const [articleImg, setArticleImg] = useState(false)
+  const baseURL = "https://abad-next.netlify.app"
+  // const [data, setData] = useState(null)
+  const data = await getData(params.articleId)
+  // useEffect(() => {
+  //   fetchArticle(params.articleId).then(e => setData(e)).catch(e => console.log(e))
+  // }, [])
 
   return (
     <main className="pb-10">
@@ -64,13 +89,13 @@ const Article = ({ params }) => {
       <article className="w-full mx-auto px-4 max-w-screen-lg flex flex-col gap-10">
         <div className="flex flex-col gap-3.5 sm:flex-row justify-between items-center">
           <div className="flex w-full max-w-[260px] gap-3 items-center">
-            <img
+            {/* <img
               className={`${autherImg && "hidden"} w-14 h-14 object-cover rounded-full`}
               src="/media/article-user.png"
-              />
+            /> */}
             <img
-              className={`${!autherImg && "hidden"} w-14 h-14 object-cover rounded-full`}
-              onLoad={() => setAuthorImage(true)}
+              className={` w-14 h-14 object-cover rounded-full`}
+              // onLoad={() => setAuthorImage(true)}
               src={data?.authorImage}
             />
             <div>
@@ -80,7 +105,7 @@ const Article = ({ params }) => {
           </div>
           <nav className="social-share-links w-full max-w-[260px] sm:w-fit justify-between flex sm:gap-3 items-center">
             <p className="text-[#151318] font-medium">شارك عبر:</p>
-            <a href="">
+            <a target="_blank" href={`https://www.instagram.com/?url=${baseURL}/articles/${params.articleId}`}>
               <svg
                 width="20"
                 height="20"
@@ -102,7 +127,7 @@ const Article = ({ params }) => {
                 />
               </svg>
             </a>
-            <a href="">
+            <a target="_blank" href={`https://www.linkedin.com/sharing/share-offsite/?url=${baseURL}/articles/${params.articleId}`}>
               <svg
                 width="20"
                 height="20"
@@ -120,7 +145,7 @@ const Article = ({ params }) => {
                 />
               </svg>
             </a>
-            <a href="">
+            <a target="_blank" href={`https://www.facebook.com/sharer/sharer.php?u=${baseURL}/articles/${params.articleId}`}>
               <svg
                 width="20"
                 height="20"
@@ -136,13 +161,11 @@ const Article = ({ params }) => {
             </a>
           </nav>
         </div>
-        <img className={`${articleImg && "hidden"} w-full`} src="/media/article-image.png" alt="" />
-        <img className={`${!articleImg && "hidden"} w-full`} src={data?.articleImage} alt="" onLoad={() => setArticleImg(true)}
-        />
-        <div className="flex flex-col gap-8 text-[#151318]" dangerouslySetInnerHTML={{ __html: data?.content }} />
+        {/* <img className={`${articleImg && "hidden"} w-full`} src="/media/article-image.png" alt="" /> */}
+        {/* onLoad={() => setArticleImg(true)} */}
+        <img className={`w-full`} src={data?.articleImage} alt="" />
+        <div className="flex flex-col gap-8 text-[#151318]" dangerouslySetInnerHTML={{ __html: `${data?.content}` }} />
       </article>
     </main>
   );
 };
-
-export default Article;

@@ -94,9 +94,9 @@ const CoursesNav = () => {
   async function handleCourseClicked(courseToken) {
     const result = await fetchCheckCourse(courseToken);
     if (result.courseExists) {
-      router.push(`/courses/${courseToken}`);
+      router.push(`/courses/available/${courseToken}`);
     } else {
-      router.push(`/courses/register`);
+      router.push(`/courses/register/${courseToken}`);
     }
   }
   useEffect(() => {

@@ -3,22 +3,25 @@ import { useEffect, useState } from "react";
 import "./course.dev.css";
 
 import Accordion from "@/components/shared/Accordion/Accordion";
-import { notFound, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useSelector } from "react-redux";
 import Loader from "@/components/shared/Loader/component/Loader";
 
 async function fetchCourseDetails(token) {
   try {
-    const courseDetails = await fetch(`/api/home/courseDetails/${token}`, {
-      headers: {
-        "Content-Type": "application/json",
-        "Cache-Control":
-          "no-store, no-cache, must-revalidate, proxy-revalidate",
-        Pragma: "no-cache",
-        Expires: "0",
-        "Surrogate-Control": "no-store",
-      },
-    });
+    const courseDetails = await fetch(
+      `/api/reservations/getCourseDetailsByToken?token=${token}`,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          "Cache-Control":
+            "no-store, no-cache, must-revalidate, proxy-revalidate",
+          Pragma: "no-cache",
+          Expires: "0",
+          "Surrogate-Control": "no-store",
+        },
+      }
+    );
     const result = await courseDetails.json();
     console.log(result);
     return result;
@@ -69,13 +72,35 @@ async function fetchAddToBasket(data) {
   }
 }
 
-const Course = ({ params }) => {
+async function fetchRegisterCourseRequest(data) {
+  try {
+    console.log(data)
+    const courseDetails = await fetch(`/api/reservations/registerRequest`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Cache-Control":
+          "no-store, no-cache, must-revalidate, proxy-revalidate",
+        Pragma: "no-cache",
+        Expires: "0",
+        "Surrogate-Control": "no-store",
+      },
+      body: JSON.stringify(data),
+    });
+    const result = await courseDetails.json();
+    return result;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+const Register = ({ params }) => {
   const [courseImg, setCourseImg] = useState("/media/course/course-image.png");
   const [fetched, setFetched] = useState(false);
-  const [error, setError] = useState("");
   const router = useRouter();
   const user = useSelector((store) => store.auth.user);
   const userJson = JSON.parse(user);
+  const [loading, setLoading] = useState(false);
   const [courseInfo, setCourseInfo] = useState({
     token: "e5f85c2b-33ef-43d3-9075-d8ee0966cb06",
     courseName: "اسم الدوره بالانجليزي",
@@ -127,13 +152,12 @@ const Course = ({ params }) => {
   useEffect(() => {
     fetchCourseDetails(params.token)
       .then((e) => {
-        if (e.status >= 400) router.replace("/not-found");
         setCourseInfo(e);
         setCourseImg(e.imageUrl);
         setFetched(true);
       })
       .catch((e) => {
-        router.replace("/not-found");
+        console.log(e);
       });
   }, []);
 
@@ -145,16 +169,13 @@ const Course = ({ params }) => {
     console.log(result);
   }
   async function handleAddToBasket() {
-    console.log({
-      CourseToken: params.token,
-      userToken: userJson.token,
-    });
     const result = await fetchAddToBasket({
       CourseToken: params.token,
       userToken: userJson.token,
     });
     console.log(result);
   }
+
   return (
     <main className="pb-10 relative">
       <div className="hero relative">
@@ -172,7 +193,7 @@ const Course = ({ params }) => {
           />
         </div>
         {/* BACKGROUND IMG end*/}
-        <div className="container px-4 flex flex-col sm:flex-row justify-between gap-16 course-details pt-44 md:pt-56 m-auto max-w-screen-xl">
+        <div className="container px-4 flex flex-col md:flex-row justify-between gap-16 course-details pt-44 md:pt-56 m-auto max-w-screen-xl">
           {/* COURSE CONTENT start */}
           <section className="h-fit flex flex-col gap-60 flex-1">
             <div className="flex  flex-col gap-6">
@@ -297,10 +318,14 @@ const Course = ({ params }) => {
               </div>
             </div>
             {/* accordions for large screens */}
-            <div className="accordion !hidden sm:!flex">
+            <div className="accordion !hidden md:!flex">
               <Accordion
-                title="موعد الدورة"
-                table={courseInfo.openCourses}
+                title="التسجيل في الدورة"
+                form={{
+                  fetchRegisterCourseRequest,
+                  setLoading,
+                }}
+                token={courseInfo.token}
                 active={true}
               />
 
@@ -318,7 +343,7 @@ const Course = ({ params }) => {
           </section>
           {/* COURSE CONTENT end */}
           {/* COURSE CARD start */}
-          <figure className="p-5 mx-auto md:p-6 text-[#252525] bg-white shadow rounded-xl md:rounded-2xl w-full max-w-[373px] h-fit">
+          <figure className="p-5  mx-auto md:p-6 text-[#252525] bg-white shadow rounded-xl md:rounded-2xl w-full max-w-[373px] h-fit">
             <img
               src={courseImg}
               alt=""
@@ -407,11 +432,13 @@ const Course = ({ params }) => {
                         <span>: {courseInfo.numberOfweeks}</span>
                       </span>
                     </li>
-                    <li  className={`${!courseInfo.trainerLanguage && "hidden "} flex items-center gap-2`}>
+                    <li
+                      className={`${
+                        !courseInfo.trainerLanguage && "hidden "
+                      } flex items-center gap-2`}
+                    >
                       <img className="" src="/media/course/Users.png" alt="" />
-                      <span>
-                        {courseInfo.trainerLanguage}
-                      </span>
+                      <span>{courseInfo.trainerLanguage}</span>
                     </li>
                     <li className="flex items-center gap-2">
                       <img className="" src="/media/course/Users.png" alt="" />
@@ -432,10 +459,14 @@ const Course = ({ params }) => {
           </figure>
           {/* COURSE CARD end */}
           {/* ACCORDIONS start SMALL SCREEEN */}
-          <div className="accordion sm:!hidden">
+          <div className="accordion md:!hidden">
             <Accordion
-              title="موعد الدورة"
-              table={courseInfo.openCourses}
+              title="التسجيل في الدورة"
+              form={{
+                fetchRegisterCourseRequest,
+                setLoading,
+              }}
+              token={courseInfo.token}
               active={true}
             />
 
@@ -450,9 +481,10 @@ const Course = ({ params }) => {
           {/* ACCORDIONS end */}
         </div>
       </div>
-      <Loader loading={!fetched} text="قيد التحميل"/>
+      <Loader loading={!fetched} text="قيد التحميل" />
+      <Loader loading={loading} text="قيد التسجيل" />
     </main>
   );
 };
 
-export default Course;
+export default Register;

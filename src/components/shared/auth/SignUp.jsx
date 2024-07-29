@@ -52,6 +52,7 @@ const SignUp = () => {
   const dispatch = useDispatch();
   const router = useRouter();
   let signUpContainer = useRef(null)
+  // react-hook-form
   const signUpForm = useForm();
   const { register, handleSubmit, formState, setError, reset } = signUpForm;
   // const { name,ref,onChange,onBlur}=register("id")
