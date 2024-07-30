@@ -94,7 +94,7 @@ const Footer = () => {
         </li>
         <li className="footer-general">
           <h4>نظرة عامة</h4>
-          <Link href="/privacy">الخصوصيةوالاستخدام</Link>
+          <Link href="/privacy">الخصوصية و الاستخدام</Link>
           <Link href="#">قصة العميل </Link>
           <Link href="#">تسجيل الدخول</Link>
           <Link href="#">التسجيل</Link>
