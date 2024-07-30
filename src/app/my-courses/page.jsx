@@ -17,23 +17,24 @@ async function FetchStudentCourses(token) {
 }
 const MyCourses = () => {
   const isSignedIn = useSelector((store) => store.auth.isSignedIn);
-  const user = useSelector((store) => store.auth.user);
-  const userJson = JSON.parse(user);
+  const userInfo = useSelector((store) => store.userData.info);
   const [data, setData] = useState([]);
   let router = useRouter();
-  console.log(userJson?.token);
-  if (!isSignedIn) {
-    router.replace("/");
-  }
+  console.log(userInfo?.token);
+
   useEffect(() => {
-    FetchStudentCourses(userJson.token)
-      .then((e) => {
-        console.log("fetched");
-        console.log(e);
-        setData(e);
-      })
-      .catch((e) => console.log(e));
-  }, [userJson.token]);
+    if (!isSignedIn) {
+      router.replace("/");
+    } else {
+      FetchStudentCourses(userInfo.token)
+        .then((e) => {
+          console.log("fetched");
+          console.log(e);
+          setData(e);
+        })
+        .catch((e) => console.log(e));
+    }
+  }, [userInfo?.token]);
   return (
     <main className="pb-10 sm:pb-24">
       {/* HERO start  */}
