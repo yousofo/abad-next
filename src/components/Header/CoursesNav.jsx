@@ -112,7 +112,7 @@ const CoursesNav = () => {
   return (
     <div className="mini-nav">
       <ul
-        className={`left-corner courses-nav courses-nav-1  ${
+        className={`no-top-left courses-nav courses-nav-1  ${
           isCoursesNav ? "max-h-[300px]" : "max-h-0"
         }`}
       >
@@ -127,14 +127,14 @@ const CoursesNav = () => {
       </ul>
 
       <ul
-        className={`right-corner courses-nav courses-nav-2 no-padding overflow-auto`}
+        className={`no-top-right courses-nav courses-nav-1 no-padding overflow-auto`}
         style={{
           maxHeight: isCoursesNav && active ? "280px" : "0",
         }}
       >
         {current.map((e, i) => (
           <li key={i} onClick={()=>handleCourseClicked(e.courseToken)}>
-            <span>{e.courseName}</span>
+            <button>{e.courseName}</button>
           </li>
         ))}
       </ul>
