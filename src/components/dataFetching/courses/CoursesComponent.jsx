@@ -566,7 +566,7 @@ const CoursesComponent = () => {
             style={{ display: `${isCards ? "none" : "table"}` }}
             className="courses-rows w-full"
           >
-            <thead className="abad-shadow rounded-lg hidden md:table-row-group">
+            <thead className="abad-shadow rounded-lg hidden md:table-header-group">
               {headerGroups.map((headerGroup, i) => (
                 <tr
                   {...headerGroup.getHeaderGroupProps()}

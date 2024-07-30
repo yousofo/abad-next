@@ -216,10 +216,10 @@ main.home-page {
 	 gap: 3px;
 }
  main.home-page .courses-sec .home-courses table td.course-name > div span.online, main.home-page .courses-sec .home-courses table th.course-name > div span.online {
-	 color: #0dc00d;
-}
- main.home-page .courses-sec .home-courses table td.course-name > div span.in-person, main.home-page .courses-sec .home-courses table th.course-name > div span.in-person {
-	 color: #df2121;
+   color: #df2121;
+  }
+  main.home-page .courses-sec .home-courses table td.course-name > div span.in-person, main.home-page .courses-sec .home-courses table th.course-name > div span.in-person {
+   color: #0dc00d;
 }
  main.home-page .courses-sec .home-courses table td.course-name > div span:nth-child(2), main.home-page .courses-sec .home-courses table th.course-name > div span:nth-child(2) {
 	 color: #1b39a6;

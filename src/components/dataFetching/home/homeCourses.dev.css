@@ -213,7 +213,7 @@
         }
       }
       @media (min-width: 640px) {
-        tr:nth-child(even){
+        tr:nth-child(even) {
           background-color: #f5f5f5;
         }
       }
@@ -316,10 +316,10 @@
               gap: 3px;
             }
             span.online {
-              color: #0dc00d;
+              color: #df2121;
             }
             span.in-person {
-              color: #df2121;
+              color: #0dc00d;
             }
             span:nth-child(2) {
               color: #1b45b4;
