@@ -29,7 +29,7 @@
   font-family: "29lt-Bukra";
   font-style: normal;
   font-weight: 300;
-  src: url("/bukra/29LT-Bukra-Light-3.OTF") format("opentype"); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ woff2*/
+  src: url("/bukra/29LT-Bukra-Light-2.ttf") format("truetype"); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ woff2*/
 }
 /* BUKRA-regular*/
 @font-face {

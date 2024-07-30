@@ -16,29 +16,6 @@ import {
 import CoursesNav from "./CoursesNav";
 import { fetchUserBasket } from "../GlobalState/Features/userData";
 
-// async function fetchBasket(token) {
-//   try {
-//     const result = await fetch(
-//       `/api/reservations/getBasketByToken?token=${token}`,
-//       {
-//         method: "GET",
-//         headers: {
-//           "Cache-Control":
-//             "no-store, no-cache, must-revalidate, proxy-revalidate",
-//           Pragma: "no-cache",
-//           Expires: "0",
-//           "Surrogate-Control": "no-store",
-//           "Content-Type": "application/json",
-//         },
-//       }
-//     );
-//     const data = await result.json();
-//     return data;
-//   } catch (e) {
-//     console.log(e);
-//     return { error: e };
-//   }
-// }
 
 const Header = () => {
   const [singedInState, setSingedInState] = useState(false);
@@ -55,9 +32,6 @@ const Header = () => {
   function handleCoursesNav() {
     dispatch(toggleCoursesNav());
   }
-  // function closeCoursesNav() {
-  //   dispatch(resetCoursesNav());
-  // }
   function handleSignOut() {
     dispatch(toggleResetAuth());
     setSingedInState(false);
@@ -238,8 +212,6 @@ const Header = () => {
           </li>
           <li
             onClick={handleCoursesNav}
-            // onMouseEnter={handleCoursesNav}
-            // onMouseLeave={closeCoursesNav}
             className={`p-2 py-4`}
           >
             <Link href="/courses">الدورات</Link>
@@ -250,7 +222,7 @@ const Header = () => {
             <Link href="/articles">المقالات</Link>
           </li>
           <li>
-            <Link href="/privacy">الاعتمادات والشركاء</Link>
+            <Link href="/partners">الاعتمادات والشركاء</Link>
           </li>
           <li>
             <Link href="/contact">اتصل بنا</Link>

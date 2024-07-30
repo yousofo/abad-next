@@ -90,15 +90,15 @@ const Footer = () => {
           <Link href="/courses">الدورات</Link>
           <Link href="/articles">المقالات</Link>
           <Link href="/privacy">الاعتمادات والشركاء</Link>
-          <Link href="">اتصل بنا</Link>
+          <Link href="/contact">اتصل بنا</Link>
         </li>
         <li className="footer-general">
           <h4>نظرة عامة</h4>
-          <a href="#">جهة الاتصال</a>
-          <a href="#">قصة العميل </a>
-          <a href="#">تسجيل الدخول</a>
-          <a href="#">التسجيل</a>
-          <a href="#">دليل النمط</a>
+          <Link href="/privacy">الخصوصيةوالاستخدام</Link>
+          <Link href="#">قصة العميل </Link>
+          <Link href="#">تسجيل الدخول</Link>
+          <Link href="#">التسجيل</Link>
+          <Link href="#">دليل النمط</Link>
         </li>
         <li className="footer-contact">
           <h4>يتصل:</h4>
