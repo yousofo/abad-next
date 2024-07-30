@@ -30,11 +30,10 @@
         }
       }
     }
-    .change-pp{
-      input{
-        /* opacity: 0; */
-        /* cursor: pointer; */
-      }
+    .input-error{
+      font-size: 10px;
+      color: red;
+      font-weight: 500;
     }
   }
   .btns{

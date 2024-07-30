@@ -15,14 +15,14 @@
  }
 }
 .course-details figure .action-btns button {
-  border: 1px solid #32bca3;
   padding: 14.5px 29px;
-  color: #32bca3;
   font-size: 14px;
   font-weight: 700;
   border-radius: 90px;
 }
 .course-details figure .action-btns button:nth-child(2) {
+  border: 1px solid #32bca3;
+  color: #32bca3;
   padding: 16px;
   border-radius: 50%;
 }

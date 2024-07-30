@@ -6,8 +6,7 @@ import { reset as toggleResetNavList } from "../GlobalState/Features/navListSlic
 const User = () => {
   const [active, setActive] = useState(false);
   const dispatch = useDispatch();
-  const authData = useSelector((state) => state.auth.user);
-  const userData = JSON.parse(authData);
+  const userInfo = useSelector((store) => store.userData.info);
 
   function handleCloseNavList() {
     dispatch(toggleResetNavList());
@@ -26,7 +25,7 @@ const User = () => {
           className="max-w-12"
           alt=""
         />
-        <p>{userData.arabicName}</p>
+        <p>{userInfo.arabicName}</p>
         <svg
           width="6"
           height="9"

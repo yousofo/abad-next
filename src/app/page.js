@@ -5,6 +5,7 @@ import ReviewsSwiper from "@/components/shared/swipers/ReviewsSwiper";
 import "swiper/css";
 import PartnersSwiper from "@/components/shared/swipers/PartnersSwiper";
 import HomeCourses from "@/components/dataFetching/home/HomeCourses";
+import LatestArticles from "@/components/dataFetching/home/articles/LatestArticles";
 
 export default function Home() {
   // console.log(document.querySelectorAll("link[rel='preload'][as='style']"));
@@ -292,92 +293,7 @@ export default function Home() {
         <h2 className="text-2xl md:text-4xl text-center font-bold mx-auto my-7 w-fit text-[#1E1E1E]">
           ألقِ نظرة على أحدث المقالات
         </h2>
-        <div className="container lg:max-w-screen-lg mx-auto grid sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-[1.5%] sm:pb-[6%] pt-10">
-          <article>
-            <div className="article-wrapper">
-              <div className="img relative">
-                <img src="/media/Iamge.png" alt="" />
-                <span className="abosulute article-tag article-tag-yellow">
-                  القصص
-                </span>
-              </div>
-              <div>
-                <p>5 مايو 2022 | ,قراءة 4 دقائق</p>
-                <h3>كيف يمكن أن يساعد التسويق عملك أكثر من أي شيء آخر.</h3>
-              </div>
-            </div>
-          </article>
-          <article>
-            <div className="article-wrapper">
-              <div className="img relative">
-                <img src="/media/Iamge.png" alt="" />
-                <span className="abosulute article-tag article-tag-blue">
-                  القصص
-                </span>
-              </div>
-              <div>
-                <p>5 مايو 2022 | ,قراءة 4 دقائق</p>
-                <h3>كيف يمكن أن يساعد التسويق عملك أكثر من أي شيء آخر.</h3>
-              </div>
-            </div>
-          </article>
-          <article>
-            <div className="article-wrapper">
-              <div className="img relative">
-                <img src="/media/Iamge.png" alt="" />
-                <span className="abosulute article-tag article-tag-black">
-                  القصص
-                </span>
-              </div>
-              <div>
-                <p>5 مايو 2022 | ,قراءة 4 دقائق</p>
-                <h3>كيف يمكن أن يساعد التسويق عملك أكثر من أي شيء آخر.</h3>
-              </div>
-            </div>
-          </article>
-          <article>
-            <div className="article-wrapper">
-              <div className="img relative">
-                <img src="/media/Iamge.png" alt="" />
-                <span className="abosulute article-tag article-tag-black">
-                  القصص
-                </span>
-              </div>
-              <div>
-                <p>5 مايو 2022 | ,قراءة 4 دقائق</p>
-                <h3>كيف يمكن أن يساعد التسويق عملك أكثر من أي شيء آخر.</h3>
-              </div>
-            </div>
-          </article>
-          <article>
-            <div className="article-wrapper">
-              <div className="img relative">
-                <img src="/media/Iamge.png" alt="" />
-                <span className="abosulute article-tag article-tag-blue">
-                  القصص
-                </span>
-              </div>
-              <div>
-                <p>5 مايو 2022 | ,قراءة 4 دقائق</p>
-                <h3>كيف يمكن أن يساعد التسويق عملك أكثر من أي شيء آخر.</h3>
-              </div>
-            </div>
-          </article>
-          <article>
-            <div className="article-wrapper">
-              <div className="img relative">
-                <img src="/media/Iamge.png" alt="" />
-                <span className="abosulute article-tag article-tag-yellow">
-                  القصص
-                </span>
-              </div>
-              <div>
-                <p>5 مايو 2022 | ,قراءة 4 دقائق</p>
-                <h3>كيف يمكن أن يساعد التسويق عملك أكثر من أي شيء آخر.</h3>
-              </div>
-            </div>
-          </article>
-        </div>
+        <LatestArticles />
       </section>
       {/* ARTICLES end */}
       {/* CONTACT start */}

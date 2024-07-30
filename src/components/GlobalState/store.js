@@ -7,8 +7,8 @@ import navListSlice from './Features/navListSlice';
 import popUpsSlice from './Features/popUpsSlice';
 import miniNavSlice from './Features/miniNavSlice';
 import coursesNavSlice from './Features/coursesNavSlice';
-import fetchedDataSlice from './Features/fetchedDataSlice';
 import coursesFilterSlice from './Features/coursesFilterSlice';
+import userDataSlice from './Features/userData';
 
 
 export const store = configureStore({
@@ -19,7 +19,7 @@ export const store = configureStore({
     miniNav: miniNavSlice,
     popUps: popUpsSlice,
     coursesNav: coursesNavSlice,
-    fetchedData: fetchedDataSlice,
+    userData: userDataSlice,
     coursesFilter: coursesFilterSlice,
   }
 })

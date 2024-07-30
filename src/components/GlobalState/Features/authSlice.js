@@ -2,12 +2,7 @@
 
 import { createSlice } from '@reduxjs/toolkit';
 
-const getUserData = () => {
-  if (typeof window !== 'undefined') {
-    return window.localStorage.getItem('userData');
-  }
-  return null;
-};
+
 const deleteUserData = () => {
   if (typeof window != undefined) {
     return window.localStorage.removeItem('userData');
@@ -15,38 +10,23 @@ const deleteUserData = () => {
   return null;
 };
 
-const userData = getUserData()
+
+
 const initialState = {
   isHidden: true,
   isSignedIn: false,
-  user: JSON.stringify({
-    "arabicName": null,
-    "englishName": null,
-    "idnumber": null,
-    "email": null,
-    "phone": null,
-    "gender": null,
-    "birthDate": null,
-    "nationality": null,
-    "educationsType": null,
-    "city": null,
-    "token": null
-  }),
   signIn: false,
   signInError: "",
   signUpError: "",
   signUp: false,
   forgotPassword: false,
   newPassword: false,
-  basketCount: 0,
-  basket: JSON.stringify([]),
 }
 
 
-let finalInitialState = userData ? { ...initialState, user: userData, isSignedIn: true } : initialState
 export const authSlice = createSlice({
   name: 'auth',
-  initialState: finalInitialState,
+  initialState,
   reducers: {
     toggleSignIn: (state) => {
       return {
@@ -92,21 +72,9 @@ export const authSlice = createSlice({
       deleteUserData()
       return initialState
     },
-    toggleUser: (state, action) => {
-      state.user = action.payload
-    },
-    toggleUpdateBasket: (state, action) => {
-      state.basket = action.payload
-    },
-    toggleUpdateBasketCount: (state, action) => {
-      state.basketCount = action.payload
-    },
-    // incrementByAmount: (state, action) => {
-    //     state.value += action.payload;
-    // }
   }
 })
 
-export const { toggleSignIn, toggleUpdateBasketCount, toggleUpdateBasket, addSignInError, addSignUpError, toggleSignUp, toggleForgotPassword, toggleNewPassword, toggleSignedIn, toggleUser, toggleResetAuth } = authSlice.actions;
+export const { toggleSignIn, addSignInError, addSignUpError, toggleSignUp, toggleForgotPassword, toggleNewPassword, toggleSignedIn, toggleResetAuth } = authSlice.actions;
 
 export default authSlice.reducer;

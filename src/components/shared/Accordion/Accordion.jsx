@@ -35,8 +35,8 @@ const AccordionForm = ({ form, token }) => {
       //     setError("birthDate", { type: "manual", message: [...value] });
       //   }
       // });
-    } else if (result.message) {
-      dispatch(toggleSignIn());
+    } else if (result?.message) {
+      console.log(result.message)
     } else {
       if (result.error) {
         setGeneralError(result.error);

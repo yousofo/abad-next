@@ -22,8 +22,6 @@ async function fetchCoursesWithTypes() {
   }
 }
 
-
-
 async function fetchCheckCourse(courseToken) {
   try {
     const request = await fetch(
@@ -86,8 +84,7 @@ const CoursesNav = () => {
   const [current, setCurrent] = useState([]);
   const isCoursesNav = useSelector((state) => state.coursesNav.active);
   const router = useRouter();
-  console.log(current);
-
+  console.log("courses nav");
   function handleNavListItem(e, categoryCourses) {
     e.stopPropagation();
     setCurrent(categoryCourses);
@@ -96,25 +93,26 @@ const CoursesNav = () => {
   async function handleCourseClicked(courseToken) {
     const result = await fetchCheckCourse(courseToken);
     if (result.courseExists) {
-      router.push(`/courses/available/${courseToken}`);
+      router.push(`/courses/available/${result.courseToken}`);
     } else {
-      router.push(`/courses/register/${courseToken}`);
+      router.push(`/courses/register/${result.courseToken}`);
     }
   }
   useEffect(() => {
     fetchCoursesWithTypes()
       .then((e) => {
         setData(e);
-        console.log(e)
+        console.log(e);
       })
       .catch((e) => console.log(e));
   }, []);
   return (
     <div className="mini-nav">
       <ul
-        className={`no-top-left courses-nav courses-nav-1  ${
-          isCoursesNav ? "max-h-[300px]" : "max-h-0"
-        }`}
+        className={`no-top-left courses-nav courses-nav-1`}
+        // ${
+        //   isCoursesNav ? "max-h-[300px]" : "max-h-0"
+        // }
       >
         {data.map((course, i) => (
           <NavListItem
@@ -129,11 +127,11 @@ const CoursesNav = () => {
       <ul
         className={`no-top-right courses-nav courses-nav-1 no-padding overflow-auto`}
         style={{
-          maxHeight: isCoursesNav && active ? "280px" : "0",
+          maxHeight:  active ? "280px" : "0",
         }}
       >
         {current.map((e, i) => (
-          <li key={i} onClick={()=>handleCourseClicked(e.courseToken)}>
+          <li key={i} onClick={() => handleCourseClicked(e.courseToken)}>
             <button>{e.courseName}</button>
           </li>
         ))}

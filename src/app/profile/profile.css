@@ -29,11 +29,10 @@
 .profile form .input input::placeholder, .profile form .input .select::placeholder, .profile form .input textarea::placeholder {
   color: #cdd0d8;
 }
-.profile form .change-pp {
- /* opacity: 0;
-  */
- /* cursor: pointer;
-  */
+.profile form .input-error {
+  font-size: 10px;
+  color: red;
+  font-weight: 500;
 }
 .profile .btns {
   display: flex;

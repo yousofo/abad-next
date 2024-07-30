@@ -4,9 +4,10 @@ import {
   toggleForgotPassword,
   toggleSignUp,
   toggleSignedIn,
-  toggleUser,
+  // toggleUser,
 } from "@/components/GlobalState/Features/authSlice";
 import { reset } from "@/components/GlobalState/Features/navListSlice";
+import { toggleUpdateInfo } from "@/components/GlobalState/Features/userData";
 // import { useRouter } from "next/navigation";
 import React, { useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -71,8 +72,8 @@ const SignIn = () => {
       const jsonStringData = JSON.stringify(result);
 
       dispatch(toggleSignedIn());
-      dispatch(toggleUser(jsonStringData));
-
+      // dispatch(toggleUser(jsonStringData));
+      dispatch(toggleUpdateInfo(result))
       // save user data if remember me is chekced
       if (remember && typeof window != undefined)
         window.localStorage.setItem("userData", jsonStringData);

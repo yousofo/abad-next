@@ -1,14 +1,15 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./profile.css";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import Loader from "@/components/shared/Loader/component/Loader";
+import { toggleUpdateInfo } from "@/components/GlobalState/Features/userData";
 
-async function fetchUpdateStudent(data) {
-  console.log(data);
+async function fetchUpdateStudent(data, token) {
   try {
-    const request = await fetch(`/api/student/updateStudent/${data.token}`, {
+    const request = await fetch(`/api/student/updateStudent/${token}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -18,10 +19,10 @@ async function fetchUpdateStudent(data) {
         Expires: "0",
         "Surrogate-Control": "no-store",
       },
-      body: JSON.stringify(data.data),
+      body: JSON.stringify(data),
     });
-    const jsonResult = await request.json();
-    return jsonResult;
+    const requestData = await request.json();
+    return requestData;
   } catch (e) {
     console.log("update student!");
     console.log(e);
@@ -29,45 +30,53 @@ async function fetchUpdateStudent(data) {
 }
 
 const Profile = () => {
-  const userData = useSelector((store) => store.auth.user);
-  const userJsonData = JSON.parse(userData);
-  const newDate = new Date(userJsonData.birthDate)
-  console.log("profile");
-  const signUpForm = useForm({
-    defaultValues: {
-      ...userJsonData,
-      birthDate: newDate?.toISOString()?.split("T")[0],
-    },
-  });
-  const { register, handleSubmit, formState, setError, reset } = signUpForm;
-  // const { name,ref,onChange,onBlur}=register("id")
-  let { errors, isValid, isSubmitted } = formState;
-  async function handleFormSubmit(formData, e) {
-    console.log("sending data");
-    console.log(formData);
+  const userInfo = useSelector((store) => store.userData.info);
+  const dispatch = useDispatch();
 
-    const result = await fetchUpdateStudent({
-      data: {
-        arabicName: formData.arabicName,
-        englishName: formData.englishName,
-        idnumber: formData.idnumber,
-        email: formData.email,
-        phone: formData.phone,
-        gender: formData.gender,
-        birthDate: formData.birthDate,
-        nationality: formData.nationality,
-        educationsType: formData.educationsType,
-        city: formData.city,
-        password: formData.token,
-        confirmPassword: formData.token,
-      },
-      token: userJsonData.token,
-    });
-    console.log("result");
-    console.log(result);
+  let newDate = null;
+  if (userInfo?.birthDate) {
+    const date = new Date(userInfo.birthDate);
+    if (!isNaN(date.getTime())) {
+      newDate = date.toISOString().split("T")[0];
+    }
   }
+  console.log("profile");
+
+  //
+  const [loading, setLoading] = useState(false);
+
+  // react-hook-form
+  const updateStudentForm = useForm();
+  const { register, handleSubmit, formState, setError, reset } =
+    updateStudentForm;
+  // const { name,ref,onChange,onBlur}=register("id")
+  let { errors } = formState;
+
+  async function handleFormSubmit(formData, e) {
+    console.log("here");
+    setLoading(true);
+
+    console.log(formData);
+    const result = await fetchUpdateStudent(
+      { ...formData, token: userInfo.token },
+      userInfo.token
+    );
+    if (result.message)
+      dispatch(toggleUpdateInfo({ ...formData, token: userInfo.token }));
+    console.log(result);
+
+    setLoading(false);
+  }
+
+  useEffect(() => {
+    reset({
+      ...userInfo,
+      birthDate: newDate,
+    });
+  }, []);
+
   return (
-    <main className="pb-10 sm:pb-24">
+    <main className="pb-10 sm:pb-24 relative">
       {/* HERO start  */}
       <section className="hero h-dvh md:min-h-[600px] md:h-auto relative">
         <div className="intro text-center absolute flex flex-col items-center justify-center gap-4 md:gap-6 text-white w-max max-w-full px-4">
@@ -96,9 +105,11 @@ const Profile = () => {
         <form
           onSubmit={handleSubmit(handleFormSubmit)}
           action=""
+          noValidate
           id="updateStudentForm"
           className="grid md:grid-cols-2 gap-4"
         >
+          {/* user image */}
           {/* <div className="input col-span-2  mx-auto change-pp abad-shadow py-4 px-8 rounded">
             <div className="input relative mx-auto change-pp  w-24 h-24 overflow-hidden">
               <input
@@ -133,47 +144,49 @@ const Profile = () => {
               <label>أحمد البسطويسي</label>
             </div>
           </div> */}
-          {/* token HIDDEN*/}
-          <div className="input" style={{ display: "none" }}>
-            <input {...register("token")} type="text" name="" id="token" />
-          </div>
-          {/* arabic name */}
+          {/* arabic name !*/}
           <div className="input">
-            <label htmlFor="">الاسم الرباعي بالعربي*</label>
+            <label htmlFor="arabicName">الاسم الرباعي بالعربي*</label>
             <input
-              {...register("arabicName")}
               type="text"
               name=""
               placeholder="اكتب اسمك رباعي"
-              id="updateArabicName"
+              id="arabicName"
+              {...register("arabicName", {
+                required: "يجب كتابة الاسم",
+              })}
             />
+            <p className="input-error">{errors.arabicName?.message}</p>
           </div>
-          {/* english name */}
+          {/* english name !*/}
           <div className="input">
-            <label htmlFor="">الاسم الرباعي بالانجليزي*</label>
+            <label htmlFor="englishName">الاسم الرباعي بالانجليزية*</label>
             <input
-              {...register("englishName")}
               type="text"
               name=""
               dir="ltr"
               placeholder="type your name"
-              id="updateEnglishName"
+              id="englishName"
+              {...register("englishName", {
+                required: "يجب كتابة الاسم بالانجليزية",
+              })}
             />
+            <p className="input-error">{errors.englishName?.message}</p>
           </div>
           {/* id ! */}
           <div className="input">
-            <label htmlFor="">رقم الهوية*</label>
+            <label htmlFor="idnumber">رقم الهوية*</label>
             <input
               required
               type="text"
               name=""
               id="idnumber"
+              placeholder="ادخل رقم الهوية"
               {...register("idnumber", {
                 required: "يجب كتابة رقم الهوية",
               })}
-              placeholder="ادخل رقم الهوية"
             />
-            <p className="input-error">{errors.idNumber?.message}</p>
+            <p className="input-error">{errors.idnumber?.message}</p>
           </div>
           {/* nationality ! */}
           <div className="input nationality">
@@ -197,68 +210,79 @@ const Profile = () => {
             </div>
             <p className="input-error">{errors.nationality?.message}</p>
           </div>
-          {/* email */}
+          {/* email !*/}
           <div className="input">
-            <label htmlFor="">عنوان البريد الإلكتروني*</label>
+            <label htmlFor="email">عنوان البريد الإلكتروني*</label>
             <input
-              {...register("email")}
               type="email"
               name=""
               placeholder="أدخل بريدك الإلكتروني"
-              id="updateEmail"
+              id="email"
+              {...register("email", {
+                required: "يجب كتابة عنوان البريد الإلكتروني",
+              })}
             />
+            <p className="input-error">{errors.email?.message}</p>
           </div>
-          {/* phone */}
+          {/* phone !*/}
           <div className="input">
-            <label htmlFor="">الهاتف</label>
+            <label htmlFor="phone">الهاتف</label>
             <input
-              {...register("phone")}
               type="text"
               name=""
               placeholder="اكتب الهاتف"
-              id="updatePhone"
+              id="phone"
+              {...register("phone", { required: "يجب كتابة الهاتف" })}
             />
+            <p className="input-error">{errors.phone?.message}</p>
           </div>
-          {/* birthdate */}
+          {/* birthdate !*/}
           <div className="input">
-            <label htmlFor="updateBirthDate">تاريخ الميلاد</label>
+            <label htmlFor="birthDate">تاريخ الميلاد</label>
             <input
-              {...register("birthDate")}
               type="date"
               name=""
               placeholder=""
-              id="updateBirthDate"
+              id="birthDate"
+              {...register("birthDate", {
+                required: "يجب كتابة تاريخ الميلاد",
+              })}
             />
+            <p className="input-error">{errors.birthDate?.message}</p>
           </div>
-          {/* gender */}
+          {/* gender !*/}
           <div className="input">
-            <label htmlFor="updateGender">الجنس*</label>
+            <label htmlFor="gender">الجنس*</label>
             <div className="select relative">
               <select
-                {...register("gender")}
                 name=""
-                id="updateGender"
+                id="gender"
                 className="w-full focus:outline-none"
+                {...register("gender", { required: "يجب اخيار الجنس" })}
               >
                 <option value="ذكر">ذكر</option>
                 <option value="انثي">انثي</option>
               </select>
             </div>
+            <p className="input-error">{errors.gender?.message}</p>
           </div>
-          {/* educations type */}
+          {/* educations type !*/}
           <div className="input">
             <label htmlFor="">المؤهل العلمي</label>
             <input
-              {...register("educationsType")}
               type="text"
               name=""
               placeholder="اكتب المؤهل التعليمي"
-              id="updateEducation"
+              id="educationsType"
+              {...register("educationsType", {
+                required: "يجب كتابة المؤهل العلمي",
+              })}
             />
+            <p className="input-error">{errors.educationsType?.message}</p>
           </div>
-          {/* city */}
+          {/* city !*/}
           <div className="input">
-            <label htmlFor="signUpGender">المدينة*</label>
+            <label htmlFor="city">المدينة*</label>
             <div className="select relative">
               <select
                 name=""
@@ -293,6 +317,7 @@ const Profile = () => {
         </div>
       </section>
       {/* main content end */}
+      <Loader loading={loading} text="جاري التحديث" />
     </main>
   );
 };

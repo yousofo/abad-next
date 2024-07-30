@@ -1,12 +1,11 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import "./header.dev.css";
+import "./header.css";
 import Link from "next/link";
 import { useDispatch, useSelector } from "react-redux";
 import {
   toggleResetAuth,
   toggleSignIn,
-  toggleUpdateBasketCount,
 } from "../GlobalState/Features/authSlice";
 import { toggleNavList } from "../GlobalState/Features/navListSlice";
 import { toggleMiniNav } from "../GlobalState/Features/miniNavSlice";
@@ -15,39 +14,40 @@ import {
   toggleCoursesNav,
 } from "../GlobalState/Features/coursesNavSlice";
 import CoursesNav from "./CoursesNav";
+import { fetchUserBasket } from "../GlobalState/Features/userData";
 
-async function fetchBasket(token) {
-  try {
-    const result = await fetch(
-      `/api/reservations/getBasketByToken?token=${token}`,
-      {
-        method: "GET",
-        headers: {
-          "Cache-Control":
-            "no-store, no-cache, must-revalidate, proxy-revalidate",
-          Pragma: "no-cache",
-          Expires: "0",
-          "Surrogate-Control": "no-store",
-          "Content-Type": "application/json",
-        },
-      }
-    );
-    const data = await result.json();
-    return data;
-  } catch (e) {
-    console.log(e);
-    return { error: e };
-  }
-}
+// async function fetchBasket(token) {
+//   try {
+//     const result = await fetch(
+//       `/api/reservations/getBasketByToken?token=${token}`,
+//       {
+//         method: "GET",
+//         headers: {
+//           "Cache-Control":
+//             "no-store, no-cache, must-revalidate, proxy-revalidate",
+//           Pragma: "no-cache",
+//           Expires: "0",
+//           "Surrogate-Control": "no-store",
+//           "Content-Type": "application/json",
+//         },
+//       }
+//     );
+//     const data = await result.json();
+//     return data;
+//   } catch (e) {
+//     console.log(e);
+//     return { error: e };
+//   }
+// }
 
 const Header = () => {
-  const isSignedIn = useSelector((state) => state.auth.isSignedIn);
-  const isMiniNav = useSelector((state) => state.miniNav.active);
-  const authData = useSelector((state) => state.auth.user);
-  const userData = JSON.parse(authData);
-  const dispatch = useDispatch();
   const [singedInState, setSingedInState] = useState(false);
-  const userBasket = useSelector((store) => JSON.parse(store.auth.basket));
+  const dispatch = useDispatch();
+  // auth
+  const isMiniNav = useSelector((store) => store.miniNav.active);
+  //userData
+  const userInfo = useSelector((store) => store.userData.info);
+  const userBasket = useSelector((store) => store.userData.basket.data);
 
   function handleMiniNav() {
     dispatch(toggleMiniNav());
@@ -55,11 +55,12 @@ const Header = () => {
   function handleCoursesNav() {
     dispatch(toggleCoursesNav());
   }
-  function closeCoursesNav() {
-    dispatch(resetCoursesNav());
-  }
+  // function closeCoursesNav() {
+  //   dispatch(resetCoursesNav());
+  // }
   function handleSignOut() {
     dispatch(toggleResetAuth());
+    setSingedInState(false);
   }
   function handleBasket(e) {
     e.stopPropagation();
@@ -80,13 +81,13 @@ const Header = () => {
       />
     </svg>
   );
+
   useEffect(() => {
-    setSingedInState(isSignedIn);
-    fetchBasket(userData.token).then((e) => {
-      console.log(e.length)
-      dispatch(toggleUpdateBasketCount(e.length));
-    });
-  }, [isSignedIn]);
+    if (userInfo) {
+      setSingedInState(true);
+      dispatch(fetchUserBasket(userInfo.token));
+    }
+  }, [userInfo?.token]);
   return (
     <header className="whitespace-nowrap main-header z-[100]">
       <div className="header-contact-bar noto">
@@ -237,8 +238,9 @@ const Header = () => {
           </li>
           <li
             onClick={handleCoursesNav}
-            onMouseEnter={handleCoursesNav}
-            onMouseLeave={closeCoursesNav}
+            // onMouseEnter={handleCoursesNav}
+            // onMouseLeave={closeCoursesNav}
+            className={`p-2 py-4`}
           >
             <Link href="/courses">الدورات</Link>
             <img src="/media/btns/angle-bottom.png" alt="" />
@@ -255,7 +257,7 @@ const Header = () => {
           </li>
         </ul>
         {/* user logged */}
-        {/* logout btn */}
+        {/* log out btn */}
         {singedInState ? (
           <div
             className=" text-white user-mini-nav items-center gap-2 relative z-20  cursor-pointer hidden lg:flex"
@@ -267,7 +269,7 @@ const Header = () => {
               className="max-w-12"
               alt=""
             />
-            <p>{userData.arabicName}</p>
+            <p>{userInfo?.arabicName}</p>
             <Link
               href="/basket"
               onClick={handleBasket}

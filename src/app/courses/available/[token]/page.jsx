@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
-import "./course.dev.css";
+import "./course.css";
 
 import Accordion from "@/components/shared/Accordion/Accordion";
 import { notFound, useRouter } from "next/navigation";
@@ -74,8 +74,7 @@ const Course = ({ params }) => {
   const [fetched, setFetched] = useState(false);
   const [error, setError] = useState("");
   const router = useRouter();
-  const user = useSelector((store) => store.auth.user);
-  const userJson = JSON.parse(user);
+  const userInfo = useSelector((store) => store.userData.info);
   const [courseInfo, setCourseInfo] = useState({
     token: "e5f85c2b-33ef-43d3-9075-d8ee0966cb06",
     courseName: "اسم الدوره بالانجليزي",
@@ -140,18 +139,18 @@ const Course = ({ params }) => {
   async function handleRegisterAttendanceCourse() {
     const result = await fetchRegisterAttendanceCourse({
       CourseToken: params.token,
-      userToken: userJson.token,
+      userToken: userInfo.token,
     });
     console.log(result);
   }
   async function handleAddToBasket() {
     console.log({
       CourseToken: params.token,
-      userToken: userJson.token,
+      userToken: userInfo.token,
     });
     const result = await fetchAddToBasket({
       CourseToken: params.token,
-      userToken: userJson.token,
+      userToken: userInfo.token,
     });
     console.log(result);
   }

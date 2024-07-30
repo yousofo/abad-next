@@ -1,11 +1,12 @@
 "use client";
 import { useEffect, useState } from "react";
-import "./course.dev.css";
+import "./course.css";
 
 import Accordion from "@/components/shared/Accordion/Accordion";
 import { notFound, useRouter } from "next/navigation";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Loader from "@/components/shared/Loader/component/Loader";
+import { fetchUserBasket } from "@/components/GlobalState/Features/userData";
 
 async function fetchCourseDetails(token) {
   try {
@@ -49,18 +50,20 @@ async function fetchRegisterAttendanceCourse(data) {
 }
 async function fetchAddToBasket(data) {
   try {
-    const courseDetails = await fetch(`/api/reservations/addToBasket`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "Cache-Control":
-          "no-store, no-cache, must-revalidate, proxy-revalidate",
-        Pragma: "no-cache",
-        Expires: "0",
-        "Surrogate-Control": "no-store",
-      },
-      body: JSON.stringify(data),
-    });
+    const courseDetails = await fetch(
+      `/api/reservations/addToBasket?tokenCourse=${data.tokenCourse}&tokenStudent=${data.tokenStudent}`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Cache-Control":
+            "no-store, no-cache, must-revalidate, proxy-revalidate",
+          Pragma: "no-cache",
+          Expires: "0",
+          "Surrogate-Control": "no-store",
+        },
+      }
+    );
     const result = await courseDetails.json();
     console.log(result);
     return result;
@@ -74,8 +77,9 @@ const Course = ({ params }) => {
   const [fetched, setFetched] = useState(false);
   const [error, setError] = useState("");
   const router = useRouter();
-  const user = useSelector((store) => store.auth.user);
-  const userJson = JSON.parse(user);
+  const dispatch = useDispatch();
+
+  const user = useSelector((store) => store.userData.info);
   const [courseInfo, setCourseInfo] = useState({
     token: "e5f85c2b-33ef-43d3-9075-d8ee0966cb06",
     courseName: "اسم الدوره بالانجليزي",
@@ -127,6 +131,7 @@ const Course = ({ params }) => {
   useEffect(() => {
     fetchCourseDetails(params.token)
       .then((e) => {
+        console.log(e);
         if (e.status >= 400) router.replace("/not-found");
         setCourseInfo(e);
         setCourseImg(e.imageUrl);
@@ -139,21 +144,18 @@ const Course = ({ params }) => {
 
   async function handleRegisterAttendanceCourse() {
     const result = await fetchRegisterAttendanceCourse({
-      CourseToken: params.token,
-      userToken: userJson.token,
+      courseToken: params.token,
+      userToken: user.token,
     });
     console.log(result);
   }
   async function handleAddToBasket() {
-    console.log({
-      CourseToken: params.token,
-      userToken: userJson.token,
-    });
     const result = await fetchAddToBasket({
-      CourseToken: params.token,
-      userToken: userJson.token,
+      tokenCourse: params.token,
+      tokenStudent: user.token,
     });
-    console.log(result);
+
+    if (result.message) dispatch(fetchUserBasket(user.token))
   }
   return (
     <main className="pb-10 relative">
@@ -407,11 +409,13 @@ const Course = ({ params }) => {
                         <span>: {courseInfo.numberOfweeks}</span>
                       </span>
                     </li>
-                    <li  className={`${!courseInfo.trainerLanguage && "hidden "} flex items-center gap-2`}>
+                    <li
+                      className={`${
+                        !courseInfo.trainerLanguage && "hidden "
+                      } flex items-center gap-2`}
+                    >
                       <img className="" src="/media/course/Users.png" alt="" />
-                      <span>
-                        {courseInfo.trainerLanguage}
-                      </span>
+                      <span>{courseInfo.trainerLanguage}</span>
                     </li>
                     <li className="flex items-center gap-2">
                       <img className="" src="/media/course/Users.png" alt="" />
@@ -450,7 +454,7 @@ const Course = ({ params }) => {
           {/* ACCORDIONS end */}
         </div>
       </div>
-      <Loader loading={!fetched} text="قيد التحميل"/>
+      <Loader loading={!fetched} text="قيد التحميل" />
     </main>
   );
 };

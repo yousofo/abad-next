@@ -1,36 +1,37 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import "./basket.dev.css";
+import "./basket.css";
 import { useDispatch, useSelector } from "react-redux";
 import Loader from "@/components/shared/Loader/component/Loader";
-import {
-  toggleUpdateBasket,
-  toggleUpdateBasketCount,
-} from "@/components/GlobalState/Features/authSlice";
+import // toggleUpdateBasket,
+// toggleUpdateBasketCount,
+"@/components/GlobalState/Features/authSlice";
+import { fetchUserBasket } from "@/components/GlobalState/Features/userData";
+import { useRouter } from "next/navigation";
 
-async function fetchBasket(token) {
-  try {
-    const result = await fetch(
-      `/api/reservations/getBasketByToken?token=${token}`,
-      {
-        method: "GET",
-        headers: {
-          "Cache-Control":
-            "no-store, no-cache, must-revalidate, proxy-revalidate",
-          Pragma: "no-cache",
-          Expires: "0",
-          "Surrogate-Control": "no-store",
-          "Content-Type": "application/json",
-        },
-      }
-    );
-    const data = await result.json();
-    return data;
-  } catch (e) {
-    console.log(e);
-    return { error: e };
-  }
-}
+// async function fetchBasket(token) {
+//   try {
+//     const result = await fetch(
+//       `/api/reservations/getBasketByToken?token=${token}`,
+//       {
+//         method: "GET",
+//         headers: {
+//           "Cache-Control":
+//             "no-store, no-cache, must-revalidate, proxy-revalidate",
+//           Pragma: "no-cache",
+//           Expires: "0",
+//           "Surrogate-Control": "no-store",
+//           "Content-Type": "application/json",
+//         },
+//       }
+//     );
+//     const data = await result.json();
+//     return data;
+//   } catch (e) {
+//     console.log(e);
+//     return { error: e };
+//   }
+// }
 
 async function fetchDeletetFromBasket(basketCourseToken) {
   try {
@@ -56,15 +57,14 @@ async function fetchDeletetFromBasket(basketCourseToken) {
   }
 }
 
-const BasketItem = ({ data, setLoading, reFetchBasket }) => {
-  // const basketCount = useSelector((store) => store.auth.basketCount);
-  // const dispatch = useDispatch();
+const BasketItem = ({ data, setLoading, userToken }) => {
+  const dispatch = useDispatch();
 
   async function handleDelete(basketCourseToken) {
     setLoading(true);
     await fetchDeletetFromBasket(basketCourseToken)
       .then(() => {
-        reFetchBasket((pre) => !pre);
+        dispatch(fetchUserBasket(userToken));
       })
       .catch((error) => console.log(error));
     setLoading(false);
@@ -177,7 +177,7 @@ const BasketItem = ({ data, setLoading, reFetchBasket }) => {
 
 const Basket = () => {
   // all basket data
-  const userBasket = useSelector((store) => JSON.parse(store.auth.basket));
+  const userBasket = useSelector((store) => store.userData.basket.data);
   const dispatch = useDispatch();
 
   const [toggleReFetch, setToggleReFetch] = useState(false);
@@ -187,22 +187,25 @@ const Basket = () => {
   const [deleteLoading, setDeleteLoading] = useState(false);
 
   // get user JSON string then extract user's token
-  const user = useSelector((store) => store.auth.user);
-  const userJson = JSON.parse(user);
+  const userInfo = useSelector((store) => store.userData.info);
+
+  const router = useRouter();
 
   async function handleFetchBasket() {
     setLoading(true);
-    await fetchBasket(userJson.token)
-      .then((data) => {
-        dispatch(toggleUpdateBasket(JSON.stringify(data)));
-      })
-      .catch((e) => console.log(e));
+    await dispatch(fetchUserBasket(userInfo.token)).unwrap();
+    // await fetchBasket(userJson.token)
+    //   .then((data) => {
+    //     dispatch(toggleUpdateBasket(JSON.stringify(data)));
+    //   })
+    //   .catch((e) => console.log(e));
 
     setLoading(false);
   }
 
   useEffect(() => {
-    handleFetchBasket();
+    if (userInfo) handleFetchBasket()
+      else router.replace("/");
   }, [toggleReFetch]);
 
   //calculate all courses prices in basket
@@ -262,6 +265,7 @@ const Basket = () => {
                 <BasketItem
                   reFetchBasket={setToggleReFetch}
                   data={e}
+                  userToken={userInfo.token}
                   setLoading={setDeleteLoading}
                   key={i}
                 />

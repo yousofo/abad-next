@@ -1,8 +1,10 @@
 export async function POST(request) {
   try {
-    const requestData = await request.json();
+    const url = new URL(request.url)
+    const tokenStudent = url.searchParams.get("tokenStudent")
+    const tokenCourse = url.searchParams.get("tokenCourse")
 
-    const response = await fetch(`${process.env.NEXT_PUBLIC_ROOT_URL}/api/Reservations/AddToBasket?TokenCourse=${requestData.courseToken}&TokenStudent=${requestData.userToken}`, {
+    const result = await fetch(`${process.env.NEXT_PUBLIC_ROOT_URL}/api/Reservations/AddToBasket?tokenCourse=${tokenCourse}&tokenStudent=${tokenStudent}`, {
       method: "POST",
       headers: {
         'Content-Type': 'application/json',
@@ -11,28 +13,24 @@ export async function POST(request) {
         'Expires': '0',
         'Surrogate-Control': 'no-store'
       },
-      body: JSON.stringify(requestData)
     });
 
-    let data;
+    const resultData = await result.json()
 
-    if (response.headers.get('Content-Type').includes('application/json')) {
-      data = await response.json();
-      return new Response(JSON.stringify(data), {
-        status: response.status,
-        headers: { 'Content-Type': 'application/json' },
-      });
-    } else {
-      data = await response.text()
-      return new Response(data, {
-        status: response.status,
-        headers: { 'Content-Type': response.headers.get('Content-Type') },
-      });
-    }
+    return new Response(JSON.stringify(resultData), {
+      headers: {
+        'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate',
+        'Pragma': 'no-cache',
+        'Expires': '0',
+        'Content-Type': 'application/json',
+        'Surrogate-Control': 'no-store'
+      }
+    });
+
   } catch (error) {
-    console.log("error register")
+    console.log("error adding to basket")
+
     return new Response(JSON.stringify({ error: error.message }), {
-      status: response.status,
       headers: { 'Content-Type': 'application/json' },
     });
   }
