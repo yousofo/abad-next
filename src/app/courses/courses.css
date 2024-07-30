@@ -173,6 +173,12 @@
     display: table-row-group;
  }
 }
+.courses-page table tbody span.online {
+  color: #0dc00d;
+}
+.courses-page table tbody span.in-person {
+  color: #df2121;
+}
 @media (min-width: 640px) {
   .courses-page table tr:nth-child(even) {
     background-color: #f5f5f5;

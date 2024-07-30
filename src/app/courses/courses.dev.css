@@ -178,6 +178,12 @@
       @media (min-width: 640px) {
         display: table-row-group;
       }
+      span.online {
+        color: #0dc00d;
+      }
+      span.in-person {
+        color: #df2121;
+      }
     }
     @media (min-width: 640px) {
       tr:nth-child(even){
