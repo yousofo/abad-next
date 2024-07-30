@@ -227,7 +227,7 @@ const Header = () => {
         {/* logout btn */}
         {singedInState ? (
           <div
-            className=" text-white items-center gap-2 relative z-20  cursor-pointer hidden lg:flex"
+            className=" text-white user-mini-nav items-center gap-2 relative z-20  cursor-pointer hidden lg:flex"
             onClick={handleMiniNav}
             suppressHydrationWarning
           >
@@ -267,7 +267,7 @@ const Header = () => {
               />
             </svg>
             <ul
-              className={`absolute left-0 bottom-0 mini-nav overflow-hidden z-10 translate-y-[calc(110%)] ${
+              className={`absolute left-0 bottom-0  overflow-hidden z-10 translate-y-[calc(110%)] ${
                 isMiniNav ? "max-h-40" : "max-h-0"
               } transition-all`}
             >

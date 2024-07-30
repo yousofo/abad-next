@@ -12,6 +12,7 @@ async function fetchCoursesWithTypes() {
         Pragma: "no-cache",
         Expires: "0",
         "Surrogate-Control": "no-store",
+        "Content-Type": "application/json",
       },
     });
     const data = await request.json();

@@ -151,7 +151,7 @@ header.main-header {
               }
             }
           }
-          >ul:nth-child(2){
+          > ul:nth-child(2) {
             overflow: auto;
             box-shadow: 5px 4px 30px 0px #00000014;
           }
@@ -164,6 +164,27 @@ header.main-header {
       border-bottom-left-radius: 0;
       & li {
         margin: 20px 0;
+      }
+    }
+    > .user-mini-nav {
+      > ul {
+        background-color: white;
+        color: black;
+        border-radius: 10px;
+        li {
+          padding: 12px;
+          display: flex;
+          gap: 4px;
+          align-items: center;
+          a {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+          }
+          &:not(:nth-child(1)) {
+            border-top: 1px solid #e2e2e2;
+          }
+        }
       }
     }
     > button {
@@ -182,34 +203,7 @@ header.main-header {
       min-height: 2rem;
     }
   }
-
-  .mini-nav {
-    > ul {
-      background-color: white;
-      color: black;
-      border-radius: 10px;
-      li {
-        padding: 12px;
-        display: flex;
-        gap: 4px;
-        align-items: center;
-        a {
-          display: flex;
-          align-items: center;
-          gap: 4px;
-        }
-      }
-    }
-  }
-  /* .courses-nav {
-    ul {
-      li:not(:nth-last-child(1)) {
-        border: 0;
-        border-top: 1px solid #efefef !important;
-      }
-    }
-  } */
-
+  
   ul.right-corner {
     border-top-right-radius: 0;
   }
