@@ -74,7 +74,7 @@ async function fetchAddToBasket(data) {
 
 async function fetchRegisterCourseRequest(data) {
   try {
-    console.log(data)
+    console.log(data);
     const courseDetails = await fetch(`/api/reservations/registerRequest`, {
       method: "POST",
       headers: {
@@ -360,7 +360,7 @@ const Register = ({ params }) => {
               </h2>
               <div className="flex flex-col gap-4">
                 {/* handle coure REGISTERATION */}
-                {!courseInfo.isOnline ? (
+                {/* {!courseInfo.isOnline ? (
                   <a href="#" onClick={handleRegisterAttendanceCourse}>
                     سجل في الدورة
                   </a>
@@ -393,7 +393,7 @@ const Register = ({ params }) => {
                       </button>
                     </div>
                   </>
-                )}
+                )} */}
 
                 <div className="course-description flex flex-col gap-4 pt-2 border-t border-t-[##E0E0E0] text-[#252525]">
                   <h4 className="text-xl font-medium">وصف الدورة</h4>

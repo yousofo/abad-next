@@ -60,7 +60,7 @@ table td:nth-child(2) {
   rotate: 180deg;
 }
 .accordion-item.active .accordion-content {
-  max-height: 800px;
+  max-height: 1200px;
 }
 
 .accordion-item:last-child {
@@ -92,4 +92,15 @@ table td:nth-child(2) {
 }
 .accordion-content .wrapper {
   padding: 15px;
+}
+.handle-list{
+  ol,ul{
+    padding-right: 20px;
+  }
+  ol{
+    list-style: decimal;
+  }
+  ul{
+    list-style: circle;
+  }
 }

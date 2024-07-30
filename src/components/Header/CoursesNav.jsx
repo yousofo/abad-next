@@ -93,7 +93,7 @@ const CoursesNav = () => {
   async function handleCourseClicked(courseToken) {
     const result = await fetchCheckCourse(courseToken);
     if (result.courseExists) {
-      router.push(`/courses/available/${result.courseToken}`);
+      router.push(`/courses/${result.courseToken}`);
     } else {
       router.push(`/courses/register/${result.courseToken}`);
     }

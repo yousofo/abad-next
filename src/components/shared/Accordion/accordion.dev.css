@@ -40,7 +40,17 @@ table {
     
   }
 }
-
+.handle-list{
+  ol,ul{
+    padding-right: 20px;
+  }
+  ol{
+    list-style: decimal;
+  }
+  ul{
+    list-style: circle;
+  }
+}
 .accordion-item {
   /* box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 -1px 2px -1px rgb(0 0 0 / 0.1);
    */
@@ -58,7 +68,7 @@ table {
       }
     }
     .accordion-content {
-      max-height: 500px;
+      max-height: 1200px;
     }
   }
 }

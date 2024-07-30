@@ -26,7 +26,7 @@ const AccordionForm = ({ form, token }) => {
       userCity: formData.registerCourseCity,
       nots: "string",
     });
-    console.log(result)
+    console.log(result);
     if (result.errors) {
       console.log("errrrr");
       console.log(Object.entries(result.errors));
@@ -36,7 +36,7 @@ const AccordionForm = ({ form, token }) => {
       //   }
       // });
     } else if (result?.message) {
-      console.log(result.message)
+      console.log(result.message);
     } else {
       if (result.error) {
         setGeneralError(result.error);
@@ -127,6 +127,21 @@ const AccordionForm = ({ form, token }) => {
           </select>
         </div>
         <p className="input-error">{errors.city?.message}</p>
+      </div>
+      {/* details !*/}
+      <div className="input md:col-span-2">
+        <label htmlFor="details">تفاصيل الطلب*</label>
+        <div className="select relative">
+          <textarea
+            name=""
+            id="details"
+            className="w-full focus:outline-none !p-0 !border-0"
+            {...register("details", {
+              required: "يجب كتابة تفاصيل الطلب*",
+            })}
+          ></textarea>
+        </div>
+        <p className="input-error">{errors.details?.message}</p>
       </div>
       {/* general error */}
       <p
@@ -230,7 +245,7 @@ const Accordion = ({ title, data, table, active: starting, form, token }) => {
               </tbody>
             </table>
           )}
-          {data && <div dangerouslySetInnerHTML={{ __html: data }} />}
+          {data && <div className="handle-list" dangerouslySetInnerHTML={{ __html: data }} />}
           {form && <AccordionForm form={form} token={token} />}
         </div>
       </div>
