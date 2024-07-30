@@ -39,6 +39,7 @@ const initialState = {
   forgotPassword: false,
   newPassword: false,
   basketCount: 0,
+  basket: JSON.stringify([]),
 }
 
 
@@ -94,6 +95,9 @@ export const authSlice = createSlice({
     toggleUser: (state, action) => {
       state.user = action.payload
     },
+    toggleUpdateBasket: (state, action) => {
+      state.basket = action.payload
+    },
     toggleUpdateBasketCount: (state, action) => {
       state.basketCount = action.payload
     },
@@ -103,6 +107,6 @@ export const authSlice = createSlice({
   }
 })
 
-export const { toggleSignIn, toggleUpdateBasketCount, addSignInError, addSignUpError, toggleSignUp, toggleForgotPassword, toggleNewPassword, toggleSignedIn, toggleUser, toggleResetAuth } = authSlice.actions;
+export const { toggleSignIn, toggleUpdateBasketCount, toggleUpdateBasket, addSignInError, addSignUpError, toggleSignUp, toggleForgotPassword, toggleNewPassword, toggleSignedIn, toggleUser, toggleResetAuth } = authSlice.actions;
 
 export default authSlice.reducer;

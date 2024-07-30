@@ -3,7 +3,10 @@ import React, { useEffect, useState } from "react";
 import "./basket.dev.css";
 import { useDispatch, useSelector } from "react-redux";
 import Loader from "@/components/shared/Loader/component/Loader";
-import { toggleUpdateBasketCount } from "@/components/GlobalState/Features/authSlice";
+import {
+  toggleUpdateBasket,
+  toggleUpdateBasketCount,
+} from "@/components/GlobalState/Features/authSlice";
 
 async function fetchBasket(token) {
   try {
@@ -53,26 +56,22 @@ async function fetchDeletetFromBasket(basketCourseToken) {
   }
 }
 
-const BasketItem = ({ data, setLoading }) => {
-  const [deleted, setDeleted] = useState(false);
-  const basketCount = useSelector((store) => store.auth.basketCount);
-  const dispatch = useDispatch();
+const BasketItem = ({ data, setLoading, reFetchBasket }) => {
+  // const basketCount = useSelector((store) => store.auth.basketCount);
+  // const dispatch = useDispatch();
 
   async function handleDelete(basketCourseToken) {
     setLoading(true);
     await fetchDeletetFromBasket(basketCourseToken)
-      .then((e) => {
-        setDeleted(true);
-        dispatch(toggleUpdateBasketCount(basketCount - 1));
+      .then(() => {
+        reFetchBasket((pre) => !pre);
       })
       .catch((error) => console.log(error));
     setLoading(false);
   }
   return (
     <tr
-      className={`${
-        deleted && "!hidden"
-      } text-[#626262] bg-white p-2.5 rounded-[10px] abad-drop-shadow sm:shadow-none font-medium flex flex-col sm:table-row`}
+      className={`text-[#626262] bg-white p-2.5 rounded-[10px] abad-drop-shadow sm:shadow-none font-medium flex flex-col sm:table-row`}
     >
       <td>
         <div className="flex justify-between pe-4">
@@ -178,7 +177,10 @@ const BasketItem = ({ data, setLoading }) => {
 
 const Basket = () => {
   // all basket data
-  const [data, setData] = useState([]);
+  const userBasket = useSelector((store) => JSON.parse(store.auth.basket));
+  const dispatch = useDispatch();
+
+  const [toggleReFetch, setToggleReFetch] = useState(false);
 
   //loading state
   const [loading, setLoading] = useState(false);
@@ -191,8 +193,8 @@ const Basket = () => {
   async function handleFetchBasket() {
     setLoading(true);
     await fetchBasket(userJson.token)
-      .then((e) => {
-        setData(e);
+      .then((data) => {
+        dispatch(toggleUpdateBasket(JSON.stringify(data)));
       })
       .catch((e) => console.log(e));
 
@@ -201,10 +203,10 @@ const Basket = () => {
 
   useEffect(() => {
     handleFetchBasket();
-  }, [data.length]);
+  }, [toggleReFetch]);
 
   //calculate all courses prices in basket
-  let totalPrice = data?.reduce((pre, cur) => {
+  let totalPrice = userBasket?.reduce((pre, cur) => {
     return +pre + +cur.coursePrice;
   }, 0);
 
@@ -256,15 +258,20 @@ const Basket = () => {
               </tr>
             </thead>
             <tbody className="flex flex-col gap-2 sm:table-row-group">
-              {data?.map((e, i) => (
-                <BasketItem data={e} setLoading={setDeleteLoading} key={i} />
+              {userBasket?.map((e, i) => (
+                <BasketItem
+                  reFetchBasket={setToggleReFetch}
+                  data={e}
+                  setLoading={setDeleteLoading}
+                  key={i}
+                />
               ))}
             </tbody>
           </table>
         </div>
 
         {/* total value */}
-        <div className="purchase p-2.5 rounded-lg sm:p-10 drop-shadow-abad-2  bg-white flex gap-6 flex-wrap justify-between items-center font-bold">
+        <div className="purchase p-2.5 py-4 rounded-lg sm:p-10 drop-shadow-abad-2  bg-white flex gap-3 sm:gap-6 flex-wrap justify-between items-center font-bold">
           <h3 className="text-[#221638] md:text-xl">الاجمالي</h3>
           <h3 className="text-[#1B45B4] text-xs md:text-xl">
             <bdi>
