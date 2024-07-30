@@ -19,8 +19,7 @@ async function fetchUpdatePassword(data, token) {
 }
 
 const ChangePassword = () => {
-  const user = useSelector((store) => store.auth.user);
-  const userJson = JSON.parse(user);
+  const userJson = useSelector((store) => store.userData.info);
   let oldPassword = useRef(null);
   let newPassword = useRef(null);
   let confirmNewPassword = useRef(null);
@@ -119,7 +118,7 @@ const ChangePassword = () => {
         </div>
       </section>
       {/* main content end */}
-      <Loader loading={loading}/>
+      <Loader loading={loading} />
     </main>
   );
 };

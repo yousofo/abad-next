@@ -1,5 +1,6 @@
 import React from "react";
 import "./footer.css";
+import Link from "next/link";
 
 const Footer = () => {
   return (
@@ -85,11 +86,11 @@ const Footer = () => {
         </li>
         <li className="footer-pages">
           <h4>الصفحات</h4>
-          <a href="#">الصفحة الرئيسية</a>
-          <a href="#">حول</a>
-          <a href="/courses.html">المدونة</a>
-          <a href="#">منشور المدونة</a>
-          <a href="#">فريق أباد</a>
+          <Link href="/">الصفحة الرئيسية</Link>
+          <Link href="/courses">الدورات</Link>
+          <Link href="/articles">المقالات</Link>
+          <Link href="/privacy">الاعتمادات والشركاء</Link>
+          <Link href="">اتصل بنا</Link>
         </li>
         <li className="footer-general">
           <h4>نظرة عامة</h4>
