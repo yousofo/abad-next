@@ -29,19 +29,22 @@ async function fetchBasket(token) {
 
 const Basket = () => {
   const [data, setData] = useState([]);
+
+  // get user JSON string then extract user's token
   const user = useSelector((store) => store.auth.user);
   const userJson = JSON.parse(user);
-  console.log(data);
+
   useEffect(() => {
     fetchBasket(userJson.token)
       .then((e) => setData(e))
       .catch((e) => console.log(e));
   }, [data.length]);
+
+  //calculate all courses prices in basket
   let totalPrice = data?.reduce((pre, cur) => {
-    console.log(pre.coursePrice);
     return +pre + +cur.coursePrice;
   }, 0);
-  console.log(totalPrice);
+
   return (
     <main className="pb-10 sm:pb-24">
       {/* HERO start  */}
