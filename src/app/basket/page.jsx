@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 async function fetchBasket(token) {
   try {
     const result = await fetch(
-      `/api/Reservations/GetBasketByToken?token=${token}`,
+      `/api/reservations/getBasketByToken?token=${token}`,
       {
         method: "GET",
         headers: {
@@ -15,6 +15,7 @@ async function fetchBasket(token) {
           Pragma: "no-cache",
           Expires: "0",
           "Surrogate-Control": "no-store",
+          "Content-Type": "application/json",
         },
       }
     );
@@ -30,13 +31,17 @@ const Basket = () => {
   const [data, setData] = useState([]);
   const user = useSelector((store) => store.auth.user);
   const userJson = JSON.parse(user);
-  console.log(data)
+  console.log(data);
   useEffect(() => {
-    // fetchBasket(userJson.token)
-    //   .then((e) => setData(e))
-    //   .catch((e) => console.log(e));
-  }, []);
-
+    fetchBasket(userJson.token)
+      .then((e) => setData(e))
+      .catch((e) => console.log(e));
+  }, [data.length]);
+  let totalPrice = data?.reduce((pre, cur) => {
+    console.log(pre.coursePrice);
+    return +pre + +cur.coursePrice;
+  }, 0);
+  console.log(totalPrice);
   return (
     <main className="pb-10 sm:pb-24">
       {/* HERO start  */}
@@ -75,13 +80,21 @@ const Basket = () => {
             <span>السعر</span>
           </h3>
           <section className="items">
-            {data.map((e, i) => (
+            {data?.map((e, i) => (
               <div key={i}>
                 <div>
-                  <img src="/media/placeholders/basket-item.png" alt="" />
+                  <img
+                    className="max-w-20 max-h-20 object-cover"
+                    src="/media/placeholders/basket-item.png"
+                    alt=""
+                  />
                 </div>
-                <p>CCNA 200-301 شهادة سيسكو المعتمدة</p>
-                <span>1500 ريال سعودي</span>
+                <p>
+                  <bdi>{e.courseName}</bdi>
+                </p>
+                <span>
+                  <bdi>{e.coursePrice} ريال سعودي</bdi>
+                </span>
                 <svg
                   width="24"
                   height="24"
@@ -121,7 +134,12 @@ const Basket = () => {
         </div>
         <div className="purchase p-2.5 rounded-lg sm:p-10 drop-shadow-abad-2  bg-white flex gap-6 flex-wrap justify-between items-center font-bold">
           <h3 className="text-[#221638] md:text-xl">الاجمالي</h3>
-          <h3 className="text-[#1B45B4] text-xs md:text-xl">3000 ريال سعودي</h3>
+          <h3 className="text-[#1B45B4] text-xs md:text-xl">
+            <bdi>
+              {totalPrice}
+              &nbsp; ريال سعودي
+            </bdi>
+          </h3>
           <button className="w-full p-4 rounded-[10px] text-white text-xs sm:text-lg">
             شراء الان
           </button>
