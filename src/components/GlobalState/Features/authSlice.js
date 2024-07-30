@@ -38,6 +38,7 @@ const initialState = {
   signUp: false,
   forgotPassword: false,
   newPassword: false,
+  basketCount: 0,
 }
 
 
@@ -92,13 +93,16 @@ export const authSlice = createSlice({
     },
     toggleUser: (state, action) => {
       state.user = action.payload
-    }
+    },
+    toggleUpdateBasketCount: (state, action) => {
+      state.basketCount = action.payload
+    },
     // incrementByAmount: (state, action) => {
     //     state.value += action.payload;
     // }
   }
 })
 
-export const { toggleSignIn, addSignInError, addSignUpError, toggleSignUp, toggleForgotPassword, toggleNewPassword, toggleSignedIn, toggleUser, toggleResetAuth } = authSlice.actions;
+export const { toggleSignIn, toggleUpdateBasketCount, addSignInError, addSignUpError, toggleSignUp, toggleForgotPassword, toggleNewPassword, toggleSignedIn, toggleUser, toggleResetAuth } = authSlice.actions;
 
 export default authSlice.reducer;

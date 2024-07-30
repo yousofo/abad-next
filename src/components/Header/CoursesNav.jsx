@@ -22,6 +22,8 @@ async function fetchCoursesWithTypes() {
   }
 }
 
+
+
 async function fetchCheckCourse(courseToken) {
   try {
     const request = await fetch(
