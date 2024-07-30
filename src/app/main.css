@@ -46,7 +46,7 @@ main.home-page {
 	/* 14px */
 	 line-height: 1.5rem;
 	/* 20px */
-	 font-weight: 300;
+	 font-weight: 400;
 	 max-width: 650px;
 }
  @media (min-width: 768px) {
