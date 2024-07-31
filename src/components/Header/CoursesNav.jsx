@@ -70,9 +70,6 @@ const CoursesNav = () => {
     <div className="mini-nav">
       <ul
         className={`no-top-left courses-nav courses-nav-1`}
-        // ${
-        //   isCoursesNav ? "max-h-[300px]" : "max-h-0"
-        // }
       >
         {data.map((course, i) => (
           <NavListItem
@@ -85,7 +82,7 @@ const CoursesNav = () => {
       </ul>
 
       <ul
-        className={`no-top-right courses-nav courses-nav-1 no-padding overflow-auto`}
+        className={`no-top-right abad-drop-shadow courses-nav courses-nav-1 no-padding overflow-auto`}
         style={{
           maxHeight:  active ? "280px" : "0",
         }}
