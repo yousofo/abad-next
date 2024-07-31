@@ -79,7 +79,7 @@ const CoursesNav = () => {
       </ul>
 
       <ul
-        className={`no-top-right courses-nav courses-nav-1 no-padding overflow-auto`}
+        className={`no-top-right abad-drop-shadow courses-nav courses-nav-1 no-padding overflow-auto`}
       >
         {current.map((e, i) => (
           <li key={i} onClick={() => handleCourseClicked(e.courseToken)}>
