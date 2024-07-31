@@ -126,7 +126,7 @@ header.main-header {
           font-size: 0.875rem;
           line-height: 1.25rem;
           bottom: 0;
-          transform: translateY(100%);
+          transform: translateY(calc(100% + 5px));
           transition: .3s;
           max-height: 0px;
           overflow: hidden;
@@ -141,7 +141,7 @@ header.main-header {
             border-radius: 10px;
             flex-direction: column;
             width: max-content;
-            height: fit-content;
+            height: 0;
             color: #000000;
             background-color: #ffffff;
             > li {
@@ -166,6 +166,9 @@ header.main-header {
         }
         &:hover {
           .mini-nav {
+            ul{
+              height: fit-content;
+            }
             max-height: 300px;
           }
         }
@@ -207,7 +210,7 @@ header.main-header {
       padding-right: 1rem;
       border-radius: 0.75rem;
       background-color: var(--abad-gold);
-      @media (min-width: 768px) {
+      @media (min-width: 1024px) {
         display: block;
       }
     }

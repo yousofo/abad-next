@@ -11,7 +11,6 @@ const NavListItem = ({ data, handleNavListItem, index }) => {
       <button
         className="w-full justify-between"
         onClick={(e) => handleNavListItem(e, data.courses)}
-        // onMouseEnter={(e) => handleNavListItem(e, data.courses)}
       >
         <span>{data.typeName}</span>
         <AngleBottom fill={"#000000"} />
@@ -39,10 +38,8 @@ const AngleBottom = ({ fill }) => (
 
 //3ab6540e-b68a-474a-8e3c-5218c3a6e280
 const CoursesNav = () => {
-  const [active, setActive] = useState(true);
   const [data, setData] = useState([]);
   const [current, setCurrent] = useState([]);
-  const isCoursesNav = useSelector((state) => state.coursesNav.active);
   const router = useRouter();
   console.log("courses nav");
   function handleNavListItem(e, categoryCourses) {
@@ -82,10 +79,7 @@ const CoursesNav = () => {
       </ul>
 
       <ul
-        className={`no-top-right abad-drop-shadow courses-nav courses-nav-1 no-padding overflow-auto`}
-        style={{
-          maxHeight:  active ? "280px" : "0",
-        }}
+        className={`no-top-right courses-nav courses-nav-1 no-padding overflow-auto`}
       >
         {current.map((e, i) => (
           <li key={i} onClick={() => handleCourseClicked(e.courseToken)}>

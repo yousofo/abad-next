@@ -211,7 +211,7 @@ header.main-header nav > button {
   border-radius: 0.75rem;
   background-color: var(--abad-gold);
 }
-@media (min-width: 768px) {
+@media (min-width: 1024px) {
   header.main-header nav > button {
     display: block;
  }
