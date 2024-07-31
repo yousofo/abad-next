@@ -118,3 +118,6 @@ img {
   top: 50%;
   transform: translate(-50%, -50%);
 }
+.Toastify{
+  pointer-events: none;
+}
