@@ -74,7 +74,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en" dir="rtl">
-      <head>
+      {/* <head>
         <Script id="borwserCheckingScript" strategy="beforeInteractive">
           {`(
           function() {
@@ -137,7 +137,7 @@ export default function RootLayout({ children }) {
           }
         )()`}
         </Script>
-      </head>
+      </head> */}
       <body /*className={bukra.className}*/>
         <BrowserWarning />
         <StateProvider>
