@@ -68,9 +68,6 @@
         rotate: 180deg;
       }
     }
-    .accordion-content {
-      max-height: 500px;
-    }
   }
 }
 
