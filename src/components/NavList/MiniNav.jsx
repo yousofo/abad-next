@@ -1,6 +1,8 @@
 "use client";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
+import fetchCheckCourse from "@/helperFunctions/fetchCheckCourse";
+
 
 async function fetchCoursesWithTypes() {
   try {
@@ -30,7 +32,14 @@ const MiniNavItem = ({ data }) => {
     e.stopPropagation();
     setInnerList(!innerList);
   }
-
+  async function handleCourseClicked(courseToken) {
+    const result = await fetchCheckCourse(courseToken);
+    if (result.courseExists) {
+      router.push(`/courses/${result.courseToken}`);
+    } else {
+      router.push(`/courses/register/${result.courseToken}`);
+    }
+  }
   return (
     <li
       suppressHydrationWarning={true}
@@ -60,11 +69,11 @@ const MiniNavItem = ({ data }) => {
       <ul
         className={`${
           innerList ? "max-h-60" : "max-h-0"
-        } overflow-hidden transition-all font-light flex flex-col gap-2`}
+        } overflow-y-auto transition-all font-light flex flex-col`}
       >
         {data.courses.map((e, i) => (
           <li key={i}>
-            <Link href={`/courses/${e.courseToken}`}>{e.courseName}</Link>
+            <button onClick={()=>handleCourseClicked(e.courseToken)} className="text-start w-full block p-1.5 underline underline-offset-4 decoration-blue-700">{e.courseName}</button>
           </li>
         ))}
       </ul>
@@ -87,7 +96,7 @@ const MiniNav = () => {
       onClick={() => setOuterList(!outerList)}
       className={`flex flex-col  w-full ${outerList ? "gap-4" : "gap-0"}`}
     >
-      <div className="flex justify-between items-center  w-full">
+      <div className="flex justify-between items-center  w-full px-1">
         <span>الدورات</span>
         <svg
           width="6"
@@ -108,7 +117,7 @@ const MiniNav = () => {
       <ul
         className={`${
           outerList ? "max-h-96" : "max-h-0"
-        } overflow-hidden transition-all flex flex-col gap-2 w-full`}
+        } overflow-y-hidden transition-all flex flex-col gap-2 w-full px-1`}
       >
         {data.map((e, i) => (
           <MiniNavItem data={e} key={i} />
