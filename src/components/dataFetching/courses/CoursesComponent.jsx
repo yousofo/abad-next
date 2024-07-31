@@ -1,7 +1,5 @@
 "use client";
-// import "./courses.dev.css";
 import React, {
-  act,
   useCallback,
   useEffect,
   useMemo,
@@ -648,14 +646,6 @@ const CoursesComponent = () => {
             })}
           </div>
           {/* TABLE PAGINATION */}
-          {/* 
-          nextPage,
-    previousPage,
-    canPreviousPage,
-    canNextPage,
-    gotoPage,
-    pageCount,
-          */}
           <div className="flex gap-1 courses-paginaion">
             <button className="next" onClick={nextPage} disabled={!canNextPage}>
               <svg
