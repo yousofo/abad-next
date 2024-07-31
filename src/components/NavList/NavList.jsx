@@ -15,6 +15,7 @@ import MiniNav from "./MiniNav";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import User from "./User";
+import { toggleUpdateInfo } from "../GlobalState/Features/userData";
 
 const NavList = () => {
   const active = useSelector((state) => state.navList.active);
@@ -43,6 +44,7 @@ const NavList = () => {
   }, []);
   function handleSignOut() {
     dispatch(toggleResetAuth());
+    dispatch(toggleUpdateInfo(null))
     handleResetNavList();
     router.push("/");
   }

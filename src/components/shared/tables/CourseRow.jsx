@@ -1,17 +1,21 @@
 "use client";
+import { toggleSignIn } from "@/components/GlobalState/Features/authSlice";
 import "./courseRow.css";
 import { toggleEnlistInCourse } from "@/components/GlobalState/Features/popUpsSlice";
 import Link from "next/link";
 import React from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { handleOuterRegisterCourse } from "@/helperFunctions/UserCourseRegisteration";
 
 const CourseRow = ({ index, data }) => {
+  const user = useSelector((store) => store.userData.info);
   const dispatch = useDispatch();
   const isOnline =
     data.isOnline == "اونلاين" ||
     data.isOnline == "أون لاين" ||
     data.isOnline == "أونلاين";
   const hadaf = data.hadaf;
+
   return (
     <tr
       data-type="programming"
@@ -150,7 +154,7 @@ const CourseRow = ({ index, data }) => {
               التفاصيل
             </button>
           </Link>
-          <div onClick={() => dispatch(toggleEnlistInCourse())}>
+          <div onClick={() => handleOuterRegisterCourse(user, dispatch)}>
             <button>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
