@@ -12,19 +12,30 @@ const LatestArticles = () => {
   }, []);
   return (
     <div className="container lg:max-w-screen-lg mx-auto grid sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-[1.5%] sm:pb-[6%] pt-10">
-      {data.map((e, i) => (
-        <Link href={`/articles/${e.token}`} key={i}>
-          <article>
-            <div className="article-wrapper">
-              <div className="img relative">
-                <img src={e.image} alt="article image" onError={(event)=>event.target.src="/media/Iamge.png"}/>
-                <span className="abosulute article-tag article-tag-blue">
-                  {e.coursesTypeCode}
-                </span>
+      {data.map((article, i) => (
+        <Link
+          key={i}
+          href={`/articles/${article?.token}`}
+          className="h-full relative"
+        >
+          <article className="h-full">
+            <div className="article-wrapper overflow-hidden h-full flex flex-col gap-3 rounded-xl">
+              <div className="img ">
+                <div className="relative">
+                  <img
+                    className={`h-full max-h-[188px] object-cover w-full`}
+                    src={article?.image}
+                    alt=""
+                    onError={(event) => (event.target.src = "/media/Iamge.png")}
+                  />
+                  <span className="abosulute article-tag article-tag-yellow">
+                    القصص
+                  </span>
+                </div>
               </div>
-              <div>
-                <p>{e.formattedDate}</p>
-                <h3>{e.test}</h3>
+              <div className=" flex-1">
+                <p>{article?.formattedDate}</p>
+                <h3 className="max-h-20 overflow-auto">{article?.title}</h3>
               </div>
             </div>
           </article>
