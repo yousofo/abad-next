@@ -1,6 +1,4 @@
-import Image from "next/image";
 import "./main.css"
-import Link from "next/link";
 import ReviewsSwiper from "@/components/shared/swipers/ReviewsSwiper";
 import "swiper/css";
 import PartnersSwiper from "@/components/shared/swipers/PartnersSwiper";
