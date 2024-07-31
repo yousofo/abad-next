@@ -1,33 +1,13 @@
 "use client";
-import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import fetchCheckCourse from "@/helperFunctions/fetchCheckCourse";
-
-
-async function fetchCoursesWithTypes() {
-  try {
-    const request = await fetch("/api/categories/coursesWithTypes", {
-      method: "GET",
-      headers: {
-        "Cache-Control":
-          "no-store, no-cache, must-revalidate, proxy-revalidate",
-        Pragma: "no-cache",
-        Expires: "0",
-        "Surrogate-Control": "no-store",
-        "Content-Type": "application/json",
-      },
-    });
-    const data = await request.json();
-    console.log(data);
-    return data;
-  } catch (e) {
-    console.log(e);
-  }
-}
+import fetchCoursesWithTypes from "@/helperFunctions/fetchCoursesWithTypes";
+import { useRouter } from "next/router";
 
 //helper component
 const MiniNavItem = ({ data }) => {
   const [innerList, setInnerList] = useState(false);
+  const router = useRouter()
   function handleClick(e) {
     e.stopPropagation();
     setInnerList(!innerList);

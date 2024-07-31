@@ -2,25 +2,8 @@ import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import fetchCheckCourse from "@/helperFunctions/fetchCheckCourse";
-async function fetchCoursesWithTypes() {
-  try {
-    const request = await fetch("/api/categories/coursesWithTypes", {
-      method: "GET",
-      headers: {
-        "Cache-Control":
-          "no-store, no-cache, must-revalidate, proxy-revalidate",
-        Pragma: "no-cache",
-        Expires: "0",
-        "Surrogate-Control": "no-store",
-      },
-    });
-    const data = await request.json();
-    console.log(data);
-    return data;
-  } catch (e) {
-    console.log(e);
-  }
-}
+import fetchCoursesWithTypes from "@/helperFunctions/fetchCoursesWithTypes";
+
 
 const NavListItem = ({ data, handleNavListItem, index }) => {
   return (
