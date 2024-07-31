@@ -111,7 +111,7 @@ const NavList = () => {
             </Link>
           </li>
           <li>
-            <Link onClick={handleResetNavList} href="/">
+            <Link onClick={handleResetNavList} href="/partners">
               الشركاء
             </Link>
           </li>
