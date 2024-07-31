@@ -1,9 +1,7 @@
-import { cookies, headers } from "next/headers";
 import "./courses.css";
 import CoursesComponent from "@/components/dataFetching/courses/CoursesComponent";
 
 const Courses = () => {
-  headers()
   return (
     <main className="courses-page relative">
       {/* HERO start  */}

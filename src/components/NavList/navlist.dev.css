@@ -8,24 +8,10 @@
 .navlist-sm-wrapper {
 
   .navlist-sm {
-    /* border-image-source: linear-gradient(0deg, #E7E7E7, #E7E7E7),
-    linear-gradient(0deg, #E7E7E7, #E7E7E7),
-    linear-gradient(0deg, #E7E7E7, #E7E7E7); */
     > ul {
       > li {
         padding: 24px 12px;
         margin: 0 12px;
-        > button {
-          > ul {
-            li {
-              ul {
-                li {
-                  
-                }
-              }
-            }
-          }
-        }
       }
       > li:not(:nth-last-child(1)) {
         border-bottom: 1px solid #e7e7e7;

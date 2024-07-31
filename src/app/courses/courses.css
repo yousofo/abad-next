@@ -22,7 +22,7 @@
   .courses-page .courses-preview-mode > h3 {
     font-size: 2.25rem;
     line-height: 2.5rem;
-  }
+ }
 }
 .courses-page .courses-preview-mode > ul {
   display: flex;
@@ -104,7 +104,7 @@
   font-weight: bold;
 }
 .courses-page .courses-cards figure figcaption .course-info p:nth-child(1) {
-  /* #5BB6D21A */
+ /* #5BB6D21A */
   background-color: rgba(91, 182, 210, 0.102);
   border-radius: 4px;
   padding: 8px;
@@ -126,17 +126,12 @@
   gap: 3px;
 }
 .courses-page .courses-cards figure figcaption .course-attend span.online {
-  color: #df2121;
-}
-.courses-page .courses-cards figure figcaption .course-attend span.in-person {
   color: #0dc00d;
 }
-.courses-page
-  .courses-cards
-  figure
-  figcaption
-  .course-attend
-  span:nth-child(2) {
+.courses-page .courses-cards figure figcaption .course-attend span.in-person {
+  color: #df2121;
+}
+.courses-page .courses-cards figure figcaption .course-attend span:nth-child(2) {
   color: #1b45b4;
 }
 .courses-page .search-filter button {
@@ -144,8 +139,7 @@
   color: transparent;
   background-image: linear-gradient(83.79deg, #1b45b4 3.25%, #1c2792 96.85%);
 }
-.courses-page .search-filter h3,
-.courses-page .search-filter h4 {
+.courses-page .search-filter h3, .courses-page .search-filter h4 {
   color: #151318;
 }
 .courses-page .search-filter label {
@@ -177,7 +171,7 @@
 @media (min-width: 640px) {
   .courses-page table tbody {
     display: table-row-group;
-  }
+ }
 }
 .courses-page table tbody span.online {
   color: #df2121;
@@ -188,86 +182,73 @@
 @media (min-width: 640px) {
   .courses-page table tr:nth-child(even) {
     background-color: #f5f5f5;
-  }
+ }
 }
 .courses-page table tr:nth-child(even) {
   background-color: #e9e9e9;
 }
-.courses-page table td,
-.courses-page table th {
+.courses-page table td, .courses-page table th {
   display: block;
   padding: 2px;
   font-size: 12px;
   font-weight: 500;
   color: #3f3e43;
-  /* border: 1px solid transparent;
+ /* border: 1px solid transparent;
   */
 }
-.courses-page table td .course-name,
-.courses-page table th .course-name {
+.courses-page table td .course-name, .courses-page table th .course-name {
   padding-top: 4px;
   font-size: 13px;
   display: flex;
   font-weight: 500;
   flex-direction: column;
 }
-.courses-page table td .course-name > div,
-.courses-page table th .course-name > div {
+.courses-page table td .course-name > div, .courses-page table th .course-name > div {
   order: 1;
   font-size: 12px;
   gap: 12px;
 }
-.courses-page table td .course-name > div span,
-.courses-page table th .course-name > div span {
+.courses-page table td .course-name > div span, .courses-page table th .course-name > div span {
   display: flex;
   align-items: center;
   gap: 3px;
 }
-.courses-page table td .course-name > div span:nth-child(2),
-.courses-page table th .course-name > div span:nth-child(2) {
+.courses-page table td .course-name > div span:nth-child(2), .courses-page table th .course-name > div span:nth-child(2) {
   font-size: 12px;
   color: #1b39a6;
 }
-.courses-page table td .course-name > p,
-.courses-page table th .course-name > p {
+.courses-page table td .course-name > p, .courses-page table th .course-name > p {
   order: 2;
 }
 @media (min-width: 768px) {
-  .courses-page table td .course-name,
-  .courses-page table th .course-name {
+  .courses-page table td .course-name, .courses-page table th .course-name {
     font-size: 14px;
-  }
-  .courses-page table td .course-name > div,
-  .courses-page table th .course-name > div {
+ }
+  .courses-page table td .course-name > div, .courses-page table th .course-name > div {
     order: 2 !important;
     font-size: 14px;
-  }
-  .courses-page table td .course-name p,
-  .courses-page table th .course-name p {
+ }
+  .courses-page table td .course-name p, .courses-page table th .course-name p {
     order: 1 !important;
-  }
+ }
 }
 @media (min-width: 768px) {
-  .courses-page table td,
-  .courses-page table th {
+  .courses-page table td, .courses-page table th {
     display: table-cell;
     padding: 16px !important;
-  }
-  .courses-page table td .course-start-date,
-  .courses-page table th .course-start-date {
+ }
+  .courses-page table td .course-start-date, .courses-page table th .course-start-date {
     display: table-cell;
-  }
+ }
 }
-.courses-page table td:nth-child(3),
-.courses-page table td:nth-child(2) {
+.courses-page table td:nth-child(3), .courses-page table td:nth-child(2) {
   font-size: 12px;
   font-weight: 400;
 }
 @media (min-width: 768px) {
-  .courses-page table td:nth-child(3),
-  .courses-page table td:nth-child(2) {
+  .courses-page table td:nth-child(3), .courses-page table td:nth-child(2) {
     font-weight: 500;
-  }
+ }
 }
 .courses-page table .btns {
   display: flex;
@@ -291,10 +272,10 @@
 @media (min-width: 768px) {
   .courses-page table .btns {
     font-size: 12px;
-  }
+ }
   .courses-page table .btns > * {
     flex: auto;
-  }
+ }
 }
 .courses-page table .btns a:nth-child(1) button {
   background-color: #fdb614;
@@ -325,14 +306,14 @@
 @media (min-width: 768px) {
   .courses-page nav li {
     padding: 8px;
-  }
+ }
   .courses-page nav li button {
     gap: 10px;
-  }
+ }
   .courses-page nav li button svg {
     width: 24px;
     height: auto;
-  }
+ }
 }
 .courses-page nav li.active {
   color: white;
@@ -396,7 +377,7 @@
   font-weight: bold;
 }
 .courses-page .courses-cards figure figcaption .course-info p:nth-child(1) {
-  /* #5BB6D21A */
+ /* #5BB6D21A */
   background-color: rgba(91, 182, 210, 0.102);
   border-radius: 4px;
   padding: 8px;
@@ -404,6 +385,24 @@
 }
 .courses-page .courses-cards figure figcaption .course-info p:nth-child(2) {
   color: var(--abad-gold);
+}
+.courses-page .courses-paginaion > * {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 32px;
+  height: 32px;
+  border: 1px solid #dfe3e8;
+  border-radius: 4px;
+  padding: 10px;
+  color: #212b36;
+}
+.courses-page .courses-paginaion > *.prev, .courses-page .courses-paginaion > *.next {
+  color: #a79fb3;
+}
+.courses-page .courses-paginaion > *.prev:not(:disabled):hover, .courses-page .courses-paginaion > *.next:not(:disabled):hover {
+  border: 1px solid green;
+  color: green;
 }
 .hero {
   position: relative;

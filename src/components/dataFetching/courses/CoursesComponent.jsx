@@ -68,22 +68,21 @@ async function fetchCoursesCategories() {
 
 // main component
 const CoursesComponent = () => {
-  const [newRender, setNewRender] = useState(false);
-  const [data, setData] = useState([]);
   const allCatRef = useRef(null);
-  const [coursesCategories, setCoursesCategories] = useState([]);
-
-  //filtering
-  const [activeCategory, setActiveCategory] = useState(["all"]);
-  const [extraFilter, setExtraFilter] = useState([]);
-  const [isCourseOnline, setIsCourseOnline] = useState("");
-  const [isCourseHadaf, setIsCourseHadaf] = useState(false);
-  const [minMax, setMinMax] = useState({ min: 0, max: 1200 });
-  // let minMax = useRef({ min: 0, max: 1200 });
-
   const isCards = useSelector((store) => store.coursesFilter.isCards);
   const user = useSelector((store) => store.userData.info);
   const dispatch = useDispatch();
+
+  //filtering
+  const [data, setData] = useState([]);
+  const [coursesCategories, setCoursesCategories] = useState([]);
+  const [activeCategory, setActiveCategory] = useState(["all"]);
+  const [isCourseOnline, setIsCourseOnline] = useState("");
+  const [isCourseHadaf, setIsCourseHadaf] = useState(false);
+  const [minMax, setMinMax] = useState({ min: 0, max: 1200 });
+  const [sortOrder, setSortOrder] = useState("latest"); // or 'newest'
+
+  // table info
   const COLUMNS = [
     {
       Header: "اسم الدورة",
@@ -259,15 +258,9 @@ const CoursesComponent = () => {
       ),
     },
   ];
-  function handleCoursesPreviewMode() {
-    dispatch(toggleCards());
-  }
-  //
-  const [sortOrder, setSortOrder] = useState("latest"); // or 'newest'
   const tableColumns = useMemo(() => COLUMNS, []);
-  // const tableData = useMemo(() => data, [data.length]);
 
-  //filter based on categories + attendance + hadaf
+  //1st filter based on categories + attendance + hadaf
   const filteredData = useMemo(
     () =>
       data.filter((e) => {
@@ -314,18 +307,14 @@ const CoursesComponent = () => {
       }),
     [activeCategory, data.length, isCourseHadaf, isCourseOnline]
   );
-
-  console.log(filteredData);
-  //filter bases on price after first filter
+  //2nd filter based on price after first filter
   const priceFilter = useMemo(() => {
     console.log("priceFilter");
     return filteredData.filter(
       (e) => e.price >= minMax.min && e.price <= minMax.max
     );
   }, [minMax.min, minMax.max, filteredData.length]);
-
-  console.log(priceFilter);
-  //latest filter
+  //3rd filter - latest
   const sortedData = useMemo(() => {
     return [...priceFilter].sort((a, b) => {
       if (sortOrder === "latest") {
@@ -336,7 +325,7 @@ const CoursesComponent = () => {
     });
   }, [priceFilter.length, sortOrder]);
 
-  console.log(sortedData);
+  // initialize table
   const tableInstance = useTable(
     { columns: tableColumns, data: sortedData },
     useGlobalFilter,
@@ -346,6 +335,7 @@ const CoursesComponent = () => {
   const {
     getTableProps,
     getTableBodyProps,
+    prepareRow,
     setGlobalFilter,
     headerGroups,
     page,
@@ -353,13 +343,23 @@ const CoursesComponent = () => {
     previousPage,
     canPreviousPage,
     canNextPage,
-    prepareRow,
+    gotoPage,
+    pageCount,
     state,
     setPageSize,
     pageOptions,
   } = tableInstance;
-
   const { globalFilter } = state;
+
+  function handleCoursesPreviewMode() {
+    dispatch(toggleCards());
+  }
+  function handleResetFilter() {
+    setActiveCategory(["all"]);
+    setIsCourseOnline("");
+    setIsCourseHadaf(false);
+    setMinMax({ min: 0, max: 1200 });
+  }
   function handleChecked(e, code) {
     if (e.target.checked == true) {
       setActiveCategory((pre) => [...pre, code]);
@@ -367,7 +367,7 @@ const CoursesComponent = () => {
       setActiveCategory((pre) => pre.filter((ele) => ele != code));
     }
   }
-  console.log("rendered courses");
+
   useEffect(() => {
     allCatRef.current.checked = true;
     fetchCoursesCategories()
@@ -403,7 +403,7 @@ const CoursesComponent = () => {
         <form className="search-filter bg-white h-fit w-full lg:w-max mx-auto abad-shadow p-5 flex flex-col gap-4 rounded-lg">
           <div className="flex items-center justify-between gap-12 pb-3 border-b border-b-[#D8D1E2]">
             <h3 className="font-bold">تصفية</h3>
-            <button type="reset" className="text-xs font-bold">
+            <button onClick={handleResetFilter} className="text-xs font-bold">
               إعادة تعيين التصفية
             </button>
           </div>
@@ -585,10 +585,8 @@ const CoursesComponent = () => {
               </li>
             </ul>
           </div>
-          {/* courses filter */}
 
           {/* courses table ROWS MODE */}
-          {/* <table */}
           <table
             {...getTableProps()}
             style={{ display: `${isCards ? "none" : "table"}` }}
@@ -650,23 +648,47 @@ const CoursesComponent = () => {
             })}
           </div>
           {/* TABLE PAGINATION */}
-          <div>
-            <div>
-              <bdi>
-                <span>الصفحة</span>
-                &nbsp;
-                <span>{state.pageIndex + 1}</span>
-                &nbsp;
-                <span>من</span>
-                &nbsp;
-                <span>{pageOptions.length}</span>
-              </bdi>
-            </div>
-            <button onClick={nextPage} disabled={!canNextPage}>
-              التالي
+          {/* 
+          nextPage,
+    previousPage,
+    canPreviousPage,
+    canNextPage,
+    gotoPage,
+    pageCount,
+          */}
+          <div className="flex gap-1 courses-paginaion">
+            <button className="next" onClick={nextPage} disabled={!canNextPage}>
+              <svg
+                width="8"
+                height="12"
+                viewBox="0 0 8 12"
+                fill="currentColor"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M6.29303 11.707L0.586032 5.99997L6.29303 0.292969L7.70703 1.70697L3.41403 5.99997L7.70703 10.293L6.29303 11.707Z"
+                  fill="currentColor"
+                />
+              </svg>
             </button>
-            <button onClick={previousPage} disabled={!canPreviousPage}>
-              السابق
+            <button onClick={() => gotoPage(0)}>1</button>
+            <span>...</span>
+            <button onClick={() => gotoPage(pageCount - 1)}>
+              {pageCount}
+            </button>
+            <button className="prev" onClick={previousPage} disabled={!canPreviousPage}>
+              <svg
+                width="8"
+                height="12"
+                viewBox="0 0 8 12"
+                fill="currentColor"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M1.70697 11.707L7.41397 5.99997L1.70697 0.292969L0.292969 1.70697L4.58597 5.99997L0.292969 10.293L1.70697 11.707Z"
+                  fill="currentColor"
+                />
+              </svg>
             </button>
           </div>
         </div>

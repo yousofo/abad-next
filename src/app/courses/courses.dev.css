@@ -186,7 +186,7 @@
       }
     }
     @media (min-width: 640px) {
-      tr:nth-child(even){
+      tr:nth-child(even) {
         background-color: #f5f5f5;
       }
     }
@@ -332,7 +332,6 @@
   .show-all {
     background: linear-gradient(to right, #1b45b4, #1c2792);
   }
-
   .courses-cards {
     display: grid;
     width: 100%;
@@ -392,6 +391,27 @@
           p:nth-child(2) {
             color: var(--abad-gold);
           }
+        }
+      }
+    }
+  }
+  .courses-paginaion {
+    > * {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 32px;
+      height: 32px;
+      border: 1px solid #dfe3e8;
+      border-radius: 4px;
+      padding: 10px;
+      color: #212b36;
+      &.prev,
+      &.next {
+        color: #a79fb3;
+        &:not(:disabled):hover {
+          border: 1px solid green;
+          color: green;
         }
       }
     }
