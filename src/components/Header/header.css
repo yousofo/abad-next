@@ -131,14 +131,14 @@ header.main-header nav .nav-list > li:nth-child(2) .mini-nav {
   display: flex;
   position: absolute;
   right: 0;
-  height: fit-content;
   font-size: 0.875rem;
   line-height: 1.25rem;
   bottom: 0;
-  transform: translateY(100%);
+  transform: translate(0, 100%);
   transition: 0.3s;
   max-height: 0px;
   overflow: hidden;
+  opacity: 0;
 }
 header.main-header nav .nav-list > li:nth-child(2) .mini-nav > ul {
   transition-property: all;
@@ -157,6 +157,7 @@ header.main-header nav .nav-list > li:nth-child(2) .mini-nav > ul {
 }
 header.main-header nav .nav-list > li:nth-child(2) .mini-nav > ul > li {
   position: relative;
+  border: 0;
 }
 header.main-header nav .nav-list > li:nth-child(2) .mini-nav > ul > li button {
   display: flex;
@@ -165,6 +166,7 @@ header.main-header nav .nav-list > li:nth-child(2) .mini-nav > ul > li button {
 }
 header.main-header nav .nav-list > li:nth-child(2) .mini-nav > ul:nth-child(2) {
   overflow: auto;
+  max-height: 280px;
   box-shadow: 5px 4px 30px 0px #000 14;
 }
 header.main-header nav .nav-list > li:nth-child(2) .mini-nav ul.no-top-right {
@@ -174,7 +176,11 @@ header.main-header nav .nav-list > li:nth-child(2) .mini-nav ul.no-top-left {
   border-top-left-radius: 0;
 }
 header.main-header nav .nav-list > li:nth-child(2):hover .mini-nav {
+  opacity: 1;
   max-height: 300px;
+}
+header.main-header nav .nav-list > li:nth-child(2):hover .mini-nav > ul li:not(:nth-child(1)) {
+  border-top: 2px solid #efefef !important;
 }
 header.main-header nav .nav-list-drop {
   border-radius: 20px;
@@ -228,8 +234,4 @@ header.main-header nav > svg {
 }
 .courses-nav-1 > li button {
   padding: 12px;
-}
-.courses-nav > li:not(:nth-child(1)) {
-  border: 0;
-  border-top: 2px solid #efefef !important;
 }

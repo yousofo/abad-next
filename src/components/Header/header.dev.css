@@ -122,14 +122,14 @@ header.main-header {
           display: flex;
           position: absolute;
           right: 0;
-          height: fit-content;
           font-size: 0.875rem;
           line-height: 1.25rem;
           bottom: 0;
-          transform: translateY(calc(100% + 5px));
-          transition: .3s;
+          transform: translate(0, 100%);
+          transition: 0.3s;
           max-height: 0px;
           overflow: hidden;
+          opacity: 0;
           > ul {
             transition-property: all;
             transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
@@ -141,11 +141,12 @@ header.main-header {
             border-radius: 10px;
             flex-direction: column;
             width: max-content;
-            height: 0;
+            height: fit-content;
             color: #000000;
             background-color: #ffffff;
             > li {
               position: relative;
+              border: 0;
               button {
                 display: flex;
                 align-items: center;
@@ -155,6 +156,7 @@ header.main-header {
           }
           > ul:nth-child(2) {
             overflow: auto;
+            max-height: 280px;
             box-shadow: 5px 4px 30px 0px #00000014;
           }
           ul.no-top-right {
@@ -166,10 +168,13 @@ header.main-header {
         }
         &:hover {
           .mini-nav {
-            ul{
-              height: fit-content;
-            }
+            opacity: 1;
             max-height: 300px;
+            >ul{
+              li:not(:nth-child(1)) {
+              border-top: 2px solid #efefef !important;
+            }
+            }
           }
         }
       }
@@ -230,11 +235,5 @@ header.main-header {
     button {
       padding: 12px;
     }
-  }
-}
-.courses-nav {
-  > li:not(:nth-child(1)) {
-    border: 0;
-    border-top: 2px solid #efefef !important;
   }
 }
