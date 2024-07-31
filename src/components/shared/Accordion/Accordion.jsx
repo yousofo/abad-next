@@ -2,10 +2,11 @@
 import { useForm } from "react-hook-form";
 import "./accordion.css";
 import React, { useState } from "react";
+import { useSelector } from "react-redux";
 
 const AccordionForm = ({ form, token }) => {
-  const { fetchRegisterCourseRequest, setLoading } = form;
-  console.log(form);
+  const { fetchRegisterCourseRequest, setLoading, triggerToast } = form;
+  const user = useSelector(store=>store.userData.info)
   const [generalError, setGeneralError] = useState("");
   // react-hook-form
   const registerCourseForm = useForm();
@@ -15,37 +16,38 @@ const AccordionForm = ({ form, token }) => {
   let { errors, isValid, isSubmitted } = formState;
 
   async function handleSubmitRegisterCourse(formData, e) {
-    setGeneralError("");
-    console.log("hh");
-    setLoading(true);
-    const result = await fetchRegisterCourseRequest({
-      tokenCourse: token,
-      usserName: formData.registerCourseArabicName,
-      usserEmail: formData.registerCourseEmail,
-      userPhone: formData.registerCoursePhone,
-      userCity: formData.registerCourseCity,
-      nots: "string",
-    });
-    console.log(result);
-    if (result.errors) {
-      console.log("errrrr");
-      console.log(Object.entries(result.errors));
-      // Object.entries(result.errors).forEach(([key, value]) => {
-      //   if (key == "$.birthDate") {
-      //     setError("birthDate", { type: "manual", message: [...value] });
-      //   }
-      // });
-    } else if (result?.message) {
-      console.log(result.message);
-    } else {
-      if (result.error) {
-        setGeneralError(result.error);
+    if (user) {
+      setGeneralError("");
+      setLoading(true);
+      const result = await fetchRegisterCourseRequest({
+        tokenCourse: token,
+        usserName: formData.registerCourseArabicName,
+        usserEmail: formData.registerCourseEmail,
+        userPhone: formData.registerCoursePhone,
+        userCity: formData.registerCourseCity,
+        nots: "string",
+      });
+      if (result.errors) {
+        console.log("errrrr");
+        console.log(Object.entries(result.errors));
+        // Object.entries(result.errors).forEach(([key, value]) => {
+        //   if (key == "$.birthDate") {
+        //     setError("birthDate", { type: "manual", message: [...value] });
+        //   }
+        // });
+      } else if (result?.message) {
+        triggerToast(result?.message);
       } else {
-        setGeneralError(result);
+        if (result.error) {
+          setGeneralError(result.error);
+        } else {
+          setGeneralError(result);
+        }
       }
+    }else{
+      triggerToast("سجل الدخول اولا")
     }
-    console.log(errors);
-    console.log(result);
+
     setLoading(false);
   }
 
@@ -245,7 +247,12 @@ const Accordion = ({ title, data, table, active: starting, form, token }) => {
               </tbody>
             </table>
           )}
-          {data && <div className="handle-list" dangerouslySetInnerHTML={{ __html: data }} />}
+          {data && (
+            <div
+              className="handle-list"
+              dangerouslySetInnerHTML={{ __html: data }}
+            />
+          )}
           {form && <AccordionForm form={form} token={token} />}
         </div>
       </div>

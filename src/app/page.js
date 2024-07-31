@@ -4,6 +4,7 @@ import "swiper/css";
 import PartnersSwiper from "@/components/shared/swipers/PartnersSwiper";
 import HomeCourses from "@/components/dataFetching/home/HomeCourses";
 import LatestArticles from "@/components/dataFetching/home/articles/LatestArticles";
+import Toast from "@/components/shared/toasts/Toast";
 
 export default function Home() {
   // console.log(document.querySelectorAll("link[rel='preload'][as='style']"));

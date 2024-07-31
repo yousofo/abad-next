@@ -6,6 +6,8 @@ import Accordion from "@/components/shared/Accordion/Accordion";
 import { useRouter } from "next/navigation";
 import { useSelector } from "react-redux";
 import Loader from "@/components/shared/Loader/component/Loader";
+import triggerToast from "@/helperFunctions/triggerToast";
+import Toast from "@/components/shared/toasts/Toast";
 
 async function fetchCourseDetails(token) {
   try {
@@ -97,6 +99,7 @@ async function fetchRegisterCourseRequest(data) {
 const Register = ({ params }) => {
   const [courseImg, setCourseImg] = useState("/media/course/course-image.png");
   const [fetched, setFetched] = useState(false);
+  const [toastState, setToastState] = useState({ active: false, text: "" });
   const router = useRouter();
   const userInfo = useSelector((store) => store.userData.info);
   const [loading, setLoading] = useState(false);
@@ -323,6 +326,8 @@ const Register = ({ params }) => {
                 form={{
                   fetchRegisterCourseRequest,
                   setLoading,
+                  triggerToast: (text) => triggerToast(setToastState, text),
+
                 }}
                 token={courseInfo.token}
                 active={true}
@@ -464,6 +469,7 @@ const Register = ({ params }) => {
               form={{
                 fetchRegisterCourseRequest,
                 setLoading,
+                triggerToast: (text) => triggerToast(setToastState, text),
               }}
               token={courseInfo.token}
               active={true}
@@ -482,6 +488,9 @@ const Register = ({ params }) => {
       </div>
       <Loader loading={!fetched} text="قيد التحميل" />
       <Loader loading={loading} text="قيد التسجيل" />
+      {toastState.active && (
+        <Toast active={toastState.active} data={toastState.text} />
+      )}
     </main>
   );
 };

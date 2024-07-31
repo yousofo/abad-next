@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import "./course.css";
 
 import Accordion from "@/components/shared/Accordion/Accordion";
@@ -7,6 +7,9 @@ import { notFound, useRouter } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";
 import Loader from "@/components/shared/Loader/component/Loader";
 import { fetchUserBasket } from "@/components/GlobalState/Features/userData";
+import Toast from "@/components/shared/toasts/Toast";
+import { toggleSignIn } from "@/components/GlobalState/Features/authSlice";
+import triggerToast from "@/helperFunctions/triggerToast";
 
 async function fetchCourseDetails(token) {
   try {
@@ -75,7 +78,8 @@ async function fetchAddToBasket(data) {
 const Course = ({ params }) => {
   const [courseImg, setCourseImg] = useState("/media/course/course-image.png");
   const [fetched, setFetched] = useState(false);
-  const [error, setError] = useState("");
+  const [toastState, setToastState] = useState({ active: false, text: "" });
+  let isMounted = useRef(false);
   const router = useRouter();
   const dispatch = useDispatch();
 
@@ -150,12 +154,21 @@ const Course = ({ params }) => {
     console.log(result);
   }
   async function handleAddToBasket() {
-    const result = await fetchAddToBasket({
-      tokenCourse: params.token,
-      tokenStudent: user.token,
-    });
+    if (user) {
+      const result = await fetchAddToBasket({
+        tokenCourse: params.token,
+        tokenStudent: user.token,
+      });
 
-    if (result.message) dispatch(fetchUserBasket(user.token))
+      if (result.message) {
+        dispatch(fetchUserBasket(user.token));
+        triggerToast(setToastState, result.message);
+      } else if (result.error) {
+        triggerToast(setToastState, result.error);
+      }
+    } else {
+      dispatch(toggleSignIn());
+    }
   }
   return (
     <main className="pb-10 relative">
@@ -454,6 +467,9 @@ const Course = ({ params }) => {
           {/* ACCORDIONS end */}
         </div>
       </div>
+      {toastState.active && (
+        <Toast active={toastState.active} data={toastState.text} />
+      )}
       <Loader loading={!fetched} text="قيد التحميل" />
     </main>
   );
