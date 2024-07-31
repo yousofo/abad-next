@@ -1,6 +1,13 @@
 "use client";
 // import "./courses.dev.css";
-import React, { act, useEffect, useMemo, useRef, useState } from "react";
+import React, {
+  act,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import Link from "next/link";
 // redux tool kit
 import { useDispatch, useSelector } from "react-redux";
@@ -61,15 +68,21 @@ async function fetchCoursesCategories() {
 
 // main component
 const CoursesComponent = () => {
+  const [newRender, setNewRender] = useState(false);
   const [data, setData] = useState([]);
   const allCatRef = useRef(null);
   const [coursesCategories, setCoursesCategories] = useState([]);
+
+  //filtering
   const [activeCategory, setActiveCategory] = useState(["all"]);
   const [extraFilter, setExtraFilter] = useState([]);
   const [isCourseOnline, setIsCourseOnline] = useState("");
   const [isCourseHadaf, setIsCourseHadaf] = useState(false);
+  const [minMax, setMinMax] = useState({ min: 0, max: 1200 });
+  // let minMax = useRef({ min: 0, max: 1200 });
+
   const isCards = useSelector((store) => store.coursesFilter.isCards);
-  const user = useSelector(store=>store.userData.info)
+  const user = useSelector((store) => store.userData.info);
   const dispatch = useDispatch();
   const COLUMNS = [
     {
@@ -254,30 +267,31 @@ const CoursesComponent = () => {
   const tableColumns = useMemo(() => COLUMNS, []);
   // const tableData = useMemo(() => data, [data.length]);
 
+  //filter based on categories + attendance + hadaf
   const filteredData = useMemo(
     () =>
       data.filter((e) => {
         if (activeCategory.includes("all")) {
+          //online and hadaf filter
           if (isCourseOnline == "online") {
             if (isCourseHadaf) {
-              console.log("here");
-              return e.isOnline.length > 1 && e.hadaf?.length > 1;
+              return e.isOnline == "أونلاين" && e.hadaf?.length > 1;
             } else {
-              return e.isOnline.length > 1;
+              return e.isOnline == "أونلاين";
             }
-          } else if (isCourseOnline) {
+          } else if (isCourseOnline == "attendance") {
             if (isCourseHadaf) {
-              return !(e.isOnline.length > 1) && e.hadaf?.length > 1;
+              return !(e.isOnline == "أونلاين") && e.hadaf?.length > 1;
             } else {
-              return !(e.isOnline.length > 1);
+              return !(e.isOnline == "أونلاين");
             }
           } else if (isCourseHadaf) {
-            console.log("in hadaf");
             return e.hadaf?.length > 1;
           } else {
             return true;
           }
         } else {
+          //filter courses categories
           const isCategory = activeCategory.includes(e.categoryId);
           if (isCourseOnline == "online") {
             if (isCourseHadaf) {
@@ -285,11 +299,11 @@ const CoursesComponent = () => {
             } else {
               return e.isOnline && isCategory;
             }
-          } else if (isCourseOnline) {
+          } else if (isCourseOnline == "attendance") {
             if (isCourseHadaf) {
-              return !e.isOnline && isCategory && e.hadaf;
+              return !(e.isOnline == "أونلاين") && isCategory && e.hadaf;
             } else {
-              return !e.isOnline && isCategory;
+              return !(e.isOnline == "أونلاين") && isCategory;
             }
           } else if (isCourseHadaf) {
             return e.hadaf && isCategory;
@@ -301,16 +315,28 @@ const CoursesComponent = () => {
     [activeCategory, data.length, isCourseHadaf, isCourseOnline]
   );
 
-  const sortedData = React.useMemo(() => {
-    return [...filteredData].sort((a, b) => {
+  console.log(filteredData);
+  //filter bases on price after first filter
+  const priceFilter = useMemo(() => {
+    console.log("priceFilter");
+    return filteredData.filter(
+      (e) => e.price >= minMax.min && e.price <= minMax.max
+    );
+  }, [minMax.min, minMax.max, filteredData.length]);
+
+  console.log(priceFilter);
+  //latest filter
+  const sortedData = useMemo(() => {
+    return [...priceFilter].sort((a, b) => {
       if (sortOrder === "latest") {
         return new Date(b.startDate) - new Date(a.startDate);
       } else {
         return new Date(a.startDate) - new Date(b.startDate);
       }
     });
-  }, [filteredData.length, sortOrder]);
+  }, [priceFilter.length, sortOrder]);
 
+  console.log(sortedData);
   const tableInstance = useTable(
     { columns: tableColumns, data: sortedData },
     useGlobalFilter,
@@ -341,7 +367,7 @@ const CoursesComponent = () => {
       setActiveCategory((pre) => pre.filter((ele) => ele != code));
     }
   }
-
+  console.log("rendered courses");
   useEffect(() => {
     allCatRef.current.checked = true;
     fetchCoursesCategories()
@@ -361,6 +387,9 @@ const CoursesComponent = () => {
         console.log("home courses");
         console.log(e);
       });
+  }, []);
+  const handleSliderChange = useCallback(({ min, max }) => {
+    setMinMax({ min, max });
   }, []);
   return (
     <>
@@ -417,10 +446,8 @@ const CoursesComponent = () => {
                 <h4 className="font-bold text-xs">السعر</h4>
                 <MultiRangeSlider
                   min={0}
-                  max={1000}
-                  onChange={({ min, max }) =>
-                    console.log(`min = ${min}, max = ${max}`)
-                  }
+                  max={1200}
+                  onChange={handleSliderChange}
                 />
               </div>
               <div className="flex flex-col gap-[10px] [&>div]:flex [&>div]:items-center [&>div]:gap-1">
