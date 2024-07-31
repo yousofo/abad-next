@@ -136,8 +136,9 @@ const SignUp = () => {
           />
           <p className="input-error">{errors.arabicName?.message}</p>
         </div>
+
         {/* name english ! */}
-        <div className="input">
+        {/* <div className="input">
           <label htmlFor="">الاسم الرباعي بالانجليزي*</label>
           <input
             type="text"
@@ -150,7 +151,8 @@ const SignUp = () => {
             placeholder="type your name"
           />
           <p className="input-error">{errors.englishName?.message}</p>
-        </div>
+        </div> */}
+
         {/* id ! */}
         <div className="input">
           <label htmlFor="">رقم الهوية*</label>
@@ -166,6 +168,7 @@ const SignUp = () => {
           />
           <p className="input-error">{errors.idNumber?.message}</p>
         </div>
+
         {/* nationality ! */}
         <div className="input nationality">
           <label htmlFor="signUpGender">الجنسية*</label>
@@ -187,6 +190,7 @@ const SignUp = () => {
           </div>
           <p className="input-error">{errors.nationality?.message}</p>
         </div>
+
         {/* email !*/}
         <div className="input">
           <label htmlFor="">عنوان البريد الإلكتروني*</label>
@@ -205,6 +209,7 @@ const SignUp = () => {
           />
           <p className="input-error">{errors.signUpEmail?.message}</p>
         </div>
+
         {/* phone */}
         <div className="input">
           <label htmlFor="">الهاتف</label>
@@ -217,6 +222,7 @@ const SignUp = () => {
           />
           <p className="input-error">{errors.phone?.message}</p>
         </div>
+
         {/* birthDate */}
         <div className="input">
           <label htmlFor="signUpDate">تاريخ الميلاد</label>
@@ -231,6 +237,7 @@ const SignUp = () => {
           />
           <p className="input-error">{errors.birthDate?.message}</p>
         </div>
+
         {/* gender ! */}
         <div className="input">
           <label htmlFor="signUpGender">الجنس*</label>
@@ -251,6 +258,7 @@ const SignUp = () => {
           </div>
           <p className="input-error">{errors.gender?.message}</p>
         </div>
+
         {/* educationsType */}
         <div className="input">
           <label htmlFor="">المؤهل العلمي</label>
@@ -265,6 +273,7 @@ const SignUp = () => {
           />
           <p className="input-error">{errors.educationsType?.message}</p>
         </div>
+
         {/* city  ! */}
         <div className="input">
           <label htmlFor="signUpGender">المدينة*</label>
@@ -286,6 +295,7 @@ const SignUp = () => {
           </div>
           <p className="input-error">{errors.city?.message}</p>
         </div>
+
         {/* password ! */}
         <div className="input">
           <label htmlFor="">كلمة المرور*</label>
@@ -300,6 +310,7 @@ const SignUp = () => {
           />
           <p className="input-error">{errors.signUpPassword?.message}</p>
         </div>
+
         {/* confirm password ! */}
         <div className="input">
           <label htmlFor="">تأكيد كلمة المرور*</label>
@@ -314,6 +325,7 @@ const SignUp = () => {
           />
           <p className="input-error">{errors.signUpConfirmPassword?.message}</p>
         </div>
+        
         {/* general error */}
         <p
           style={{ display: generalError ? "block" : "none" }}
