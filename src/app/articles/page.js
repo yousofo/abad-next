@@ -1,12 +1,11 @@
 import React from 'react'
 import "./articles.css"
-import Link from 'next/link';
 import ArticlesComp from '@/components/dataFetching/articles/ArticlesComp';
 
 const Articles = () => {
 
   return (
-    <main>
+    <main className='relative'>
       {/* HERO start  */}
       <section className="hero h-dvh md:min-h-[600px] md:h-auto relative">
         <div className="intro text-center absolute flex flex-col items-center h-full justify-center gap-5 md:gap-7 text-white w-full max-w-full px-4">

@@ -9,7 +9,13 @@ const CourseCard = ({ index, data }) => {
   return (
     <figure data-type={data} className="course-card h-full flex flex-col">
       <div className="img flex-1 flex items-center justify-center">
-        <img  src={data.imageUrl} alt="" />
+        <img
+          src={data.imageUrl}
+          onError={(event) =>
+            (event.target.src = "/media/placeholders/abad-placeholder.png")
+          }
+          alt=""
+        />
       </div>
       <figcaption>
         <h4>{data.courseName}</h4>

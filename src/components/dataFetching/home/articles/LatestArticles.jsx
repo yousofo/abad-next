@@ -17,7 +17,7 @@ const LatestArticles = () => {
           <article>
             <div className="article-wrapper">
               <div className="img relative">
-                <img src="/media/Iamge.png" alt="" />
+                <img src={e.image} alt="article image" onError={(event)=>event.target.src="/media/Iamge.png"}/>
                 <span className="abosulute article-tag article-tag-blue">
                   {e.coursesTypeCode}
                 </span>

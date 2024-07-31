@@ -1,5 +1,4 @@
 "use client";
-import Loader from "@/components/shared/Loader/component/Loader";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 
@@ -24,26 +23,16 @@ async function fetchArticles() {
 }
 
 const Article = ({ data }) => {
-  const [image, setImage] = useState(false);
   return (
     <Link href={`/articles/${data?.token}`} className="h-full relative">
       <article className="h-full">
         <div className="article-wrapper overflow-hidden h-full flex flex-col gap-3 rounded-xl">
           <div className="img relative flex-1">
             <img
-              className={`${
-                image && "hidden"
-              } h-full max-h-[188px] object-cover w-full`}
-              src="/media/Iamge.png"
-              alt=""
-            />
-            <img
-              className={`${
-                !image && "hidden"
-              } h-full max-h-[188px] object-cover w-full`}
+              className={`h-full max-h-[188px] object-cover w-full`}
               src={data?.image}
               alt=""
-              onLoad={() => setImage(true)}
+              onError={(event) => (event.target.src = "/media/Iamge.png")}
             />
             <span className="abosulute article-tag article-tag-yellow">
               القصص
@@ -55,7 +44,6 @@ const Article = ({ data }) => {
           </div>
         </div>
       </article>
-      <Loader loadeing={image} />
     </Link>
   );
 };
@@ -64,6 +52,7 @@ const ArticlesComp = () => {
   const [data, setData] = useState([]);
   const [filteredArticles, setFilteredArticles] = useState(data);
   const [searchInput, setSearchInput] = useState([]);
+
 
   useEffect(() => {
     fetchArticles()
@@ -132,12 +121,11 @@ const ArticlesComp = () => {
       {/* search bar end */}
       {/* ARTICLES start */}
       <div className="articles relative mx-auto grid sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:pb-[5%] pt-10 ">
-      {filteredArticles.map((e, i) => (
-        <Article key={i} data={e} />
-      ))}
+        {filteredArticles.map((e, i) => (
+          <Article key={i} data={e} />
+        ))}
       </div>
       {/* ARTICLES end */}
-      
     </>
   );
 };
