@@ -77,7 +77,7 @@ const CoursesComponent = () => {
   const [activeCategory, setActiveCategory] = useState(["all"]);
   const [isCourseOnline, setIsCourseOnline] = useState("");
   const [isCourseHadaf, setIsCourseHadaf] = useState(false);
-  const [minMax, setMinMax] = useState({ min: 0, max: 1200 });
+  const [minMax, setMinMax] = useState({ min: 0, max: 15000 });
   const [sortOrder, setSortOrder] = useState("latest"); // or 'newest'
 
   // table info
@@ -444,7 +444,7 @@ const CoursesComponent = () => {
                 <h4 className="font-bold text-xs">السعر</h4>
                 <MultiRangeSlider
                   min={0}
-                  max={1200}
+                  max={15000}
                   onChange={handleSliderChange}
                 />
               </div>

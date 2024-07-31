@@ -3,17 +3,21 @@ import { useDispatch, useSelector } from "react-redux";
 import "./footer.css";
 import Link from "next/link";
 import { toggleSignIn, toggleSignUp } from "../GlobalState/Features/authSlice";
+import triggerToast from "@/helperFunctions/triggerToast";
+import { useState } from "react";
+import Toast from "../shared/toasts/Toast";
 
 const Footer = () => {
   const dispatch = useDispatch();
   const userInfo = useSelector((store) => store.userData.info);
-
+  const [toast1, setToast1] = useState({ active: false, text: "" });
+  const [toast2, setToast2] = useState({ active: false, text: "" });
   function handleSignIn() {
-    if (userInfo) alert("انت مسجل بالفعل");
+    if (userInfo) triggerToast(setToast1, "انت مسجل بالفعل");
     else dispatch(toggleSignIn());
   }
   function handleSignUp() {
-    if (userInfo) alert("انت مسجل بالفعل");
+    if (userInfo) triggerToast(setToast2, "انت مسجل بالفعل");
     else dispatch(toggleSignUp());
   }
   return (
@@ -119,6 +123,8 @@ const Footer = () => {
           <a href="mailto:hello@nesa.com">hello@nesa.com</a>
         </li>
       </ul>
+      {toast1.active && <Toast active={toast1.active} data={toast1.text} />}
+      {toast2.active && <Toast active={toast2.active} data={toast2.text} />}
     </footer>
   );
 };
