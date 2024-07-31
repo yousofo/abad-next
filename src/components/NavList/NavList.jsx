@@ -18,7 +18,7 @@ import User from "./User";
 
 const NavList = () => {
   const active = useSelector((state) => state.navList.active);
-  const isSignedIn = useSelector((store) => store.auth.isSignedIn);
+  const userInfo = useSelector((store) => store.userData.info);
   const [isClient, setIsClient] = useState(false);
   const router = useRouter();
   useEffect(() => {
@@ -90,7 +90,7 @@ const NavList = () => {
           </div>
         </div>
         <ul className="text-[#424242]">
-          {isSignedIn && (
+          {userInfo && (
             <li>
               <User />
             </li>
@@ -119,7 +119,7 @@ const NavList = () => {
             </Link>
           </li>
         </ul>
-        {isSignedIn ? (
+        {userInfo ? (
           <button
             suppressHydrationWarning={true}
             className="mt-auto px-5 flex gap-1 w-fit items-center"
