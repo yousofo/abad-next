@@ -2,16 +2,18 @@
 import React, { useEffect, useState } from "react";
 import fetchCheckCourse from "@/helperFunctions/fetchCheckCourse";
 import fetchCoursesWithTypes from "@/helperFunctions/fetchCoursesWithTypes";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 
 //helper component
 const MiniNavItem = ({ data }) => {
   const [innerList, setInnerList] = useState(false);
   const router = useRouter()
+
   function handleClick(e) {
     e.stopPropagation();
     setInnerList(!innerList);
   }
+  
   async function handleCourseClicked(courseToken) {
     const result = await fetchCheckCourse(courseToken);
     if (result.courseExists) {
@@ -65,6 +67,7 @@ const MiniNavItem = ({ data }) => {
 const MiniNav = () => {
   const [outerList, setOuterList] = useState(false);
   const [data, setData] = useState([]);
+
   useEffect(() => {
     fetchCoursesWithTypes()
       .then((e) => setData(e))
