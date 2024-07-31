@@ -41,11 +41,11 @@
   }
 
   .slider__left-value {
-    left: 6px;
+    left: -21px;
   }
 
   .slider__right-value {
-    right: -4px;
+    right: -21px;
   }
 
   /* Removing the default appearance */
