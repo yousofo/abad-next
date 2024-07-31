@@ -60,7 +60,7 @@ const MiniNavItem = ({ data }) => {
       >
         {data.courses.map((e, i) => (
           <li key={i}>
-            <button onClick={()=>handleCourseClicked(e.courseToken)} className="text-start w-full block p-1.5 underline underline-offset-4 decoration-blue-700">{e.courseName}</button>
+            <div onClick={()=>handleCourseClicked(e.courseToken)} className="text-start w-full block p-1.5 underline underline-offset-4 decoration-blue-700">{e.courseName}</div>
           </li>
         ))}
       </ul>
