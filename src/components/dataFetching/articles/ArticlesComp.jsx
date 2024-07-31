@@ -27,20 +27,22 @@ const Article = ({ data }) => {
     <Link href={`/articles/${data?.token}`} className="h-full relative">
       <article className="h-full">
         <div className="article-wrapper overflow-hidden h-full flex flex-col gap-3 rounded-xl">
-          <div className="img relative flex-1">
-            <img
-              className={`h-full max-h-[188px] object-cover w-full`}
-              src={data?.image}
-              alt=""
-              onError={(event) => (event.target.src = "/media/Iamge.png")}
-            />
-            <span className="abosulute article-tag article-tag-yellow">
-              القصص
-            </span>
+          <div className="img ">
+            <div className="relative">
+              <img
+                className={`h-full max-h-[188px] object-cover w-full`}
+                src={data?.image}
+                alt=""
+                onError={(event) => (event.target.src = "/media/Iamge.png")}
+              />
+              <span className="abosulute article-tag article-tag-yellow">
+                القصص
+              </span>
+            </div>
           </div>
-          <div>
+          <div className=" flex-1">
             <p>{data?.formattedDate}</p>
-            <h3>{data?.title}</h3>
+            <h3 className="max-h-20 overflow-auto">{data?.title}</h3>
           </div>
         </div>
       </article>
@@ -52,7 +54,6 @@ const ArticlesComp = () => {
   const [data, setData] = useState([]);
   const [filteredArticles, setFilteredArticles] = useState(data);
   const [searchInput, setSearchInput] = useState([]);
-
 
   useEffect(() => {
     fetchArticles()
