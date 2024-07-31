@@ -3,7 +3,7 @@ import React from "react";
 import "./newPassword.css";
 import { useDispatch } from "react-redux";
 import { toggleNewPassword } from "@/components/GlobalState/Features/authSlice";
-const NewPassword = ({params}) => {
+const NotFound = ({params}) => {
   const dispatch = useDispatch();
   function handleClick(e){
     e.preventDefault()
@@ -41,4 +41,4 @@ const NewPassword = ({params}) => {
   );
 };
 
-export default NewPassword;
+export default NotFound;
