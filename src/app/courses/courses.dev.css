@@ -179,10 +179,10 @@
         display: table-row-group;
       }
       span.online {
-        color: #0dc00d;
+        color: #df2121;
       }
       span.in-person {
-        color: #df2121;
+        color: #0dc00d;
       }
     }
     @media (min-width: 640px) {
