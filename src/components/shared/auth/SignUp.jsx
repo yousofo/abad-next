@@ -231,6 +231,7 @@ const SignUp = () => {
             name=""
             placeholder=""
             id="birthDate"
+            className="w-full"
             {...register("birthDate", {
               required: "يجب ادخال تاريخ الميلاد",
             })}
@@ -325,7 +326,7 @@ const SignUp = () => {
           />
           <p className="input-error">{errors.signUpConfirmPassword?.message}</p>
         </div>
-        
+
         {/* general error */}
         <p
           style={{ display: generalError ? "block" : "none" }}
