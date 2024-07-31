@@ -1,11 +1,21 @@
 "use client";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import "./footer.css";
 import Link from "next/link";
 import { toggleSignIn, toggleSignUp } from "../GlobalState/Features/authSlice";
 
 const Footer = () => {
   const dispatch = useDispatch();
+  const userInfo = useSelector((store) => store.userData.info);
+
+  function handleSignIn() {
+    if (userInfo) alert("انت مسجل بالفعل");
+    else dispatch(toggleSignIn());
+  }
+  function handleSignUp() {
+    if (userInfo) alert("انت مسجل بالفعل");
+    else dispatch(toggleSignUp());
+  }
   return (
     <footer className="bg-[#303030] p-10">
       <ul className="container text-white flex-col gap-6 md:gap-0 flex md:flex-row justify-between items-start max-w-screen-lg mx-auto">
@@ -98,8 +108,8 @@ const Footer = () => {
         <li className="footer-general">
           <h4>نظرة عامة</h4>
           <Link href="/privacy">الخصوصية و الاستخدام</Link>
-          <button onClick={() => dispatch(toggleSignIn())}>تسجيل الدخول</button>
-          <button onClick={() => dispatch(toggleSignUp())}>التسجيل</button>
+          <button onClick={handleSignIn}>تسجيل الدخول</button>
+          <button onClick={handleSignUp}>التسجيل</button>
         </li>
         <li className="footer-contact">
           <h4>يتصل:</h4>

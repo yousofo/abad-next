@@ -14,8 +14,10 @@ import {
   toggleCoursesNav,
 } from "../GlobalState/Features/coursesNavSlice";
 import CoursesNav from "./CoursesNav";
-import { fetchUserBasket } from "../GlobalState/Features/userData";
-
+import {
+  fetchUserBasket,
+  toggleUpdateInfo,
+} from "../GlobalState/Features/userData";
 
 const Header = () => {
   const [singedInState, setSingedInState] = useState(false);
@@ -34,6 +36,7 @@ const Header = () => {
   }
   function handleSignOut() {
     dispatch(toggleResetAuth());
+    dispatch(toggleUpdateInfo(null));
     setSingedInState(false);
   }
   function handleBasket(e) {
@@ -210,10 +213,7 @@ const Header = () => {
           <li>
             <Link href="/">الرئيسية</Link>
           </li>
-          <li
-            onClick={handleCoursesNav}
-            className={`p-2 py-4`}
-          >
+          <li onClick={handleCoursesNav} className={`p-2 py-4`}>
             <Link href="/courses">الدورات</Link>
             <img src="/media/btns/angle-bottom.png" alt="" />
             <CoursesNav />
