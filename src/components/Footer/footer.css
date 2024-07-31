@@ -20,8 +20,9 @@ footer li {
   gap: 15px;
   font-size: 15px;
 }
-footer li a {
+footer li a,footer li button {
   font-weight: 300;
+  text-align: start;
 }
 @media (max-width: 639px) {
   .footer-contact {

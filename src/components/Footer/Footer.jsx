@@ -1,14 +1,17 @@
-import React from "react";
+"use client";
+import { useDispatch } from "react-redux";
 import "./footer.css";
 import Link from "next/link";
+import { toggleSignIn, toggleSignUp } from "../GlobalState/Features/authSlice";
 
 const Footer = () => {
+  const dispatch = useDispatch();
   return (
     <footer className="bg-[#303030] p-10">
       <ul className="container text-white flex-col gap-6 md:gap-0 flex md:flex-row justify-between items-start max-w-screen-lg mx-auto">
         <li className="max-w-[370px]">
           <img src="/media/logos/abad-logo.png" className="max-w-44" alt="" />
-          <p className="noto my-3">
+          <p className="noto my-3 leading-normal">
             ومعهد شبكة آباد للتدريب من المعاهد الرائدة في تقديم الدورات
             التطويرية المتخصصة في تقنية المعلومات. معهد شبكة آباد للتدريب من
             المعاهد الرائدة في تقديم الدورات التطويرية المتخصصة في تقنية
@@ -95,10 +98,8 @@ const Footer = () => {
         <li className="footer-general">
           <h4>نظرة عامة</h4>
           <Link href="/privacy">الخصوصية و الاستخدام</Link>
-          <Link href="#">قصة العميل </Link>
-          <Link href="#">تسجيل الدخول</Link>
-          <Link href="#">التسجيل</Link>
-          <Link href="#">دليل النمط</Link>
+          <button onClick={() => dispatch(toggleSignIn())}>تسجيل الدخول</button>
+          <button onClick={() => dispatch(toggleSignUp())}>التسجيل</button>
         </li>
         <li className="footer-contact">
           <h4>يتصل:</h4>

@@ -15,22 +15,24 @@ footer {
   }
   li {
     flex-direction: column;
-    a{
-      font-weight:300;
+    a,
+    button {
+      font-weight: 300;
+      text-align: start;
     }
     display: flex;
     gap: 15px;
     font-size: 15px;
   }
 }
-@media (max-width:639px) {
-  .footer-contact{
+@media (max-width: 639px) {
+  .footer-contact {
     order: 2;
   }
-  .footer-general{
+  .footer-general {
     order: 3;
   }
-  .footer-pages{
+  .footer-pages {
     order: 4;
   }
 }
