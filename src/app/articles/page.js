@@ -1,6 +1,6 @@
 import React from 'react'
 import "./articles.css"
-import ArticlesComp from '@/components/dataFetching/articles/ArticlesComp';
+import ArticlesFilteringWrapper from '@/components/articles/ArticlesFilteringWrapper'
 
 const Articles = () => {
 
@@ -35,7 +35,7 @@ const Articles = () => {
       {/* HERO end  */}
       {/* main secion start */}
       <section className="p-8 w-full max-w-screen-lg mx-auto h-auto">
-        <ArticlesComp/>
+        <ArticlesFilteringWrapper/>
       </section>
     </main>
   )

@@ -7,6 +7,7 @@ import NavList from "@/components/NavList/NavList";
 import PopUps from "@/components/PopUps/PopUps";
 import BrowserWarning from "@/components/shared/browser-support/BrowserWarning";
 import Script from 'next/script'
+import { ToastContainer } from "react-toastify";
 
 // import localFont from 'next/font/local'
 
@@ -143,6 +144,7 @@ export default function RootLayout({ children }) {
         <StateProvider>
           <Authentication />
           <NavList />
+          <ToastContainer />
           <PopUps />
           <Header />
           {children}

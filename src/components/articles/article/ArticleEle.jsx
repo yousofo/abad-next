@@ -30,6 +30,7 @@ const ArticleEle = ({ data }) => {
             onError={(event) => {
               event.target.src = "/media/placeholders/user-image.png";
             }}
+            alt="tat"
           />
           <div>
             <h2 className="text-[#151318] text-sm">{data?.author}</h2>

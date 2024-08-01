@@ -7,10 +7,11 @@ import { notFound, useRouter } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";
 import Loader from "@/components/shared/Loader/component/Loader";
 import { fetchUserBasket } from "@/components/GlobalState/Features/userData";
-import Toast from "@/components/shared/toasts/Toast";
+// import Toast from "@/components/shared/toasts/Toast";
 import { toggleSignIn } from "@/components/GlobalState/Features/authSlice";
-import triggerToast from "@/helperFunctions/triggerToast";
+// import triggerToast from "@/helperFunctions/triggerToast";
 import Link from "next/link";
+import { toast } from "react-toastify";
 
 async function fetchCourseDetails(token) {
   try {
@@ -79,7 +80,7 @@ async function fetchAddToBasket(data) {
 const Course = ({ params }) => {
   const [courseImg, setCourseImg] = useState("/media/course/course-image.png");
   const [fetched, setFetched] = useState(false);
-  const [toastState, setToastState] = useState({ active: false, text: "" });
+  // const [toastState, setToastState] = useState({ active: false, text: "" });
   let isMounted = useRef(false);
   const router = useRouter();
   const dispatch = useDispatch();
@@ -163,9 +164,11 @@ const Course = ({ params }) => {
 
       if (result.message) {
         dispatch(fetchUserBasket(user.token));
-        triggerToast(setToastState, result.message);
+        // triggerToast(setToastState, result.message);
+        toast.success(result.message);
       } else if (result.error) {
-        triggerToast(setToastState, result.error);
+        // triggerToast(setToastState, result.error);
+        toast.error(result.error);
       }
     } else {
       dispatch(toggleSignIn());
@@ -468,9 +471,9 @@ const Course = ({ params }) => {
           {/* ACCORDIONS end */}
         </div>
       </div>
-      {toastState.active && (
+      {/* {toastState.active && (
         <Toast active={toastState.active} data={toastState.text} />
-      )}
+      )} */}
       <Loader loading={!fetched} text="قيد التحميل" />
     </main>
   );

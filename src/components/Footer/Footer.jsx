@@ -3,21 +3,22 @@ import { useDispatch, useSelector } from "react-redux";
 import "./footer.css";
 import Link from "next/link";
 import { toggleSignIn, toggleSignUp } from "../GlobalState/Features/authSlice";
-import triggerToast from "@/helperFunctions/triggerToast";
+// import triggerToast from "@/helperFunctions/triggerToast";
 import { useState } from "react";
-import Toast from "../shared/toasts/Toast";
+import { toast } from "react-toastify";
+// import Toast from "../shared/toasts/Toast";
 
 const Footer = () => {
   const dispatch = useDispatch();
   const userInfo = useSelector((store) => store.userData.info);
-  const [toast1, setToast1] = useState({ active: false, text: "" });
-  const [toast2, setToast2] = useState({ active: false, text: "" });
+  // const [toast1, setToast1] = useState({ active: false, text: "" });
+  // const [toast2, setToast2] = useState({ active: false, text: "" });
   function handleSignIn() {
-    if (userInfo) triggerToast(setToast1, "انت مسجل بالفعل");
+    if (userInfo) toast("انت مسجل بالفعل");
     else dispatch(toggleSignIn());
   }
   function handleSignUp() {
-    if (userInfo) triggerToast(setToast2, "انت مسجل بالفعل");
+    if (userInfo) toast("انت مسجل بالفعل");
     else dispatch(toggleSignUp());
   }
   return (
@@ -123,8 +124,8 @@ const Footer = () => {
           <a href="mailto:Info@abadnet.com.sa">Info@abadnet.com.sa</a>
         </li>
       </ul>
-      {toast1.active && <Toast active={toast1.active} data={toast1.text} />}
-      {toast2.active && <Toast active={toast2.active} data={toast2.text} />}
+      {/* {toast1.active && <Toast active={toast1.active} data={toast1.text} />} */}
+      {/* {toast2.active && <Toast active={toast2.active} data={toast2.text} />} */}
     </footer>
   );
 };

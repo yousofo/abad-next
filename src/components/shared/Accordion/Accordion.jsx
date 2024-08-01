@@ -3,9 +3,11 @@ import { useForm } from "react-hook-form";
 import "./accordion.css";
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
+import { toast } from "react-toastify";
 
 const AccordionForm = ({ form, token }) => {
-  const { fetchRegisterCourseRequest, setLoading, triggerToast } = form;
+  // const { fetchRegisterCourseRequest, setLoading, triggerToast } = form;
+  const { fetchRegisterCourseRequest, setLoading } = form;
   const user = useSelector(store=>store.userData.info)
   const [generalError, setGeneralError] = useState("");
   // react-hook-form
@@ -36,7 +38,8 @@ const AccordionForm = ({ form, token }) => {
         //   }
         // });
       } else if (result?.message) {
-        triggerToast(result?.message);
+        // triggerToast(result?.message);
+        toast(result?.message)
       } else {
         if (result.error) {
           setGeneralError(result.error);
@@ -45,7 +48,8 @@ const AccordionForm = ({ form, token }) => {
         }
       }
     }else{
-      triggerToast("سجل الدخول اولا")
+      // triggerToast("سجل الدخول اولا")
+      toast("سجل الدخول اولا")
     }
 
     setLoading(false);

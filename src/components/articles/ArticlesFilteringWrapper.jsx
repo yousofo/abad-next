@@ -1,6 +1,6 @@
 "use client";
-import Link from "next/link";
 import React, { useEffect, useState } from "react";
+import ArticlesItem from "./ArticlesItem";
 
 async function fetchArticles() {
   try {
@@ -22,35 +22,7 @@ async function fetchArticles() {
   }
 }
 
-const Article = ({ data }) => {
-  return (
-    <Link href={`/articles/${data?.token}`} className="h-full relative">
-      <article className="h-full">
-        <div className="article-wrapper overflow-hidden h-full flex flex-col gap-3 rounded-xl">
-          <div className="img ">
-            <div className="relative">
-              <img
-                className={`h-full max-h-[188px] object-cover w-full`}
-                src={data?.image}
-                alt=""
-                onError={(event) => (event.target.src = "/media/Iamge.png")}
-              />
-              <span className="abosulute article-tag article-tag-yellow">
-                القصص
-              </span>
-            </div>
-          </div>
-          <div className=" flex-1">
-            <p>{data?.formattedDate}</p>
-            <h3 className="max-h-20 overflow-auto">{data?.title}</h3>
-          </div>
-        </div>
-      </article>
-    </Link>
-  );
-};
-
-const ArticlesComp = () => {
+export default function ArticlesFilteringWrapper() {
   const [data, setData] = useState([]);
   const [filteredArticles, setFilteredArticles] = useState(data);
   const [searchInput, setSearchInput] = useState([]);
@@ -123,12 +95,10 @@ const ArticlesComp = () => {
       {/* ARTICLES start */}
       <div className="articles relative mx-auto grid sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:pb-[5%] pt-10 ">
         {filteredArticles.map((e, i) => (
-          <Article key={i} data={e} />
+          <ArticlesItem key={i} data={e} />
         ))}
       </div>
       {/* ARTICLES end */}
     </>
   );
 };
-
-export default ArticlesComp;
