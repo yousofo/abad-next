@@ -48,7 +48,7 @@ table {
     list-style: decimal;
   }
   ul{
-    list-style: circle;
+    list-style: disc;
   }
 }
 .accordion-item {

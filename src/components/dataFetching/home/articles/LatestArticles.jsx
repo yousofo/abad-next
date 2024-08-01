@@ -1,15 +1,7 @@
-"use client";
+"use client"
 import Link from "next/link";
-import React, { useEffect, useState } from "react";
 
-const LatestArticles = () => {
-  const [data, setData] = useState([]);
-  console.log(data);
-  useEffect(() => {
-    fetch("/api/articles/getLatestArticles")
-      .then((e) => e.json())
-      .then((e) => setData(e));
-  }, []);
+const LatestArticles = ({ data }) => {
   return (
     <div className="container lg:max-w-screen-lg mx-auto grid sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-[1.5%] sm:pb-[6%] pt-10">
       {data.map((article, i) => (

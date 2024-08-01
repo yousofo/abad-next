@@ -94,7 +94,7 @@ const Course = ({ params }) => {
     categoryId: 1,
     categoryName: "أمن المعلومات",
     price: 1200,
-    imageUrl: "https://newabad.abadnet.com.sa/Admin/CoursesDataImage/1",
+    imageUrl: "",
     summaryAr: "<p><label>اسم الدوره بالانجليزي</label></p>",
     goalsAr: "<p><label>اسم الدوره بالانجليزي</label></p>",
     targetAr: "<p><label>اسم الدوره بالانجليزي</label></p>",
@@ -321,7 +321,7 @@ const Course = ({ params }) => {
 
               <Accordion title="تفاصيل الاختبارات" data={courseInfo.testAr} />
 
-              <Accordion title="مهارات وكفاءات" data={courseInfo.testAr} />
+              <Accordion title="مهارات وكفاءات" data={courseInfo.detailsAr} />
 
               <Accordion
                 title="من يحتاج هذة الدورة"
@@ -458,7 +458,7 @@ const Course = ({ params }) => {
 
             <Accordion title="تفاصيل الاختبارات" data={courseInfo.testAr} />
 
-            <Accordion title="مهارات وكفاءات" data={courseInfo.testAr} />
+            <Accordion title="مهارات وكفاءات" data={courseInfo.detailsAr} />
 
             <Accordion title="من يحتاج هذة الدورة" data={courseInfo.targetAr} />
 

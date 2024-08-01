@@ -101,6 +101,6 @@ table td:nth-child(2) {
     list-style: decimal;
   }
   ul{
-    list-style: circle;
+    list-style: disc;
   }
 }

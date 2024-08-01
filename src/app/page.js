@@ -5,8 +5,10 @@ import PartnersSwiper from "@/components/shared/swipers/PartnersSwiper";
 import HomeCourses from "@/components/dataFetching/home/HomeCourses";
 import LatestArticles from "@/components/dataFetching/home/articles/LatestArticles";
 import Toast from "@/components/shared/toasts/Toast";
+import { fetchLatestArticles } from "@/helperFunctions/serverFetching";
 
-export default function Home() {
+export default async function Home() {
+  const latestArticles = await fetchLatestArticles()
   // console.log(document.querySelectorAll("link[rel='preload'][as='style']"));
   // document.querySelectorAll("link[rel='preload'][as='style']").forEach(link => link.rel = "stylesheet")
 
@@ -292,7 +294,7 @@ export default function Home() {
         <h2 className="text-2xl md:text-4xl text-center font-bold mx-auto my-7 w-fit text-[#1E1E1E]">
           ألقِ نظرة على أحدث المقالات
         </h2>
-        <LatestArticles />
+        <LatestArticles data={latestArticles} />
       </section>
       {/* ARTICLES end */}
       {/* CONTACT start */}
