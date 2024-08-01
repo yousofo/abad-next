@@ -1,7 +1,5 @@
 "use client";
-// import Toast from "@/components/shared/toasts/Toast";
-// import triggerToast from "@/helperFunctions/triggerToast";
-import React, { useRef, useState } from "react";
+import React, { useRef } from "react";
 import { toast } from "react-toastify";
 
 async function fetchSubscripe(data) {
@@ -13,12 +11,10 @@ async function fetchSubscripe(data) {
     body: JSON.stringify(data),
   });
   const requestData = await request.json();
-  if (request.status >= 200 && request.status < 300) return requestData;
-  else throw new Error(requestData);
+  return requestData;
 }
 
 const SubscriptionWithEmail = () => {
-  // const [toastAlert, setToastAlert] = useState({ active: false, text: "" });
   let email = useRef();
   let name = useRef();
 
@@ -28,8 +24,7 @@ const SubscriptionWithEmail = () => {
       name: name.current.value,
       email: email.current.value,
     });
-    toast(setToastAlert, result);
-    console.log(result);
+    toast(result);
   }
   return (
     <>
@@ -112,10 +107,6 @@ const SubscriptionWithEmail = () => {
           ارسال
         </button>
       </form>
-
-      {/* {toastAlert && (
-        <Toast active={toastAlert.active} data={toastAlert.text} />
-      )} */}
     </>
   );
 };

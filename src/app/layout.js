@@ -6,8 +6,8 @@ import Authentication from "@/components/shared/auth/Authentication";
 import NavList from "@/components/NavList/NavList";
 import PopUps from "@/components/PopUps/PopUps";
 import BrowserWarning from "@/components/shared/browser-support/BrowserWarning";
-import Script from 'next/script'
 import { ToastContainer } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 // import localFont from 'next/font/local'
 
