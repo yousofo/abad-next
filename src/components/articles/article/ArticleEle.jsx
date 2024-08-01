@@ -7,7 +7,7 @@ const ArticleEle = ({ data }) => {
     "/media/placeholders/user-image.png"
   );
   const [articleImg, setArticleImg] = useState(
-    "/media/placeholders/articles-placeholder.png"
+    "/media/placeholders/abad-placeholder.png"
   );
   //
   useEffect(() => {
