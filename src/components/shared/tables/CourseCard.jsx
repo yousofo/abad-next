@@ -18,7 +18,9 @@ const CourseCard = ({ index, data }) => {
         />
       </div>
       <figcaption>
-        <h4>{data.courseName}</h4>
+        <h4>
+          <bdi>{data.courseName}</bdi>
+        </h4>
         <div className="course-date noto">
           <div>
             <img src="/media/calendar.png" alt="" />

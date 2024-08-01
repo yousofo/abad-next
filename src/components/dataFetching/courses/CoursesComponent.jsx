@@ -36,11 +36,10 @@ async function fetchHomeCourse() {
       },
     });
     const data = await request.json();
-    console.log("not error");
     console.log(data);
     return data;
   } catch (error) {
-    console.log("error");
+    console.log("courses filter");
     console.log(error);
   }
 }
@@ -59,8 +58,9 @@ async function fetchCoursesCategories() {
     const data = await request.json();
     console.log(data);
     return data;
-  } catch (e) {
-    console.log(e);
+  } catch (error) {
+    console.log("courses filter");
+    console.log(error);
   }
 }
 
@@ -259,61 +259,61 @@ const CoursesComponent = () => {
   const tableColumns = useMemo(() => COLUMNS, []);
 
   //1st filter based on categories + attendance + hadaf
-  const filteredData = useMemo(
-    () =>
-      data.filter((e) => {
-        if (activeCategory.includes("all")) {
-          //online and hadaf filter
-          if (isCourseOnline == "online") {
-            if (isCourseHadaf) {
-              return e.isOnline == "أونلاين" && e.hadaf?.length > 1;
-            } else {
-              return e.isOnline == "أونلاين";
-            }
-          } else if (isCourseOnline == "attendance") {
-            if (isCourseHadaf) {
-              return !(e.isOnline == "أونلاين") && e.hadaf?.length > 1;
-            } else {
-              return !(e.isOnline == "أونلاين");
-            }
-          } else if (isCourseHadaf) {
-            return e.hadaf?.length > 1;
+  const filteredData = useMemo(() => {
+    console.log("categories + attendance + hadaf Filter");
+    return data.filter((e) => {
+      if (activeCategory.includes("all")) {
+        //online and hadaf filter
+        if (isCourseOnline == "online") {
+          if (isCourseHadaf) {
+            return e.isOnline == "أونلاين" && e.hadaf?.length > 1;
           } else {
-            return true;
+            return e.isOnline == "أونلاين";
           }
+        } else if (isCourseOnline == "attendance") {
+          if (isCourseHadaf) {
+            return !(e.isOnline == "أونلاين") && e.hadaf?.length > 1;
+          } else {
+            return !(e.isOnline == "أونلاين");
+          }
+        } else if (isCourseHadaf) {
+          return e.hadaf?.length > 1;
         } else {
-          //filter courses categories
-          const isCategory = activeCategory.includes(e.categoryId);
-          if (isCourseOnline == "online") {
-            if (isCourseHadaf) {
-              return e.isOnline && isCategory && e.hadaf;
-            } else {
-              return e.isOnline && isCategory;
-            }
-          } else if (isCourseOnline == "attendance") {
-            if (isCourseHadaf) {
-              return !(e.isOnline == "أونلاين") && isCategory && e.hadaf;
-            } else {
-              return !(e.isOnline == "أونلاين") && isCategory;
-            }
-          } else if (isCourseHadaf) {
-            return e.hadaf && isCategory;
-          } else {
-            return isCategory;
-          }
+          return true;
         }
-      }),
-    [activeCategory, data.length, isCourseHadaf, isCourseOnline]
-  );
+      } else {
+        //filter courses categories
+        const isCategory = activeCategory.includes(e.categoryId);
+        if (isCourseOnline == "online") {
+          if (isCourseHadaf) {
+            return e.isOnline && isCategory && e.hadaf;
+          } else {
+            return e.isOnline && isCategory;
+          }
+        } else if (isCourseOnline == "attendance") {
+          if (isCourseHadaf) {
+            return !(e.isOnline == "أونلاين") && isCategory && e.hadaf;
+          } else {
+            return !(e.isOnline == "أونلاين") && isCategory;
+          }
+        } else if (isCourseHadaf) {
+          return e.hadaf && isCategory;
+        } else {
+          return isCategory;
+        }
+      }
+    });
+  }, [activeCategory, data.length, isCourseHadaf, isCourseOnline]);
   //2nd filter based on price after first filter
   const priceFilter = useMemo(() => {
-    console.log("priceFilter");
+    console.log("filter price");
     return filteredData.filter(
       (e) => e.price >= minMax.min && e.price <= minMax.max
     );
-  }, [minMax.min, minMax.max, filteredData.length]);
+  }, [minMax.min, minMax.max, filteredData, isCourseOnline]);
   //3rd filter - latest
   const sortedData = useMemo(() => {
+    console.log("latest Filter");
     return [...priceFilter].sort((a, b) => {
       if (sortOrder === "latest") {
         return new Date(b.startDate) - new Date(a.startDate);
@@ -321,7 +321,7 @@ const CoursesComponent = () => {
         return new Date(a.startDate) - new Date(b.startDate);
       }
     });
-  }, [priceFilter.length, sortOrder]);
+  }, [priceFilter, sortOrder]);
 
   // initialize table
   const tableInstance = useTable(
@@ -356,7 +356,7 @@ const CoursesComponent = () => {
     setActiveCategory(["all"]);
     setIsCourseOnline("");
     setIsCourseHadaf(false);
-    setMinMax({ min: 0, max: 1200 });
+    setMinMax({ min: 0, max: 15000 });
   }
   function handleChecked(e, code) {
     if (e.target.checked == true) {
@@ -372,18 +372,18 @@ const CoursesComponent = () => {
       .then((e) => {
         setCoursesCategories(e);
       })
-      .catch((e) => {
-        console.log("home courses");
-        console.log(e);
+      .catch((error) => {
+        console.log("courses filter");
+        console.log(error);
       });
     fetchHomeCourse()
       .then((e) => {
         setData(e);
         setPageSize(6);
       })
-      .catch((e) => {
-        console.log("home courses");
-        console.log(e);
+      .catch((error) => {
+        console.log("courses filter");
+        console.log(error);
       });
   }, []);
   const handleSliderChange = useCallback(({ min, max }) => {
@@ -401,7 +401,11 @@ const CoursesComponent = () => {
         <form className="search-filter bg-white h-fit w-full lg:w-max mx-auto abad-shadow p-5 flex flex-col gap-4 rounded-lg">
           <div className="flex items-center justify-between gap-12 pb-3 border-b border-b-[#D8D1E2]">
             <h3 className="font-bold">تصفية</h3>
-            <button onClick={handleResetFilter} className="text-xs font-bold">
+            <button
+              type="reset"
+              onClick={handleResetFilter}
+              className="text-xs font-bold"
+            >
               إعادة تعيين التصفية
             </button>
           </div>
@@ -417,6 +421,7 @@ const CoursesComponent = () => {
                   onClick={(ev) => handleChecked(ev, "all")}
                   type="checkbox"
                   name="filterAll"
+                  defaultChecked={true}
                   id="filterAll"
                   ref={allCatRef}
                 />
@@ -509,7 +514,6 @@ const CoursesComponent = () => {
                   name=""
                   id=""
                   onChange={(e) => {
-                    console.log(e.target.value);
                     setSortOrder(e.target.value);
                   }}
                 >
@@ -663,10 +667,12 @@ const CoursesComponent = () => {
             </button>
             <button onClick={() => gotoPage(0)}>1</button>
             <span>...</span>
-            <button onClick={() => gotoPage(pageCount - 1)}>
-              {pageCount}
-            </button>
-            <button className="prev" onClick={previousPage} disabled={!canPreviousPage}>
+            <button onClick={() => gotoPage(pageCount - 1)}>{pageCount}</button>
+            <button
+              className="prev"
+              onClick={previousPage}
+              disabled={!canPreviousPage}
+            >
               <svg
                 width="8"
                 height="12"
