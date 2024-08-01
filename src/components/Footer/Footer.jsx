@@ -14,11 +14,11 @@ const Footer = () => {
   // const [toast1, setToast1] = useState({ active: false, text: "" });
   // const [toast2, setToast2] = useState({ active: false, text: "" });
   function handleSignIn() {
-    if (userInfo) toast("انت مسجل بالفعل");
+    if (userInfo) toast.error("انت مسجل بالفعل");
     else dispatch(toggleSignIn());
   }
   function handleSignUp() {
-    if (userInfo) toast("انت مسجل بالفعل");
+    if (userInfo) toast.error("انت مسجل بالفعل");
     else dispatch(toggleSignUp());
   }
   return (
@@ -131,4 +131,3 @@ const Footer = () => {
 };
 
 export default Footer;
-;

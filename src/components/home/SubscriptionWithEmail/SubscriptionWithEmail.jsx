@@ -24,7 +24,7 @@ const SubscriptionWithEmail = () => {
       name: name.current.value,
       email: email.current.value,
     });
-    toast(result);
+    toast.error(result);
   }
   return (
     <>
