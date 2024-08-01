@@ -159,7 +159,7 @@ const Profile = () => {
             <p className="input-error">{errors.arabicName?.message}</p>
           </div>
           {/* english name !*/}
-          <div className="input">
+          {/* <div className="input">
             <label htmlFor="englishName">الاسم الرباعي بالانجليزية*</label>
             <input
               type="text"
@@ -172,7 +172,7 @@ const Profile = () => {
               })}
             />
             <p className="input-error">{errors.englishName?.message}</p>
-          </div>
+          </div> */}
           {/* id ! */}
           <div className="input">
             <label htmlFor="idnumber">رقم الهوية*</label>
