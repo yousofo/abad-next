@@ -382,12 +382,13 @@ export default async function Home() {
                 عنوان البريد الإلكتروني
               </span>
             </div>
-            <button
+            <a
+              href="mailto:Info@abadnet.com.sa"
               type="submit"
               className="bg-abad-gold rounded-xl py-2 font-bold px-7 md:w-fit"
             >
               ارسال
-            </button>
+            </a>
           </form>
         </div>
       </section>

@@ -117,10 +117,10 @@ const Footer = () => {
         </li>
         <li className="footer-contact">
           <h4>يتصل:</h4>
-          <a href="tel:001 234 567 89" dir="ltr">
+          <a href="tel:001 234 567 89" dir="ltr" className="w-fit">
             +001 234 567 89
           </a>
-          <a href="mailto:hello@nesa.com">hello@nesa.com</a>
+          <a href="mailto:Info@abadnet.com.sa">Info@abadnet.com.sa</a>
         </li>
       </ul>
       {toast1.active && <Toast active={toast1.active} data={toast1.text} />}
