@@ -9,7 +9,7 @@ const ArticleEle = ({ data }) => {
   const [articleImg, setArticleImg] = useState(
     "/media/placeholders/articles-placeholder.png"
   );
-
+  //
   useEffect(() => {
     if (data.autherImage) {
       setAutherImg(data.autherImage);
@@ -109,7 +109,7 @@ const ArticleEle = ({ data }) => {
         className={`w-full`}
         src={articleImg}
         onError={(event) => {
-          event.target.src = "/media/placeholders/articles-placeholder.png";
+          event.target.src = "/media/placeholders/abad-placeholder.png";
         }}
         alt="article img"
       />
