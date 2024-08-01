@@ -155,6 +155,7 @@ const Register = ({ params }) => {
   useEffect(() => {
     fetchCourseDetails(params.token)
       .then((e) => {
+        if(e.error) router.replace("/courses")
         setCourseInfo(e);
         setCourseImg(e.imageUrl);
         setFetched(true);
@@ -163,7 +164,7 @@ const Register = ({ params }) => {
         console.log(e);
       });
   }, []);
-
+  
   async function handleRegisterAttendanceCourse() {
     const result = await fetchRegisterAttendanceCourse({
       CourseToken: params.token,
