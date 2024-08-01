@@ -16,14 +16,13 @@ async function FetchStudentCourses(token) {
   }
 }
 const MyCourses = () => {
-  const isSignedIn = useSelector((store) => store.auth.isSignedIn);
   const userInfo = useSelector((store) => store.userData.info);
   const [data, setData] = useState([]);
   let router = useRouter();
   console.log(userInfo?.token);
 
   useEffect(() => {
-    if (!isSignedIn) {
+    if (!userInfo) {
       router.replace("/");
     } else {
       FetchStudentCourses(userInfo.token)
