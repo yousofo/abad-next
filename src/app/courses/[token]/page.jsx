@@ -10,6 +10,7 @@ import { fetchUserBasket } from "@/components/GlobalState/Features/userData";
 import Toast from "@/components/shared/toasts/Toast";
 import { toggleSignIn } from "@/components/GlobalState/Features/authSlice";
 import triggerToast from "@/helperFunctions/triggerToast";
+import Link from "next/link";
 
 async function fetchCourseDetails(token) {
   try {
@@ -192,7 +193,7 @@ const Course = ({ params }) => {
           <section className="h-fit flex flex-col gap-60 flex-1">
             <div className="flex  flex-col gap-6">
               <h6 className="flex flex-wrap items-center text-[#A8A8A8] font-bold text-xs md:text-sm">
-                <a href="/">الرئيسية</a>
+                <Link href="/">الرئيسية</Link>
                 <svg
                   width={24}
                   height={24}
@@ -208,7 +209,7 @@ const Course = ({ params }) => {
                     strokeLinejoin="round"
                   />
                 </svg>
-                <a href="/courses">الدورات التدريبية</a>
+                <Link href="/courses">الدورات التدريبية</Link>
                 <svg
                   width={24}
                   height={24}

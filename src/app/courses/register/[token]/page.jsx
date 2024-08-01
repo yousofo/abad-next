@@ -8,6 +8,7 @@ import { useSelector } from "react-redux";
 import Loader from "@/components/shared/Loader/component/Loader";
 import triggerToast from "@/helperFunctions/triggerToast";
 import Toast from "@/components/shared/toasts/Toast";
+import Link from "next/link";
 
 async function fetchCourseDetails(token) {
   try {
@@ -200,7 +201,7 @@ const Register = ({ params }) => {
           <section className="h-fit flex flex-col gap-60 flex-1">
             <div className="flex  flex-col gap-6">
               <h6 className="flex flex-wrap items-center text-[#A8A8A8] font-bold text-xs md:text-sm">
-                <a href="/">الرئيسية</a>
+                <Link href="/">الرئيسية</Link>
                 <svg
                   width={24}
                   height={24}
@@ -216,7 +217,7 @@ const Register = ({ params }) => {
                     strokeLinejoin="round"
                   />
                 </svg>
-                <a href="/courses">الدورات التدريبية</a>
+                <Link href="/courses">الدورات التدريبية</Link>
                 <svg
                   width={24}
                   height={24}
@@ -327,7 +328,6 @@ const Register = ({ params }) => {
                   fetchRegisterCourseRequest,
                   setLoading,
                   triggerToast: (text) => triggerToast(setToastState, text),
-
                 }}
                 token={courseInfo.token}
                 active={true}
