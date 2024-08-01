@@ -72,7 +72,6 @@ const SignIn = () => {
       const jsonStringData = JSON.stringify(result);
 
       dispatch(toggleSignedIn());
-      // dispatch(toggleUser(jsonStringData));
       dispatch(toggleUpdateInfo(result))
       // save user data if remember me is chekced
       if (remember && typeof window != undefined)

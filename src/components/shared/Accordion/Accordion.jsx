@@ -253,7 +253,7 @@ const Accordion = ({ title, data, table, active: starting, form, token }) => {
           )}
           {data && (
             <div
-              className="handle-list"
+              className="handle-html-styles"
               dangerouslySetInnerHTML={{ __html: data }}
             />
           )}

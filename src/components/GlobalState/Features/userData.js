@@ -37,9 +37,6 @@ export const userDataSlice = createSlice({
     toggleUpdateBasket: (state, action) => {
       state.basket = action.payload
     },
-    // toggleResetUserData: (state, action) => {
-    //   state.basket = action.payload
-    // },
   },
   extraReducers: (builder) => {
     builder

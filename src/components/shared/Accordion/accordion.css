@@ -19,7 +19,8 @@ table {
   color: #3f3e43;
   font-weight: 500 !important;
 }
-table th, table td {
+table th,
+table td {
   font-weight: inherit;
   font-size: 12px;
   padding: 16px;
@@ -93,14 +94,55 @@ table td:nth-child(2) {
 .accordion-content .wrapper {
   padding: 15px;
 }
-.handle-list{
-  ol,ul{
+.handle-html-styles {
+  ol,
+  ul {
     padding-right: 20px;
   }
-  ol{
+  ol {
     list-style: decimal;
   }
-  ul{
+  ul {
     list-style: disc;
+  }
+  a:link {
+    color: blue; /* Default color for unvisited links */
+    text-decoration: underline; /* Underline by default */
+  }
+
+  a:visited {
+    color: purple; /* Default color for visited links */
+  }
+
+  a:hover {
+    color: red; /* Color when the link is hovered over */
+    text-decoration: underline; /* Underline on hover */
+  }
+
+  a:active {
+    color: darkred; /* Color when the link is clicked */
+  }
+  h1 {
+    font-size: 2em; /* Default size for <h1> */
+  }
+
+  h2 {
+    font-size: 1.5em; /* Default size for <h2> */
+  }
+
+  h3 {
+    font-size: 1.17em; /* Default size for <h3> */
+  }
+
+  h4 {
+    font-size: 1em; /* Default size for <h4> */
+  }
+
+  h5 {
+    font-size: 0.83em; /* Default size for <h5> */
+  }
+
+  h6 {
+    font-size: 0.67em; /* Default size for <h6> */
   }
 }
