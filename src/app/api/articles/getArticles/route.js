@@ -1,19 +1,11 @@
+import { fetchWithCheck } from "@/helperFunctions/serverFetching";
+
 export const fetchCache = 'force-no-store';
 
-export async function GET(request,{params}) {
+export async function GET(request, { params }) {
+  console.log("articles - all articles")
   try {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_ROOT_URL}/api/Articles/GetArticles`, {
-      method: "GET",
-      headers: {
-        'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate',
-        'Pragma': 'no-cache',
-        'Expires': '0',
-        'Surrogate-Control': 'no-store'
-      }
-    });
-    const data = await response.json();
-    console.log("proxy==========================================")
-    
+    const data = await fetchWithCheck(`${process.env.NEXT_PUBLIC_ROOT_URL}/api/Articles/GetArticles`)
     return new Response(JSON.stringify(data), {
       headers: {
         'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate',

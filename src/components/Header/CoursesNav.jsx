@@ -2,7 +2,8 @@ import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import fetchCheckCourse from "@/helperFunctions/fetchCheckCourse";
-import fetchCoursesWithTypes from "@/helperFunctions/fetchCoursesWithTypes";
+import { fetchWithCheck } from "@/helperFunctions/serverFetching";
+// import fetchCoursesWithTypes from "@/helperFunctions/fetchCoursesWithTypes";
 
 
 const NavListItem = ({ data, handleNavListItem, index }) => {
@@ -56,7 +57,7 @@ const CoursesNav = () => {
     }
   }
   useEffect(() => {
-    fetchCoursesWithTypes()
+    fetchWithCheck('/api/categories/coursesWithTypes',true,null,[])
       .then((e) => {
         setData(e);
         console.log(e);

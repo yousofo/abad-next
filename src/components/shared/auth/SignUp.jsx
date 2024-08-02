@@ -1,9 +1,10 @@
 "use client";
 import { toggleSignIn } from "@/components/GlobalState/Features/authSlice";
 import { useRouter } from "next/navigation";
-import React, { useRef, useState } from "react";
+import React, { useMemo, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
+import { cities, countries } from "@/components/data/data";
 
 async function sendRegisterData(data) {
   console.log(data);
@@ -40,23 +41,31 @@ async function sendRegisterData(data) {
   }
 }
 
-const scrollToTop=(element)=>{
-  element.scrollIntoView({ behavior: "instant", block: "start" })
-}
+const scrollToTop = (element) => {
+  element.scrollIntoView({ behavior: "instant", block: "start" });
+};
 
 const SignUp = () => {
+  const allCountries = useMemo(() => countries, []);
+  const allCities = useMemo(() => cities, []);
+  const [selectedCountry, setSelectedCountry] = useState("SA");
   const [loading, setLoading] = useState(false);
   const [generalError, setGeneralError] = useState("");
   const signUpError = useSelector((store) => store.auth.signUpError);
   const isSignUp = useSelector((e) => e.auth.signUp);
   const dispatch = useDispatch();
   const router = useRouter();
-  let signUpContainer = useRef(null)
+  let signUpContainer = useRef(null);
   // react-hook-form
   const signUpForm = useForm();
-  const { register, handleSubmit, formState, setError, reset } = signUpForm;
+  const { register, handleSubmit, formState, setError, reset, getValues } =
+    signUpForm;
   // const { name,ref,onChange,onBlur}=register("id")
   let { errors, isValid, isSubmitted } = formState;
+
+  const CountryCities = useMemo(() => {
+    return allCities[`${selectedCountry}`];
+  }, [selectedCountry]);
 
   function switchAuthMode(e) {
     e.preventDefault();
@@ -72,10 +81,12 @@ const SignUp = () => {
       email: formData.signUpEmail,
       password: formData.signUpPassword,
       confirmPassword: formData.signUpConfirmPassword,
+      nationality: JSON.parse(formData.nationality.nationality_ar)
+        .nationality_ar,
     });
 
     if (result.errors) {
-      scrollToTop(signUpContainer.current)
+      scrollToTop(signUpContainer.current);
       console.log("errrrr");
       console.log(Object.entries(result.errors));
       Object.entries(result.errors).forEach(([key, value]) => {
@@ -179,13 +190,16 @@ const SignUp = () => {
               {...register("nationality", {
                 required: "يجب كتابة الجنسية",
               })}
+              onChange={(event) => {
+                setSelectedCountry(JSON.parse(event.target.value).id);
+              }}
             >
-              <option value="" style={{ display: "none" }}>
-                اختر الجنسية
-              </option>
-              <option value="سعودي">سعودي</option>
-              <option value="اردني">اردني</option>
-              <option value="مصري">مصري</option>
+              <option style={{ display: "none" }}>اختر الجنسية</option>
+              {allCountries.map((e, i) => (
+                <option key={i} value={JSON.stringify(e)}>
+                  {e.nationality_ar}
+                </option>
+              ))}
             </select>
           </div>
           <p className="input-error">{errors.nationality?.message}</p>
@@ -289,9 +303,11 @@ const SignUp = () => {
               <option value="" style={{ display: "none" }}>
                 اختر المدينة
               </option>
-              <option value="مكة">مكة</option>
-              <option value="المدينة">المدينة</option>
-              <option value="الطائف">الطائف</option>
+              {CountryCities.Cities.map((e, i) => (
+                <option key={i} value={e.Arabic}>
+                  {e.Arabic}
+                </option>
+              ))}
             </select>
           </div>
           <p className="input-error">{errors.city?.message}</p>

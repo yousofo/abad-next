@@ -3,13 +3,18 @@ import ReviewsSwiper from "@/components/shared/swipers/ReviewsSwiper";
 import "swiper/css";
 import PartnersSwiper from "@/components/shared/swipers/PartnersSwiper";
 import HomeCourses from "@/components/dataFetching/home/HomeCourses";
-import { fetchLatestArticles } from "@/helperFunctions/serverFetching";
+// import { fetchLatestArticles } from "@/helperFunctions/serverFetching";
 import SubscriptionWithEmail from "@/components/home/SubscriptionWithEmail/SubscriptionWithEmail";
 import LatestArticles from "@/components/articles/LatestArticles";
+import { fetchWithCheck } from "@/helperFunctions/serverFetching";
+
+export const fetchCache = 'force-no-store';
+
+
 
 export default async function Home() {
-  const latestArticles = await fetchLatestArticles()
-
+  const latestArticles = await fetchWithCheck(`${process.env.NEXT_PUBLIC_ROOT_URL}/api/articles/getLatestArticles`, true, null, [])
+  console.log(latestArticles)
 
   return (
     <main className="home home-page">

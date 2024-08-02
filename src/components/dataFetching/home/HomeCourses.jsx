@@ -9,45 +9,46 @@ import { toggleCards } from "../../GlobalState/Features/coursesFilterSlice";
 // components
 import CourseRow from "../../shared/tables/CourseRow";
 import CourseCard from "../../shared/tables/CourseCard";
+import { fetchWithCheck } from "@/helperFunctions/serverFetching";
 
-async function fetchHomeCourse() {
-  try {
-    const request = await fetch("/api/home/latest", {
-      method: "GET",
-      headers: {
-        "Cache-Control":
-          "no-store, no-cache, must-revalidate, proxy-revalidate",
-        Pragma: "no-cache",
-        Expires: "0",
-        "Surrogate-Control": "no-store",
-      },
-    });
-    const data = await request.json();
-    console.log(data);
-    return data;
-  } catch (e) {
-    console.log(e);
-  }
-}
-async function fetchCoursesCategories() {
-  try {
-    const request = await fetch("/api/categories/coursesCategories", {
-      method: "GET",
-      headers: {
-        "Cache-Control":
-          "no-store, no-cache, must-revalidate, proxy-revalidate",
-        Pragma: "no-cache",
-        Expires: "0",
-        "Surrogate-Control": "no-store",
-      },
-    });
-    const data = await request.json();
-    console.log(data);
-    return data;
-  } catch (e) {
-    console.log(e);
-  }
-}
+// async function fetchHomeCourse() {
+//   try {
+//     const request = await fetch("/api/home/latest", {
+//       method: "GET",
+//       headers: {
+//         "Cache-Control":
+//           "no-store, no-cache, must-revalidate, proxy-revalidate",
+//         Pragma: "no-cache",
+//         Expires: "0",
+//         "Surrogate-Control": "no-store",
+//       },
+//     });
+//     const data = await request.json();
+//     console.log(data);
+//     return data;
+//   } catch (e) {
+//     console.log(e);
+//   }
+// }
+// async function fetchCoursesCategories() {
+//   try {
+//     const request = await fetch("/api/categories/coursesCategories", {
+//       method: "GET",
+//       headers: {
+//         "Cache-Control":
+//           "no-store, no-cache, must-revalidate, proxy-revalidate",
+//         Pragma: "no-cache",
+//         Expires: "0",
+//         "Surrogate-Control": "no-store",
+//       },
+//     });
+//     const data = await request.json();
+//     console.log(data);
+//     return data;
+//   } catch (e) {
+//     console.log(e);
+//   }
+// }
 
 const HomeCourses = () => {
   const [data, setData] = useState([]);
@@ -71,7 +72,7 @@ const HomeCourses = () => {
   };
 
   useEffect(() => {
-    fetchCoursesCategories()
+    fetchWithCheck('/api/categories/coursesCategories',true,{},[])
       .then((e) => {
         setCoursesCategories(e);
       })
@@ -79,7 +80,7 @@ const HomeCourses = () => {
         console.log("home courses");
         console.log(e);
       });
-    fetchHomeCourse()
+    fetchWithCheck('/api/home/latest',true,{},[])
       .then((e) => {
         setData(e);
         setFilteredCourses(e);

@@ -1,22 +1,13 @@
+import { fetchWithCheck } from "@/helperFunctions/serverFetching";
+
 export const fetchCache = 'force-no-store';
 
 export async function GET(request) {
   try {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_ROOT_URL}/api/Articles/GetLatestArticles`, {
-      method: "GET",
-      headers: {
-        'Content-Type': 'application/json',
-        'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate',
-        'Pragma': 'no-cache',
-        'Expires': '0',
-        'Surrogate-Control': 'no-store'
-      }
-    });
+    const data = await fetchWithCheck(`${process.env.NEXT_PUBLIC_ROOT_URL}/api/Articles/GetLatestArticles`, true)
 
+    console.log("latest articles====latest articles====latest articles====latest articles====latest articles====latest articles")
 
-    const data = await response.json();
-    console.log("proxy==========================================")
-    console.log(data)
     return new Response(JSON.stringify(data), {
       headers: {
         'Content-Type': 'application/json',

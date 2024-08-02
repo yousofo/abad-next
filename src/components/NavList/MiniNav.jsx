@@ -1,25 +1,25 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import fetchCheckCourse from "@/helperFunctions/fetchCheckCourse";
-import fetchCoursesWithTypes from "@/helperFunctions/fetchCoursesWithTypes";
 import { useRouter } from "next/navigation";
 import { useDispatch } from "react-redux";
 import { reset } from "../GlobalState/Features/navListSlice";
+import { fetchWithCheck } from "@/helperFunctions/serverFetching";
 
 //helper component
 const MiniNavItem = ({ data }) => {
   const [innerList, setInnerList] = useState(false);
-  const router = useRouter()
-  const dispatch= useDispatch()
+  const router = useRouter();
+  const dispatch = useDispatch();
 
   function handleClick(e) {
     e.stopPropagation();
     setInnerList(!innerList);
   }
-  
+
   async function handleCourseClicked(courseToken) {
     const result = await fetchCheckCourse(courseToken);
-    dispatch(reset())
+    dispatch(reset());
 
     if (result.courseExists) {
       router.push(`/courses/${result.courseToken}`);
@@ -60,7 +60,12 @@ const MiniNavItem = ({ data }) => {
       >
         {data.courses.map((e, i) => (
           <li key={i}>
-            <div onClick={()=>handleCourseClicked(e.courseToken)} className="text-start w-full block p-1.5 underline underline-offset-4 decoration-blue-700">{e.courseName}</div>
+            <div
+              onClick={() => handleCourseClicked(e.courseToken)}
+              className="text-start w-full block p-1.5 underline underline-offset-4 decoration-blue-700"
+            >
+              {e.courseName}
+            </div>
           </li>
         ))}
       </ul>
@@ -74,7 +79,7 @@ const MiniNav = () => {
   const [data, setData] = useState([]);
 
   useEffect(() => {
-    fetchCoursesWithTypes()
+    fetchWithCheck("/api/categories/coursesWithTypes", true, {}, [])
       .then((e) => setData(e))
       .catch((e) => console.log(e));
   }, []);
