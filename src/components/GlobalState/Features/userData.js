@@ -1,12 +1,14 @@
 'use client';
 
+import { getAllUserAuthDataFromCookies } from '@/helperFunctions/cookiesManagement';
 import { fetchWithCheck } from '@/helperFunctions/serverFetching';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
 const getUserData = () => {
   if (typeof window !== 'undefined') {
-    const userInfo = window.localStorage.getItem('userData');
-    if (userInfo) return JSON.parse(userInfo)
+    // const userInfo = window.localStorage.getItem('userData');
+    const userInfo = getAllUserAuthDataFromCookies()
+    if (userInfo?.token) return userInfo
     else return null
   }
   return null;
@@ -34,6 +36,9 @@ export const userDataSlice = createSlice({
       state.info = action.payload
     },
     toggleUpdateBasket: (state, action) => {
+      state.basket = action.payload
+    },
+    toggleSaveUserCookies: (state, action) => {
       state.basket = action.payload
     },
   },

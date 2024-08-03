@@ -67,18 +67,26 @@ const Course = ({ params }) => {
   const router = useRouter();
   const dispatch = useDispatch();
 
-  const userBasket = useSelector((store) => store.userData.basket.data);
+  // const userBasket = useSelector((store) => store.userData.basket.data);
   const user = useSelector((store) => store.userData.info);
   const [courseInfo, setCourseInfo] = useState();
 
   async function handleRegisterAttendanceCourse() {
     if (!user?.token) return dispatch(toggleSignIn());
 
+    console.log({
+      courseToken: params.token,
+      userToken: user.token,
+    })
     const result = await fetchRegisterAttendanceCourse({
       courseToken: params.token,
       userToken: user.token,
     });
-    console.log(result);
+    if (result.message) {
+      toast.success(result.message);
+    } else if (result.error) {
+      toast.error(result.error);
+    }
   }
   async function handleAddToBasket() {
     if (!user?.token) return dispatch(toggleSignIn());

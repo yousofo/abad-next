@@ -1,13 +1,29 @@
+const userAuthCookiesKeys = ["arabicName",
+  "idnumber",
+  "email",
+  "phone",
+  "gender",
+  "birthDate",
+  "nationality",
+  "educationsType",
+  "city",
+  "token",]
 
 function setCookie(name, value, days) {
   let maxAge = "";
   if (days) {
     maxAge = "; max-age=" + (days * 24 * 60 * 60);
   }
-  document.cookie = name + "=" + (value || "") + maxAge + "; path=/; Secure; HttpOnly";
+  document.cookie = name + "=" + (value || "") + maxAge + "; path=/; ";
 }
 
-function setObjectToCookies(){}
+function setCookiesFromObject(object = {}, days = null) {
+  console.log("setCookiesFromObject")
+  console.log(object)
+  for (const [key, value] of Object.entries(object)) {
+    setCookie(key, value, days)
+  }
+}
 
 function getCookie(name) {
   const nameEQ = name + "=";
@@ -20,10 +36,23 @@ function getCookie(name) {
   return null;
 }
 
+function getAllUserAuthDataFromCookies() {
+  let userAuthInfo = {}
+  userAuthCookiesKeys.forEach(e => {
+    userAuthInfo[e] = getCookie(e)
+  })
+  return userAuthInfo
+}
 
 function deleteCookie(name) {
   document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/';
 }
 
+function deleteAllUserAuthDataFromCookies() {
+  userAuthCookiesKeys.forEach(e => {
+    deleteCookie(e)
+  })
+}
 
-export { setCookie, getCookie, deleteCookie }
+
+export { setCookie, getCookie, deleteCookie, setCookiesFromObject, getAllUserAuthDataFromCookies, deleteAllUserAuthDataFromCookies }

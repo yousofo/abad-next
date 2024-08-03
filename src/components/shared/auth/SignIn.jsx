@@ -69,13 +69,16 @@ const SignIn = () => {
       password: password.current.value,
     });
     if (result.token) {
-      const jsonStringData = JSON.stringify(result);
+      // const jsonStringData = JSON.stringify(result);
 
-      dispatch(toggleSignedIn());
-      dispatch(toggleUpdateInfo(result))
+      dispatch(toggleUpdateInfo(result));
       // save user data if remember me is chekced
-      if (remember && typeof window != undefined)
-        window.localStorage.setItem("userData", jsonStringData);
+      if (remember && typeof window != undefined) {
+        // window.localStorage.setItem("userData", jsonStringData);
+        dispatch(toggleSignedIn({ userData: result, days: 30 }));
+      } else {
+        dispatch(toggleSignedIn({ userData: result, days: null }));
+      }
 
       dispatch(reset());
     } else {

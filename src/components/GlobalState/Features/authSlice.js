@@ -1,14 +1,15 @@
 'use client';
 
+import { deleteAllUserAuthDataFromCookies, setCookiesFromObject } from '@/helperFunctions/cookiesManagement';
 import { createSlice } from '@reduxjs/toolkit';
 
 
-const deleteUserData = () => {
-  if (typeof window != undefined) {
-    return window.localStorage.removeItem('userData');
-  }
-  return null;
-};
+// const deleteUserData = () => {
+//   if (typeof window != undefined) {
+//     return window.localStorage.removeItem('userData');
+//   }
+//   return null;
+// };
 
 
 
@@ -62,14 +63,15 @@ export const authSlice = createSlice({
         newPassword: true,
       }
     },
-    toggleSignedIn: () => {
+    toggleSignedIn: (state, action) => {
+      setCookiesFromObject(action.payload.userData, action.payload.days)
       return {
         ...initialState,
         isSignedIn: true,
       }
     },
     toggleResetAuth: (state) => {
-      deleteUserData()
+      deleteAllUserAuthDataFromCookies()
       return initialState
     },
   }
