@@ -9,29 +9,6 @@ import // toggleUpdateBasket,
 import { fetchUserBasket } from "@/components/GlobalState/Features/userData";
 import { useRouter } from "next/navigation";
 
-// async function fetchBasket(token) {
-//   try {
-//     const result = await fetch(
-//       `/api/reservations/getBasketByToken?token=${token}`,
-//       {
-//         method: "GET",
-//         headers: {
-//           "Cache-Control":
-//             "no-store, no-cache, must-revalidate, proxy-revalidate",
-//           Pragma: "no-cache",
-//           Expires: "0",
-//           "Surrogate-Control": "no-store",
-//           "Content-Type": "application/json",
-//         },
-//       }
-//     );
-//     const data = await result.json();
-//     return data;
-//   } catch (e) {
-//     console.log(e);
-//     return { error: e };
-//   }
-// }
 
 async function fetchDeletetFromBasket(basketCourseToken) {
   try {
@@ -193,15 +170,15 @@ const Basket = () => {
 
   async function handleFetchBasket() {
     setLoading(true);
-    
+
     await dispatch(fetchUserBasket()).unwrap();
 
     setLoading(false);
   }
 
   useEffect(() => {
-    if (userInfo) handleFetchBasket()
-      else router.replace("/");
+    if (userInfo) handleFetchBasket();
+    else router.replace("/");
   }, [toggleReFetch]);
 
   //calculate all courses prices in basket
@@ -261,7 +238,7 @@ const Basket = () => {
                 <BasketItem
                   reFetchBasket={setToggleReFetch}
                   data={e}
-                  userToken={userInfo.token}
+                  userToken={userInfo?.token}
                   setLoading={setDeleteLoading}
                   key={i}
                 />
