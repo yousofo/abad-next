@@ -3,142 +3,101 @@ import { useEffect, useRef, useState } from "react";
 import "./course.css";
 
 import Accordion from "@/components/shared/Accordion/Accordion";
-import { notFound, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";
 import Loader from "@/components/shared/Loader/component/Loader";
 import { fetchUserBasket } from "@/components/GlobalState/Features/userData";
-// import Toast from "@/components/shared/toasts/Toast";
 import { toggleSignIn } from "@/components/GlobalState/Features/authSlice";
-// import triggerToast from "@/helperFunctions/triggerToast";
 import Link from "next/link";
 import { toast } from "react-toastify";
+import { fetchWithCheck } from "@/helperFunctions/serverFetching";
 
 async function fetchCourseDetails(token) {
   try {
-    const courseDetails = await fetch(`/api/home/courseDetails/${token}`, {
-      headers: {
-        "Content-Type": "application/json",
-        "Cache-Control":
-          "no-store, no-cache, must-revalidate, proxy-revalidate",
-        Pragma: "no-cache",
-        Expires: "0",
-        "Surrogate-Control": "no-store",
-      },
-    });
-    const result = await courseDetails.json();
-    console.log(result);
-    return result;
-  } catch (e) {
-    console.log(e);
+    const courseDetails = await fetchWithCheck(
+      `/api/home/courseDetails/${token}`
+    );
+    return courseDetails;
+  } catch (error) {
+    console.log(error);
+    throw error;
   }
 }
 async function fetchRegisterAttendanceCourse(data) {
   try {
-    const courseDetails = await fetch(`/api/reservations/addOfflineCourse`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "Cache-Control":
-          "no-store, no-cache, must-revalidate, proxy-revalidate",
-        Pragma: "no-cache",
-        Expires: "0",
-        "Surrogate-Control": "no-store",
-      },
-      body: JSON.stringify(data),
-    });
-    const result = await courseDetails.json();
-    console.log(result);
-    return result;
-  } catch (e) {
-    console.log(e);
-  }
-}
-async function fetchAddToBasket(data) {
-  try {
-    const courseDetails = await fetch(
-      `/api/reservations/addToBasket?tokenCourse=${data.tokenCourse}&tokenStudent=${data.tokenStudent}`,
+    const courseDetails = await fetchWithCheck(
+      `/api/reservations/addOfflineCourse`,
+      true,
       {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "Cache-Control":
-            "no-store, no-cache, must-revalidate, proxy-revalidate",
-          Pragma: "no-cache",
-          Expires: "0",
-          "Surrogate-Control": "no-store",
+        },
+        body: JSON.stringify(data),
+      }
+    );
+    return courseDetails;
+  } catch (error) {
+    console.log(error);
+    return error;
+  }
+}
+async function fetchAddToBasket(data) {
+  try {
+    const courseDetails = await fetchWithCheck(
+      `/api/reservations/addToBasket?tokenCourse=${data.tokenCourse}&tokenStudent=${data.tokenStudent}`,
+      true,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
         },
       }
     );
-    const result = await courseDetails.json();
-    console.log(result);
-    return result;
-  } catch (e) {
-    console.log(e);
+    return courseDetails;
+  } catch (error) {
+    console.log(error);
+    return error;
   }
 }
 
 const Course = ({ params }) => {
   const [courseImg, setCourseImg] = useState("/media/course/course-image.png");
   const [fetched, setFetched] = useState(false);
-  // const [toastState, setToastState] = useState({ active: false, text: "" });
-  let isMounted = useRef(false);
   const router = useRouter();
   const dispatch = useDispatch();
 
   const user = useSelector((store) => store.userData.info);
-  const [courseInfo, setCourseInfo] = useState({
-    token: "e5f85c2b-33ef-43d3-9075-d8ee0966cb06",
-    courseName: "اسم الدوره بالانجليزي",
-    startDate: "2024-07-19",
-    isOnlineId: 0,
-    isOnline: "حضوري",
-    hadaf: "مدعومة من هدف",
-    categoryId: 1,
-    categoryName: "أمن المعلومات",
-    price: 1200,
-    imageUrl: "",
-    summaryAr: "<p><label>اسم الدوره بالانجليزي</label></p>",
-    goalsAr: "<p><label>اسم الدوره بالانجليزي</label></p>",
-    targetAr: "<p><label>اسم الدوره بالانجليزي</label></p>",
-    detailsAr: "<p><label>اسم الدوره بالانجليزي</label></p>",
-    testAr: "<p><label>اسم الدوره بالانجليزي</label></p>",
-    numberOfweeks: 5,
-    numberOfHours: 30,
-    trainerLanguage: null,
-    formattedTimeStart: "الجمعة والسبت من الساعة ٦م الى الساعة ٩م",
-    formattedTimeEnd: "الجمعة والسبت من الساعة ٦م الى الساعة ٩م",
-    openCourses: [
-      {
-        token: "e5f85c2b-33ef-43d3-9075-d8ee0966cb06",
-        courseName: "اسم الدوره بالانجليزي",
-        startDate: "2024-07-19",
-        isOnlineId: 0,
-        isOnline: null,
-        hadaf: null,
-        categoryId: 0,
-        categoryName: null,
-        price: 0,
-        imageUrl: null,
-        summaryAr: null,
-        goalsAr: null,
-        targetAr: null,
-        detailsAr: null,
-        testAr: null,
-        numberOfweeks: 0,
-        numberOfHours: 0,
-        trainerLanguage: null,
-        formattedTimeStart: "الجمعة والسبت من الساعة ٦م الى الساعة ٩م",
-        formattedTimeEnd: "الجمعة والسبت من الساعة ٦م الى الساعة ٩م",
-        openCourses: null,
-      },
-    ],
-  });
+  const [courseInfo, setCourseInfo] = useState();
+
+  async function handleRegisterAttendanceCourse() {
+    if (!user?.token) return dispatch(toggleSignIn());
+
+    const result = await fetchRegisterAttendanceCourse({
+      courseToken: params.token,
+      userToken: user.token,
+    });
+    console.log(result);
+  }
+  async function handleAddToBasket() {
+    if (!user?.token) return dispatch(toggleSignIn());
+
+    const result = await fetchAddToBasket({
+      tokenCourse: params.token,
+      tokenStudent: user.token,
+    });
+
+    if (result.message) {
+      dispatch(fetchUserBasket(user.token));
+      toast.success(result.message);
+    } else if (result.error) {
+      toast.error(result.error);
+    }
+  }
 
   useEffect(() => {
     fetchCourseDetails(params.token)
       .then((e) => {
-        console.log(e);
-        if (e.status >= 400) router.replace("/not-found");
         setCourseInfo(e);
         setCourseImg(e.imageUrl);
         setFetched(true);
@@ -148,32 +107,6 @@ const Course = ({ params }) => {
       });
   }, []);
 
-  async function handleRegisterAttendanceCourse() {
-    const result = await fetchRegisterAttendanceCourse({
-      courseToken: params.token,
-      userToken: user.token,
-    });
-    console.log(result);
-  }
-  async function handleAddToBasket() {
-    if (user) {
-      const result = await fetchAddToBasket({
-        tokenCourse: params.token,
-        tokenStudent: user.token,
-      });
-
-      if (result.message) {
-        dispatch(fetchUserBasket(user.token));
-        // triggerToast(setToastState, result.message);
-        toast.success(result.message);
-      } else if (result.error) {
-        // triggerToast(setToastState, result.error);
-        toast.error(result.error);
-      }
-    } else {
-      dispatch(toggleSignIn());
-    }
-  }
   return (
     <main className="pb-10 relative">
       <div className="hero relative">
@@ -192,8 +125,9 @@ const Course = ({ params }) => {
         </div>
         {/* BACKGROUND IMG end*/}
         <div className="container px-4 flex flex-col sm:flex-row justify-between gap-16 course-details pt-44 md:pt-56 m-auto max-w-screen-xl">
-          {/* COURSE CONTENT start */}
+          {/* COURSE CONTENT & ACCORDIONS start */}
           <section className="h-fit flex flex-col gap-60 flex-1">
+            {/* course info basic */}
             <div className="flex  flex-col gap-6">
               <h6 className="flex flex-wrap items-center text-[#A8A8A8] font-bold text-xs md:text-sm">
                 <Link href="/">الرئيسية</Link>
@@ -229,7 +163,7 @@ const Course = ({ params }) => {
                   />
                 </svg>
                 <p className="text-white   font-medium w-full sm:w-fit py-1.5">
-                  {courseInfo.courseName}
+                  {courseInfo?.courseName}
                 </p>
               </h6>
               <div className="flex flex-col items-start">
@@ -237,11 +171,11 @@ const Course = ({ params }) => {
                   className="md:text-2xl text-[#F9F9F9] font-medium pb-2 w-fit"
                   style={{ unicodeBidi: "bidi-override" }}
                 >
-                  <bdi>{courseInfo.courseName}</bdi>
+                  <bdi>{courseInfo?.courseName}</bdi>
                 </h2>
                 <h3
                   className="text-[#E0E0E0] max-w-lg leading-relaxed text-sm md:text-base"
-                  dangerouslySetInnerHTML={{ __html: courseInfo.summaryAr }}
+                  dangerouslySetInnerHTML={{ __html: courseInfo?.summaryAr }}
                 />
               </div>
               <div>
@@ -319,23 +253,23 @@ const Course = ({ params }) => {
             <div className="accordion !hidden sm:!flex">
               <Accordion
                 title="موعد الدورة"
-                table={courseInfo.openCourses}
+                table={courseInfo?.openCourses}
                 active={true}
               />
 
-              <Accordion title="تفاصيل الاختبارات" data={courseInfo.testAr} />
+              <Accordion title="تفاصيل الاختبارات" data={courseInfo?.testAr} />
 
-              <Accordion title="مهارات وكفاءات" data={courseInfo.detailsAr} />
+              <Accordion title="مهارات وكفاءات" data={courseInfo?.detailsAr} />
 
               <Accordion
                 title="من يحتاج هذة الدورة"
-                data={courseInfo.targetAr}
+                data={courseInfo?.targetAr}
               />
 
-              <Accordion title="اهداف الدورة" data={courseInfo.goalsAr} />
+              <Accordion title="اهداف الدورة" data={courseInfo?.goalsAr} />
             </div>
           </section>
-          {/* COURSE CONTENT end */}
+          {/* COURSE CONTENT & ACCORDIONS end */}
           {/* COURSE CARD start */}
           <figure className="p-5 mx-auto md:p-6 text-[#252525] bg-white shadow rounded-xl md:rounded-2xl w-full max-w-[373px] h-fit">
             <img
@@ -344,24 +278,28 @@ const Course = ({ params }) => {
               className="mx-auto mb-2 md:mb-4"
               onError={() => setCourseImg("/media/course/course-image.png")}
             />
+            {/* CARD BODY start */}
             <figcaption className="flex flex-col gap-6">
               <h2
                 className="w-fit font-medium text-[29px] md:text-[32px]"
                 dir="rtl"
               >
-                <span>{courseInfo.price}</span>
+                <span>{courseInfo?.price}</span>
                 &nbsp;
                 <span>ريال سعودي</span>
               </h2>
               <div className="flex flex-col gap-4">
                 {/* handle coure REGISTERATION */}
-                {!courseInfo.isOnline ? (
-                  <a href="#" onClick={handleRegisterAttendanceCourse}>
-                    سجل في الدورة
-                  </a>
-                ) : (
+                {courseInfo?.isOnline == "أونلاين" ? (
                   <>
-                    <a href="#">شراء الدورة التدريبية الآن</a>
+                    <button
+                      onClick={() =>
+                        toast.info("قريبا, اضغط اضافة للسلة حاليا")
+                      }
+                      className="register-btn"
+                    >
+                      شراء الدورة التدريبية الآن
+                    </button>
                     <div
                       className="action-btns flex gap-4"
                       onClick={handleAddToBasket}
@@ -388,14 +326,23 @@ const Course = ({ params }) => {
                       </button>
                     </div>
                   </>
+                ) : (
+                  <button
+                    className="text-center register-btn"
+                    onClick={handleRegisterAttendanceCourse}
+                  >
+                    سجل في الدورة
+                  </button>
                 )}
 
                 <div className="course-description flex flex-col gap-4 pt-2 border-t border-t-[##E0E0E0] text-[#252525]">
-                  <h4 className="text-xl font-medium">وصف الدورة</h4>
+                  <h4 className="text-xl font-mediu">وصف الدورة</h4>
 
                   {fetched && (
                     <p
-                      dangerouslySetInnerHTML={{ __html: courseInfo.summaryAr }}
+                      dangerouslySetInnerHTML={{
+                        __html: courseInfo?.summaryAr,
+                      }}
                     />
                   )}
                 </div>
@@ -404,35 +351,35 @@ const Course = ({ params }) => {
                   <ul className="flex flex-col gap-6">
                     <li
                       className={`${
-                        !courseInfo.numberOfHours && "hidden"
+                        !courseInfo?.numberOfHours && "hidden"
                       } flex items-center gap-2`}
                     >
                       <img className="" src="/media/course/Users.png" alt="" />
                       <span>
                         <span>عدد الساعات للانتهاء</span>
                         &nbsp;
-                        <span>: {courseInfo.numberOfHours}</span>
+                        <span>: {courseInfo?.numberOfHours}</span>
                       </span>
                     </li>
                     <li
                       className={`${
-                        !courseInfo.numberOfHours && "hidden"
+                        !courseInfo?.numberOfHours && "hidden"
                       } flex items-center gap-2`}
                     >
                       <img className="" src="/media/course/Users.png" alt="" />
                       <span>
                         <span>عدد الاسابيع للانتهاء</span>
                         &nbsp;
-                        <span>: {courseInfo.numberOfweeks}</span>
+                        <span>: {courseInfo?.numberOfweeks}</span>
                       </span>
                     </li>
                     <li
                       className={`${
-                        !courseInfo.trainerLanguage && "hidden "
+                        !courseInfo?.trainerLanguage && "hidden "
                       } flex items-center gap-2`}
                     >
                       <img className="" src="/media/course/Users.png" alt="" />
-                      <span>{courseInfo.trainerLanguage}</span>
+                      <span>{courseInfo?.trainerLanguage}</span>
                     </li>
                     <li className="flex items-center gap-2">
                       <img className="" src="/media/course/Users.png" alt="" />
@@ -450,25 +397,29 @@ const Course = ({ params }) => {
                 </div>
               </div>
             </figcaption>
+            {/* CARD BODY end */}
           </figure>
           {/* COURSE CARD end */}
-          {/* ACCORDIONS start SMALL SCREEEN */}
+          {/* ACCORDIONS SMALL SCREEEN start */}
           <div className="accordion sm:!hidden">
             <Accordion
               title="موعد الدورة"
-              table={courseInfo.openCourses}
+              table={courseInfo?.openCourses}
               active={true}
             />
 
-            <Accordion title="تفاصيل الاختبارات" data={courseInfo.testAr} />
+            <Accordion title="تفاصيل الاختبارات" data={courseInfo?.testAr} />
 
-            <Accordion title="مهارات وكفاءات" data={courseInfo.detailsAr} />
+            <Accordion title="مهارات وكفاءات" data={courseInfo?.detailsAr} />
 
-            <Accordion title="من يحتاج هذة الدورة" data={courseInfo.targetAr} />
+            <Accordion
+              title="من يحتاج هذة الدورة"
+              data={courseInfo?.targetAr}
+            />
 
-            <Accordion title="اهداف الدورة" data={courseInfo.goalsAr} />
+            <Accordion title="اهداف الدورة" data={courseInfo?.goalsAr} />
           </div>
-          {/* ACCORDIONS end */}
+          {/* ACCORDIONS SMALL SCREEEN end */}
         </div>
       </div>
       {/* {toastState.active && (
