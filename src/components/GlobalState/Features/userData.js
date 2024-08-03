@@ -1,5 +1,6 @@
 'use client';
 
+import { fetchWithCheck } from '@/helperFunctions/serverFetching';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
 const getUserData = () => {
@@ -19,12 +20,10 @@ const initialState = {
 }
 
 //fetching courses data
-export const fetchUserBasket = createAsyncThunk('userData/fetchUserBasket', async (token) => {
-  const response = await fetch(`/api/reservations/getBasketByToken?token=${token}`);
-  if (!response.ok) {
-    throw new Error('Network response was not ok');
-  }
-  return await response.json();
+export const fetchUserBasket = createAsyncThunk('userData/fetchUserBasket', async (_, thunkAPI) => {
+  const state = thunkAPI.getState();
+  const data = await fetchWithCheck(`/api/reservations/getBasketByToken?token=${state.userData.info.token}`);
+  return data
 });
 
 export const userDataSlice = createSlice({

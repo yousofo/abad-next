@@ -193,12 +193,8 @@ const Basket = () => {
 
   async function handleFetchBasket() {
     setLoading(true);
-    await dispatch(fetchUserBasket(userInfo.token)).unwrap();
-    // await fetchBasket(userJson.token)
-    //   .then((data) => {
-    //     dispatch(toggleUpdateBasket(JSON.stringify(data)));
-    //   })
-    //   .catch((e) => console.log(e));
+    
+    await dispatch(fetchUserBasket()).unwrap();
 
     setLoading(false);
   }

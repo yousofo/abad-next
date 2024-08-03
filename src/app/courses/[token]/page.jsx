@@ -67,6 +67,7 @@ const Course = ({ params }) => {
   const router = useRouter();
   const dispatch = useDispatch();
 
+  const userBasket = useSelector((store) => store.userData.basket.data);
   const user = useSelector((store) => store.userData.info);
   const [courseInfo, setCourseInfo] = useState();
 
@@ -81,7 +82,9 @@ const Course = ({ params }) => {
   }
   async function handleAddToBasket() {
     if (!user?.token) return dispatch(toggleSignIn());
-
+    // await dispatch(fetchUserBasket()).unwrap();
+    // console.log(userBasket)
+    // if(userBasket.some(e=>e.))
     const result = await fetchAddToBasket({
       tokenCourse: params.token,
       tokenStudent: user.token,
@@ -307,7 +310,7 @@ const Course = ({ params }) => {
                       <button className="flex-1 bg-[#FDB614]">
                         إضافة الي السلة
                       </button>
-                      <button>
+                      {/* <button>
                         <svg
                           width={20}
                           height={16}
@@ -323,7 +326,7 @@ const Course = ({ params }) => {
                             strokeLinejoin="round"
                           />
                         </svg>
-                      </button>
+                      </button> */}
                     </div>
                   </>
                 ) : (
