@@ -142,7 +142,7 @@ const Partners = () => {
           </div>
           {/* phone !*/}
           <div className="input">
-            <label htmlFor="phone">الهاتف</label>
+            <label htmlFor="phone">الهاتف*</label>
             <input
               type="text"
               name=""
