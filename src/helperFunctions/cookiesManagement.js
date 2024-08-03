@@ -55,4 +55,4 @@ function deleteAllUserAuthDataFromCookies() {
 }
 
 
-export { setCookie, getCookie, deleteCookie, setCookiesFromObject, getAllUserAuthDataFromCookies, deleteAllUserAuthDataFromCookies }
+export { setCookiesFromObject, getAllUserAuthDataFromCookies, deleteAllUserAuthDataFromCookies }
