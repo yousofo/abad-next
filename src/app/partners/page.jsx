@@ -1,42 +1,12 @@
 "use client";
-import React, { useEffect, useState } from "react";
 import "./profile.css";
-import Link from "next/link";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { useDispatch, useSelector } from "react-redux";
+import {  useSelector } from "react-redux";
 import Loader from "@/components/shared/Loader/component/Loader";
-import { toggleUpdateInfo } from "@/components/GlobalState/Features/userData";
-import Select from "react-select";
 import { fetchWithCheck } from "@/helperFunctions/serverFetching";
 import { toast } from "react-toastify";
 
-const options = [
-  { value: "chocolate", label: "Chocolate" },
-  { value: "strawberry", label: "Strawberry" },
-  { value: "vanilla", label: "Vanilla" },
-];
-
-// async function fetchRegisterInternship(data, token) {
-//   try {
-//     const request = await fetch(`/api/student/updateStudent/${token}`, {
-//       method: "POST",
-//       headers: {
-//         "Content-Type": "application/json",
-//         "Cache-Control":
-//           "no-store, no-cache, must-revalidate, proxy-revalidate",
-//         Pragma: "no-cache",
-//         Expires: "0",
-//         "Surrogate-Control": "no-store",
-//       },
-//       body: JSON.stringify(data),
-//     });
-//     const requestData = await request.json();
-//     return requestData;
-//   } catch (e) {
-//     console.log("update student!");
-//     console.log(e);
-//   }
-// }
 
 const Partners = () => {
   const [coursesTypes, setCoursesTypes] = useState([]);
