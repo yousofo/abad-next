@@ -22,7 +22,7 @@ export async function fetchWithCheck(url, json = true, options = {}, fallBack) {
     });
 
     if (!response.ok) {
-      throw new Error(`error! Status: ${response.status}`);
+      throw await response.json();
     }
 
     if (json) {

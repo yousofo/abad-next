@@ -7,6 +7,8 @@ import { useDispatch, useSelector } from "react-redux";
 import Loader from "@/components/shared/Loader/component/Loader";
 import { toggleUpdateInfo } from "@/components/GlobalState/Features/userData";
 import Select from "react-select";
+import { fetchWithCheck } from "@/helperFunctions/serverFetching";
+import { toast } from "react-toastify";
 
 const options = [
   { value: "chocolate", label: "Chocolate" },
@@ -37,19 +39,14 @@ const options = [
 // }
 
 const Partners = () => {
+  const [coursesTypes, setCoursesTypes] = useState([]);
+  const [companyServices, setCompanyServices] = useState([]);
+  const [generalError, setGeneralError] = useState("");
+
+  // logged user data
   const userInfo = useSelector((store) => store.userData.info);
-  const dispatch = useDispatch();
 
-  let newDate = null;
-  if (userInfo?.birthDate) {
-    const date = new Date(userInfo.birthDate);
-    if (!isNaN(date.getTime())) {
-      newDate = date.toISOString().split("T")[0];
-    }
-  }
-  console.log("profile");
-
-  //loading for internship registeration
+  // loader state
   const [loading, setLoading] = useState(false);
 
   // react-hook-form
@@ -59,24 +56,57 @@ const Partners = () => {
   // const { name,ref,onChange,onBlur}=register("id")
   let { errors } = formState;
 
-  async function handleFormSubmit(formData, e) {
-    console.log("here");
+  async function handleFormSubmit(reactForm, event) {
     setLoading(true);
 
-    console.log(formData);
-    const result = await new Promise((res, rej) => {
-      setTimeout(() => {
-        res();
-      }, 5000);
-    });
-    // if (result.message)
-    //   dispatch(toggleUpdateInfo({ ...formData, token: userInfo.token }));
-    console.log(result);
+    const formData = new FormData();
 
-    setLoading(false);
+    // Append file
+    if (reactForm.file[0]) {
+      formData.append(
+        "attachedFile",
+        reactForm.file[0],
+        reactForm.file[0].name
+      );
+    }
+
+    // Append other form fields
+    formData.append("TokenNumber", userInfo?.token || "");
+    formData.append("Details", reactForm?.details || "");
+    formData.append("TitleJob", reactForm?.jobName || "");
+    formData.append("SerivesModelId", reactForm?.serviceName || "");
+    formData.append("CoursesTypeId", reactForm?.courseName || "");
+    formData.append("OurEmail", reactForm?.email || "");
+    formData.append("Telphone", reactForm?.phone || "");
+    formData.append("FullName", reactForm?.arabicName || "");
+    formData.append("OrganizationName", reactForm?.organization || "");
+    // Make the POST request
+    try {
+      const result = await fetchWithCheck(
+        `/api/companyServices/createCompanyRequest`,
+        true,
+        {
+          method: "POST",
+          body: formData,
+        }
+      );
+      console.log(result);
+      toast.success(result.message);
+    } catch (error) {
+      setGeneralError(error.message);
+    } finally {
+      setLoading(false);
+    }
   }
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    fetchWithCheck("/api/companyServices/coursesTypes").then((e) =>
+      setCoursesTypes(e)
+    );
+    fetchWithCheck("/api/companyServices/companyServices").then((e) =>
+      setCompanyServices(e)
+    );
+  }, []);
 
   return (
     <main className="pb-10 sm:pb-24 relative">
@@ -195,32 +225,37 @@ const Partners = () => {
                 <option value="" className="hidden">
                   اختر الدورة
                 </option>
-                <option value="ذكر">دورة 1</option>
-                <option value="انثي">دورة 2</option>
+                {coursesTypes.map((e, i) => (
+                  <option key={i} value={e.code}>
+                    {e.arabicName}
+                  </option>
+                ))}
               </select>
             </div>
             <p className="input-error">{errors.courseName?.message}</p>
           </div>
           {/* services !*/}
           <div className="input ">
-            <label htmlFor="courseName">الخدمات المطلوبة*</label>
-            <div className="select relative multi-select">
-              {/* <select
+            <label htmlFor="servicesName">الخدمات المطلوبة*</label>
+            <div className="select relative">
+              <select
                 name=""
-                id="courseName"
-                multiple
+                id="serviceName"
                 className="w-full focus:outline-none"
-                {...register("courseName", {
-                  required: "يجب اخيار الخدمات المطلوبة",
+                {...register("serviceName", {
+                  required: "يجب اخيار الخدمة",
                 })}
               >
                 <option value="" className="hidden">
-                  اختر الدورة
+                  اختر الخدمة
                 </option>
-                <option value="ذكر">دورة 1</option>
-                <option value="انثي">دورة 2</option>
-              </select> */}
-              <Select
+                {companyServices.map((e, i) => (
+                  <option key={i} value={e.id}>
+                    {e.name}
+                  </option>
+                ))}
+              </select>
+              {/* <Select
                 styles={{
                   control: (baseStyles, state) => ({
                     ...baseStyles,
@@ -233,7 +268,7 @@ const Partners = () => {
                 isRtl={true}
                 placeholder="اختر الخدمات"
                 options={options}
-              />
+              /> */}
             </div>
             <p className="input-error">{errors.courseName?.message}</p>
           </div>
@@ -252,10 +287,21 @@ const Partners = () => {
             </div>
             <p className="input-error">{errors.details?.message}</p>
           </div>
-          {/* phone !*/}
+          {/* file !*/}
           <div className="input md:col-span-2">
             <label htmlFor="file">ملف مرفق</label>
-            <div
+            <div className="select relative">
+              <input
+                type="file"
+                name=""
+                className="w-full"
+                placeholder="ملف مرفق"
+                accept=".pdf"
+                id="file"
+                {...register("file")}
+              />
+            </div>
+            {/* <div
               className="select flex items-center gap-3 !p-2 !px-4"
               style={{ boxShadow: "5px 4px 30px 0px #00000014" }}
             >
@@ -276,9 +322,16 @@ const Partners = () => {
                 />
               </div>
               <p className="font-light text-base">لا يوجد ملف تم اختيارة</p>
-            </div>
+            </div> */}
             <p className="input-error">{errors.file?.message}</p>
           </div>
+          {/* general error */}
+          <p
+            style={{ display: generalError ? "block" : "none" }}
+            className={`input-error`}
+          >
+            {generalError}
+          </p>
         </form>
         <div className="btns">
           <button
