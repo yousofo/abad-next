@@ -1,20 +1,16 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import ArticlesItem from "./ArticlesItem";
+import ArticlesItem from "../shared/article/ArticlesItem";
+import { fetchWithCheck } from "@/helperFunctions/serverFetching";
 
 async function fetchArticles() {
   try {
-    const result = await fetch("/api/articles/getArticles", {
-      method: "GET",
-      headers: {
-        "Cache-Control":
-          "no-store, no-cache, must-revalidate, proxy-revalidate",
-        Pragma: "no-cache",
-        Expires: "0",
-        "Surrogate-Control": "no-store",
-      },
-    });
-    const data = await result.json();
+    const data = await fetchWithCheck(
+      "/api/articles/getArticles",
+      true,
+      null,
+      []
+    );
     return data;
   } catch (e) {
     console.log("fetch e");
@@ -31,6 +27,7 @@ export default function ArticlesFilteringWrapper() {
     fetchArticles()
       .then((e) => {
         setData(e);
+        console.log(e);
         setFilteredArticles(e);
       })
       .catch((e) => console.log(e));
@@ -101,4 +98,4 @@ export default function ArticlesFilteringWrapper() {
       {/* ARTICLES end */}
     </>
   );
-};
+}

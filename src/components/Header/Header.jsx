@@ -10,10 +10,9 @@ import {
 import { toggleNavList } from "../GlobalState/Features/navListSlice";
 import { toggleMiniNav } from "../GlobalState/Features/miniNavSlice";
 import {
-  resetCoursesNav,
   toggleCoursesNav,
 } from "../GlobalState/Features/coursesNavSlice";
-import CoursesNav from "./CoursesNav";
+import CoursesNav from "./coursesNav/CoursesNav";
 import {
   fetchUserBasket,
   toggleUpdateInfo,

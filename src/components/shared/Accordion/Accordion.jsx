@@ -2,20 +2,20 @@
 import { useForm } from "react-hook-form";
 import "./accordion.css";
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
+import { toggleSignIn } from "@/components/GlobalState/Features/authSlice";
 
 const AccordionForm = ({ form, token }) => {
-  // const { fetchRegisterCourseRequest, setLoading, triggerToast } = form;
   const { fetchRegisterCourseRequest, setLoading } = form;
   const user = useSelector(store=>store.userData.info)
   const [generalError, setGeneralError] = useState("");
+  const dispatch = useDispatch()
   // react-hook-form
   const registerCourseForm = useForm();
   const { register, handleSubmit, formState, setError, reset } =
     registerCourseForm;
-  // const { name,ref,onChange,onBlur}=register("id")
-  let { errors, isValid, isSubmitted } = formState;
+  let { errors } = formState;
 
   async function handleSubmitRegisterCourse(formData, e) {
     if (user) {
@@ -30,16 +30,11 @@ const AccordionForm = ({ form, token }) => {
         nots: "string",
       });
       if (result.errors) {
-        console.log("errrrr");
-        console.log(Object.entries(result.errors));
-        // Object.entries(result.errors).forEach(([key, value]) => {
-        //   if (key == "$.birthDate") {
-        //     setError("birthDate", { type: "manual", message: [...value] });
-        //   }
-        // });
+        console.log("acc register result.errors");
+        console.log(result.errors);
       } else if (result?.message) {
         // triggerToast(result?.message);
-        toast(result?.message)
+        toast.success(result?.message)
       } else {
         if (result.error) {
           setGeneralError(result.error);
@@ -48,8 +43,7 @@ const AccordionForm = ({ form, token }) => {
         }
       }
     }else{
-      // triggerToast("سجل الدخول اولا")
-      toast("سجل الدخول اولا")
+      dispatch(toggleSignIn())
     }
 
     setLoading(false);

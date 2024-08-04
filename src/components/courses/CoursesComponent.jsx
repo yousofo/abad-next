@@ -9,57 +9,42 @@ import React, {
 import Link from "next/link";
 // redux tool kit
 import { useDispatch, useSelector } from "react-redux";
-import { toggleCards } from "../../GlobalState/Features/coursesFilterSlice";
+import { toggleCards } from "../GlobalState/Features/coursesFilterSlice";
 // components
-import CourseRow from "../../shared/tables/CourseRow";
-import CourseCard from "../../shared/tables/CourseCard";
+import CourseCard from "../shared/tables/CourseCard";
 import MultiRangeSlider from "./dualSwiper/MultiRangeSlider";
+import SeachFilter from "./serachFilter/SeachFilter";
+//react-table
 import {
   useGlobalFilter,
   usePagination,
   useSortBy,
   useTable,
 } from "react-table";
-import SeachFilter from "./SeachFilter";
+//helper functions
 import { handleOuterRegisterCourse } from "@/helperFunctions/UserCourseRegisteration";
+import { fetchWithCheck } from "@/helperFunctions/serverFetching";
 
-async function fetchHomeCourse() {
+async function fetchCourses() {
   try {
-    const request = await fetch("/api/home/allCourses", {
-      method: "GET",
-      headers: {
-        "Cache-Control":
-          "no-store, no-cache, must-revalidate, proxy-revalidate",
-        Pragma: "no-cache",
-        Expires: "0",
-        "Surrogate-Control": "no-store",
-      },
-    });
-    const data = await request.json();
-    console.log(data);
+    const data = await fetchWithCheck("/api/home/allCourses", true, null, []);
     return data;
   } catch (error) {
-    console.log("courses filter");
+    console.log("courses fetchCourses");
     console.log(error);
   }
 }
 async function fetchCoursesCategories() {
   try {
-    const request = await fetch("/api/categories/coursesCategories", {
-      method: "GET",
-      headers: {
-        "Cache-Control":
-          "no-store, no-cache, must-revalidate, proxy-revalidate",
-        Pragma: "no-cache",
-        Expires: "0",
-        "Surrogate-Control": "no-store",
-      },
-    });
-    const data = await request.json();
-    console.log(data);
+    const data = await fetchWithCheck(
+      "/api/categories/coursesCategories",
+      true,
+      null,
+      []
+    );
     return data;
   } catch (error) {
-    console.log("courses filter");
+    console.log("courses fetchCoursesCategories");
     console.log(error);
   }
 }
@@ -67,17 +52,18 @@ async function fetchCoursesCategories() {
 // main component
 const CoursesComponent = () => {
   const allCatRef = useRef(null);
+  const dispatch = useDispatch();
+  //global state
   const isCards = useSelector((store) => store.coursesFilter.isCards);
   const user = useSelector((store) => store.userData.info);
-  const dispatch = useDispatch();
 
   //filtering
   const [data, setData] = useState([]);
-  const [coursesCategories, setCoursesCategories] = useState([]);
-  const [activeCategory, setActiveCategory] = useState(["all"]);
+  const [coursesCategories, setCoursesCategories] = useState([]); //filter options from api
+  const [activeCategory, setActiveCategory] = useState(["all"]); //current selected filter options
   const [isCourseOnline, setIsCourseOnline] = useState("");
   const [isCourseHadaf, setIsCourseHadaf] = useState(false);
-  const [minMax, setMinMax] = useState({ min: 0, max: 15000 });
+  const [minMax, setMinMax] = useState({ min: 0, max: 15000 }); //price filter state
   const [sortOrder, setSortOrder] = useState("latest"); // or 'newest'
 
   // table info
@@ -304,6 +290,7 @@ const CoursesComponent = () => {
       }
     });
   }, [activeCategory, data.length, isCourseHadaf, isCourseOnline]);
+
   //2nd filter based on price after first filter
   const priceFilter = useMemo(() => {
     console.log("filter price");
@@ -311,7 +298,8 @@ const CoursesComponent = () => {
       (e) => e.price >= minMax.min && e.price <= minMax.max
     );
   }, [minMax.min, minMax.max, filteredData, isCourseOnline]);
-  //3rd filter - latest
+
+  //3rd filter latest | newest
   const sortedData = useMemo(() => {
     console.log("latest Filter");
     return [...priceFilter].sort((a, b) => {
@@ -323,7 +311,7 @@ const CoursesComponent = () => {
     });
   }, [priceFilter, sortOrder]);
 
-  // initialize table
+  // initialize react table
   const tableInstance = useTable(
     { columns: tableColumns, data: sortedData },
     useGlobalFilter,
@@ -358,8 +346,9 @@ const CoursesComponent = () => {
     setIsCourseHadaf(false);
     setMinMax({ min: 0, max: 15000 });
   }
-  function handleChecked(e, code) {
-    if (e.target.checked == true) {
+  // update checked filter categories
+  function handleChecked(event, code) {
+    if (event.target.checked == true) {
       setActiveCategory((pre) => [...pre, code]);
     } else {
       setActiveCategory((pre) => pre.filter((ele) => ele != code));
@@ -367,7 +356,9 @@ const CoursesComponent = () => {
   }
 
   useEffect(() => {
+    // auto select 'ALL' category on initial render
     allCatRef.current.checked = true;
+
     fetchCoursesCategories()
       .then((e) => {
         setCoursesCategories(e);
@@ -376,7 +367,7 @@ const CoursesComponent = () => {
         console.log("courses filter");
         console.log(error);
       });
-    fetchHomeCourse()
+    fetchCourses()
       .then((e) => {
         setData(e);
         setPageSize(6);

@@ -1,5 +1,5 @@
 import "./courses.css";
-import CoursesComponent from "@/components/dataFetching/courses/CoursesComponent";
+import CoursesComponent from "@/components/courses/CoursesComponent";
 
 const Courses = () => {
   return (

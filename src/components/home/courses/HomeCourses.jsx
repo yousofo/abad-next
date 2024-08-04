@@ -7,48 +7,10 @@ import { useDispatch, useSelector } from "react-redux";
 // import { setHomeCourses } from "../../GlobalState/Features/fetchedDataSlice";
 import { toggleCards } from "../../GlobalState/Features/coursesFilterSlice";
 // components
-import CourseRow from "../../shared/tables/CourseRow";
-import CourseCard from "../../shared/tables/CourseCard";
+import CourseRow from "@/components/shared/tables/CourseRow";
+import CourseCard from "@/components/shared/tables/CourseCard";
 import { fetchWithCheck } from "@/helperFunctions/serverFetching";
 
-// async function fetchHomeCourse() {
-//   try {
-//     const request = await fetch("/api/home/latest", {
-//       method: "GET",
-//       headers: {
-//         "Cache-Control":
-//           "no-store, no-cache, must-revalidate, proxy-revalidate",
-//         Pragma: "no-cache",
-//         Expires: "0",
-//         "Surrogate-Control": "no-store",
-//       },
-//     });
-//     const data = await request.json();
-//     console.log(data);
-//     return data;
-//   } catch (e) {
-//     console.log(e);
-//   }
-// }
-// async function fetchCoursesCategories() {
-//   try {
-//     const request = await fetch("/api/categories/coursesCategories", {
-//       method: "GET",
-//       headers: {
-//         "Cache-Control":
-//           "no-store, no-cache, must-revalidate, proxy-revalidate",
-//         Pragma: "no-cache",
-//         Expires: "0",
-//         "Surrogate-Control": "no-store",
-//       },
-//     });
-//     const data = await request.json();
-//     console.log(data);
-//     return data;
-//   } catch (e) {
-//     console.log(e);
-//   }
-// }
 
 const HomeCourses = () => {
   const [data, setData] = useState([]);

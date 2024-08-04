@@ -4,10 +4,9 @@ import "./course.css";
 
 import Accordion from "@/components/shared/Accordion/Accordion";
 import { useRouter } from "next/navigation";
-import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import Loader from "@/components/shared/Loader/component/Loader";
-// import triggerToast from "@/helperFunctions/triggerToast";
-// import Toast from "@/components/shared/toasts/Toast";
+
 import Link from "next/link";
 
 async function fetchCourseDetails(token) {
@@ -25,48 +24,6 @@ async function fetchCourseDetails(token) {
         },
       }
     );
-    const result = await courseDetails.json();
-    console.log(result);
-    return result;
-  } catch (e) {
-    console.log(e);
-  }
-}
-async function fetchRegisterAttendanceCourse(data) {
-  try {
-    const courseDetails = await fetch(`/api/reservations/addOfflineCourse`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "Cache-Control":
-          "no-store, no-cache, must-revalidate, proxy-revalidate",
-        Pragma: "no-cache",
-        Expires: "0",
-        "Surrogate-Control": "no-store",
-      },
-      body: JSON.stringify(data),
-    });
-    const result = await courseDetails.json();
-    console.log(result);
-    return result;
-  } catch (e) {
-    console.log(e);
-  }
-}
-async function fetchAddToBasket(data) {
-  try {
-    const courseDetails = await fetch(`/api/reservations/addToBasket`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "Cache-Control":
-          "no-store, no-cache, must-revalidate, proxy-revalidate",
-        Pragma: "no-cache",
-        Expires: "0",
-        "Surrogate-Control": "no-store",
-      },
-      body: JSON.stringify(data),
-    });
     const result = await courseDetails.json();
     console.log(result);
     return result;
@@ -100,9 +57,8 @@ async function fetchRegisterCourseRequest(data) {
 const Register = ({ params }) => {
   const [courseImg, setCourseImg] = useState("/media/course/course-image.png");
   const [fetched, setFetched] = useState(false);
-  // const [toastState, setToastState] = useState({ active: false, text: "" });
+  const dispatch = useDispatch();
   const router = useRouter();
-  const userInfo = useSelector((store) => store.userData.info);
   const [loading, setLoading] = useState(false);
   const [courseInfo, setCourseInfo] = useState({
     token: "e5f85c2b-33ef-43d3-9075-d8ee0966cb06",
@@ -152,10 +108,11 @@ const Register = ({ params }) => {
     ],
   });
 
+
   useEffect(() => {
     fetchCourseDetails(params.token)
       .then((e) => {
-        if(e.error) router.replace("/courses")
+        if (e.error) router.replace("/courses");
         setCourseInfo(e);
         setCourseImg(e.imageUrl);
         setFetched(true);
@@ -164,22 +121,6 @@ const Register = ({ params }) => {
         console.log(e);
       });
   }, []);
-  
-  async function handleRegisterAttendanceCourse() {
-    const result = await fetchRegisterAttendanceCourse({
-      CourseToken: params.token,
-      userToken: userInfo.token,
-    });
-    console.log(result);
-  }
-  async function handleAddToBasket() {
-    const result = await fetchAddToBasket({
-      CourseToken: params.token,
-      userToken: userInfo.token,
-    });
-    console.log(result);
-  }
-
   return (
     <main className="pb-10 relative">
       <div className="hero relative">
@@ -365,42 +306,6 @@ const Register = ({ params }) => {
                 <span>ريال سعودي</span>
               </h2>
               <div className="flex flex-col gap-4">
-                {/* handle coure REGISTERATION */}
-                {/* {!courseInfo.isOnline ? (
-                  <a href="#" onClick={handleRegisterAttendanceCourse}>
-                    سجل في الدورة
-                  </a>
-                ) : (
-                  <>
-                    <a href="#">شراء الدورة التدريبية الآن</a>
-                    <div
-                      className="action-btns flex gap-4"
-                      onClick={handleAddToBasket}
-                    >
-                      <button className="flex-1 bg-[#FDB614]">
-                        إضافة الي السلة
-                      </button>
-                      <button>
-                        <svg
-                          width={20}
-                          height={16}
-                          viewBox="0 0 18 16"
-                          fill="none"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            d="M9 14.875C9 14.875 1.1875 10.5 1.1875 5.18751C1.1875 4.24836 1.51289 3.33821 2.1083 2.61193C2.70371 1.88564 3.53236 1.38808 4.45328 1.2039C5.37419 1.01971 6.33047 1.16029 7.15943 1.6017C7.98838 2.04311 8.63879 2.7581 9 3.62501V3.62501C9.36121 2.7581 10.0116 2.04311 10.8406 1.6017C11.6695 1.16029 12.6258 1.01971 13.5467 1.2039C14.4676 1.38808 15.2963 1.88564 15.8917 2.61193C16.4871 3.33821 16.8125 4.24836 16.8125 5.18751C16.8125 10.5 9 14.875 9 14.875Z"
-                            stroke="#32BCA3"
-                            strokeWidth="1.5"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                          />
-                        </svg>
-                      </button>
-                    </div>
-                  </>
-                )} */}
-
                 <div className="course-description flex flex-col gap-4 pt-2 border-t border-t-[##E0E0E0] text-[#252525]">
                   <h4 className="text-xl font-medium">وصف الدورة</h4>
 
@@ -489,9 +394,6 @@ const Register = ({ params }) => {
       </div>
       <Loader loading={!fetched} text="قيد التحميل" />
       <Loader loading={loading} text="قيد التسجيل" />
-      {/* {toastState.active && ( */}
-        {/* <Toast active={toastState.active} data={toastState.text} /> */}
-      {/* )} */}
     </main>
   );
 };

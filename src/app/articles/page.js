@@ -8,6 +8,7 @@ const Articles = () => {
     <main className='relative'>
       {/* HERO start  */}
       <section className="hero h-dvh md:min-h-[600px] md:h-auto relative">
+        {/* HERO text */}
         <div className="intro text-center absolute flex flex-col items-center h-full justify-center gap-5 md:gap-7 text-white w-full max-w-full px-4">
           <h2 className="text-2xl font-medium md:text-4xl lg:text-5xl xl:text-6xl max-w-72 sm:max-w-fit">
             <span className="text-abad-gold whitespace-nowrap my-3 block">
@@ -19,6 +20,7 @@ const Articles = () => {
             </p>
           </h2>
         </div>
+        {/* background  */}
         <div className="back-shape overflow-hidden w-full relative -z-10 h-full md:h-auto">
           <img
             className="w-full h-full md:h-auto object-cover md:min-h-[600px]"

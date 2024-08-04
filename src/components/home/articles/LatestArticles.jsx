@@ -1,5 +1,5 @@
 "use client";
-import ArticlesItem from "./ArticlesItem";
+import ArticlesItem from "@/components/shared/article/ArticlesItem";
 
 const LatestArticles = ({ data }) => {
   return (

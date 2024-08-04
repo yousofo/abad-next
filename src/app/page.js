@@ -2,10 +2,10 @@ import "./main.css"
 import ReviewsSwiper from "@/components/shared/swipers/ReviewsSwiper";
 import "swiper/css";
 import PartnersSwiper from "@/components/shared/swipers/PartnersSwiper";
-import HomeCourses from "@/components/dataFetching/home/HomeCourses";
+import HomeCourses from "@/components/home/courses/HomeCourses";
 // import { fetchLatestArticles } from "@/helperFunctions/serverFetching";
 import SubscriptionWithEmail from "@/components/home/SubscriptionWithEmail/SubscriptionWithEmail";
-import LatestArticles from "@/components/articles/LatestArticles";
+import LatestArticles from "@/components/home/articles/LatestArticles";
 import { fetchWithCheck } from "@/helperFunctions/serverFetching";
 
 export const fetchCache = 'force-no-store';
@@ -139,54 +139,19 @@ export default async function Home() {
             </div>
           </div>
           <div className="cards">
-            <figure className="card">
-              <div className="img">
-                <img src="/media/twitch.png" className="" alt="" />
-              </div>
-              <figcaption>
-                <h4 className="font-bold">من اباد؟</h4>
-                <p>
-                  معهد شبكة آباد للتدريب من المعاهد الرائدة في تقديم الدورات
-                  التطويرية المتخصصة في تقنية..
-                </p>
-              </figcaption>
-            </figure>
-            <figure className="card">
-              <div className="img">
-                <img src="/media/twitch.png" className="" alt="" />
-              </div>
-              <figcaption>
-                <h4 className="font-bold">من اباد؟</h4>
-                <p>
-                  معهد شبكة آباد للتدريب من المعاهد الرائدة في تقديم الدورات
-                  التطويرية المتخصصة في تقنية..
-                </p>
-              </figcaption>
-            </figure>
-            <figure className="card">
-              <div className="img">
-                <img src="/media/twitch.png" className="" alt="" />
-              </div>
-              <figcaption>
-                <h4 className="font-bold">من اباد؟</h4>
-                <p>
-                  معهد شبكة آباد للتدريب من المعاهد الرائدة في تقديم الدورات
-                  التطويرية المتخصصة في تقنية..
-                </p>
-              </figcaption>
-            </figure>
-            <figure className="card">
-              <div className="img">
-                <img src="/media/twitch.png" className="" alt="" />
-              </div>
-              <figcaption>
-                <h4 className="font-bold">من اباد؟</h4>
-                <p>
-                  معهد شبكة آباد للتدريب من المعاهد الرائدة في تقديم الدورات
-                  التطويرية المتخصصة في تقنية..
-                </p>
-              </figcaption>
-            </figure>
+            {new Array(3).fill(
+              <figure className="card">
+                <div className="img">
+                  <img src="/media/twitch.png" className="" alt="" />
+                </div>
+                <figcaption>
+                  <h4 className="font-bold">من اباد؟</h4>
+                  <p>
+                    معهد شبكة آباد للتدريب من المعاهد الرائدة في تقديم الدورات
+                    التطويرية المتخصصة في تقنية..
+                  </p>
+                </figcaption>
+              </figure>)}
           </div>
         </div>
       </section>
