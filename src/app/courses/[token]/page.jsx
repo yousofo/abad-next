@@ -10,7 +10,11 @@ import { toggleSignIn } from "@/components/GlobalState/Features/authSlice";
 import Link from "next/link";
 import { toast } from "react-toastify";
 import { fetchWithCheck } from "@/helperFunctions/serverFetching";
-import { toggleLoader } from "@/components/GlobalState/Features/popUpsSlice";
+import {
+  toggleLoader,
+  toggleSelectPaymentOptions,
+} from "@/components/GlobalState/Features/popUpsSlice";
+import InnerLoader from "@/components/shared/Loader/inner-loader/InnerLoader";
 
 async function fetchRegisterAttendanceCourse(data) {
   try {
@@ -54,7 +58,7 @@ const Course = ({ params }) => {
   const [courseImg, setCourseImg] = useState("/media/course/course-image.png");
   const [fetched, setFetched] = useState(false);
   const router = useRouter();
-  const dispatch = useDispatch();
+  let dispatch = useDispatch();
 
   const user = useSelector((store) => store.userData.info);
   const [courseInfo, setCourseInfo] = useState();
@@ -62,14 +66,11 @@ const Course = ({ params }) => {
   async function handleRegisterAttendanceCourse() {
     if (!user?.token) return dispatch(toggleSignIn());
 
-    console.log({
-      courseToken: params.token,
-      userToken: user.token,
-    });
     const result = await fetchRegisterAttendanceCourse({
       courseToken: params.token,
       userToken: user.token,
     });
+
     if (result.message) {
       toast.success(result.message);
     } else if (result.error) {
@@ -93,18 +94,15 @@ const Course = ({ params }) => {
   }
 
   useEffect(() => {
-    dispatch(toggleLoader("قيد التحميل"));
     fetchWithCheck(`/api/home/courseDetails/${params.token}`)
-      .then((e) => {
-        setCourseInfo(e);
-        setCourseImg(e.imageUrl);
-        setFetched(true);
-        dispatch(toggleLoader(""));
+      .then((courseData) => {
+        setCourseInfo(courseData);
+        setCourseImg(courseData.imageUrl);
       })
-      .catch((e) => {
-        router.replace("/not-found");
-      });
+      .catch((error) => router.replace("/not-found"))
+      .finally(() => setFetched(true));
   }, []);
+
   return (
     <main className="pb-10 relative">
       <div className="hero relative">
@@ -292,8 +290,9 @@ const Course = ({ params }) => {
                 {courseInfo?.isOnline == "أونلاين" ? (
                   <>
                     <button
-                      onClick={() =>
-                        toast.info("قريبا, اضغط اضافة للسلة حاليا")
+                      onClick={
+                        () => dispatch(toggleSelectPaymentOptions())
+                        // toast.info("قريبا, اضغط اضافة للسلة حاليا")
                       }
                       className="register-btn"
                     >
@@ -422,6 +421,7 @@ const Course = ({ params }) => {
         </div>
         {/* main content end */}
       </div>
+      <InnerLoader active={!fetched} text="جاري التحميل"/>
     </main>
   );
 };

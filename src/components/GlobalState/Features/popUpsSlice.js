@@ -22,8 +22,8 @@ export const popUpsSlice = createSlice({
       }
     },
     toggleLoader: (state,action) => {
-      state.loader.active = !state.loader.active
-      state.loader.text = !action.payload
+      state.loader.active = true
+      state.loader.text = action.payload
     },
     toggleSelectPaymentOptions: (state) => {
       return {
