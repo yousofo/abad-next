@@ -1,11 +1,22 @@
+"use client";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-import fetchCheckCourse from "@/helperFunctions/fetchCheckCourse";
 import { fetchWithCheck } from "@/helperFunctions/serverFetching";
+import { useDispatch } from "react-redux";
+import { toggleLoader } from "@/components/GlobalState/Features/popUpsSlice";
 // import fetchCoursesWithTypes from "@/helperFunctions/fetchCoursesWithTypes";
+async function fetchCheckCourse(courseToken) {
+  try {
+    const data = await fetchWithCheck(
+      `/api/reservations/checkCourse?token=${courseToken}&timestamp=${new Date().getTime()}`
+    );
 
-
+    console.log(data);
+    return data;
+  } catch (e) {
+    console.log(e);
+  }
+}
 const NavListItem = ({ data, handleNavListItem, index }) => {
   return (
     <li className="w-full">
@@ -39,6 +50,7 @@ const AngleBottom = ({ fill }) => (
 
 //3ab6540e-b68a-474a-8e3c-5218c3a6e280
 const CoursesNav = () => {
+  const dispatch = useDispatch();
   const [data, setData] = useState([]);
   const [current, setCurrent] = useState([]);
   const router = useRouter();
@@ -49,15 +61,17 @@ const CoursesNav = () => {
   }
 
   async function handleCourseClicked(courseToken) {
+    dispatch(toggleLoader("جاري التنفيذ"));
     const result = await fetchCheckCourse(courseToken);
     if (result.courseExists) {
       router.push(`/courses/${result.courseToken}`);
     } else {
       router.push(`/courses/register/${result.courseToken}`);
     }
+    dispatch(toggleLoader(""));
   }
   useEffect(() => {
-    fetchWithCheck('/api/categories/coursesWithTypes',true,null,[])
+    fetchWithCheck("/api/categories/coursesWithTypes", true, null, [])
       .then((e) => {
         setData(e);
         console.log(e);
@@ -66,9 +80,7 @@ const CoursesNav = () => {
   }, []);
   return (
     <div className="mini-nav">
-      <ul
-        className={`no-top-left courses-nav courses-nav-1`}
-      >
+      <ul className={`no-top-left courses-nav courses-nav-1`}>
         {data.map((course, i) => (
           <NavListItem
             key={i}

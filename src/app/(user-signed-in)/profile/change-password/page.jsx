@@ -3,7 +3,7 @@ import React, { useRef, useState } from "react";
 import "./change-password.css";
 import Link from "next/link";
 import { useSelector } from "react-redux";
-import Loader from "@/components/shared/Loader/component/Loader";
+import Loader from "@/components/shared/Loader/Loader";
 
 async function fetchUpdatePassword(data, token) {
   try {

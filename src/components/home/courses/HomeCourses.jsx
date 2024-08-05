@@ -1,5 +1,5 @@
 "use client";
-import "./homeCourses.css";
+import "./homeCourses.dev.css";
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
 // redux tool kit
@@ -11,7 +11,6 @@ import CourseRow from "@/components/shared/tables/CourseRow";
 import CourseCard from "@/components/shared/tables/CourseCard";
 import { fetchWithCheck } from "@/helperFunctions/serverFetching";
 
-
 const HomeCourses = () => {
   const [data, setData] = useState([]);
   const [coursesCategories, setCoursesCategories] = useState([]);
@@ -22,7 +21,7 @@ const HomeCourses = () => {
   const [searchInput, setSearchInput] = useState("");
 
   const handleSearch = (event) => {
-    console.log(event.target.value)
+    console.log(event.target.value);
     const input = event.target.value.toLowerCase();
     setSearchInput(input);
 
@@ -34,7 +33,7 @@ const HomeCourses = () => {
   };
 
   useEffect(() => {
-    fetchWithCheck('/api/categories/coursesCategories',true,{},[])
+    fetchWithCheck("/api/categories/coursesCategories", true, {}, [])
       .then((e) => {
         setCoursesCategories(e);
       })
@@ -42,7 +41,7 @@ const HomeCourses = () => {
         console.log("home courses");
         console.log(e);
       });
-    fetchWithCheck('/api/home/latest',true,{},[])
+    fetchWithCheck("/api/home/latest", true, {}, [])
       .then((e) => {
         setData(e);
         setFilteredCourses(e);
@@ -59,11 +58,13 @@ const HomeCourses = () => {
   }
 
   return (
-    <div className="home-courses">
+    <div className="home-courses container min-h-[450px] py-2 mx-auto max-w-screen-lg flex flex-col px-1 gap-4 items-center bg-white rounded-xl">
       {/* courses preview mode options */}
-      <div className="courses-preview-mode ">
-        <h3>دورات أباد للتدريب</h3>
-        <ul>
+      <div className="courses-preview-mode text-black flex px-2 justify-between items-center w-full">
+        <h3 className="font-bold text-[#1e1e1e] md:text-4xl">
+          دورات أباد للتدريب
+        </h3>
+        <ul className="flex gap-2 justify-center items-center">
           <li
             data-mode="rows"
             onClick={handleCoursesPreviewMode}
@@ -130,6 +131,7 @@ const HomeCourses = () => {
       </div>
       {/* main courses content */}
       <div className=" courses-contents ">
+        {/* search and filter */}
         <div>
           {/* courses filter */}
           <nav className="courses-filter abad-drop-shadow  whitespace-nowrap">
@@ -230,7 +232,9 @@ const HomeCourses = () => {
           {/* rows data */}
           <tbody>
             {activeCategory == "all" && Array.isArray(data)
-              ? filteredCourses.map((e, i) => <CourseRow data={e} key={i} index={i} />)
+              ? filteredCourses.map((e, i) => (
+                  <CourseRow data={e} key={i} index={i} />
+                ))
               : filteredCourses
                   ?.filter((e) => e.categoryId == activeCategory)
                   .map((e, i) => <CourseRow data={e} key={i} index={i} />)}

@@ -5,9 +5,9 @@ import "./course.css";
 import Accordion from "@/components/shared/Accordion/Accordion";
 import { useRouter } from "next/navigation";
 import { useDispatch } from "react-redux";
-import Loader from "@/components/shared/Loader/component/Loader";
 
 import Link from "next/link";
+import { toggleLoader } from "@/components/GlobalState/Features/popUpsSlice";
 
 async function fetchCourseDetails(token) {
   try {
@@ -56,66 +56,21 @@ async function fetchRegisterCourseRequest(data) {
 
 const Register = ({ params }) => {
   const [courseImg, setCourseImg] = useState("/media/course/course-image.png");
-  const [fetched, setFetched] = useState(false);
+  const [courseInfo, setCourseInfo] = useState({});
   const dispatch = useDispatch();
   const router = useRouter();
-  const [loading, setLoading] = useState(false);
-  const [courseInfo, setCourseInfo] = useState({
-    token: "e5f85c2b-33ef-43d3-9075-d8ee0966cb06",
-    courseName: "اسم الدوره بالانجليزي",
-    startDate: "2024-07-19",
-    isOnlineId: 0,
-    isOnline: "حضوري",
-    hadaf: "مدعومة من هدف",
-    categoryId: 1,
-    categoryName: "أمن المعلومات",
-    price: 1200,
-    imageUrl: "https://newabad.abadnet.com.sa/Admin/CoursesDataImage/1",
-    summaryAr: "<p><label>اسم الدوره بالانجليزي</label></p>",
-    goalsAr: "<p><label>اسم الدوره بالانجليزي</label></p>",
-    targetAr: "<p><label>اسم الدوره بالانجليزي</label></p>",
-    detailsAr: "<p><label>اسم الدوره بالانجليزي</label></p>",
-    testAr: "<p><label>اسم الدوره بالانجليزي</label></p>",
-    numberOfweeks: 5,
-    numberOfHours: 30,
-    trainerLanguage: null,
-    formattedTimeStart: "الجمعة والسبت من الساعة ٦م الى الساعة ٩م",
-    formattedTimeEnd: "الجمعة والسبت من الساعة ٦م الى الساعة ٩م",
-    openCourses: [
-      {
-        token: "e5f85c2b-33ef-43d3-9075-d8ee0966cb06",
-        courseName: "اسم الدوره بالانجليزي",
-        startDate: "2024-07-19",
-        isOnlineId: 0,
-        isOnline: null,
-        hadaf: null,
-        categoryId: 0,
-        categoryName: null,
-        price: 0,
-        imageUrl: null,
-        summaryAr: null,
-        goalsAr: null,
-        targetAr: null,
-        detailsAr: null,
-        testAr: null,
-        numberOfweeks: 0,
-        numberOfHours: 0,
-        trainerLanguage: null,
-        formattedTimeStart: "الجمعة والسبت من الساعة ٦م الى الساعة ٩م",
-        formattedTimeEnd: "الجمعة والسبت من الساعة ٦م الى الساعة ٩م",
-        openCourses: null,
-      },
-    ],
-  });
-
 
   useEffect(() => {
+    dispatch(toggleLoader("قيد التحميل"));
     fetchCourseDetails(params.token)
       .then((e) => {
-        if (e.error) router.replace("/courses");
+        if (e.error) {
+          router.replace("/courses");
+          return;
+        }
         setCourseInfo(e);
         setCourseImg(e.imageUrl);
-        setFetched(true);
+        dispatch(toggleLoader(""));
       })
       .catch((e) => {
         console.log(e);
@@ -268,8 +223,6 @@ const Register = ({ params }) => {
                 title="التسجيل في الدورة"
                 form={{
                   fetchRegisterCourseRequest,
-                  setLoading,
-                  // triggerToast: (text) => triggerToast(setToastState, text),
                 }}
                 token={courseInfo.token}
                 active={true}
@@ -309,7 +262,7 @@ const Register = ({ params }) => {
                 <div className="course-description flex flex-col gap-4 pt-2 border-t border-t-[##E0E0E0] text-[#252525]">
                   <h4 className="text-xl font-medium">وصف الدورة</h4>
 
-                  {fetched && (
+                  {courseInfo?.summaryAr && (
                     <p
                       dangerouslySetInnerHTML={{ __html: courseInfo.summaryAr }}
                     />
@@ -374,8 +327,6 @@ const Register = ({ params }) => {
               title="التسجيل في الدورة"
               form={{
                 fetchRegisterCourseRequest,
-                setLoading,
-                // triggerToast: (text) => triggerToast(setToastState, text),
               }}
               token={courseInfo.token}
               active={true}
@@ -392,8 +343,6 @@ const Register = ({ params }) => {
           {/* ACCORDIONS end */}
         </div>
       </div>
-      <Loader loading={!fetched} text="قيد التحميل" />
-      <Loader loading={loading} text="قيد التسجيل" />
     </main>
   );
 };

@@ -1,3 +1,5 @@
+export const fetchCache = 'force-no-store';
+
 export async function POST(request) {
   try {
     const requestData = await request.json()

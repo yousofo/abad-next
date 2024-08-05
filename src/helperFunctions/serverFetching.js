@@ -14,6 +14,7 @@ const noCacheHeaders = {
 export async function fetchWithCheck(url, json = true, options = {}, fallBack) {
   try {
     const response = await fetch(url, {
+      cache: "no-cache",
       ...options,
       headers: {
         ...noCacheHeaders,

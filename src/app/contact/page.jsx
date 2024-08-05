@@ -1,11 +1,23 @@
-import React from 'react'
-import "./contact.css"
+import React from "react";
+import "./contact.css";
+import Hero from "@/components/shared/hero/Hero";
 
 const Contact = () => {
   return (
     <main>
       {/* HERO start  */}
-      <section className="hero h-dvh md:min-h-[600px] md:h-auto relative">
+      <Hero>
+        <h2 className="text-3xl font-medium md:text-4xl lg:text-5xl xl:text-6xl max-w-60 sm:max-w-fit">
+          <span className="text-abad-gold whitespace-nowrap">تواصل</span>
+          &nbsp;
+          <span>معنا</span>
+        </h2>
+        <h4 className="text-sm md:text-2xl max-w-2xl !leading-relaxed">
+          معهد شبكة آباد للتدريب من المعاهد الرائدة في تقديم الدورات التطويرية
+          المتخصصة في تقنية المعلومات.
+        </h4>
+      </Hero>
+      {/* <section className="hero h-dvh md:min-h-[600px] md:h-auto relative">
         <div className="intro text-center absolute flex flex-col items-center justify-center gap-4 md:gap-6 text-white w-max max-w-full px-4">
           <h2 className="text-3xl font-medium md:text-4xl lg:text-5xl xl:text-6xl max-w-60 sm:max-w-fit">
             <span className="text-abad-gold whitespace-nowrap">تواصل</span>
@@ -29,10 +41,10 @@ const Contact = () => {
             alt=""
           />
         </div>
-      </section>
+      </section> */}
       {/* HERO end  */}
       {/* main content start */}
-      <section className="detailed-contact flex flex-col md:flex-row gap-8 max-w-screen-xl mx-auto px-4">
+      <section className="detailed-contact flex flex-col md:flex-row gap-8 max-w-screen-xl mx-auto sm:mt-10 md:mt-16 lg:mt-20 xl:mt-28 px-4">
         <div className="text-[#151318] contact-info mx-auto">
           <h2 className="text-2xl md:text-3xl font-bold">معلومات عنا</h2>
           <p className="text-[#7B7584] text-xs sm:text-sm md:text-base">
@@ -88,8 +100,8 @@ const Contact = () => {
               </svg>
               <span>
                 ساعات العمل : الأحد - الأربعاء (من الساعة 10:00 ص حتى 10:00 م) -
-                الخميس (إجازة رسمية) الجمعة (من الساعة 02:00 م حتى 09:0 م)السبت (من
-                الساعة 01:00 م حتى 09:0 م)
+                الخميس (إجازة رسمية) الجمعة (من الساعة 02:00 م حتى 09:0 م)السبت
+                (من الساعة 01:00 م حتى 09:0 م)
               </span>
             </li>
             <li>
@@ -107,8 +119,8 @@ const Contact = () => {
               </svg>
               <span>
                 {" "}
-                الرياض ، الروضة ، شارع بن شاهين ، مقابل ملاهي الروضة,المملكة العربية
-                السعودية -13213 (SA)
+                الرياض ، الروضة ، شارع بن شاهين ، مقابل ملاهي الروضة,المملكة
+                العربية السعودية -13213 (SA)
               </span>
             </li>
           </ul>
@@ -134,7 +146,12 @@ const Contact = () => {
           </div>
           <div>
             <label htmlFor="contact-name">رقم الجوال</label>
-            <input type="text" name="" id="contact-name" placeholder="رقم الجوال" />
+            <input
+              type="text"
+              name=""
+              id="contact-name"
+              placeholder="رقم الجوال"
+            />
           </div>
           <div>
             <label htmlFor="contact-name">نوع الطلب</label>
@@ -163,11 +180,14 @@ const Contact = () => {
         </form>
       </section>
       {/* main content end */}
-      <iframe  style={{border:"0"}} loading="lazy" allowfullscreen
-        src="https://www.google.com/maps/embed/v1/place?q=place_id:ChIJ674hC6Y_WBQRujtC6Jay33k&key=AIzaSyCuTilAfnGfkZtIx0T3qf-eOmWZ_N2LpoY"></iframe>
+      <iframe
+        style={{ border: "0" }}
+        loading="lazy"
+        allowfullscreen
+        src="https://www.google.com/maps/embed/v1/place?q=place_id:ChIJ674hC6Y_WBQRujtC6Jay33k&key=AIzaSyCuTilAfnGfkZtIx0T3qf-eOmWZ_N2LpoY"
+      ></iframe>
     </main>
+  );
+};
 
-  )
-}
-
-export default Contact
+export default Contact;

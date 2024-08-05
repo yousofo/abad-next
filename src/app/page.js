@@ -1,4 +1,4 @@
-import "./main.css"
+import "./main.dev.css"
 import ReviewsSwiper from "@/components/shared/swipers/ReviewsSwiper";
 import "swiper/css";
 import PartnersSwiper from "@/components/shared/swipers/PartnersSwiper";
@@ -7,10 +7,10 @@ import HomeCourses from "@/components/home/courses/HomeCourses";
 import SubscriptionWithEmail from "@/components/home/SubscriptionWithEmail/SubscriptionWithEmail";
 import LatestArticles from "@/components/home/articles/LatestArticles";
 import { fetchWithCheck } from "@/helperFunctions/serverFetching";
+import Hero from "@/components/shared/hero/Hero";
+import Link from "next/link";
 
 export const fetchCache = 'force-no-store';
-
-
 
 export default async function Home() {
   const latestArticles = await fetchWithCheck(`${process.env.NEXT_PUBLIC_ROOT_URL}/api/articles/getLatestArticles`, true, null, [])
@@ -19,61 +19,47 @@ export default async function Home() {
   return (
     <main className="home home-page">
       {/* HERO start  */}
-      <section className="hero">
-        <div className="intro">
-          <h2>
-            <span>تعلم بكل سهولة مع</span>
-            &nbsp;
-            <span >اباد للتدريب</span>
-          </h2>
-          <h4>
-            معهد شبكة آباد للتدريب من المعاهد الرائدة في تقديم الدورات التطويرية
-            المتخصصة في تقنية المعلومات.
-          </h4>
-          <a
-            href="#"
+      
+      <Hero>
+        <h2 className="text-2xl md:text-3xl lg:text-4xl xl:text-[55px] xl:leading-[1.5] font-medium">
+          <span>تعلم بكل سهولة مع</span>
+          &nbsp;
+          <span className="text-abad-gold whitespace-nowrap">اباد للتدريب</span>
+        </h2>
+        <h4 className="text-sm md:text-lg leading-[28px] md:leading-[2] max-w-[650px]">
+          معهد شبكة آباد للتدريب من المعاهد الرائدة في تقديم الدورات التطويرية
+          المتخصصة في تقنية المعلومات.
+        </h4>
+        <Link href="/courses" className="flex items-center bg-abad-gold py-2 px-4 gap-5 text-sm rounded-xl text-black">
+          <span className="font-medium">ابدأ التعلم</span>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width={24}
+            height={24}
+            viewBox="0 0 24 24"
+            fill="none"
+            className=" rotate-180"
           >
-            <span>ابدأ التعلم</span>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width={24}
-              height={24}
-              viewBox="0 0 24 24"
-              fill="none"
-            >
-              <path
-                d="M19 12H5"
-                stroke="black"
-                strokeWidth={2}
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-              <path
-                d="M12 5L5 12L12 19"
-                stroke="black"
-                strokeWidth={2}
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
-          </a>
-        </div>
-        <div className="back-shape">
-          <img
-            className="first"
-            src="/media/BackgroundHero_rect.png"
-            alt=""
-          />
-          <img
-            className="second"
-            src="/media/hero-rectangle.png"
-            alt=""
-          />
-        </div>
-      </section>
+            <path
+              d="M19 12H5"
+              stroke="black"
+              strokeWidth={2}
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+            <path
+              d="M12 5L5 12L12 19"
+              stroke="black"
+              strokeWidth={2}
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
+        </Link>
+      </Hero>
       {/* HERO end  */}
       {/* COURSES start */}
-      <section className="courses-sec">
+      <section className="courses-sec -mt-14 mb-8 sm:my-10 md:my-16 lg:my-20 xl:my-24">
         <img
           className=""
           src="/media/Animation - 1717986646627.gif"
@@ -105,7 +91,7 @@ export default async function Home() {
               <h3 className="font-bold text-2xl md:text-4xl">
                 ماهي خطة <span className="text-abad-gold">اباد للتدريب؟</span>
               </h3>
-              <p className="text-sm md:text-base">
+              <p className="text-sm md:text-base noto">
                 معهد شبكة آباد للتدريب من المعاهد الرائدة في تقديم الدورات التطويرية
                 المتخصصة في تقنية المعلومات. معهد شبكة آباد للتدريب من المعاهد
                 الرائدة في تقديم الدورات التطويرية المتخصصة في تقنية المعلومات.
@@ -139,14 +125,14 @@ export default async function Home() {
             </div>
           </div>
           <div className="cards">
-            {new Array(3).fill(
+            {new Array(4).fill(
               <figure className="card">
                 <div className="img">
                   <img src="/media/twitch.png" className="" alt="" />
                 </div>
                 <figcaption>
                   <h4 className="font-bold">من اباد؟</h4>
-                  <p>
+                  <p className="noto">
                     معهد شبكة آباد للتدريب من المعاهد الرائدة في تقديم الدورات
                     التطويرية المتخصصة في تقنية..
                   </p>

@@ -41,22 +41,7 @@ const Header = () => {
   function handleBasket(e) {
     e.stopPropagation();
   }
-  const AngleBottom = ({ fill }) => (
-    <svg
-      width="9"
-      height="6"
-      viewBox="0 0 9 6"
-      fill={fill}
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <path
-        d="M1 1L4.5 4L8 1"
-        stroke="fill"
-        strokeWidth="2"
-        strokeLinecap="round"
-      />
-    </svg>
-  );
+
 
   useEffect(() => {
     if (userInfo) {

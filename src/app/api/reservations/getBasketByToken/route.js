@@ -1,3 +1,5 @@
+export const fetchCache = 'force-no-store';
+
 export async function GET(request) {
   // try {
   const url = new URL(request.url);

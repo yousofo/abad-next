@@ -5,9 +5,10 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { toggleSignIn } from "@/components/GlobalState/Features/authSlice";
+import { toggleLoader } from "@/components/GlobalState/Features/popUpsSlice";
 
 const AccordionForm = ({ form, token }) => {
-  const { fetchRegisterCourseRequest, setLoading } = form;
+  const { fetchRegisterCourseRequest } = form;
   const user = useSelector(store=>store.userData.info)
   const [generalError, setGeneralError] = useState("");
   const dispatch = useDispatch()
@@ -20,7 +21,7 @@ const AccordionForm = ({ form, token }) => {
   async function handleSubmitRegisterCourse(formData, e) {
     if (user) {
       setGeneralError("");
-      setLoading(true);
+      dispatch(toggleLoader("قيد التسجيل"))
       const result = await fetchRegisterCourseRequest({
         tokenCourse: token,
         usserName: formData.registerCourseArabicName,
@@ -46,7 +47,7 @@ const AccordionForm = ({ form, token }) => {
       dispatch(toggleSignIn())
     }
 
-    setLoading(false);
+    dispatch(toggleLoader(""))
   }
 
   return (

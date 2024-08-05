@@ -1,31 +1,18 @@
 import React from "react";
-import "./privacy.css"
+import "./privacy.css";
+import Hero from "@/components/shared/hero/Hero";
 const page = () => {
   return (
     <main>
       {/* HERO start  */}
-      <section className="hero h-dvh md:min-h-[600px] md:h-auto relative">
-        <div className="intro text-center absolute flex flex-col items-center justify-center gap-4 md:gap-6 text-white w-max max-w-full px-4">
-          <h2 className="text-2xl font-medium md:text-3xl lg:text-4xl xl:text-5xl max-w-60 sm:max-w-fit">
-            <span className="text-abad-gold whitespace-nowrap"> الخصوصية</span>
-            <span>والاستخدام</span>
-          </h2>
-        </div>
-        <div className="back-shape overflow-hidden w-full relative -z-10 h-full md:min-h-[600px] md:h-auto">
-          <img
-            className="w-full h-full md:h-auto object-cover md:min-h-[600px]"
-            src="/media/BackgroundHero_rect.png"
-            alt=""
-          />
-          <img
-            className="md:w-36 w-20 absolute top-[8vh]  md:top-[10vh] right-0 "
-            src="/media/hero-rectangle.png"
-            alt=""
-          />
-        </div>
-      </section>
+      <Hero>
+        <h2 className="text-2xl font-medium md:text-3xl lg:text-4xl xl:text-5xl max-w-60 sm:max-w-fit">
+          <span className="text-abad-gold whitespace-nowrap"> الخصوصية</span>
+          <span>والاستخدام</span>
+        </h2>
+      </Hero>
       {/* HERO end  */}
-      <section className="flex flex-col md:flex-row gap-16 w-full px-8 max-w-screen-xl -mt-8 sm:-mt-0 mx-auto mb-8">
+      <section className="flex flex-col md:flex-row  gap-16 w-full px-8 max-w-screen-xl -mt-8 sm:mt-10 md:mt-16 lg:mt-20 xl:mt-28 mx-auto mb-8">
         <nav
           className="flex flex-col p-6 gap-8 w-max h-fit mx-auto text-[#8A8394]"
           style={{ boxShadow: "5px 4px 25px 0px #00000014" }}
@@ -44,9 +31,9 @@ const page = () => {
             هناك حقيقة مثبتة منذ زمن طويل وهي أن المحتوى المقروء لصفحة ما سيلهي
             القارئ عن التركيز على الشكل الخارجي للنص أو شكل توضع الفقرات في
             الصفحة التي يقرأها. ولذلك يتم استخدام طريقة لوريم إيبسوم لأنها تعطي
-            توزيعاَ طبيعياَ -إلى حد ما- للأحرف عوضاً عن استخدام &quot;هنا يوجد محتوى
-            نصي، هنا يوجد محتوى نصي&quot; فتجعلها تبدو (أي الأحرف) وكأنها نص مقروء.
-            العديد من
+            توزيعاَ طبيعياَ -إلى حد ما- للأحرف عوضاً عن استخدام &quot;هنا يوجد
+            محتوى نصي، هنا يوجد محتوى نصي&quot; فتجعلها تبدو (أي الأحرف) وكأنها
+            نص مقروء. العديد من
           </p>
           <h6>1. الحسابات </h6>
           <p>

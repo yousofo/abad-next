@@ -2,13 +2,12 @@
 import React, { useEffect, useState } from "react";
 import "./basket.css";
 import { useDispatch, useSelector } from "react-redux";
-import Loader from "@/components/shared/Loader/component/Loader";
+import Loader from "@/components/shared/Loader/Loader";
 import // toggleUpdateBasket,
 // toggleUpdateBasketCount,
 "@/components/GlobalState/Features/authSlice";
 import { fetchUserBasket } from "@/components/GlobalState/Features/userData";
 import { useRouter } from "next/navigation";
-
 
 async function fetchDeletetFromBasket(basketCourseToken) {
   try {

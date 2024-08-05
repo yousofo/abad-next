@@ -8,6 +8,7 @@ import PopUps from "@/components/PopUps/PopUps";
 import BrowserWarning from "@/components/shared/browser-support/BrowserWarning";
 import { ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
+import Loader from "@/components/shared/Loader/Loader";
 
 // import localFont from 'next/font/local'
 
@@ -75,73 +76,10 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en" dir="rtl">
-      {/* <head>
-        <Script id="borwserCheckingScript" strategy="beforeInteractive">
-          {`(
-          function() {
-            function getBrowserInfo() {
-              var userAgent = navigator.userAgent;
-              var browserName = "Unknown";
-              var browserVersion = "Unknown";
-              var match;
-
-              if (/MSIE|Trident/.test(userAgent)) {
-                browserName = "Internet Explorer";
-                match = userAgent.match(/(MSIE |rv:)(\\d+\\.\\d+)/);
-                if (match && match.length > 2) {
-                  browserVersion = match[2];
-                }
-              } else if (/Chrome/.test(userAgent) && !/Edge/.test(userAgent)) {
-                browserName = "Chrome";
-                match = userAgent.match(/Chrome\\/(\\d+\\.\\d+)/);
-                if (match && match.length > 1) {
-                  browserVersion = match[1];
-                }
-              } else if (/Firefox/.test(userAgent)) {
-                browserName = "Firefox";
-                match = userAgent.match(/Firefox\\/(\\d+\\.\\d+)/);
-                if (match && match.length > 1) {
-                  browserVersion = match[1];
-                }
-              } else if (/Safari/.test(userAgent) && !/Chrome/.test(userAgent)) {
-                browserName = "Safari";
-                match = userAgent.match(/Version\\/(\\d+\\.\\d+)/);
-                if (match && match.length > 1) {
-                  browserVersion = match[1];
-                }
-              } else if (/Edge/.test(userAgent)) {
-                browserName = "Edge";
-                match = userAgent.match(/Edge\\/(\\d+\\.\\d+)/);
-                if (match && match.length > 1) {
-                  browserVersion = match[1];
-                }
-              }
-
-              return { browserName: browserName, browserVersion: browserVersion };
-            }
-
-            var browserInfo = getBrowserInfo();
-            var browserName = browserInfo.browserName;
-            var browserVersion = browserInfo.browserVersion;
-
-            var outdatedBrowsers = {
-              "Internet Explorer": "11",
-              "Safari": "11",
-              "Chrome": "60",
-              "Firefox": "54",
-              "Edge": "15"
-            };
-
-            if (outdatedBrowsers[browserName] && parseFloat(browserVersion) < parseFloat(outdatedBrowsers[browserName])) {
-              alert('انت تستخدم ' + browserName + ' ' + browserVersion + '. يجب استخدام متصفح حديث ');
-            }
-          }
-        )()`}
-        </Script>
-      </head> */}
       <body /*className={bukra.className}*/>
         <BrowserWarning />
         <StateProvider>
+          <Loader />
           <Authentication />
           <NavList />
           <ToastContainer />

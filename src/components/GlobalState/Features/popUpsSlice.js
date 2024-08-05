@@ -5,6 +5,7 @@ import { createSlice } from '@reduxjs/toolkit';
 const initialState = {
   EnlistInCourse: false,
   selectPaymentOptions: false,
+  loader: { active: false, text: "" },
   isHidden: true
 }
 
@@ -19,6 +20,10 @@ export const popUpsSlice = createSlice({
         isHidden: false,
         EnlistInCourse: true,
       }
+    },
+    toggleLoader: (state,action) => {
+      state.loader.active = !state.loader.active
+      state.loader.text = !action.payload
     },
     toggleSelectPaymentOptions: (state) => {
       return {
@@ -36,6 +41,6 @@ export const popUpsSlice = createSlice({
   }
 })
 
-export const { toggleEnlistInCourse, toggleSelectPaymentOptions, reset } = popUpsSlice.actions;
+export const { toggleEnlistInCourse, toggleSelectPaymentOptions, toggleLoader, reset } = popUpsSlice.actions;
 
 export default popUpsSlice.reducer;

@@ -4,7 +4,7 @@ import "./profile.css";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
-import Loader from "@/components/shared/Loader/component/Loader";
+import Loader from "@/components/shared/Loader/Loader";
 import { toggleUpdateInfo } from "@/components/GlobalState/Features/userData";
 
 async function fetchUpdateStudent(data, token) {

@@ -4,6 +4,7 @@ import "./newPassword.css";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleNewPassword } from "@/components/GlobalState/Features/authSlice";
 import { useRouter } from "next/navigation";
+import Hero from "@/components/shared/hero/Hero";
 async function fetchNewPassword(data) {
   try {
     const result = await fetch("/api/newPassword", {
@@ -11,8 +12,8 @@ async function fetchNewPassword(data) {
       body: JSON.stringify(data),
     });
     const jsonResult = await result.json();
-    console.log("jsonResult")
-    console.log(jsonResult)
+    console.log("jsonResult");
+    console.log(jsonResult);
     return jsonResult;
   } catch (error) {
     console.log(error);
@@ -26,12 +27,8 @@ const NewPassword = () => {
   const isSignedIn = useSelector((store) => store.auth.isSignedIn);
   const router = useRouter();
   const [token, setToken] = useState(null);
-// if(isSignedIn) router.push("/")
-  useEffect(() => {
-    const url = new URL(window.location.href);
-    const tokenFromUrl = url.pathname.split("/").pop();
-    setToken(tokenFromUrl);
-  }, []);
+  // if(isSignedIn) router.push("/")
+
   const dispatch = useDispatch();
 
   async function handleSubmit(e) {
@@ -51,18 +48,25 @@ const NewPassword = () => {
     }
   }
 
-  if (isSignedIn) router.replace("/");
+  useEffect(() => {
+    if (isSignedIn) router.replace("/");
+
+    const url = new URL(window.location.href);
+    const tokenFromUrl = url.pathname.split("/").pop();
+    setToken(tokenFromUrl);
+  }, []);
   return (
     <main className="pb-10">
       {/* HERO start  */}
-      <section className="hero h-dvh md:min-h-[600px] md:h-auto relative">
-        <div className="intro text-center absolute flex flex-col items-center justify-center gap-4 md:gap-6 text-white w-max max-w-full px-4">
-          <h2 className="text-2xl font-medium md:text-4xl lg:text-5xl xl:text-6xl sm:max-w-fit">
-            <span className="text-abad-gold whitespace-nowrap">تعيين</span>
-            &nbsp;
-            <span>كلمة سر جديدة</span>
-          </h2>
-        </div>
+      <Hero>
+        <h2 className="text-2xl font-medium md:text-4xl lg:text-5xl xl:text-6xl sm:max-w-fit">
+          <span className="text-abad-gold whitespace-nowrap">تعيين</span>
+          &nbsp;
+          <span>كلمة سر جديدة</span>
+        </h2>
+      </Hero>
+      {/* <section className="hero h-dvh md:min-h-[600px] md:h-auto relative">
+        <div className="intro text-center absolute flex flex-col items-center justify-center gap-4 md:gap-6 text-white w-max max-w-full px-4"></div>
         <div className="back-shape overflow-hidden w-full relative -z-10 h-full md:min-h-[600px] md:h-auto">
           <img
             className="w-full h-full md:h-auto object-cover md:min-h-[600px]"
@@ -75,12 +79,12 @@ const NewPassword = () => {
             alt=""
           />
         </div>
-      </section>
+      </section> */}
       {/* HERO end  */}
       {/* main content start */}
       <form
         onSubmit={handleSubmit}
-        className="newPassword w-full mx-auto px-4 max-w-screen-lg flex flex-wrap gap-4"
+        className="newPassword w-full mx-auto px-4 max-w-screen-lg flex flex-wrap gap-4 sm:mt-10 md:mt-16 lg:mt-20 xl:mt-28"
         id=""
       >
         <div>

@@ -1,11 +1,22 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import fetchCheckCourse from "@/helperFunctions/fetchCheckCourse";
 import { useRouter } from "next/navigation";
 import { useDispatch } from "react-redux";
 import { reset } from "../GlobalState/Features/navListSlice";
 import { fetchWithCheck } from "@/helperFunctions/serverFetching";
 
+async function fetchCheckCourse(courseToken) {
+  try {
+    const data = await fetchWithCheck(
+      `/api/reservations/checkCourse?token=${courseToken}&timestamp=${new Date().getTime()}`
+    );
+
+    console.log(data);
+    return data;
+  } catch (e) {
+    console.log(e);
+  }
+}
 //helper component
 const MiniNavItem = ({ data }) => {
   const [innerList, setInnerList] = useState(false);

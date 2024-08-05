@@ -1,3 +1,4 @@
+import Hero from "@/components/shared/hero/Hero";
 import "./article.css";
 import ArticleEle from "@/components/articles/article/ArticleEle";
 export const fetchCache = 'force-no-store';
@@ -60,7 +61,18 @@ export default async function Article({ params }) {
   return (
     <main className="pb-10">
       {/* HERO start  */}
-      <section className="hero h-dvh md:min-h-[600px] md:h-auto relative">
+      <Hero>
+        <h2 className="text-3xl font-medium md:text-4xl lg:text-5xl xl:text-6xl max-w-60 sm:max-w-fit">
+          <span className="text-abad-gold whitespace-nowrap">تواصل</span>
+          &nbsp;
+          <span>معنا</span>
+        </h2>
+        <h4 className="text-sm md:text-2xl max-w-2xl !leading-relaxed">
+          معهد شبكة آباد للتدريب من المعاهد الرائدة في تقديم الدورات التطويرية
+          المتخصصة في تقنية المعلومات.
+        </h4>
+      </Hero>
+      {/* <section className="hero h-dvh md:min-h-[600px] md:h-auto relative">
         <div className="intro text-center absolute flex flex-col items-center justify-center gap-4 md:gap-6 text-white w-max max-w-full px-4">
           <h2 className="text-3xl font-medium md:text-4xl lg:text-5xl xl:text-6xl max-w-60 sm:max-w-fit">
             <span className="text-abad-gold whitespace-nowrap">تواصل</span>
@@ -84,9 +96,9 @@ export default async function Article({ params }) {
             alt=""
           />
         </div>
-      </section>
+      </section> */}
       {/* HERO end  */}
-      <ArticleEle data={data}/>
+      <ArticleEle data={data} />
     </main>
   );
 };

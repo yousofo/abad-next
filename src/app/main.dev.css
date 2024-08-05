@@ -136,7 +136,7 @@ main.home-page {
     width: 100%;
     height: fit-content;
     position: relative;
-    margin-top: -80px;
+    /* margin-top: -80px; */
     > img {
       display: none;
       position: absolute;
@@ -149,150 +149,13 @@ main.home-page {
       }
     }
     .home-courses {
-      .courses-preview-mode {
-        color: #0f1416;
-      }
-      .search-filter {
-        button {
-          background-clip: text;
-          color: transparent;
-          background-image: linear-gradient(
-            83.79deg,
-            #1b45b4 3.25%,
-            #1c2792 96.85%
-          );
-        }
-        h3,
-        h4 {
-          color: #151318;
-        }
-        label {
-          font-family: "Noto Sans Arabic", sans-serif;
-          color: #8a8394;
-          font-size: 14px;
-          font-weight: 500;
-        }
-      }
-      table {
-        td {
-          color: #3f3e43;
-        }
-        th {
-          color: white;
-        }
-        td,
-        th {
-          display: block;
-          padding: 2px;
-          font-size: 12px;
-          font-weight: 500;
-          border: 1px solid transparent;
-          &.course-name {
-            padding-top: 4px;
-            font-size: 14px;
-            font-weight: 500;
-            flex-direction: column;
-            > div {
-              font-size: 10px !important;
-              gap: 12px;
-              span {
-                display: flex;
-                align-items: center;
-                gap: 3px;
-              }
-              span.online {
-                color: #df2121;
-              }
-              span.in-person {
-                color: #0dc00d;
-              }
-              span:nth-child(2) {
-                color: #1b39a6;
-              }
-            }
-            p {
-              font-weight: 700;
-            }
-            @media (min-width: 768px) {
-              font-size: 14px;
-              > div {
-                order: 2 !important;
-                font-size: 14px;
-              }
-              p {
-                font-weight: 500;
-                order: 1 !important;
-              }
-            }
-          }
-          @media (min-width: 768px) {
-            display: table-cell;
-            padding: 16px !important;
-            &.course-start-date {
-              display: table-cell;
-            }
-          }
-        }
-        td:nth-child(3),
-        td:nth-child(2) {
-          font-size: 12px;
-          font-weight: 400;
-          @media (min-width: 768px) {
-            font-weight: 500;
-          }
-        }
-        .btns {
-          display: flex;
-          align-items: center;
-          gap: 8px;
-          font-size: 10px;
-          font-weight: 500;
-          button {
-            padding: 6px 12px;
-            border-radius: 4px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-          }
-          > * {
-            flex: 1;
-            > * {
-              width: 100%;
-              justify-content: center;
-            }
-          }
-          @media (min-width: 768px) {
-            font-size: 12px;
-            > * {
-              flex: auto;
-            }
-          }
-
-          a:nth-child(1) button {
-            background-color: #fdb614;
-            color: black;
-          }
-          div:nth-child(2) button {
-            background: linear-gradient(
-              83.79deg,
-              #1b45b4 3.25%,
-              #1c2792 96.85%
-            );
-            color: white;
-          }
-        }
-      }
-      table td {
-        font-size: 14px;
-      }
-
       > .show-all {
         background: linear-gradient(to right, #1b45b4, #1c2792);
       }
     }
-    @media (min-width: 640px) {
+    /* @media (min-width: 640px) {
       margin-top: 0;
-    }
+    } */
   }
   .plan {
     position: relative;

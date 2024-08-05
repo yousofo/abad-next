@@ -1,10 +1,10 @@
 "use client";
 import { toggleSignIn } from "@/components/GlobalState/Features/authSlice";
-import { useRouter } from "next/navigation";
 import React, { useMemo, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { cities, countries } from "@/components/data/data";
+import { toggleLoader } from "@/components/GlobalState/Features/popUpsSlice";
 
 async function sendRegisterData(data) {
   console.log(data);
@@ -26,12 +26,8 @@ async function sendRegisterData(data) {
     } else {
       jsonData = await request.text();
     }
-    console.log(jsonData);
-    // if (JSON.parse(jsonData)) {
-    // return JSON.parse(jsonData);
-    // } else {
+
     return jsonData;
-    // }
   } catch (error) {
     if (JSON.parse(error)) {
       return JSON.parse(error);
@@ -49,13 +45,11 @@ const SignUp = () => {
   const allCountries = useMemo(() => countries, []);
   const allCities = useMemo(() => cities, []);
   const [selectedCountry, setSelectedCountry] = useState("SA");
-  const [loading, setLoading] = useState(false);
   const [generalError, setGeneralError] = useState("");
-  const signUpError = useSelector((store) => store.auth.signUpError);
   const isSignUp = useSelector((e) => e.auth.signUp);
   const dispatch = useDispatch();
-  const router = useRouter();
   let signUpContainer = useRef(null);
+
   // react-hook-form
   const signUpForm = useForm();
   const { register, handleSubmit, formState, setError, reset, getValues } =
@@ -63,9 +57,9 @@ const SignUp = () => {
   // const { name,ref,onChange,onBlur}=register("id")
   let { errors, isValid, isSubmitted } = formState;
 
-  const CountryCities = useMemo(() => {
-    return allCities[`${selectedCountry}`];
-  }, [selectedCountry]);
+  // const CountryCities = useMemo(() => {
+  //   return allCities[`${selectedCountry}`];
+  // }, [selectedCountry]);
 
   function switchAuthMode(e) {
     e.preventDefault();
@@ -75,7 +69,7 @@ const SignUp = () => {
   async function handleSubmitSignUp(formData, e) {
     setGeneralError("");
     console.log("hh");
-    setLoading(true);
+    dispatch(toggleLoader("جاري التسجيل"));
     const result = await sendRegisterData({
       ...formData,
       email: formData.signUpEmail,
@@ -113,7 +107,7 @@ const SignUp = () => {
     }
     console.log(errors);
     console.log(result);
-    setLoading(false);
+    dispatch(toggleLoader(""));
   }
 
   return (
@@ -292,24 +286,39 @@ const SignUp = () => {
         {/* city  ! */}
         <div className="input">
           <label htmlFor="signUpGender">المدينة*</label>
-          <div className="select relative">
-            <select
-              name=""
-              id="city"
-              {...register("city", {
-                required: "يجب اختيار المدينة",
-              })}
-            >
-              <option value="" style={{ display: "none" }}>
-                اختر المدينة
-              </option>
-              {CountryCities.Cities.map((e, i) => (
-                <option key={i} value={e.Arabic}>
-                  {e.Arabic}
+          {selectedCountry == "SA" ? (
+            <div className="select relative">
+              <select
+                name=""
+                id="city"
+                {...register("city", {
+                  required: "يجب اختيار المدينة",
+                })}
+              >
+                <option value="" style={{ display: "none" }}>
+                  اختر المدينة
                 </option>
-              ))}
-            </select>
-          </div>
+                {allCities.map((e, i) => (
+                  <option key={i} value={e.Arabic}>
+                    {e.Arabic}
+                  </option>
+                ))}
+                <option value="غير ذلك">غير ذلك</option>
+              </select>
+            </div>
+          ) : (
+            <div className="input">
+              <input
+                type="text"
+                name=""
+                id="city"
+                {...register("city", {
+                  required: "يجب اختيار المدينة",
+                })}
+                placeholder="اكتب المدينة"
+              />
+            </div>
+          )}
           <p className="input-error">{errors.city?.message}</p>
         </div>
 
@@ -374,10 +383,6 @@ const SignUp = () => {
         </p>
       </div>
       {/* loader */}
-      <div className="loader" style={{ display: loading ? "block" : "none" }}>
-        <div></div>
-        <span>جاري التسجيل</span>
-      </div>
     </div>
   );
 };

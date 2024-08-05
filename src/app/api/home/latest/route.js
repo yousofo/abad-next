@@ -1,6 +1,7 @@
 import { fetchWithCheck } from "@/helperFunctions/serverFetching";
 
 export const fetchCache = 'force-no-store';
+
 export async function GET(request) {
   try {
     const data = await fetchWithCheck(`${process.env.NEXT_PUBLIC_ROOT_URL}/api/Home/latest`)

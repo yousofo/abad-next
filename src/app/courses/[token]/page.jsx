@@ -1,28 +1,17 @@
 "use client";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import "./course.css";
 
 import Accordion from "@/components/shared/Accordion/Accordion";
 import { useRouter } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";
-import Loader from "@/components/shared/Loader/component/Loader";
 import { fetchUserBasket } from "@/components/GlobalState/Features/userData";
 import { toggleSignIn } from "@/components/GlobalState/Features/authSlice";
 import Link from "next/link";
 import { toast } from "react-toastify";
 import { fetchWithCheck } from "@/helperFunctions/serverFetching";
+import { toggleLoader } from "@/components/GlobalState/Features/popUpsSlice";
 
-async function fetchCourseDetails(token) {
-  try {
-    const courseDetails = await fetchWithCheck(
-      `/api/home/courseDetails/${token}`
-    );
-    return courseDetails;
-  } catch (error) {
-    console.log(error);
-    throw error;
-  }
-}
 async function fetchRegisterAttendanceCourse(data) {
   try {
     const courseDetails = await fetchWithCheck(
@@ -67,7 +56,6 @@ const Course = ({ params }) => {
   const router = useRouter();
   const dispatch = useDispatch();
 
-  // const userBasket = useSelector((store) => store.userData.basket.data);
   const user = useSelector((store) => store.userData.info);
   const [courseInfo, setCourseInfo] = useState();
 
@@ -77,7 +65,7 @@ const Course = ({ params }) => {
     console.log({
       courseToken: params.token,
       userToken: user.token,
-    })
+    });
     const result = await fetchRegisterAttendanceCourse({
       courseToken: params.token,
       userToken: user.token,
@@ -90,9 +78,7 @@ const Course = ({ params }) => {
   }
   async function handleAddToBasket() {
     if (!user?.token) return dispatch(toggleSignIn());
-    // await dispatch(fetchUserBasket()).unwrap();
-    // console.log(userBasket)
-    // if(userBasket.some(e=>e.))
+
     const result = await fetchAddToBasket({
       tokenCourse: params.token,
       tokenStudent: user.token,
@@ -107,17 +93,18 @@ const Course = ({ params }) => {
   }
 
   useEffect(() => {
-    fetchCourseDetails(params.token)
+    dispatch(toggleLoader("قيد التحميل"));
+    fetchWithCheck(`/api/home/courseDetails/${params.token}`)
       .then((e) => {
         setCourseInfo(e);
         setCourseImg(e.imageUrl);
         setFetched(true);
+        dispatch(toggleLoader(""));
       })
       .catch((e) => {
         router.replace("/not-found");
       });
   }, []);
-
   return (
     <main className="pb-10 relative">
       <div className="hero relative">
@@ -135,6 +122,7 @@ const Course = ({ params }) => {
           />
         </div>
         {/* BACKGROUND IMG end*/}
+        {/* main content start */}
         <div className="container px-4 flex flex-col sm:flex-row justify-between gap-16 course-details pt-44 md:pt-56 m-auto max-w-screen-xl">
           {/* COURSE CONTENT & ACCORDIONS start */}
           <section className="h-fit flex flex-col gap-60 flex-1">
@@ -432,11 +420,8 @@ const Course = ({ params }) => {
           </div>
           {/* ACCORDIONS SMALL SCREEEN end */}
         </div>
+        {/* main content end */}
       </div>
-      {/* {toastState.active && (
-        <Toast active={toastState.active} data={toastState.text} />
-      )} */}
-      <Loader loading={!fetched} text="قيد التحميل" />
     </main>
   );
 };

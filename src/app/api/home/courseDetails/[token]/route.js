@@ -1,6 +1,7 @@
 import { fetchWithCheck } from "@/helperFunctions/serverFetching";
 
 export const fetchCache = 'force-no-store';
+
 export async function GET(request, { params }) {
   try {
     const { token } = params;
