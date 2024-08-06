@@ -261,7 +261,7 @@ const Header = () => {
             <ul
               className={`absolute left-0 bottom-0  overflow-hidden z-10 translate-y-[calc(110%)] ${
                 isMiniNav ? "max-h-40" : "max-h-0"
-              } transition-all`}
+              } transition-all [&>li>a]:w-full`}
             >
               <li>
                 <Link href="/my-courses">

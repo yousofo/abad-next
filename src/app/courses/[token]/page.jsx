@@ -421,7 +421,7 @@ const Course = ({ params }) => {
         </div>
         {/* main content end */}
       </div>
-      <InnerLoader active={!fetched} text="جاري التحميل"/>
+      <InnerLoader active={!fetched} text="جاري التحميل" />
     </main>
   );
 };

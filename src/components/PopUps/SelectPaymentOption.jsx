@@ -3,7 +3,7 @@ import React from "react";
 const PaymentMethod = ({ image, text }) => {
   return (
     <button className="flex gap-3 items-center border hover:border-abad-gold group drop-shadow-sm px-4 py-3 rounded-sm">
-      <div className="w-20 h-12 p-1 rounded-sm group-hover:border-abad-gold border">
+      <div className="p-1 w-20 h-[53px] rounded-sm group-hover:border-abad-gold border">
         <img
           src={image}
           className="w-full h-full object-cover"
@@ -31,12 +31,24 @@ const SelectPaymentOption = () => {
       <div className="flex flex-col gap-4">
         <PaymentMethod
           image="/media/logos/payment/paypal.png"
-          text="Apple Pay"
+          text="Paypal"
         />
         <PaymentMethod image="/media/logos/payment/tamara.png" text="Tamara" />
         <PaymentMethod
           image="/media/logos/payment/master-card.png"
           text="Mastercard"
+        />
+        <PaymentMethod
+          image="/media/logos/payment/apple-pay.png"
+          text="Apple Pay"
+        />
+        <PaymentMethod
+          image="/media/logos/payment/mada-pay.jpg"
+          text="mada Pay"
+        />
+        <PaymentMethod
+          image="/media/logos/payment/tabby-pay.png"
+          text="Tabby"
         />
       </div>
     </div>
