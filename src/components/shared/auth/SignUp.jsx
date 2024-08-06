@@ -148,6 +148,14 @@ const SignUp = () => {
             id="idNumber"
             {...register("idNumber", {
               required: "يجب كتابة رقم الهوية",
+              validate: (value) => {
+                if (selectedCountry === "سعودي") {
+                  const tenDigitPattern = /^\d{10}$/; // Pattern for exactly 10 digits
+                  return tenDigitPattern.test(value) || "يجب أن يكون رقم الهاتف مكون من 10 أرقام";
+                } else {
+                  return true
+                }
+              },
             })}
             placeholder="ادخل رقم الهوية"
           />
@@ -205,7 +213,21 @@ const SignUp = () => {
             type="text"
             name=""
             id="phone"
-            {...register("phone")}
+            {...register("phone", {
+              required: "يجب كتابة رقم الهاتف",
+              validate: (value) => {
+                if (selectedCountry === "سعودي") {
+                  const saudiPattern = /^5\d{8}$/;
+                  return (
+                    saudiPattern.test(value) ||
+                    "يجب أن يكون رقم الهاتف بصيغة 5XX XXX XXX"
+                  );
+                } else {
+                  // Validation for other countries or skip validation
+                  return true;
+                }
+              },
+            })}
             placeholder="اكتب الهاتف"
           />
           <p className="input-error">{errors.phone?.message}</p>
