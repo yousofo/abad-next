@@ -8,42 +8,38 @@ import // toggleUpdateBasket,
 "@/components/GlobalState/Features/authSlice";
 import { fetchUserBasket } from "@/components/GlobalState/Features/userData";
 import { useRouter } from "next/navigation";
+import { fetchWithCheck } from "@/helperFunctions/serverFetching";
+import { toggleLoader } from "@/components/GlobalState/Features/popUpsSlice";
 
 async function fetchDeletetFromBasket(basketCourseToken) {
   try {
-    const result = await fetch(
+    const data = await fetchWithCheck(
       `/api/reservations/removeFromBasket?tokenBasket=${basketCourseToken}`,
+      true,
       {
         method: "DELETE",
-        headers: {
-          "Cache-Control":
-            "no-store, no-cache, must-revalidate, proxy-revalidate",
-          Pragma: "no-cache",
-          Expires: "0",
-          "Surrogate-Control": "no-store",
-          "Content-Type": "application/json",
-        },
       }
     );
-    const data = await result.json();
     return data;
-  } catch (e) {
-    console.log(e);
-    return { error: e };
+  } catch (error) {
+    console.log(error);
+    throw error;
   }
 }
 
-const BasketItem = ({ data, setLoading, userToken }) => {
+const BasketItem = ({ data, userToken }) => {
   const dispatch = useDispatch();
 
   async function handleDelete(basketCourseToken) {
-    setLoading(true);
+    dispatch(toggleLoader("جاري الحذف"));
+
     await fetchDeletetFromBasket(basketCourseToken)
       .then(() => {
         dispatch(fetchUserBasket(userToken));
       })
       .catch((error) => console.log(error));
-    setLoading(false);
+
+    dispatch(toggleLoader(""));
   }
   return (
     <tr
@@ -159,7 +155,6 @@ const Basket = () => {
   const [toggleReFetch, setToggleReFetch] = useState(false);
 
   //loading state
-  const [loading, setLoading] = useState(false);
   const [deleteLoading, setDeleteLoading] = useState(false);
 
   // get user JSON string then extract user's token
@@ -168,11 +163,11 @@ const Basket = () => {
   const router = useRouter();
 
   async function handleFetchBasket() {
-    setLoading(true);
+    dispatch(toggleLoader("جاري التحميل"));
 
     await dispatch(fetchUserBasket()).unwrap();
 
-    setLoading(false);
+    dispatch(toggleLoader(""));
   }
 
   useEffect(() => {
@@ -238,7 +233,6 @@ const Basket = () => {
                   reFetchBasket={setToggleReFetch}
                   data={e}
                   userToken={userInfo?.token}
-                  setLoading={setDeleteLoading}
                   key={i}
                 />
               ))}
@@ -261,8 +255,6 @@ const Basket = () => {
         </div>
       </section>
       {/* main content end */}
-      <Loader text="جاري الحذف" loading={deleteLoading} />
-      <Loader text="جاري التحميل" loading={loading} />
     </main>
   );
 };
