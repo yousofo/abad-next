@@ -1,7 +1,7 @@
 "use client";
 import { toggleSignIn } from "@/components/GlobalState/Features/authSlice";
-import React, { useMemo, useRef, useState } from "react";
-import { useForm } from "react-hook-form";
+import React, { useEffect, useMemo, useRef, useState } from "react";
+import { Controller, useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { cities, countries } from "@/components/data/data";
 import { toggleLoader } from "@/components/GlobalState/Features/popUpsSlice";
@@ -49,18 +49,25 @@ const SignUp = () => {
   const isSignUp = useSelector((e) => e.auth.signUp);
   const dispatch = useDispatch();
   let signUpContainer = useRef(null);
-
+  const firstRender = useRef(true);
   // react-hook-form
   const signUpForm = useForm();
-  const { register, handleSubmit, formState, setError, reset, getValues } =
-    signUpForm;
+  const {
+    register,
+    handleSubmit,
+    control,
+    formState,
+    setError,
+    reset,
+    trigger,
+  } = signUpForm;
   let { errors, isSubmitted } = formState;
 
   function switchAuthMode(e) {
     e.preventDefault();
     dispatch(toggleSignIn());
   }
-
+  console.log("rendered");
   async function handleSubmitSignUp(formData, e) {
     setGeneralError("");
     dispatch(toggleLoader("جاري التسجيل"));
@@ -105,7 +112,15 @@ const SignUp = () => {
     console.log(result);
     dispatch(toggleLoader(""));
   }
-
+  useEffect(() => {
+    // Trigger validation when the selected country changes
+    if (!firstRender.current) {
+      trigger("idNumber");
+      trigger("phone");
+    } else {
+      firstRender.current = false;
+    }
+  }, [selectedCountry, trigger]);
   return (
     <div
       style={{ display: isSignUp ? "flex" : "none" }}
@@ -151,9 +166,12 @@ const SignUp = () => {
               validate: (value) => {
                 if (selectedCountry === "سعودي") {
                   const tenDigitPattern = /^\d{10}$/; // Pattern for exactly 10 digits
-                  return tenDigitPattern.test(value) || "يجب أن يكون رقم الهاتف مكون من 10 أرقام";
+                  return (
+                    tenDigitPattern.test(value) ||
+                    "يجب أن يكون رقم الهاتف مكون من 10 أرقام"
+                  );
                 } else {
-                  return true
+                  return true;
                 }
               },
             })}
@@ -166,23 +184,31 @@ const SignUp = () => {
         <div className="input nationality">
           <label htmlFor="nationality">الجنسية*</label>
           <div className="select relative">
-            <select
-              name=""
-              id="nationality"
-              onChange={(event) => {
-                setSelectedCountry(event.target.value);
-              }}
-              {...register("nationality", {
-                required: "يجب كتابة الجنسية",
-              })}
-            >
-              <option style={{ display: "none" }}>اختر الجنسية</option>
-              {allCountries.map((e, i) => (
-                <option key={i} value={e.nationality_ar}>
-                  {e.nationality_ar}
-                </option>
-              ))}
-            </select>
+            <Controller
+              name="nationality"
+              control={control}
+              render={({ field }) => (
+                <select
+                  {...field}
+                  id="nationality"
+                  value={selectedCountry}
+                  // {...register("nationality", {
+                  //   required: "يجب كتابة الجنسية",
+                  // })}
+                  onChange={(event) => {
+                    field.onChange(event); // Update the value in the form
+                    setSelectedCountry(event.target.value);
+                  }}
+                >
+                  <option style={{ display: "none" }}>اختر الجنسية</option>
+                  {allCountries.map((e, i) => (
+                    <option key={i} value={e.nationality_ar}>
+                      {e.nationality_ar}
+                    </option>
+                  ))}
+                </select>
+              )}
+            />
           </div>
           <p className="input-error">{errors.nationality?.message}</p>
         </div>
