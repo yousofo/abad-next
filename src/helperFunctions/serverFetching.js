@@ -11,6 +11,16 @@ const noCacheHeaders = {
   'Surrogate-Control': 'no-store'
 }
 
+/**
+ * Fetches a URL with optional caching and error handling.
+ *
+ * @param {string} url - The URL to fetch.
+ * @param {boolean} [json=true] - Whether to parse the response as JSON. Defaults to true.
+ * @param {object} [options={}] - Additional options to pass to the fetch request.
+ * @param {any} [fallBack] - A fallback value to return if the fetch fails.
+ * @return {Promise<any>} - A promise that resolves to the parsed JSON response or the response text.
+ * @throws {Error} - If the fetch fails and no fallback value is provided.
+ */
 export async function fetchWithCheck(url, json = true, options = {}, fallBack) {
   try {
     const response = await fetch(url, {
@@ -21,18 +31,18 @@ export async function fetchWithCheck(url, json = true, options = {}, fallBack) {
         ...options?.headers
       }
     });
-
+    console.log("response.ok")
+    console.log(response.ok)
     if (!response.ok) {
-      throw await response.json();
+      if (json) throw await response.json();
+      else throw await response.text()
     }
+    console.log("fetching ok")
+    if (json) return response.json();
+    else return response.text();
 
-    if (json) {
-      return response.json();
-    } else {
-      return response.text();
-    }
   } catch (error) {
-    console.error('Fetch error:', error);
+    console.error(error);
     if (fallBack) return fallBack
     throw error;
   }

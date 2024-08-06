@@ -65,7 +65,7 @@ const Course = ({ params }) => {
 
   async function handleRegisterAttendanceCourse() {
     if (!user?.token) return dispatch(toggleSignIn());
-    
+
     dispatch(toggleLoader(""));
 
     const result = await fetchRegisterAttendanceCourse({
@@ -302,7 +302,6 @@ const Course = ({ params }) => {
                     <button
                       onClick={
                         () => dispatch(toggleSelectPaymentOptions())
-                        // toast.info("قريبا, اضغط اضافة للسلة حاليا")
                       }
                       className="register-btn"
                     >
@@ -431,7 +430,6 @@ const Course = ({ params }) => {
         </div>
         {/* main content end */}
       </div>
-      {/* <InnerLoader active={!fetched} text="جاري التحميل" /> */}
     </main>
   );
 };

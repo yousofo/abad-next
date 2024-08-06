@@ -1,9 +1,8 @@
-import "./main.dev.css"
+import "./main.css"
 import ReviewsSwiper from "@/components/shared/swipers/ReviewsSwiper";
 import "swiper/css";
 import PartnersSwiper from "@/components/shared/swipers/PartnersSwiper";
 import HomeCourses from "@/components/home/courses/HomeCourses";
-// import { fetchLatestArticles } from "@/helperFunctions/serverFetching";
 import SubscriptionWithEmail from "@/components/home/SubscriptionWithEmail/SubscriptionWithEmail";
 import LatestArticles from "@/components/home/articles/LatestArticles";
 import { fetchWithCheck } from "@/helperFunctions/serverFetching";
