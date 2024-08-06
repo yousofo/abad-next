@@ -6,6 +6,8 @@ import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import Loader from "@/components/shared/Loader/Loader";
 import { toggleUpdateInfo } from "@/components/GlobalState/Features/userData";
+import { toggleLoader } from "@/components/GlobalState/Features/popUpsSlice";
+import Hero from "@/components/shared/hero/Hero";
 
 async function fetchUpdateStudent(data, token) {
   try {
@@ -54,7 +56,7 @@ const Profile = () => {
 
   async function handleFormSubmit(formData, e) {
     console.log("here");
-    setLoading(true);
+    dispatch(toggleLoader("قيد التحميل"));
 
     console.log(formData);
     const result = await fetchUpdateStudent(
@@ -65,7 +67,7 @@ const Profile = () => {
       dispatch(toggleUpdateInfo({ ...formData, token: userInfo.token }));
     console.log(result);
 
-    setLoading(false);
+    dispatch(toggleLoader(""));
   }
 
   useEffect(() => {
@@ -78,30 +80,16 @@ const Profile = () => {
   return (
     <main className="pb-10 sm:pb-24 relative">
       {/* HERO start  */}
-      <section className="hero h-dvh md:min-h-[600px] md:h-auto relative">
-        <div className="intro text-center absolute flex flex-col items-center justify-center gap-4 md:gap-6 text-white w-max max-w-full px-4">
-          <h2 className="text-3xl font-medium md:text-4xl lg:text-5xl xl:text-6xl max-w-60 sm:max-w-fit">
-            <span className="text-abad-gold whitespace-nowrap">الملف</span>
-            &nbsp;
-            <span>الشخصي</span>
-          </h2>
-        </div>
-        <div className="back-shape overflow-hidden w-full relative -z-10 h-full md:min-h-[600px] md:h-auto">
-          <img
-            className="w-full h-full md:h-auto object-cover md:min-h-[600px]"
-            src="/media/BackgroundHero_rect.png"
-            alt=""
-          />
-          <img
-            className="md:w-36 w-20 absolute top-[8vh] md:top-[10vh] right-0"
-            src="/media/hero-rectangle.png"
-            alt=""
-          />
-        </div>
-      </section>
+      <Hero>
+        <h2 className="text-3xl font-medium md:text-4xl lg:text-5xl xl:text-6xl max-w-60 sm:max-w-fit">
+          <span className="text-abad-gold whitespace-nowrap">الملف</span>
+          &nbsp;
+          <span>الشخصي</span>
+        </h2>
+      </Hero>
       {/* HERO end  */}
       {/* main content start */}
-      <section className="profile flex flex-col gap-8 max-w-screen-xl mx-auto px-4">
+      <section className="profile flex flex-col gap-8 max-w-screen-xl mx-auto px-4 sm:my-10 md:my-16 lg:my-20 xl:my-24">
         <form
           onSubmit={handleSubmit(handleFormSubmit)}
           action=""

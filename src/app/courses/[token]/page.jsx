@@ -98,7 +98,7 @@ const Course = ({ params }) => {
   }
 
   async function handleBuyNow() {
-    if (user.info) dispatch(toggleSelectPaymentOptions());
+    if (user) dispatch(toggleSelectPaymentOptions());
     else dispatch(toggleSignIn());
   }
 
