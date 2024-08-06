@@ -79,7 +79,6 @@ const Course = ({ params }) => {
       toast.error(result.error);
     }
     dispatch(toggleLoader(""));
-
   }
   async function handleAddToBasket() {
     if (!user?.token) return dispatch(toggleSignIn());
@@ -96,7 +95,11 @@ const Course = ({ params }) => {
       toast.error(result.error);
     }
     dispatch(toggleLoader(""));
+  }
 
+  async function handleBuyNow() {
+    if (user.info) dispatch(toggleSelectPaymentOptions());
+    else dispatch(toggleSignIn());
   }
 
   useEffect(() => {
@@ -109,7 +112,7 @@ const Course = ({ params }) => {
       .catch((error) => router.replace("/not-found"))
       .finally(() => {
         setFetched(true);
-        dispatch(toggleLoader(""))
+        dispatch(toggleLoader(""));
       });
   }, []);
 
@@ -299,12 +302,7 @@ const Course = ({ params }) => {
                 {/* handle coure REGISTERATION */}
                 {courseInfo?.isOnline == "أونلاين" ? (
                   <>
-                    <button
-                      onClick={
-                        () => dispatch(toggleSelectPaymentOptions())
-                      }
-                      className="register-btn"
-                    >
+                    <button onClick={handleBuyNow} className="register-btn">
                       شراء الدورة التدريبية الآن
                     </button>
                     <div
