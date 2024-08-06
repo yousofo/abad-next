@@ -44,7 +44,7 @@ const scrollToTop = (element) => {
 const SignUp = () => {
   const allCountries = useMemo(() => countries, []);
   const allCities = useMemo(() => cities, []);
-  const [selectedCountry, setSelectedCountry] = useState("SA");
+  const [selectedCountry, setSelectedCountry] = useState("سعودي");
   const [generalError, setGeneralError] = useState("");
   const isSignUp = useSelector((e) => e.auth.signUp);
   const dispatch = useDispatch();
@@ -54,12 +54,7 @@ const SignUp = () => {
   const signUpForm = useForm();
   const { register, handleSubmit, formState, setError, reset, getValues } =
     signUpForm;
-  // const { name,ref,onChange,onBlur}=register("id")
-  let { errors, isValid, isSubmitted } = formState;
-
-  // const CountryCities = useMemo(() => {
-  //   return allCities[`${selectedCountry}`];
-  // }, [selectedCountry]);
+  let { errors, isSubmitted } = formState;
 
   function switchAuthMode(e) {
     e.preventDefault();
@@ -68,15 +63,16 @@ const SignUp = () => {
 
   async function handleSubmitSignUp(formData, e) {
     setGeneralError("");
-    console.log("hh");
     dispatch(toggleLoader("جاري التسجيل"));
+
+    console.log(formData);
     const result = await sendRegisterData({
       ...formData,
       email: formData.signUpEmail,
       password: formData.signUpPassword,
       confirmPassword: formData.signUpConfirmPassword,
-      nationality: JSON.parse(formData.nationality.nationality_ar)
-        .nationality_ar,
+      // nationality: JSON.parse(formData.nationality.nationality_ar)
+      // .nationality_ar,
     });
 
     if (result.errors) {
@@ -142,22 +138,6 @@ const SignUp = () => {
           <p className="input-error">{errors.arabicName?.message}</p>
         </div>
 
-        {/* name english ! */}
-        {/* <div className="input">
-          <label htmlFor="">الاسم الرباعي بالانجليزي*</label>
-          <input
-            type="text"
-            name=""
-            dir="ltr"
-            id="englishName"
-            {...register("englishName", {
-              required: "يجب كتابة الاسم الرباعي بالانجليزي",
-            })}
-            placeholder="type your name"
-          />
-          <p className="input-error">{errors.englishName?.message}</p>
-        </div> */}
-
         {/* id ! */}
         <div className="input">
           <label htmlFor="">رقم الهوية*</label>
@@ -176,21 +156,21 @@ const SignUp = () => {
 
         {/* nationality ! */}
         <div className="input nationality">
-          <label htmlFor="signUpGender">الجنسية*</label>
+          <label htmlFor="nationality">الجنسية*</label>
           <div className="select relative">
             <select
               name=""
               id="nationality"
+              onChange={(event) => {
+                setSelectedCountry(event.target.value);
+              }}
               {...register("nationality", {
                 required: "يجب كتابة الجنسية",
               })}
-              onChange={(event) => {
-                setSelectedCountry(JSON.parse(event.target.value).id);
-              }}
             >
               <option style={{ display: "none" }}>اختر الجنسية</option>
               {allCountries.map((e, i) => (
-                <option key={i} value={JSON.stringify(e)}>
+                <option key={i} value={e.nationality_ar}>
                   {e.nationality_ar}
                 </option>
               ))}
@@ -286,7 +266,7 @@ const SignUp = () => {
         {/* city  ! */}
         <div className="input">
           <label htmlFor="signUpGender">المدينة*</label>
-          {selectedCountry == "SA" ? (
+          {selectedCountry == "سعودي" ? (
             <div className="select relative">
               <select
                 name=""
