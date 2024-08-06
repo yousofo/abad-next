@@ -1,46 +1,59 @@
-'use client';
+"use client";
 
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   EnlistInCourse: false,
   selectPaymentOptions: false,
+  paymentConfirmation: { active: false, text: "", status: "success" },
   loader: { active: false, text: "" },
-  isHidden: true
-}
-
+  isHidden: true,
+};
 
 export const popUpsSlice = createSlice({
-  name: 'popUps',
+  name: "popUps",
   initialState,
   reducers: {
     toggleEnlistInCourse: (state) => {
       return {
         ...initialState,
-        isHidden: false,
-        EnlistInCourse: true,
-      }
+        isHidden: !state.isHidden,
+        EnlistInCourse: !state.EnlistInCourse,
+      };
     },
-    toggleLoader: (state,action) => {
-      state.loader.active = true
-      state.loader.text = action.payload
+    toggleLoader: (state, action) => {
+      state.loader.active = !state.loader.active;
+      state.loader.text = action.payload;
+    },
+    togglePaymentConfirmation: (state, action) => {
+      state.isHidden = !state.isHidden
+      state.paymentConfirmation.active = !state.paymentConfirmation.active
+      state.paymentConfirmation.text = action.payload.text
+      state.paymentConfirmation.status = action.payload.status
+      console.log(state.isHidden)
     },
     toggleSelectPaymentOptions: (state) => {
       return {
         ...initialState,
-        isHidden: false,
-        selectPaymentOptions: true,
-      }
+        isHidden: !state.isHidden,
+        selectPaymentOptions: !state.selectPaymentOptions,
+      };
     },
-    reset: (state) => {
-      return initialState
+    resetPopUps: (state) => {
+      return initialState;
     },
     // incrementByAmount: (state, action) => {
     //     state.value += action.payload;
     // }
-  }
-})
+  },
+});
 
-export const { toggleEnlistInCourse, toggleSelectPaymentOptions, toggleLoader, reset } = popUpsSlice.actions;
+export const {
+  toggleEnlistInCourse,
+  togglePaymentConfirmation,
+  toggleSelectPaymentOptions,
+  toggleLoader,
+  resetPopUps,
+} = popUpsSlice.actions;
 
 export default popUpsSlice.reducer;

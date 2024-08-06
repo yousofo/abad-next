@@ -2,14 +2,20 @@
 import React, { useEffect, useState } from "react";
 import "./my-courses.css";
 import Link from "next/link";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/navigation";
+import { togglePaymentConfirmation } from "@/components/GlobalState/Features/popUpsSlice";
+import { fetchWithCheck } from "@/helperFunctions/serverFetching";
 
 async function FetchStudentCourses(token) {
   try {
-    const request = await fetch(`/api/student/studentCourses/${token}`);
-    const jsonData = await request.json();
-    return jsonData;
+    const data = await fetchWithCheck(
+      `/api/student/studentCourses/${token}`,
+      true,
+      null,
+      []
+    );
+    return data;
   } catch (e) {
     console.log("student courses");
     console.log(e);
@@ -17,11 +23,45 @@ async function FetchStudentCourses(token) {
 }
 const MyCourses = () => {
   const userInfo = useSelector((store) => store.userData.info);
+  const paymentConfirmation = useSelector(
+    (store) => store.popUps.paymentConfirmation
+  );
   const [data, setData] = useState([]);
+  const dispatch = useDispatch();
   let router = useRouter();
-  console.log(userInfo?.token);
 
   useEffect(() => {
+    const url = new URL(window?.location);
+    
+    switch (url.searchParams.get("status")) {
+      case "success":
+        dispatch(
+          togglePaymentConfirmation({
+            text: "تم الشراء بنجاح",
+            status: "success",
+          })
+        );
+        break;
+      case "failure":
+        dispatch(
+          togglePaymentConfirmation({
+            text: "تم الشراء بنجاح",
+            status: "failure",
+          })
+        );
+        break;
+      case "cancelled":
+        dispatch(
+          togglePaymentConfirmation({
+            text: "تم الشراء بنجاح",
+            status: "cancelled",
+          })
+        );
+        break;
+      default:
+        break;
+    }
+
     if (!userInfo) {
       router.replace("/");
     } else {
@@ -33,7 +73,8 @@ const MyCourses = () => {
         })
         .catch((e) => console.log(e));
     }
-  }, [userInfo?.token]);
+  }, []);
+
   return (
     <main className="pb-10 sm:pb-24">
       {/* HERO start  */}

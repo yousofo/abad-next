@@ -65,6 +65,8 @@ const Course = ({ params }) => {
 
   async function handleRegisterAttendanceCourse() {
     if (!user?.token) return dispatch(toggleSignIn());
+    
+    dispatch(toggleLoader(""));
 
     const result = await fetchRegisterAttendanceCourse({
       courseToken: params.token,
@@ -76,10 +78,12 @@ const Course = ({ params }) => {
     } else if (result.error) {
       toast.error(result.error);
     }
+    dispatch(toggleLoader(""));
+
   }
   async function handleAddToBasket() {
     if (!user?.token) return dispatch(toggleSignIn());
-
+    dispatch(toggleLoader(""));
     const result = await fetchAddToBasket({
       tokenCourse: params.token,
       tokenStudent: user.token,
@@ -91,16 +95,22 @@ const Course = ({ params }) => {
     } else if (result.error) {
       toast.error(result.error);
     }
+    dispatch(toggleLoader(""));
+
   }
 
   useEffect(() => {
+    dispatch(toggleLoader("جاري التحميل"));
     fetchWithCheck(`/api/home/courseDetails/${params.token}`)
       .then((courseData) => {
         setCourseInfo(courseData);
         setCourseImg(courseData.imageUrl);
       })
       .catch((error) => router.replace("/not-found"))
-      .finally(() => setFetched(true));
+      .finally(() => {
+        setFetched(true);
+        dispatch(toggleLoader(""))
+      });
   }, []);
 
   return (
@@ -421,7 +431,7 @@ const Course = ({ params }) => {
         </div>
         {/* main content end */}
       </div>
-      <InnerLoader active={!fetched} text="جاري التحميل" />
+      {/* <InnerLoader active={!fetched} text="جاري التحميل" /> */}
     </main>
   );
 };

@@ -18,7 +18,46 @@
 .popups .payment-options button {
   /* animation: fullRotate 3s infinite linear; */
 }
+.popups .payment-confirmation {
+  h2 {
+    font-weight: 700;
+    font-size: 11px;
+    color: #03133d;
 
+    @media (min-width: 640px) {
+      font-size: 1.875rem;
+      line-height: 2.25rem;
+    }
+  }
+  p {
+    font-size: 0.75rem;
+    line-height: 1rem;
+    color: #68718b;
+
+    @media (min-width: 640px) {
+      font-size: 1.125rem;
+      line-height: 1.75rem;
+    }
+  }
+  > button {
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
+    padding-left: 3.5rem;
+    padding-right: 3.5rem;
+    border-radius: 1rem;
+    width: 100%;
+    font-weight: 500;
+    cursor: pointer;
+    background: #fdb614;
+    color: #282828;
+
+    @media (min-width: 640px) {
+      padding-top: 0.875rem;
+      padding-bottom: 0.875rem;
+      width: fit-content;
+    }
+  }
+}
 @keyframes fullRotate {
   from {
     rotate: 0deg;

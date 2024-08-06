@@ -2,20 +2,22 @@
 import "./popUps.css";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import EnlistInCourse from "./EnlistInCourse";
-import { reset } from "../GlobalState/Features/popUpsSlice";
-import SelectPaymentOption from "./SelectPaymentOption";
+import {  resetPopUps } from "../GlobalState/Features/popUpsSlice";
+import EnlistInCourse from "./enlist-in-course.jsx/EnlistInCourse";
+import SelectPaymentOption from "./select-payment-options/SelectPaymentOption";
+import PaymentConfirmation from "./payment-confirmation/PaymentConfirmation";
 
 const PopUps = () => {
+  const dispatch = useDispatch();
   const isHidden = useSelector((e) => e.popUps.isHidden);
   const paymentOptionState = useSelector((e) => e.popUps.selectPaymentOptions);
   const enlistInCourseState = useSelector((e) => e.popUps.EnlistInCourse);
+  const paymentConfirmationState = useSelector((e) => e.popUps.paymentConfirmation);
 
-  const dispatch = useDispatch();
   function handleAuthClose() {
-    dispatch(reset());
-    console.log(isHidden);
+    dispatch(resetPopUps());
   }
+  console.log(isHidden)
   return (
     <div
       onClick={handleAuthClose}
@@ -27,6 +29,7 @@ const PopUps = () => {
       >
         {enlistInCourseState && <EnlistInCourse />}
         {paymentOptionState && <SelectPaymentOption />}
+        {paymentConfirmationState.active && <PaymentConfirmation />}
       </div>
     </div>
   );

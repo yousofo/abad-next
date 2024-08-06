@@ -1,13 +1,13 @@
 "use client";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { reset } from "../GlobalState/Features/popUpsSlice";
+import { resetPopUps } from "@/components/GlobalState/Features/popUpsSlice";
 
 const EnlistInCourse = () => {
   const EnlistInCourse = useSelector((e) => e.popUps.EnlistInCourse);
   const dispatch = useDispatch();
   function handleClick(){
-    dispatch(reset())
+    dispatch(resetPopUps())
   }
   return (
     <div
