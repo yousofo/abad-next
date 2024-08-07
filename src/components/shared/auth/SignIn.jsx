@@ -6,43 +6,35 @@ import {
   toggleSignedIn,
 } from "@/components/GlobalState/Features/authSlice";
 import { reset } from "@/components/GlobalState/Features/navListSlice";
+import { toggleLoader } from "@/components/GlobalState/Features/popUpsSlice";
 import { toggleUpdateInfo } from "@/components/GlobalState/Features/userData";
 import React, { useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-async function fetchSignIn(data) {
-  const request = await fetch("/api/student/login", {
+async function fetchSignIn(credentials) {
+  const response = await fetch("/api/student/login", {
     method: "POST",
     headers: {
-      "Content-Type": "application/problem",
+      "Content-Type": "application/json",
     },
-    body: JSON.stringify(data),
+    body: JSON.stringify(credentials),
   });
-  if (
-    request.headers.get("Content-Type")?.includes("application/json") ||
-    request.headers.get("Content-Type")?.includes("application/problem+json")
-  ) {
-    const dataToReturn = await request.json();
-    console.log(dataToReturn);
-    if (dataToReturn.errors) {
-      let messages = Object.entries(dataToReturn.errors).map(([key, value]) => {
-        return value;
-      });
-      return messages;
+
+  let parsedResponse;
+  try {
+    parsedResponse = await response.json();
+    if (parsedResponse.errors) {
+      return Object.values(parsedResponse.errors);
     } else {
-      return dataToReturn;
+      return parsedResponse;
     }
-  } else {
-    const dataToReturn = await request.text();
-    return dataToReturn;
+  } catch {
+    return await response.text();
   }
 }
-
-
 //
 //
 const SignIn = () => {
-  const [loading, setLoading] = useState(false);
   const [remember, setRemember] = useState(false);
 
   const email = useRef();
@@ -60,13 +52,13 @@ const SignIn = () => {
   //
   async function handleSignIn(e) {
     e.preventDefault();
-    setLoading(true);
+    dispatch(toggleLoader("جاري تسجيل الدخول"));
+
     const result = await fetchSignIn({
       email: email.current.value,
       password: password.current.value,
     });
     if (result.token) {
-
       dispatch(toggleUpdateInfo(result));
       // save user data if remember me is chekced
       if (remember && typeof window != undefined) {
@@ -77,13 +69,15 @@ const SignIn = () => {
 
       dispatch(reset());
     } else {
+      console.log(result);
       if (result.message) {
         dispatch(addSignInError(result.message));
       } else {
         dispatch(addSignInError(result.join("*")));
       }
     }
-    setLoading(false);
+
+    dispatch(toggleLoader(""));
   }
   return (
     <div className={`auth-signin`}>
@@ -99,25 +93,23 @@ const SignIn = () => {
         <div className="input">
           <label htmlFor="">عنوان البريد الإلكتروني</label>
           <input
+            tabIndex={1}
             ref={email}
             type="email"
             name=""
             required
-            // value="user3@example.com"
             placeholder="أدخل بريدك الإلكتروني"
-            // id=""
           />
         </div>
         <div className="input">
           <label htmlFor="">كلمة المرور</label>
           <input
+            tabIndex={2}
             ref={password}
             required
             type="password"
             name=""
-            // value="string"
             placeholder="أدخل كلمة المرور"
-            // id=""
           />
         </div>
         <div>
@@ -133,11 +125,20 @@ const SignIn = () => {
               تذكرني
             </label>
           </div>
-          <button className="forgot-password" onClick={handleForgotPassword}>
+          <span
+            className="forgot-password"
+            tabIndex={4}
+            onClick={handleForgotPassword}
+          >
             نسيت كلمة السر؟
-          </button>
+          </span>
         </div>
-        <button className="login-btn" type="submit" onClick={handleSignIn}>
+        <button
+          className="login-btn"
+          tabIndex={3}
+          type="submit"
+          onClick={handleSignIn}
+        >
           تسجيل الدخول
         </button>
       </form>
@@ -158,11 +159,6 @@ const SignIn = () => {
             سجل الان
           </button>
         </p>
-      </div>
-      {/* loader */}
-      <div className="loader" style={{ display: loading ? "block" : "none" }}>
-        <div></div>
-        <span>جاري التسجيل</span>
       </div>
     </div>
   );

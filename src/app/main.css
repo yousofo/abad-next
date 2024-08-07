@@ -1,163 +1,17 @@
 :root {
   --abad-gold: #fdb614;
 }
-main.home-page {
- /* index page */
- /* contact page */
-}
-main.home-page .hero {
-  position: relative;
-  height: 100vh;
-}
-main.home-page .hero .intro {
-  left: 50%;
-  top: 50%;
-  text-align: center;
-  position: absolute;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 1rem;
-  transform: translate(-50%, -50%);
-  color: white;
-  width: max-content;
-  max-width: 100%;
-  padding: 0px 16px;
-}
-main.home-page .hero .intro > h2 {
-  font-size: 1.5rem;
- /* 24px */
-  line-height: 2rem;
- /* 32px */
-  font-weight: 500;
-}
-main.home-page .hero .intro > h2 span:nth-of-type(2) {
-  white-space: nowrap;
-  color: var(--abad-gold);
-}
-@media (min-width: 640px) {
-  main.home-page .hero .intro > h2 {
-    max-width: fit-content;
- }
-}
-main.home-page .hero .intro > h4 {
-  font-size: 0.875rem;
- /* 14px */
-  line-height: 1.5rem;
- /* 20px */
-  font-weight: 400;
-  max-width: 650px;
-}
-@media (min-width: 768px) {
-  main.home-page .hero .intro > h4 {
-    font-size: 1.125rem;
-    line-height: 1.75rem;
- }
-}
-@media (min-width: 640px) {
-  main.home-page .hero .intro > h4 {
-    padding: 28px 0;
- }
-}
-main.home-page .hero .intro > a {
-  display: flex;
-  padding: 0.5rem;
-  padding-left: 1rem;
-  padding-right: 1rem;
-  gap: 1.25rem;
-  align-items: center;
-  border-radius: 0.75rem;
-  font-size: 0.875rem;
-  line-height: 1.25rem;
-  color: #000;
-  background-color: var(--abad-gold);
-}
-@media (min-width: 768px) {
-  main.home-page .hero .intro > a {
-    font-size: 1rem;
-    line-height: 1.5rem;
- }
-}
-main.home-page .hero .intro > a span {
-  font-weight: 500;
-}
-main.home-page .hero .intro > a svg {
-  color: #000;
-  transform: rotate(180deg);
-}
-main.home-page .hero .back-shape {
-  overflow: hidden;
-  width: 100%;
-  position: relative;
-  z-index: -10;
-  height: 100%;
-}
-main.home-page .hero .back-shape .first {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-main.home-page .hero .back-shape .second {
-  width: 80px;
-  position: absolute;
-  top: 8vh;
-  right: 0;
-}
-@media (min-width: 768px) {
-  main.home-page .hero {
-    min-height: 600px;
-    height: auto;
- }
-  main.home-page .hero .intro h2 {
-    font-size: 1.875rem;
-   /* 30px */
-    line-height: 2.25rem;
-   /* 36px */
- }
-  main.home-page .hero .back-shape {
-    min-height: 600px;
-    height: auto;
- }
-  main.home-page .hero .back-shape .first {
-    height: auto;
-    min-height: 600px;
- }
-  main.home-page .hero .back-shape .second {
-    width: 9rem;
-   /* 144px */
-    top: 10vh;
- }
-}
-@media (min-width: 1024px) {
-  main.home-page .hero .intro h2 {
-    font-size: 2.25rem;
-   /* 36px */
-    line-height: 2.5rem;
-   /* 40px */
- }
-}
-@media (min-width: 1280px) {
-  main.home-page .hero .intro h2 {
-    font-size: 3rem;
-   /* 48px */
-    line-height: 1;
- }
-  main.home-page .hero .intro h4 {
-    font-size: 1.5rem;
-   /* 24px */
-    line-height: 2rem;
-   /* 32px */
-    line-height: 2.5rem;
- }
-}
+/* main.home-page { */
+  /* index page */
+  /* contact page */
+/* } */
 main.home-page .courses-sec {
   width: 100%;
   height: fit-content;
   position: relative;
- /* margin-top: -80px;
+  /* margin-top: -80px;
   */
- /* @media (min-width: 640px) {
+  /* @media (min-width: 640px) {
     margin-top: 0;
  }
   */
@@ -173,7 +27,7 @@ main.home-page .courses-sec > img {
 @media (min-width: 1280px) {
   main.home-page .courses-sec > img {
     display: block;
- }
+  }
 }
 main.home-page .courses-sec .home-courses > .show-all {
   background: linear-gradient(to right, #1b45b4, #1c2792);
@@ -205,7 +59,7 @@ main.home-page .plan > div {
   main.home-page .plan > div {
     padding-top: 0;
     flex-direction: row;
- }
+  }
 }
 main.home-page .plan > div .cards-title {
   display: flex;
@@ -214,7 +68,7 @@ main.home-page .plan > div .cards-title {
 @media (min-width: 768px) {
   main.home-page .plan > div .cards-title {
     width: 45%;
- }
+  }
 }
 main.home-page .plan > div .cards {
   display: flex;
@@ -276,27 +130,27 @@ main.home-page .reviews > div {
 @media (min-width: 640px) {
   main.home-page .reviews > div {
     max-width: 640px;
- }
+  }
 }
 @media (min-width: 768px) {
   main.home-page .reviews > div {
     max-width: 768px;
- }
+  }
 }
 @media (min-width: 1024px) {
   main.home-page .reviews > div {
     max-width: 1024px;
- }
+  }
 }
 @media (min-width: 1280px) {
   main.home-page .reviews > div {
     max-width: 1280px;
- }
+  }
 }
 @media (min-width: 1536px) {
   main.home-page .reviews > div {
     max-width: 1536px;
- }
+  }
 }
 main.home-page .reviews > div > h3 {
   font-size: 1.5rem;
@@ -309,7 +163,7 @@ main.home-page .reviews > div > h3 {
   main.home-page .reviews > div > h3 {
     font-size: 2.25rem;
     line-height: 2.5rem;
- }
+  }
 }
 main.home-page .reviews > div > h3 span:nth-of-type(1) {
   color: var(--abad-gold);
@@ -333,32 +187,77 @@ main.home-page .reviews > div .cards .cards-wrapper .card .card-wrapper {
   gap: 20px;
   border-radius: 12px;
 }
-main.home-page .reviews > div .cards .cards-wrapper .card .card-wrapper .review-details {
+main.home-page
+  .reviews
+  > div
+  .cards
+  .cards-wrapper
+  .card
+  .card-wrapper
+  .review-details {
   display: flex;
   align-items: center;
   gap: 8px;
   font-family: "Noto Sans Arabic", sans-serif;
 }
-main.home-page .reviews > div .cards .cards-wrapper .card .card-wrapper .review-details h4 {
+main.home-page
+  .reviews
+  > div
+  .cards
+  .cards-wrapper
+  .card
+  .card-wrapper
+  .review-details
+  h4 {
   font-size: 18px;
   font-weight: bold;
   color: #1e1e1e;
 }
-main.home-page .reviews > div .cards .cards-wrapper .card .card-wrapper .review-details p {
+main.home-page
+  .reviews
+  > div
+  .cards
+  .cards-wrapper
+  .card
+  .card-wrapper
+  .review-details
+  p {
   font-size: 14px;
 }
-main.home-page .reviews > div .cards .cards-wrapper .card .card-wrapper .review-text {
+main.home-page
+  .reviews
+  > div
+  .cards
+  .cards-wrapper
+  .card
+  .card-wrapper
+  .review-text {
   color: #172327;
   font-size: 15px;
   line-height: 1.6;
   font-weight: 400;
 }
-main.home-page .reviews > div .cards .cards-wrapper .card .card-wrapper .review-stars {
+main.home-page
+  .reviews
+  > div
+  .cards
+  .cards-wrapper
+  .card
+  .card-wrapper
+  .review-stars {
   display: flex;
   align-items: center;
   gap: 18px;
 }
-main.home-page .reviews > div .cards .cards-wrapper .card .card-wrapper .review-stars img {
+main.home-page
+  .reviews
+  > div
+  .cards
+  .cards-wrapper
+  .card
+  .card-wrapper
+  .review-stars
+  img {
   width: fit-content;
 }
 main.home-page .reviews > div .cards .swiper-btns {
@@ -379,7 +278,8 @@ main.home-page .reviews > div .cards .swiper1-btn {
   align-items: center;
   border-radius: 50%;
 }
-main.home-page .reviews > div .cards .swiper1-btn::before, main.home-page .reviews > div .cards .swiper1-btn::after {
+main.home-page .reviews > div .cards .swiper1-btn::before,
+main.home-page .reviews > div .cards .swiper1-btn::after {
   content: "";
   z-index: -1;
   left: 0;
@@ -407,37 +307,37 @@ main.home-page .reviews > div .cards .swiper1-btn.animate-review-btn::after {
 @keyframes growOpacityAni {
   from {
     opacity: 0;
- }
+  }
   to {
     opacity: 1;
- }
+  }
 }
 @keyframes reduceOpacityAni {
   from {
     opacity: 1;
- }
+  }
   to {
     opacity: 0;
- }
+  }
 }
-main.home-page .reviews > div .cards .swiper1-btn:focus-within {
- /* transition: 1s;
+/* main.home-page .reviews > div .cards .swiper1-btn:focus-within { */
+  /* transition: 1s;
   background: #1e1e1e80;
   */
-}
+/* } */
 main.home-page .articles > * {
   margin: 0 auto;
 }
-main.home-page .articles > * article {
- /* padding: 12px;
+/* main.home-page .articles > * article { */
+  /* padding: 12px;
   */
- /* max-width: 320px;
+  /* max-width: 320px;
   */
- /* @media (min-width: 767px) {
+  /* @media (min-width: 767px) {
     width: 32%;
  }
   */
-}
+/* } */
 main.home-page .articles > * article .article-wrapper {
   border-radius: 12px;
   display: flex;
@@ -479,11 +379,14 @@ main.home-page .contact form .input input {
 main.home-page .contact form .input input:focus::placeholder {
   display: none;
 }
-main.home-page .contact form .input input:not(:placeholder-shown) + span, main.home-page .contact form .input input:focus + span {
+main.home-page .contact form .input input:not(:placeholder-shown) + span,
+main.home-page .contact form .input input:focus + span {
   font-size: 10px;
   transform: translateY(-170%) !important;
 }
 body:has(.auth.flex) {
-  height: 100vh;
-  overflow: hidden;
+  & {
+    height: 100vh;
+    overflow: hidden;
+  }
 }

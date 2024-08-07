@@ -1,5 +1,5 @@
 "use client";
-import "./homeCourses.dev.css";
+import "./homeCourses.css";
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
 // redux tool kit
