@@ -80,7 +80,7 @@ const CourseCard = ({ index, data }) => {
             {data.hadaf}
           </span>
         </div>
-        {/* <p dangerouslySetInnerHTML={{ __html: data.summaryAr }} /> */}
+        <p dangerouslySetInnerHTML={{ __html: data.summaryAr }} />
         <div className="course-info">
           <p>البرمجة</p>
           <p>{data.price} ريال سعودي</p>
