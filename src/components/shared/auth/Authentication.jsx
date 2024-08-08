@@ -23,7 +23,7 @@ const Authentication = () => {
     <div
       onClick={handleAuthClose}
       style={{ display: isHidden ? "none" : "flex" }}
-      className={`auth`}
+      className={`auth z-[999999]`}
     >
       <div
         onClick={(e) => e.stopPropagation()}

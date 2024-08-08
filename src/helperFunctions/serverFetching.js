@@ -34,24 +34,35 @@ export async function fetchWithCheck(url, json, options = {}, fallBack) {
     console.log("response.ok")
     console.log(response.ok)
 
+    let data = await response.text()
+
     if (!response.ok) {
+      let finalData;
       try {
-        throw await response.json();
+        console.log("throw JSON.parse(data)")
+        console.log(data)
+        finalData = JSON.parse(data)
       } catch {
-        throw await response.text()
+        console.log("throw final Data")
+        finalData = data
+      } finally {
+        console.log("finalData")
+        console.log(finalData)
+        throw finalData;
       }
     }
 
     console.log("fetching ok")
 
     try {
-      return await response.json();
+      return JSON.parse(data);
     } catch {
-      return await response.text();
+      return data;
     }
 
 
   } catch (error) {
+    console.error("fetch with check catch");
     console.error(error);
     if (fallBack) return fallBack
     throw error;

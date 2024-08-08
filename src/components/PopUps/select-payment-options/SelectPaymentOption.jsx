@@ -36,6 +36,7 @@ const PaymentMethod = ({ image, text, isTamara = false }) => {
       console.log(result);
       toast.success(result.message);
     } catch (error) {
+      toast.error(error.error);
       console.log(error);
     } finally {
       dispatch(toggleLoader(""));

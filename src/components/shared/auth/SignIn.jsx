@@ -8,28 +8,35 @@ import {
 import { reset } from "@/components/GlobalState/Features/navListSlice";
 import { toggleLoader } from "@/components/GlobalState/Features/popUpsSlice";
 import { toggleUpdateInfo } from "@/components/GlobalState/Features/userData";
+import { fetchWithCheck } from "@/helperFunctions/serverFetching";
 import React, { useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 async function fetchSignIn(credentials) {
-  const response = await fetch("/api/student/login", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(credentials),
-  });
-
-  let parsedResponse;
+  console.log("fetchSignIn");
   try {
-    parsedResponse = await response.json();
-    if (parsedResponse.errors) {
-      return Object.values(parsedResponse.errors);
+    const data = await fetchWithCheck("/api/student/login", null, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(credentials),
+    });
+
+    console.log(data);
+
+    return data;
+    // if (data.errors) {
+    //   return Object.values(data.errors);
+    // } else {
+    // }
+  } catch (error) {
+    console.log(error);
+    if (error.errors) {
+      return Object.values(error.errors);
     } else {
-      return parsedResponse;
+      return error;
     }
-  } catch {
-    return await response.text();
   }
 }
 //
