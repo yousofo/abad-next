@@ -22,7 +22,7 @@ const Articles = () => {
 
       {/* HERO end  */}
       {/* main secion start */}
-      <section className="p-8 w-full max-w-screen-lg mx-auto h-auto sm:mt-10 md:mt-16 lg:mt-20 xl:mt-28">
+      <section className="p-8 w-full max-w-screen-lg mx-auto h-auto  ">
         <ArticlesFilteringWrapper />
       </section>
     </main>

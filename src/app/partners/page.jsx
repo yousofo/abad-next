@@ -88,7 +88,7 @@ const Partners = () => {
       </Hero>
       {/* HERO end  */}
       {/* main content start */}
-      <section className="profile flex flex-col gap-8 max-w-screen-xl mx-auto px-4 sm:mt-10 md:mt-16 lg:mt-20 xl:mt-28">
+      <section className="profile flex flex-col gap-8 max-w-screen-xl mx-auto px-4 ">
         <form
           onSubmit={handleSubmit(handleFormSubmit)}
           action=""

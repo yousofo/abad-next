@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/navigation";
 import { togglePaymentConfirmation } from "@/components/GlobalState/Features/popUpsSlice";
 import { fetchWithCheck } from "@/helperFunctions/serverFetching";
+import Hero from "@/components/shared/hero/Hero";
 
 async function FetchStudentCourses(token) {
   try {
@@ -45,16 +46,16 @@ const MyCourses = () => {
       case "failure":
         dispatch(
           togglePaymentConfirmation({
-            text: "تم الشراء بنجاح",
+            text: url.searchParams.get("error") || "حدث خطأ في عملية الشراء", 
             status: "failure",
           })
         );
         break;
-      case "cancelled":
+      case "failed":
         dispatch(
           togglePaymentConfirmation({
-            text: "تم الشراء بنجاح",
-            status: "cancelled",
+            text: url.searchParams.get("error") || "حدث خطأ في عملية الشراء",
+            status: "failed",
           })
         );
         break;
@@ -78,7 +79,12 @@ const MyCourses = () => {
   return (
     <main className="pb-10 sm:pb-24">
       {/* HERO start  */}
-      <section className="hero h-dvh md:min-h-[600px] md:h-auto relative">
+      <Hero>
+        <h2 className="text-3xl font-medium md:text-4xl lg:text-5xl xl:text-6xl max-w-60 sm:max-w-fit">
+          <span className="text-abad-gold whitespace-nowrap">دوراتي</span>
+        </h2>
+      </Hero>
+      {/* <section className="hero h-dvh md:min-h-[600px] md:h-auto relative">
         <div className="intro text-center absolute flex flex-col items-center justify-center gap-4 md:gap-6 text-white w-max max-w-full px-4">
           <h2 className="text-3xl font-medium md:text-4xl lg:text-5xl xl:text-6xl max-w-60 sm:max-w-fit">
             <span className="text-abad-gold whitespace-nowrap">دوراتي</span>
@@ -96,7 +102,7 @@ const MyCourses = () => {
             alt=""
           />
         </div>
-      </section>
+      </section> */}
       {/* HERO end  */}
       {/* main content start */}
       <section className="my-courses flex flex-col gap-4 sm:gap-6 max-w-screen-xl mx-auto px-4">

@@ -58,7 +58,7 @@ export default async function Home() {
       </Hero>
       {/* HERO end  */}
       {/* COURSES start */}
-      <section className="courses-sec -mt-14 mb-8 sm:my-10 md:my-16 lg:my-20 xl:my-24">
+      <section className="courses-sec  mb-8">
         <img
           className=""
           src="/media/Animation - 1717986646627.gif"

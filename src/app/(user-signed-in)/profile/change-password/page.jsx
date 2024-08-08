@@ -53,7 +53,7 @@ const ChangePassword = () => {
       </Hero>
       {/* HERO end  */}
       {/* main content start */}
-      <section className="profile flex flex-col gap-8 max-w-screen-xl mx-auto px-4 sm:my-10 md:my-16 lg:my-20 xl:my-24">
+      <section className="profile flex flex-col gap-8 max-w-screen-xl mx-auto px-4 sm:mb-10 md:mb-16 lg:mb-20 xl:mb-24">
         <form
           action=""
           id="updatePasswordForm"

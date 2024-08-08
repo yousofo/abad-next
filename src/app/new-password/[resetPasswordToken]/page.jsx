@@ -65,26 +65,11 @@ const NewPassword = () => {
           <span>كلمة سر جديدة</span>
         </h2>
       </Hero>
-      {/* <section className="hero h-dvh md:min-h-[600px] md:h-auto relative">
-        <div className="intro text-center absolute flex flex-col items-center justify-center gap-4 md:gap-6 text-white w-max max-w-full px-4"></div>
-        <div className="back-shape overflow-hidden w-full relative -z-10 h-full md:min-h-[600px] md:h-auto">
-          <img
-            className="w-full h-full md:h-auto object-cover md:min-h-[600px]"
-            src="/media/BackgroundHero_rect.png"
-            alt=""
-          />
-          <img
-            className="md:w-36 w-20 absolute top-[8vh] md:top-[10vh] right-0"
-            src="/media/hero-rectangle.png"
-            alt=""
-          />
-        </div>
-      </section> */}
       {/* HERO end  */}
       {/* main content start */}
       <form
         onSubmit={handleSubmit}
-        className="newPassword w-full mx-auto px-4 max-w-screen-lg flex flex-wrap gap-4 sm:mt-10 md:mt-16 lg:mt-20 xl:mt-28"
+        className="newPassword w-full mx-auto px-4 max-w-screen-lg flex flex-wrap gap-4  "
         id=""
       >
         <div>

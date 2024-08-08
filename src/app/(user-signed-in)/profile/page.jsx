@@ -44,9 +44,6 @@ const Profile = () => {
   }
   console.log("profile");
 
-  //
-  const [loading, setLoading] = useState(false);
-
   // react-hook-form
   const updateStudentForm = useForm();
   const { register, handleSubmit, formState, setError, reset } =
@@ -89,7 +86,7 @@ const Profile = () => {
       </Hero>
       {/* HERO end  */}
       {/* main content start */}
-      <section className="profile flex flex-col gap-8 max-w-screen-xl mx-auto px-4 sm:my-10 md:my-16 lg:my-20 xl:my-24">
+      <section className="profile flex flex-col gap-8 max-w-screen-xl mx-auto px-4 sm:mb-10 md:mb-16 lg:mb-20 xl:mb-24">
         <form
           onSubmit={handleSubmit(handleFormSubmit)}
           action=""
@@ -146,21 +143,6 @@ const Profile = () => {
             />
             <p className="input-error">{errors.arabicName?.message}</p>
           </div>
-          {/* english name !*/}
-          {/* <div className="input">
-            <label htmlFor="englishName">الاسم الرباعي بالانجليزية*</label>
-            <input
-              type="text"
-              name=""
-              dir="ltr"
-              placeholder="type your name"
-              id="englishName"
-              {...register("englishName", {
-                required: "يجب كتابة الاسم بالانجليزية",
-              })}
-            />
-            <p className="input-error">{errors.englishName?.message}</p>
-          </div> */}
           {/* id ! */}
           <div className="input">
             <label htmlFor="idnumber">رقم الهوية*</label>
@@ -305,7 +287,6 @@ const Profile = () => {
         </div>
       </section>
       {/* main content end */}
-      <Loader loading={loading} text="جاري التحديث" />
     </main>
   );
 };

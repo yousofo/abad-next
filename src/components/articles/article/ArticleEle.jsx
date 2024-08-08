@@ -20,7 +20,7 @@ const ArticleEle = ({ data }) => {
   }, [data.articleImage, data.autherImage]);
 
   return (
-    <article className="w-full mx-auto px-4 max-w-screen-lg flex flex-col gap-10 sm:mt-10 md:mt-16 lg:mt-20 xl:mt-28">
+    <article className="w-full mx-auto px-4 max-w-screen-lg flex flex-col gap-10">
       <div className="flex flex-col gap-3.5 sm:flex-row justify-between items-center">
         <div className="flex w-full max-w-[260px] gap-3 items-center">
           {/* user image */}

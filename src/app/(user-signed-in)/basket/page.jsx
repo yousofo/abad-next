@@ -10,6 +10,7 @@ import { fetchUserBasket } from "@/components/GlobalState/Features/userData";
 import { useRouter } from "next/navigation";
 import { fetchWithCheck } from "@/helperFunctions/serverFetching";
 import { toggleLoader } from "@/components/GlobalState/Features/popUpsSlice";
+import Hero from "@/components/shared/hero/Hero";
 
 async function fetchDeletetFromBasket(basketCourseToken) {
   try {
@@ -183,31 +184,17 @@ const Basket = () => {
   return (
     <main className="pb-10 sm:pb-24 relative">
       {/* HERO start  */}
-      <section className="hero h-dvh md:min-h-[600px] md:h-auto relative">
-        <div className="intro text-center max-w-[700px] absolute flex flex-col items-center h-full justify-center gap-5 md:gap-7 text-white w-full px-4">
-          <h2 className="text-2xl font-medium md:text-4xl lg:text-5xl xl:text-6xl max-w-72 sm:max-w-fit">
-            <span className="text-abad-gold whitespace-nowrap my-3 block">
-              السلة
-            </span>
-            <p className="text-sm md:text-2xl font-normal leading-loose md:leading-10 lg:leading-[48px]">
-              معهد شبكة آباد للتدريب من المعاهد الرائدة في تقديم الدورات
-              التطويرية المتخصصة في تقنية المعلومات.
-            </p>
-          </h2>
-        </div>
-        <div className="back-shape overflow-hidden w-full relative -z-10 h-full md:h-auto">
-          <img
-            className="w-full h-full md:h-auto object-cover md:min-h-[600px]"
-            src="/media/BackgroundHero_rect.png"
-            alt=""
-          />
-          <img
-            className="md:w-36 w-20 absolute top-[8vh] md:top-[10vh] right-0"
-            src="/media/hero-rectangle.png"
-            alt=""
-          />
-        </div>
-      </section>
+      <Hero>
+        <h2 className="text-2xl font-medium md:text-4xl lg:text-5xl xl:text-6xl max-w-72 sm:max-w-fit">
+          <span className="text-abad-gold whitespace-nowrap my-3 block">
+            السلة
+          </span>
+          <p className="text-sm md:text-2xl font-normal leading-loose md:leading-10 lg:leading-[48px]">
+            معهد شبكة آباد للتدريب من المعاهد الرائدة في تقديم الدورات التطويرية
+            المتخصصة في تقنية المعلومات.
+          </p>
+        </h2>
+      </Hero>
       {/* HERO end  */}
       {/* main content start */}
       <section className="basket relative z-[100] max-w-screen-xl mx-auto px-4 flex flex-col gap-2 sm:gap-8 -mt-40 sm:mt-0">
