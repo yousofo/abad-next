@@ -1,5 +1,4 @@
 import 'react-toastify/dist/ReactToastify.css';
-import "./globals.css";
 import Header from "@/components/Header/Header";
 import Footer from "@/components/Footer/Footer";
 import { StateProvider } from "@/components/GlobalState/StateProvider";
@@ -9,6 +8,7 @@ import PopUps from "@/components/PopUps/PopUps";
 import BrowserWarning from "@/components/shared/browser-support/BrowserWarning";
 import { ToastContainer } from "react-toastify";
 import Loader from "@/components/shared/Loader/Loader";
+import "./globals.css";
 
 // import localFont from 'next/font/local'
 
