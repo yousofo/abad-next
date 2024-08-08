@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import ArticlesItem from "../shared/article/ArticlesItem";
-import { fetchWithCheck } from "@/helperFunctions/serverFetching";
+import { fetchWithCheck } from "@/helperFunctions/dataFetching";
 
 async function fetchArticles() {
   try {

@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useDispatch } from "react-redux";
 import { reset } from "../GlobalState/Features/navListSlice";
-import { fetchWithCheck } from "@/helperFunctions/serverFetching";
+import { fetchWithCheck } from "@/helperFunctions/dataFetching";
 
 async function fetchCheckCourse(courseToken) {
   try {

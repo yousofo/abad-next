@@ -5,54 +5,16 @@ import "./course.css";
 import Accordion from "@/components/shared/Accordion/Accordion";
 import { useRouter } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchUserBasket } from "@/components/GlobalState/Features/userData";
-import { toggleSignIn } from "@/components/GlobalState/Features/authSlice";
 import Link from "next/link";
-import { toast } from "react-toastify";
-import { fetchWithCheck } from "@/helperFunctions/serverFetching";
+import { fetchWithCheck } from "@/helperFunctions/dataFetching";
 import {
   toggleLoader,
-  toggleSelectPaymentOptions,
 } from "@/components/GlobalState/Features/popUpsSlice";
-import InnerLoader from "@/components/shared/Loader/inner-loader/InnerLoader";
-
-async function fetchRegisterAttendanceCourse(data) {
-  try {
-    const courseDetails = await fetchWithCheck(
-      `/api/reservations/addOfflineCourse`,
-      true,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      }
-    );
-    return courseDetails;
-  } catch (error) {
-    console.log(error);
-    return error;
-  }
-}
-async function fetchAddToBasket(data) {
-  try {
-    const courseDetails = await fetchWithCheck(
-      `/api/reservations/addToBasket?tokenCourse=${data.tokenCourse}&tokenStudent=${data.tokenStudent}`,
-      true,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
-    return courseDetails;
-  } catch (error) {
-    console.log(error);
-    return error;
-  }
-}
+import {
+  buyCourseNow,
+  handleAddToBasket,
+  handleRegisterAttendanceCourse,
+} from "@/helperFunctions/signedInActions";
 
 const Course = ({ params }) => {
   const [courseImg, setCourseImg] = useState("/media/course/course-image.png");
@@ -60,47 +22,7 @@ const Course = ({ params }) => {
   const router = useRouter();
   let dispatch = useDispatch();
 
-  const user = useSelector((store) => store.userData.info);
   const [courseInfo, setCourseInfo] = useState();
-
-  async function handleRegisterAttendanceCourse() {
-    if (!user?.token) return dispatch(toggleSignIn());
-
-    dispatch(toggleLoader(""));
-
-    const result = await fetchRegisterAttendanceCourse({
-      courseToken: params.token,
-      userToken: user.token,
-    });
-
-    if (result.message) {
-      toast.success(result.message);
-    } else if (result.error) {
-      toast.error(result.error);
-    }
-    dispatch(toggleLoader(""));
-  }
-  async function handleAddToBasket() {
-    if (!user?.token) return dispatch(toggleSignIn());
-    dispatch(toggleLoader(""));
-    const result = await fetchAddToBasket({
-      tokenCourse: params.token,
-      tokenStudent: user.token,
-    });
-
-    if (result.message) {
-      dispatch(fetchUserBasket(user.token));
-      toast.success(result.message);
-    } else if (result.error) {
-      toast.error(result.error);
-    }
-    dispatch(toggleLoader(""));
-  }
-
-  async function handleBuyNow() {
-    if (user) dispatch(toggleSelectPaymentOptions());
-    else dispatch(toggleSignIn());
-  }
 
   useEffect(() => {
     dispatch(toggleLoader("جاري التحميل"));
@@ -302,39 +224,22 @@ const Course = ({ params }) => {
                 {/* handle coure REGISTERATION */}
                 {courseInfo?.isOnline == "أونلاين" ? (
                   <>
-                    <button onClick={handleBuyNow} className="register-btn">
+                    <button onClick={buyCourseNow} className="register-btn">
                       شراء الدورة التدريبية الآن
                     </button>
                     <div
                       className="action-btns flex gap-4"
-                      onClick={handleAddToBasket}
+                      onClick={() => handleAddToBasket(params.token)}
                     >
                       <button className="flex-1 bg-[#FDB614]">
                         إضافة الي السلة
                       </button>
-                      {/* <button>
-                        <svg
-                          width={20}
-                          height={16}
-                          viewBox="0 0 18 16"
-                          fill="none"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            d="M9 14.875C9 14.875 1.1875 10.5 1.1875 5.18751C1.1875 4.24836 1.51289 3.33821 2.1083 2.61193C2.70371 1.88564 3.53236 1.38808 4.45328 1.2039C5.37419 1.01971 6.33047 1.16029 7.15943 1.6017C7.98838 2.04311 8.63879 2.7581 9 3.62501V3.62501C9.36121 2.7581 10.0116 2.04311 10.8406 1.6017C11.6695 1.16029 12.6258 1.01971 13.5467 1.2039C14.4676 1.38808 15.2963 1.88564 15.8917 2.61193C16.4871 3.33821 16.8125 4.24836 16.8125 5.18751C16.8125 10.5 9 14.875 9 14.875Z"
-                            stroke="#32BCA3"
-                            strokeWidth="1.5"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                          />
-                        </svg>
-                      </button> */}
                     </div>
                   </>
                 ) : (
                   <button
                     className="text-center register-btn"
-                    onClick={handleRegisterAttendanceCourse}
+                    onClick={() => handleRegisterAttendanceCourse(params.token)}
                   >
                     سجل في الدورة
                   </button>

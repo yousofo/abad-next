@@ -1,4 +1,4 @@
-import { fetchWithCheck } from "@/helperFunctions/serverFetching";
+import { fetchWithCheck } from "@/helperFunctions/dataFetching";
 
 export const fetchCache = 'force-no-store';
 
@@ -16,7 +16,7 @@ export async function GET(request) {
     //   }
     // });
     // const data = await response.json();
-    console.log("proxy==========================================")    
+    console.log("proxy==========================================")
     return new Response(JSON.stringify(data), {
       headers: {
         'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate',

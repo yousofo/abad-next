@@ -3,7 +3,7 @@ import "./profile.css";
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchWithCheck } from "@/helperFunctions/serverFetching";
+import { fetchWithCheck } from "@/helperFunctions/dataFetching";
 import { toast } from "react-toastify";
 import { toggleLoader } from "@/components/GlobalState/Features/popUpsSlice";
 import Hero from "@/components/shared/hero/Hero";

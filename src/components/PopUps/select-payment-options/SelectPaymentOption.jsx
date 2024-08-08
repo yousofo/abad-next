@@ -1,5 +1,5 @@
 import { toggleLoader } from "@/components/GlobalState/Features/popUpsSlice";
-import { fetchWithCheck } from "@/helperFunctions/serverFetching";
+import { fetchWithCheck } from "@/helperFunctions/dataFetching";
 import { useParams } from "next/navigation";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";

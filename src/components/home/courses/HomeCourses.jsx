@@ -9,7 +9,7 @@ import { toggleCards } from "../../GlobalState/Features/coursesFilterSlice";
 // components
 import CourseRow from "@/components/shared/tables/CourseRow";
 import CourseCard from "@/components/shared/tables/CourseCard";
-import { fetchWithCheck } from "@/helperFunctions/serverFetching";
+import { fetchWithCheck } from "@/helperFunctions/dataFetching";
 
 const HomeCourses = () => {
   const [data, setData] = useState([]);

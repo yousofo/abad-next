@@ -1,11 +1,10 @@
 "use client";
-import { toggleSignIn } from "@/components/GlobalState/Features/authSlice";
 import "./courseRow.css";
-import { toggleEnlistInCourse } from "@/components/GlobalState/Features/popUpsSlice";
 import Link from "next/link";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { handleOuterRegisterCourse } from "@/helperFunctions/UserCourseRegisteration";
+import { buyCourseNow, handleRegisterAttendanceCourse } from "@/helperFunctions/signedInActions";
 
 const CourseRow = ({ index, data }) => {
   const user = useSelector((store) => store.userData.info);
@@ -154,8 +153,14 @@ const CourseRow = ({ index, data }) => {
               التفاصيل
             </button>
           </Link>
-          <div onClick={() => handleOuterRegisterCourse(user, dispatch)}>
-            <button>
+          <div>
+            <button
+              onClick={() => {
+                isOnline
+                  ? buyCourseNow()
+                  : handleRegisterAttendanceCourse(data.token);
+              }}
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width={14}
@@ -168,7 +173,7 @@ const CourseRow = ({ index, data }) => {
                   fill="#ffffff"
                 />
               </svg>
-              تسجيل
+              {isOnline ? "شراء" : "التسجيل"}
             </button>
           </div>
         </div>

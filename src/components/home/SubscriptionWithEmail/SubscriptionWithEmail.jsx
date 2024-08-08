@@ -1,13 +1,17 @@
 "use client";
-import { fetchWithCheck } from "@/helperFunctions/serverFetching";
+import { fetchWithCheck } from "@/helperFunctions/dataFetching";
 import React, { useRef } from "react";
 import { toast } from "react-toastify";
 
 async function fetchSubscripe(data) {
-  const requestData = await fetchWithCheck("/api/subscriptions/subscripe", false, {
-    method: "POST",
-    body: JSON.stringify(data),
-  });
+  const requestData = await fetchWithCheck(
+    "/api/subscriptions/subscripe",
+    false,
+    {
+      method: "POST",
+      body: JSON.stringify(data),
+    }
+  );
   return requestData;
 }
 
@@ -24,7 +28,7 @@ const SubscriptionWithEmail = () => {
       });
       toast.success(result);
     } catch (error) {
-      console.log(error)
+      console.log(error);
       toast.error(error);
     }
   }

@@ -1,7 +1,7 @@
 'use client';
 
 import { getAllUserAuthDataFromCookies } from '@/helperFunctions/cookiesManagement';
-import { fetchWithCheck } from '@/helperFunctions/serverFetching';
+import { fetchWithCheck } from '@/helperFunctions/dataFetching';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
 const getUserData = () => {

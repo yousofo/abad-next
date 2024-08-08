@@ -1,4 +1,4 @@
-import { fetchWithCheck } from "@/helperFunctions/serverFetching";
+import { fetchWithCheck } from "@/helperFunctions/dataFetching";
 
 export const fetchCache = 'force-no-store';
 

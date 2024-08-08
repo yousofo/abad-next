@@ -1,4 +1,4 @@
-import { fetchWithCheck } from "@/helperFunctions/serverFetching";
+import { fetchWithCheck } from "@/helperFunctions/dataFetching";
 
 export async function POST(request) {
   console.log("student login==============================")

@@ -8,7 +8,7 @@ import {
 import { reset } from "@/components/GlobalState/Features/navListSlice";
 import { toggleLoader } from "@/components/GlobalState/Features/popUpsSlice";
 import { toggleUpdateInfo } from "@/components/GlobalState/Features/userData";
-import { fetchWithCheck } from "@/helperFunctions/serverFetching";
+import { fetchWithCheck } from "@/helperFunctions/dataFetching";
 import React, { useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 

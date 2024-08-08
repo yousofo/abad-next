@@ -1,7 +1,7 @@
 "use client";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
-import { fetchWithCheck } from "@/helperFunctions/serverFetching";
+import { fetchWithCheck } from "@/helperFunctions/dataFetching";
 import { useDispatch } from "react-redux";
 import { toggleLoader } from "@/components/GlobalState/Features/popUpsSlice";
 // import fetchCoursesWithTypes from "@/helperFunctions/fetchCoursesWithTypes";

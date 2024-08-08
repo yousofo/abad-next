@@ -1,7 +1,4 @@
-export async function fetchLatestArticles() {
-  const result = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/articles/getLatestArticles`)
-  return result.json()
-}
+
 
 const noCacheHeaders = {
   // 'Content-Type': 'application/json',
@@ -66,5 +63,49 @@ export async function fetchWithCheck(url, json, options = {}, fallBack) {
     console.error(error);
     if (fallBack) return fallBack
     throw error;
+  }
+}
+
+export async function fetchLatestArticles() {
+  const data = await fetchWithCheck(`${process.env.NEXT_PUBLIC_BASE_URL}/api/articles/getLatestArticles`, true, null, [])
+  return data
+}
+
+export async function fetchAddToBasket(data) {
+  try {
+    const courseDetails = await fetchWithCheck(
+      `/api/reservations/addToBasket?tokenCourse=${data.tokenCourse}&tokenStudent=${data.tokenStudent}`,
+      true,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    return courseDetails;
+  } catch (error) {
+    console.log(error);
+    return error;
+  }
+}
+
+export async function fetchRegisterAttendanceCourse(data) {
+  try {
+    const courseDetails = await fetchWithCheck(
+      `/api/reservations/addOfflineCourse`,
+      true,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      }
+    );
+    return courseDetails;
+  } catch (error) {
+    console.log(error);
+    return error;
   }
 }

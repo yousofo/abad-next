@@ -5,7 +5,7 @@ import PartnersSwiper from "@/components/shared/swipers/PartnersSwiper";
 import HomeCourses from "@/components/home/courses/HomeCourses";
 import SubscriptionWithEmail from "@/components/home/SubscriptionWithEmail/SubscriptionWithEmail";
 import LatestArticles from "@/components/home/articles/LatestArticles";
-import { fetchWithCheck } from "@/helperFunctions/serverFetching";
+import { fetchWithCheck } from "@/helperFunctions/dataFetching";
 import Hero from "@/components/shared/hero/Hero";
 import Link from "next/link";
 
@@ -18,7 +18,7 @@ export default async function Home() {
   return (
     <main className="home home-page">
       {/* HERO start  */}
-      
+
       <Hero>
         <h2 className="text-2xl md:text-3xl lg:text-4xl xl:text-[55px] xl:leading-[1.5] font-medium">
           <span>تعلم بكل سهولة مع</span>

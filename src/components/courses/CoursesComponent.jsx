@@ -23,7 +23,7 @@ import {
 } from "react-table";
 //helper functions
 import { handleOuterRegisterCourse } from "@/helperFunctions/UserCourseRegisteration";
-import { fetchWithCheck } from "@/helperFunctions/serverFetching";
+import { fetchWithCheck } from "@/helperFunctions/dataFetching";
 
 async function fetchCourses() {
   try {
