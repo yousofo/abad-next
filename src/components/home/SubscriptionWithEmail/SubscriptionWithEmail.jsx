@@ -6,7 +6,6 @@ import { toast } from "react-toastify";
 async function fetchSubscripe(data) {
   const requestData = await fetchWithCheck(
     "/api/subscriptions/subscripe",
-    false,
     {
       method: "POST",
       body: JSON.stringify(data),

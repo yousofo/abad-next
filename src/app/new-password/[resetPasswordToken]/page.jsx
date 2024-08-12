@@ -5,28 +5,31 @@ import { useDispatch, useSelector } from "react-redux";
 import { toggleNewPassword } from "@/components/GlobalState/Features/authSlice";
 import { useRouter } from "next/navigation";
 import Hero from "@/components/shared/hero/Hero";
+import { fetchWithCheck } from "@/helperFunctions/dataFetching";
+import { toast } from "react-toastify";
 async function fetchNewPassword(data) {
   try {
-    const result = await fetch("/api/newPassword", {
+    const result = await fetchWithCheck("/api/student/newPassword", {
       method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
       body: JSON.stringify(data),
     });
-    const jsonResult = await result.json();
-    console.log("jsonResult");
-    console.log(jsonResult);
-    return jsonResult;
+    console.log(result);
+    return result;
   } catch (error) {
     console.log(error);
-    return error;
+    throw error;
   }
 }
 
-const NewPassword = () => {
+const NewPassword = ({ params }) => {
   let password = useRef(null);
   let confirmPassword = useRef(null);
   const isSignedIn = useSelector((store) => store.auth.isSignedIn);
   const router = useRouter();
-  const [token, setToken] = useState(null);
+  const token = params.resetPasswordToken;
   // if(isSignedIn) router.push("/")
 
   const dispatch = useDispatch();
@@ -39,21 +42,18 @@ const NewPassword = () => {
           token: token,
           password: password.current.value,
         });
-        console.log("result from new password");
         console.log(result);
         dispatch(toggleNewPassword());
-      } catch (e) {}
+      } catch (error) {
+        toast.error(error.error);
+      }
     } else {
-      console.log("failed");
+      toast.error("كلمة السر غير متطابقة");
     }
   }
 
   useEffect(() => {
     if (isSignedIn) router.replace("/");
-
-    const url = new URL(window.location.href);
-    const tokenFromUrl = url.pathname.split("/").pop();
-    setToken(tokenFromUrl);
   }, []);
   return (
     <main className="pb-10">

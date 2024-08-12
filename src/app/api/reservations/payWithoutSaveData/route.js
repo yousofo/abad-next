@@ -13,7 +13,6 @@ export async function POST(request) {
   try {
     const responseData = await fetchWithCheck(
       `${process.env.NEXT_PUBLIC_ROOT_URL}/api/Reservations/PayWithoutSaveData?tokenCourse=${tokenCourse}&TokenStudent=${TokenStudent}&IsTamar=${IsTamar}&`,
-      true,
       {
         method: "POST",
       }

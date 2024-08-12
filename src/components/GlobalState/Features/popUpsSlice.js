@@ -5,6 +5,9 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   EnlistInCourse: false,
   selectPaymentOptions: false,
+  
+  currentCourseToken: "",
+
   paymentConfirmation: { active: false, text: "", status: "success" },
   loader: { active: false, text: "" },
   isHidden: true,
@@ -32,9 +35,10 @@ export const popUpsSlice = createSlice({
       state.paymentConfirmation.status = action.payload.status
       console.log(state.isHidden)
     },
-    toggleSelectPaymentOptions: (state) => {
+    toggleSelectPaymentOptions: (state, action) => {
       return {
         ...initialState,
+        currentCourseToken: action.payload,
         isHidden: !state.isHidden,
         selectPaymentOptions: !state.selectPaymentOptions,
       };

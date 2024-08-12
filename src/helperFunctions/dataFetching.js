@@ -17,7 +17,7 @@ const noCacheHeaders = {
  * @return {Promise<any>} - A promise that resolves to the parsed JSON response or the response text.
  * @throws {Error} - If the fetch fails and no fallback value is provided.
  */
-export async function fetchWithCheck(url, json, options = {}, fallBack) {
+export async function fetchWithCheck(url, options = {}, fallBack) {
   try {
     const response = await fetch(url, {
       cache: "no-cache",
@@ -32,7 +32,6 @@ export async function fetchWithCheck(url, json, options = {}, fallBack) {
     console.log(response.ok)
 
     let data = await response.text()
-
     if (!response.ok) {
       let finalData;
       try {
@@ -48,8 +47,9 @@ export async function fetchWithCheck(url, json, options = {}, fallBack) {
         throw finalData;
       }
     }
-
+    
     console.log("fetching ok")
+    console.log(data)
 
     try {
       return JSON.parse(data);
@@ -67,7 +67,7 @@ export async function fetchWithCheck(url, json, options = {}, fallBack) {
 }
 
 export async function fetchLatestArticles() {
-  const data = await fetchWithCheck(`${process.env.NEXT_PUBLIC_BASE_URL}/api/articles/getLatestArticles`, true, null, [])
+  const data = await fetchWithCheck(`${process.env.NEXT_PUBLIC_BASE_URL}/api/articles/getLatestArticles`, null, [])
   return data
 }
 
@@ -75,7 +75,6 @@ export async function fetchAddToBasket(data) {
   try {
     const courseDetails = await fetchWithCheck(
       `/api/reservations/addToBasket?tokenCourse=${data.tokenCourse}&tokenStudent=${data.tokenStudent}`,
-      true,
       {
         method: "POST",
         headers: {
@@ -94,7 +93,6 @@ export async function fetchRegisterAttendanceCourse(data) {
   try {
     const courseDetails = await fetchWithCheck(
       `/api/reservations/addOfflineCourse`,
-      true,
       {
         method: "POST",
         headers: {

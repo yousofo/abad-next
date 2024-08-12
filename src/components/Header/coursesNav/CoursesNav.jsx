@@ -71,7 +71,7 @@ const CoursesNav = () => {
     dispatch(toggleLoader(""));
   }
   useEffect(() => {
-    fetchWithCheck("/api/categories/coursesWithTypes", true, null, [])
+    fetchWithCheck("/api/categories/coursesWithTypes",  null, [])
       .then((e) => {
         setData(e);
         console.log(e);

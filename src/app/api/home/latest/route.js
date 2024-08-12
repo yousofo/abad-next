@@ -6,16 +6,7 @@ export async function GET(request) {
   try {
     const data = await fetchWithCheck(`${process.env.NEXT_PUBLIC_ROOT_URL}/api/Home/latest`)
 
-    // const response = await fetch(`${process.env.NEXT_PUBLIC_ROOT_URL}/api/Home/latest`, {
-    //   method:"GET",
-    //   headers: {
-    //     'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate',
-    //     'Pragma': 'no-cache',
-    //     'Expires': '0',
-    //     'Surrogate-Control': 'no-store'
-    //   }
-    // });
-    // const data = await response.json();
+
     console.log("proxy==========================================")
 
     return new Response(JSON.stringify(data));

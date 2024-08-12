@@ -8,6 +8,9 @@ import { toast } from "react-toastify";
 
 // Dispatch an action
 // store.dispatch(someAction(someValue));
+
+
+
 export function isUserSignedIn() {
   const userData = store.getState().userData;
 
@@ -20,9 +23,9 @@ export function getUserInfoFromStore() {
   return info;
 }
 
-export async function buyCourseNow() {
+export async function buyCourseNow(courseToken) {
   if (isUserSignedIn()) {
-    store.dispatch(toggleSelectPaymentOptions());
+    store.dispatch(toggleSelectPaymentOptions(courseToken));
   } else {
     store.dispatch(toggleSignIn());
   }

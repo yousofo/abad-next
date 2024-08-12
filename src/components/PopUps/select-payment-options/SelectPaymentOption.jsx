@@ -2,7 +2,7 @@ import { toggleLoader } from "@/components/GlobalState/Features/popUpsSlice";
 import { fetchWithCheck } from "@/helperFunctions/dataFetching";
 import { useParams } from "next/navigation";
 import { useRouter } from "next/navigation";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 
@@ -21,20 +21,24 @@ const PaymentMethod = ({ image, text, isTamara = false }) => {
   const userInfo = useSelector((store) => store.userData.info);
   const dispatch = useDispatch();
   const router = useRouter();
-
+  const currentCourseToken = useSelector(
+    (store) => store.popUps.currentCourseToken
+  );
   async function handleClick() {
     dispatch(toggleLoader("جاري الدفع"));
+
+    const courseToken = token || currentCourseToken;
     try {
+      console.log(courseToken, userInfo.token);
       const result = await fetchWithCheck(
-        `/api/reservations/payWithoutSaveData?tokenCourse=${token}&TokenStudent=${userInfo.token}&IsTamar=${isTamara}`,
-        true,
+        `/api/reservations/payWithoutSaveData?tokenCourse=${courseToken}&TokenStudent=${userInfo.token}&IsTamar=${isTamara}`,
         {
           method: "POST",
         }
       );
-      router.push(result.redirect_url);
       console.log(result);
       toast.success(result.message);
+      router.push(result.redirect_url);
     } catch (error) {
       toast.error(error.error);
       console.log(error);

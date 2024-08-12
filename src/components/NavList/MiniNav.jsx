@@ -90,7 +90,7 @@ const MiniNav = () => {
   const [data, setData] = useState([]);
 
   useEffect(() => {
-    fetchWithCheck("/api/categories/coursesWithTypes", true, {}, [])
+    fetchWithCheck("/api/categories/coursesWithTypes", {}, [])
       .then((e) => setData(e))
       .catch((e) => console.log(e));
   }, []);

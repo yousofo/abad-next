@@ -52,7 +52,6 @@ const Partners = () => {
     try {
       const result = await fetchWithCheck(
         `/api/companyServices/createCompanyRequest`,
-        true,
         {
           method: "POST",
           body: formData,

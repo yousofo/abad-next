@@ -1,29 +1,21 @@
+import { fetchWithCheck } from "@/helperFunctions/dataFetching";
+
 export async function POST(request) {
   try {
     const url = new URL(request.url)
     const tokenStudent = url.searchParams.get("tokenStudent")
     const tokenCourse = url.searchParams.get("tokenCourse")
 
-    const result = await fetch(`${process.env.NEXT_PUBLIC_ROOT_URL}/api/Reservations/AddToBasket?tokenCourse=${tokenCourse}&tokenStudent=${tokenStudent}`, {
+    const data = await fetchWithCheck(`${process.env.NEXT_PUBLIC_ROOT_URL}/api/Reservations/AddToBasket?tokenCourse=${tokenCourse}&tokenStudent=${tokenStudent}`, {
       method: "POST",
       headers: {
         'Content-Type': 'application/json',
-        'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate',
-        'Pragma': 'no-cache',
-        'Expires': '0',
-        'Surrogate-Control': 'no-store'
       },
     });
 
-    const resultData = await result.json()
-
-    return new Response(JSON.stringify(resultData), {
+    return new Response(JSON.stringify(data), {
       headers: {
-        'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate',
-        'Pragma': 'no-cache',
-        'Expires': '0',
         'Content-Type': 'application/json',
-        'Surrogate-Control': 'no-store'
       }
     });
 

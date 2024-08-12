@@ -8,25 +8,20 @@ import { useDispatch } from "react-redux";
 
 import Link from "next/link";
 import { toggleLoader } from "@/components/GlobalState/Features/popUpsSlice";
+import { fetchWithCheck } from "@/helperFunctions/dataFetching";
 
 async function fetchCourseDetails(token) {
   try {
-    const courseDetails = await fetch(
+    const courseDetails = await fetchWithCheck(
       `/api/reservations/getCourseDetailsByToken?token=${token}`,
       {
         headers: {
-          "Content-Type": "application/json",
-          "Cache-Control":
-            "no-store, no-cache, must-revalidate, proxy-revalidate",
-          Pragma: "no-cache",
-          Expires: "0",
-          "Surrogate-Control": "no-store",
+          "Content-Type": "application/json"
         },
       }
     );
-    const result = await courseDetails.json();
-    console.log(result);
-    return result;
+    console.log(courseDetails);
+    return courseDetails;
   } catch (e) {
     console.log(e);
   }

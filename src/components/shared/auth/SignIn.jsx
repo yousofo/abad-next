@@ -8,37 +8,11 @@ import {
 import { reset } from "@/components/GlobalState/Features/navListSlice";
 import { toggleLoader } from "@/components/GlobalState/Features/popUpsSlice";
 import { toggleUpdateInfo } from "@/components/GlobalState/Features/userData";
-import { fetchWithCheck } from "@/helperFunctions/dataFetching";
+import { fetchSignIn } from "@/helperFunctions/auth";
 import React, { useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-async function fetchSignIn(credentials) {
-  console.log("fetchSignIn");
-  try {
-    const data = await fetchWithCheck("/api/student/login", null, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(credentials),
-    });
 
-    console.log(data);
-
-    return data;
-    // if (data.errors) {
-    //   return Object.values(data.errors);
-    // } else {
-    // }
-  } catch (error) {
-    console.log(error);
-    if (error.errors) {
-      return Object.values(error.errors);
-    } else {
-      return error;
-    }
-  }
-}
 //
 //
 const SignIn = () => {
@@ -65,6 +39,7 @@ const SignIn = () => {
       email: email.current.value,
       password: password.current.value,
     });
+    console.log(result)
     if (result.token) {
       dispatch(toggleUpdateInfo(result));
       // save user data if remember me is chekced

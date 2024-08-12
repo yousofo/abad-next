@@ -33,7 +33,7 @@ const HomeCourses = () => {
   };
 
   useEffect(() => {
-    fetchWithCheck("/api/categories/coursesCategories", true, {}, [])
+    fetchWithCheck("/api/categories/coursesCategories",  {}, [])
       .then((e) => {
         setCoursesCategories(e);
       })
@@ -41,7 +41,7 @@ const HomeCourses = () => {
         console.log("home courses");
         console.log(e);
       });
-    fetchWithCheck("/api/home/latest", true, {}, [])
+    fetchWithCheck("/api/home/latest",  {}, [])
       .then((e) => {
         setData(e);
         setFilteredCourses(e);

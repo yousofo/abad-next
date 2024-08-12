@@ -27,7 +27,7 @@ import { fetchWithCheck } from "@/helperFunctions/dataFetching";
 
 async function fetchCourses() {
   try {
-    const data = await fetchWithCheck("/api/home/allCourses", true, null, []);
+    const data = await fetchWithCheck("/api/home/allCourses", null, []);
     return data;
   } catch (error) {
     console.log("courses fetchCourses");
@@ -38,7 +38,6 @@ async function fetchCoursesCategories() {
   try {
     const data = await fetchWithCheck(
       "/api/categories/coursesCategories",
-      true,
       null,
       []
     );

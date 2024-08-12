@@ -7,7 +7,6 @@ async function fetchArticles() {
   try {
     const data = await fetchWithCheck(
       "/api/articles/getArticles",
-      true,
       null,
       []
     );
