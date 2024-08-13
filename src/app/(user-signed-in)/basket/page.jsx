@@ -16,7 +16,6 @@ async function fetchDeletetFromBasket(basketCourseToken) {
   try {
     const data = await fetchWithCheck(
       `/api/reservations/removeFromBasket?tokenBasket=${basketCourseToken}`,
-      true,
       {
         method: "DELETE",
       }

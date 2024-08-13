@@ -12,7 +12,6 @@ async function FetchStudentCourses(token) {
   try {
     const data = await fetchWithCheck(
       `/api/student/studentCourses/${token}`,
-      true,
       null,
       []
     );
