@@ -5,7 +5,7 @@ export async function POST(request) {
 
   try {
     const requestData = await request.json();
-
+    console.log(await requestData)
     const data = await fetchWithCheck(
       `${process.env.NEXT_PUBLIC_ROOT_URL}/api/Reservations/add-offline-course?TokenCourse=${requestData.courseToken}&TokenStudent=${requestData.userToken}`,
       {
@@ -28,8 +28,8 @@ export async function POST(request) {
       },
     });
   } catch (error) {
-    return new Response(JSON.stringify({ error: error.message }), {
-      status: response.status,
+    return new Response(JSON.stringify(error), {
+      status: 500,
       headers: { "Content-Type": "application/json" },
     });
   }
