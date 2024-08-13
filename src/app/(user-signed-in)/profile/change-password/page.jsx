@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useDispatch, useSelector } from "react-redux";
 import Hero from "@/components/shared/hero/Hero";
 import { toggleLoader } from "@/components/GlobalState/Features/popUpsSlice";
+import { toast } from "react-toastify";
 
 async function fetchUpdatePassword(data, token) {
   try {
@@ -37,6 +38,13 @@ const ChangePassword = () => {
       },
       userJson.token
     );
+    if (result.message) {
+      toast.success(result.message);
+    } else {
+      for (var message of Object.values(result.errors)) {
+        toast.error(...message);
+      }
+    }
     console.log(result);
     dispatch(toggleLoader(""));
   }

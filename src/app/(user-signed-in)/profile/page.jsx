@@ -8,26 +8,22 @@ import Loader from "@/components/shared/Loader/Loader";
 import { toggleUpdateInfo } from "@/components/GlobalState/Features/userData";
 import { toggleLoader } from "@/components/GlobalState/Features/popUpsSlice";
 import Hero from "@/components/shared/hero/Hero";
+import { fetchWithCheck } from "@/helperFunctions/dataFetching";
+import { toast } from "react-toastify";
 
-async function fetchUpdateStudent(data, token) {
+async function fetchUpdateStudent(bodyData, token) {
   try {
-    const request = await fetch(`/api/student/updateStudent/${token}`, {
+    const data = await fetchWithCheck(`/api/student/updateStudent/${token}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "Cache-Control":
-          "no-store, no-cache, must-revalidate, proxy-revalidate",
-        Pragma: "no-cache",
-        Expires: "0",
-        "Surrogate-Control": "no-store",
       },
-      body: JSON.stringify(data),
+      body: JSON.stringify(bodyData),
     });
-    const requestData = await request.json();
-    return requestData;
-  } catch (e) {
-    console.log("update student!");
-    console.log(e);
+    return data;
+  } catch (error) {
+    return error;
+    console.log(error);
   }
 }
 
@@ -60,8 +56,10 @@ const Profile = () => {
       { ...formData, token: userInfo.token },
       userInfo.token
     );
-    if (result.message)
+    if (result.message) {
       dispatch(toggleUpdateInfo({ ...formData, token: userInfo.token }));
+      toast.success(result.message);
+    } 
     console.log(result);
 
     dispatch(toggleLoader(""));
