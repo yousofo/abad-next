@@ -2,7 +2,7 @@
 
 import { configureStore } from '@reduxjs/toolkit';
 import authSlice from './Features/authSlice';
-import counterSlice from './Features/counterSlice';
+import dataContentSlice from './Features/dataContentSlice';
 import navListSlice from './Features/navListSlice';
 import popUpsSlice from './Features/popUpsSlice';
 import miniNavSlice from './Features/miniNavSlice';
@@ -13,7 +13,7 @@ import userDataSlice from './Features/userData';
 
 export const store = configureStore({
   reducer: {
-    counter: counterSlice,
+    dataContent: dataContentSlice,
     auth: authSlice,
     navList: navListSlice,
     miniNav: miniNavSlice,

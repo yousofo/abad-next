@@ -9,14 +9,14 @@ import {
 } from "../GlobalState/Features/authSlice";
 import { toggleNavList } from "../GlobalState/Features/navListSlice";
 import { toggleMiniNav } from "../GlobalState/Features/miniNavSlice";
-import {
-  toggleCoursesNav,
-} from "../GlobalState/Features/coursesNavSlice";
+import { toggleCoursesNav } from "../GlobalState/Features/coursesNavSlice";
 import CoursesNav from "./coursesNav/CoursesNav";
 import {
   fetchUserBasket,
   toggleUpdateInfo,
 } from "../GlobalState/Features/userData";
+import { fetchWithCheck } from "@/helperFunctions/dataFetching";
+import { homeData } from "../GlobalState/Features/dataContentSlice";
 
 const Header = () => {
   const [singedInState, setSingedInState] = useState(false);
@@ -26,7 +26,11 @@ const Header = () => {
   //userData
   const userInfo = useSelector((store) => store.userData.info);
   const userBasket = useSelector((store) => store.userData.basket.data);
-
+  const {
+    phone,
+    wahtsAppNumber: whatsAppNumber,
+    email,
+  } = useSelector((store) => store.dataContent.homeData);
   function handleMiniNav() {
     dispatch(toggleMiniNav());
   }
@@ -42,18 +46,20 @@ const Header = () => {
     e.stopPropagation();
   }
 
-
   useEffect(() => {
     if (userInfo) {
       setSingedInState(true);
       dispatch(fetchUserBasket(userInfo.token));
     }
+    fetchWithCheck(`/api/home/homeData`, null, null)
+      .then((e) => dispatch(homeData(e)))
+      .catch((err) => console.log(err));
   }, [userInfo?.token]);
   return (
     <header className="whitespace-nowrap main-header z-[100]">
       <div className="header-contact-bar noto">
-        <a target="_blank" href="mailto:Info@abadnet.com.sa">
-          <p>Info@abadnet.com.sa</p>
+        <a target="_blank" href={`mailto:${email}`}>
+          <p>{email}</p>
           <svg
             width="23"
             height="16"
@@ -91,9 +97,9 @@ const Header = () => {
         </a>
         <a
           target="_blank"
-          href="https://api.whatsapp.com/send/?phone=12104159856&text&type=phone_number&app_absent=0"
+          href={`https://api.whatsapp.com/send/?phone=${whatsAppNumber}&text&type=phone_number&app_absent=0`}
         >
-          <p dir="ltr">+1 210 415 9856</p>
+          <p dir="ltr">{whatsAppNumber}</p>
           <svg
             height="auto"
             viewBox="0 0 25 24"
@@ -140,8 +146,8 @@ const Header = () => {
             </defs>
           </svg>
         </a>
-        <a target="_blank" href="tel:+12105048191">
-          <p dir="ltr">+1 210 504 8191</p>
+        <a target="_blank" href={`tel:${phone}`}>
+          <p dir="ltr">{phone}</p>
           <svg
             height="auto"
             viewBox="0 0 25 24"

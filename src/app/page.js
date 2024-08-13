@@ -1,20 +1,31 @@
-import "./main.css"
+import "./main.css";
 import ReviewsSwiper from "@/components/shared/swipers/ReviewsSwiper";
 import "swiper/css";
 import PartnersSwiper from "@/components/shared/swipers/PartnersSwiper";
 import HomeCourses from "@/components/home/courses/HomeCourses";
 import SubscriptionWithEmail from "@/components/home/SubscriptionWithEmail/SubscriptionWithEmail";
 import LatestArticles from "@/components/home/articles/LatestArticles";
-import { fetchWithCheck } from "@/helperFunctions/dataFetching";
+import {
+  fetchWithCheck,
+} from "@/helperFunctions/dataFetching";
 import Hero from "@/components/shared/hero/Hero";
 import Link from "next/link";
+import VideoSection from "@/components/home/videoSection/videoSection";
 
-export const fetchCache = 'force-no-store';
+export const fetchCache = "force-no-store";
 
 export default async function Home() {
-  const latestArticles = await fetchWithCheck(`${process.env.NEXT_PUBLIC_ROOT_URL}/api/articles/getLatestArticles`, null, [])
-  console.log(latestArticles)
-
+  const latestArticles = await fetchWithCheck(
+    `${process.env.NEXT_PUBLIC_ROOT_URL}/api/articles/getLatestArticles`,
+    null,
+    []
+  );
+  const homeData = await fetchWithCheck(
+    `${process.env.NEXT_PUBLIC_ROOT_URL}/api/GetDataHome/getDataHome`,
+    null,
+    null
+  );
+  console.log(homeData);
   return (
     <main className="home home-page">
       {/* HERO start  */}
@@ -29,7 +40,10 @@ export default async function Home() {
           معهد شبكة آباد للتدريب من المعاهد الرائدة في تقديم الدورات التطويرية
           المتخصصة في تقنية المعلومات.
         </h4>
-        <Link href="/courses" className="flex items-center bg-abad-gold py-2 px-4 gap-5 text-sm rounded-xl text-black">
+        <Link
+          href="/courses"
+          className="flex items-center bg-abad-gold py-2 px-4 gap-5 text-sm rounded-xl text-black"
+        >
           <span className="font-medium">ابدأ التعلم</span>
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -59,21 +73,13 @@ export default async function Home() {
       {/* HERO end  */}
       {/* COURSES start */}
       <section className="courses-sec  mb-8">
-        <img
-          className=""
-          src="/media/Animation - 1717986646627.gif"
-          alt=""
-        />
+        <img className="" src="/media/Animation - 1717986646627.gif" alt="" />
         <HomeCourses />
       </section>
       {/* COURSES end   */}
       {/* PLAN start */}
       <section className="plan">
-        <img
-          src="/media/Share Section.png"
-          className=""
-          alt=""
-        />
+        <img src="/media/Share Section.png" className="" alt="" />
         <div className="flex">
           <div className="cards-title">
             <div className="about text-center md:text-start text-white flex flex-col gap-4 pt-16">
@@ -91,9 +97,7 @@ export default async function Home() {
                 ماهي خطة <span className="text-abad-gold">اباد للتدريب؟</span>
               </h3>
               <p className="text-sm md:text-base noto">
-                معهد شبكة آباد للتدريب من المعاهد الرائدة في تقديم الدورات التطويرية
-                المتخصصة في تقنية المعلومات. معهد شبكة آباد للتدريب من المعاهد
-                الرائدة في تقديم الدورات التطويرية المتخصصة في تقنية المعلومات.
+                {homeData?.shortDescription}
               </p>
               <button className="bg-abad-gold mx-auto md:mx-0 w-fit text-black flex items-center gap-6 p-2 px-3 rounded-xl">
                 <span className="font-bold">اعرف المزيد</span>
@@ -124,29 +128,24 @@ export default async function Home() {
             </div>
           </div>
           <div className="cards">
-            {new Array(4).fill(
+            {Array.from({ length: 4 }, (_, i) => (
               <figure className="card">
                 <div className="img">
                   <img src="/media/twitch.png" className="" alt="" />
                 </div>
                 <figcaption>
                   <h4 className="font-bold">من اباد؟</h4>
-                  <p className="noto">
-                    معهد شبكة آباد للتدريب من المعاهد الرائدة في تقديم الدورات
-                    التطويرية المتخصصة في تقنية..
-                  </p>
+                  <p className="noto">{homeData?.[`whoMe${i + 1}`]}</p>
                 </figcaption>
-              </figure>)}
+              </figure>
+            ))}
           </div>
         </div>
       </section>
       {/* PLAN end */}
       {/* REVIEWS start */}
       <section className="reviews">
-        <img
-          src="/media/Review Section.png"
-          alt=""
-        />
+        <img src="/media/Review Section.png" alt="" />
         <div>
           <h3>
             لماذا طلاب <span>اباد للتدريب</span>
@@ -200,35 +199,10 @@ export default async function Home() {
       {/* REVIEWS end */}
       {/* TRUST start */}
       <section className="relative p-8 md:p-14 overflow-hidden select-none">
-        <img
-          src="/media/Trust company & Play section.png"
-          className="absolute min-h-96 left-0 hidden md:block top-0 w-full object-cover -z-10"
-          alt=""
+        <VideoSection
+          lVideoURL={homeData?.lVideoURL}
+          titleVideo={homeData?.titleVideo}
         />
-        <img
-          src="/media/Trust company & Play section-small.png"
-          className="absolute min-h-96 left-0 top-0 block md:hidden w-full object-cover -z-10"
-          alt=""
-        />
-        <div className="container flex flex-col items-center gap-14 mx-auto">
-          <h2 className="font-bold max-w-[220px] text-2xl md:text-4xl text-center text-white md:max-w-2xl leading-normal">
-            اعرف اكثر عن <span className="text-abad-gold">اباد للتدريب</span> عن
-            طريق مشاهدتك لهذا الفيديو!
-          </h2>
-          <div className="video relative">
-            <video id="homeVideo" poster="/media/arab-work-laptop.png">
-              <source src="/media/Blank Video Placeholder.mp4" type="video/mp4" />
-              <source src="movie.ogg" type="video/ogg" />
-              Your browser does not support the video tag.
-            </video>
-            <img
-              id="playHomeVideo"
-              src="/media/media Icon.png"
-              className="absolute w-8 md:w-fit cursor-pointer left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
-              alt=""
-            />
-          </div>
-        </div>
       </section>
       {/* TRUST end */}
       {/* PARTNERS start */}
@@ -244,7 +218,9 @@ export default async function Home() {
       {/* PARTNERS end */}
       {/* ARTICLES start */}
       <section className="articles p-8 md:p-14">
-        <h6 className="bg-[#F9F5F2] rounded-lg w-fit m-auto p-2">مدونة ومقالة</h6>
+        <h6 className="bg-[#F9F5F2] rounded-lg w-fit m-auto p-2">
+          مدونة ومقالة
+        </h6>
         <h2 className="text-2xl md:text-4xl text-center font-bold mx-auto my-7 w-fit text-[#1E1E1E]">
           ألقِ نظرة على أحدث المقالات
         </h2>
@@ -264,9 +240,10 @@ export default async function Home() {
               اشترك في نشرة اباد للتدريب
             </h3>
             <p className="noto-regular text-xs px-3 md:px-0 md:text-base">
-              ومعهد شبكة آباد للتدريب من المعاهد الرائدة في تقديم الدورات التطويرية
-              المتخصصة في تقنية المعلومات. معهد شبكة آباد للتدريب من المعاهد الرائدة
-              في تقديم الدورات التطويرية المتخصصة في تقنية المعلومات.
+              ومعهد شبكة آباد للتدريب من المعاهد الرائدة في تقديم الدورات
+              التطويرية المتخصصة في تقنية المعلومات. معهد شبكة آباد للتدريب من
+              المعاهد الرائدة في تقديم الدورات التطويرية المتخصصة في تقنية
+              المعلومات.
             </p>
           </div>
           <SubscriptionWithEmail />

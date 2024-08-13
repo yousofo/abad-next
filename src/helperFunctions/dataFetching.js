@@ -43,13 +43,11 @@ export async function fetchWithCheck(url, options = {}, fallBack) {
         finalData = data
       } finally {
         console.log("finalData")
-        console.log(finalData)
         throw finalData;
       }
     }
     
     console.log("fetching ok")
-    console.log(data)
 
     try {
       return JSON.parse(data);
@@ -66,8 +64,12 @@ export async function fetchWithCheck(url, options = {}, fallBack) {
   }
 }
 
+export async function fetchHomeData() {
+  const data = await fetchWithCheck(`/api/home/homeData`)
+  return data
+}
 export async function fetchLatestArticles() {
-  const data = await fetchWithCheck(`${process.env.NEXT_PUBLIC_BASE_URL}/api/articles/getLatestArticles`, null, [])
+  const data = await fetchWithCheck(`/api/articles/getLatestArticles`, null, [])
   return data
 }
 
