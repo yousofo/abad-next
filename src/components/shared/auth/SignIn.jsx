@@ -108,7 +108,7 @@ const SignIn = () => {
             </label>
           </div>
           <span
-            className="forgot-password"
+            className="forgot-password cursor-pointer"
             tabIndex={4}
             onClick={handleForgotPassword}
           >

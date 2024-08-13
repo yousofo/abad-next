@@ -11,7 +11,16 @@ export async function GET(request, { params }) {
         'Content-Type': 'application/json',
       }
     })
-    return new Response(JSON.stringify(data));
+    return new Response(JSON.stringify(data),{
+      headers: {
+        "Cache-Control":
+          "no-store, no-cache, must-revalidate, proxy-revalidate",
+        Pragma: "no-cache",
+        Expires: "0",
+        "Surrogate-Control": "no-store",
+        "Content-Type": "application/json",
+      },
+    });
 
   } catch (error) {
     console.log("error register")

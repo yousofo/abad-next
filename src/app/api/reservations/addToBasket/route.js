@@ -15,8 +15,13 @@ export async function POST(request) {
 
     return new Response(JSON.stringify(data), {
       headers: {
-        'Content-Type': 'application/json',
-      }
+        "Cache-Control":
+          "no-store, no-cache, must-revalidate, proxy-revalidate",
+        Pragma: "no-cache",
+        Expires: "0",
+        "Surrogate-Control": "no-store",
+        "Content-Type": "application/json",
+      },
     });
 
   } catch (error) {

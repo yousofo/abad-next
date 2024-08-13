@@ -18,11 +18,23 @@ export async function POST(request) {
       }
     );
 
-    return new Response(JSON.stringify(responseData));
+    return new Response(JSON.stringify(responseData), {
+      headers: {
+        'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate',
+        'Pragma': 'no-cache',
+        'Expires': '0',
+        'Surrogate-Control': 'no-store'
+      }
+    });
   } catch (error) {
     console.log(error);
     return new Response(JSON.stringify(error), {
-      status: 500,
+      status: 500, headers: {
+        'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate',
+        'Pragma': 'no-cache',
+        'Expires': '0',
+        'Surrogate-Control': 'no-store'
+      }
     });
   }
 }
