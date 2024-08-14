@@ -25,7 +25,7 @@ const Privacy = () => {
       null
     )
       .then((result) => {
-        setCurrent(result.termsofService);
+        setCurrent(result?.termsofService??"");
         setPrivacyData(result);
       })
       .finally(() => dispatch(closeLoader()));
