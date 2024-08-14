@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import React, { useEffect, useState } from "react";
 import "./privacy.css";
@@ -12,19 +12,25 @@ import {
 const Privacy = () => {
   const [privacyData, setPrivacyData] = useState(null);
   const [current, setCurrent] = useState("يا هلا");
+  const [activeSection, setActiveSection] = useState(1);
   const dispatch = useDispatch();
+
+  const sections = [
+    ["شروط الخدمة", "termsofService"],
+    ["سياسة الخصوصية", "privacyPolicy"],
+    ["سياسة الملكية الفكرية", "intellectualPropertyPolicy"],
+    ["اتفاقية الخدمات الرئيسية", "mainServicesAgreement"],
+    ["سياسة العروض الترويجية", "promotionsPolicy"],
+  ];
+
   function handleClick(event, name) {
     setCurrent(privacyData[`${name}`]);
   }
   useEffect(() => {
     dispatch(openLoader(""));
-    fetchWithCheck(
-      `/api/home/privacyData`,
-      null,
-      null
-    )
+    fetchWithCheck(`/api/home/privacyData`, null, null)
       .then((result) => {
-        setCurrent(result?.termsofService??"");
+        setCurrent(result?.termsofService ?? "");
         setPrivacyData(result);
       })
       .finally(() => dispatch(closeLoader()));
@@ -44,39 +50,20 @@ const Privacy = () => {
           className="flex flex-col p-6 gap-8 w-max h-fit mx-auto text-[#8A8394]"
           style={{ boxShadow: "5px 4px 25px 0px #00000014" }}
         >
-          <button
-            onClick={(event) => handleClick(event, "termsofService")}
-            href=""
-            className="text-[#260E3F]"
-          >
-            شروط الخدمة
-          </button>
-          <button
-            onClick={(event) => handleClick(event, "privacyPolicy")}
-            href=""
-          >
-            سياسة الخصوصية
-          </button>
-          <button
-            onClick={(event) =>
-              handleClick(event, "intellectualPropertyPolicy")
-            }
-            href=""
-          >
-            سياسة الملكية الفكرية
-          </button>
-          <button
-            onClick={(event) => handleClick(event, "mainServicesAgreement")}
-            href=""
-          >
-            اتفاقية الخدمات الرئيسية
-          </button>
-          <button
-            onClick={(event) => handleClick(event, "promotionsPolicy")}
-            href=""
-          >
-            سياسة العروض الترويجية
-          </button>
+          {sections.map((section, index) => (
+            <button
+              key={index}
+              onClick={(event) => {
+                setActiveSection(index + 1);
+                handleClick(event, section[1])
+              }}
+              className={`${
+                activeSection === index + 1 ? "text-[#260E3F]" : ""
+              } `}
+            >
+              {section[0]}
+            </button>
+          ))}
         </nav>
         <article className="flex-1 flex flex-col gap-8 text-[#151318] font-medium md:text-lg">
           <h2 className="font-bold text-2xl md:text-[42px]">شروط الخدمة</h2>
