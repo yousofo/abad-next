@@ -1,6 +1,4 @@
 import React from "react";
-// import "./hero.css"
-import Link from "next/link";
 
 const Hero = ({ children }) => {
   return (

@@ -1,10 +1,14 @@
 "use client";
+
 import React, { useEffect, useState } from "react";
 import "./privacy.css";
 import Hero from "@/components/shared/hero/Hero";
 import { fetchWithCheck } from "@/helperFunctions/dataFetching";
 import { useDispatch } from "react-redux";
-import { closeLoader, openLoader } from "@/components/GlobalState/Features/popUpsSlice";
+import {
+  closeLoader,
+  openLoader,
+} from "@/components/GlobalState/Features/popUpsSlice";
 const page = () => {
   const [privacyData, setPrivacyData] = useState(null);
   const [current, setCurrent] = useState("يا هلا");

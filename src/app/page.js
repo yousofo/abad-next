@@ -128,7 +128,7 @@ export default async function Home() {
           </div>
           <div className="cards">
             {Array.from({ length: 4 }, (_, i) => (
-              <figure className="card">
+              <figure className="card" key={i}>
                 <div className="img">
                   <img src="/media/twitch.png" className="" alt="" />
                 </div>
