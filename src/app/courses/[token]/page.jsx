@@ -8,7 +8,8 @@ import { useDispatch, useSelector } from "react-redux";
 import Link from "next/link";
 import { fetchWithCheck } from "@/helperFunctions/dataFetching";
 import {
-  toggleLoader,
+  closeLoader,
+  openLoader,
 } from "@/components/GlobalState/Features/popUpsSlice";
 import {
   buyCourseNow,
@@ -17,15 +18,16 @@ import {
 } from "@/helperFunctions/signedInActions";
 
 const Course = ({ params }) => {
-  const [courseImg, setCourseImg] = useState("/media/course/course-image.png");
+  const defaultCourseImg = "/media/course/course-image.png"
+  const [courseImg, setCourseImg] = useState(defaultCourseImg);
   const [fetched, setFetched] = useState(false);
   const router = useRouter();
   let dispatch = useDispatch();
 
   const [courseInfo, setCourseInfo] = useState();
-
   useEffect(() => {
-    dispatch(toggleLoader("جاري التحميل"));
+    console.log("hi");
+    dispatch(openLoader("جاري التحميل"));
     fetchWithCheck(`/api/home/courseDetails/${params.token}`)
       .then((courseData) => {
         setCourseInfo(courseData);
@@ -34,7 +36,6 @@ const Course = ({ params }) => {
       .catch((error) => router.replace("/not-found"))
       .finally(() => {
         setFetched(true);
-        dispatch(toggleLoader(""));
       });
   }, []);
 
@@ -205,10 +206,21 @@ const Course = ({ params }) => {
           {/* COURSE CARD start */}
           <figure className="p-5 mx-auto md:p-6 text-[#252525] bg-white shadow rounded-xl md:rounded-2xl w-full max-w-[373px] h-fit">
             <img
-              src={courseImg}
+              src={courseImg || defaultCourseImg}
               alt=""
               className="mx-auto mb-2 md:mb-4"
-              onError={() => setCourseImg("/media/course/course-image.png")}
+              onLoad={() => {
+                console.log("loaded")
+                let cur = setTimeout(() => {
+                  dispatch(closeLoader());
+                  return clearTimeout(cur);
+                }, 500);
+              }}
+              
+              onError={() => {
+                setCourseImg(defaultCourseImg);
+                dispatch(closeLoader());
+              }}
             />
             {/* CARD BODY start */}
             <figcaption className="flex flex-col gap-6">

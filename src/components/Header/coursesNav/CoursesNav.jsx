@@ -3,7 +3,7 @@ import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { fetchWithCheck } from "@/helperFunctions/dataFetching";
 import { useDispatch } from "react-redux";
-import { toggleLoader } from "@/components/GlobalState/Features/popUpsSlice";
+import { closeLoader, openLoader } from "@/components/GlobalState/Features/popUpsSlice";
 // import fetchCoursesWithTypes from "@/helperFunctions/fetchCoursesWithTypes";
 async function fetchCheckCourse(courseToken) {
   try {
@@ -61,14 +61,14 @@ const CoursesNav = () => {
   }
 
   async function handleCourseClicked(courseToken) {
-    dispatch(toggleLoader("جاري التنفيذ"));
+    dispatch(openLoader("جاري التنفيذ"));
     const result = await fetchCheckCourse(courseToken);
     if (result.courseExists) {
       router.push(`/courses/${result.courseToken}`);
     } else {
       router.push(`/courses/register/${result.courseToken}`);
     }
-    dispatch(toggleLoader(""));
+    dispatch(closeLoader());
   }
   useEffect(() => {
     fetchWithCheck("/api/categories/coursesWithTypes",  null, [])

@@ -6,7 +6,7 @@ import {
   toggleSignedIn,
 } from "@/components/GlobalState/Features/authSlice";
 import { reset } from "@/components/GlobalState/Features/navListSlice";
-import { toggleLoader } from "@/components/GlobalState/Features/popUpsSlice";
+import { closeLoader, openLoader } from "@/components/GlobalState/Features/popUpsSlice";
 import { toggleUpdateInfo } from "@/components/GlobalState/Features/userData";
 import { fetchSignIn } from "@/helperFunctions/auth";
 import React, { useRef, useState } from "react";
@@ -33,7 +33,7 @@ const SignIn = () => {
   //
   async function handleSignIn(e) {
     e.preventDefault();
-    dispatch(toggleLoader("جاري تسجيل الدخول"));
+    dispatch(openLoader("جاري تسجيل الدخول"));
 
     const result = await fetchSignIn({
       email: email.current.value,
@@ -59,7 +59,7 @@ const SignIn = () => {
       }
     }
 
-    dispatch(toggleLoader(""));
+    dispatch(closeLoader(""));
   }
   return (
     <div className={`auth-signin`}>

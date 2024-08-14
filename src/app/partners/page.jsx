@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchWithCheck } from "@/helperFunctions/dataFetching";
 import { toast } from "react-toastify";
-import { toggleLoader } from "@/components/GlobalState/Features/popUpsSlice";
+import { closeLoader, openLoader } from "@/components/GlobalState/Features/popUpsSlice";
 import Hero from "@/components/shared/hero/Hero";
 
 const Partners = () => {
@@ -25,7 +25,7 @@ const Partners = () => {
   let { errors } = formState;
 
   async function handleFormSubmit(reactForm, event) {
-    dispatch(toggleLoader("جاري التحديث"));
+    dispatch(openLoader("جاري التحديث"));
 
     const formData = new FormData();
 
@@ -62,7 +62,7 @@ const Partners = () => {
     } catch (error) {
       setGeneralError(error.message);
     } finally {
-      dispatch(toggleLoader(""));
+      dispatch(closeLoader(""));
     }
   }
 

@@ -29,7 +29,6 @@ export default async function Home() {
   return (
     <main className="home home-page">
       {/* HERO start  */}
-
       <Hero>
         <h2 className="text-2xl md:text-3xl lg:text-4xl xl:text-[55px] xl:leading-[1.5] font-medium">
           <span>تعلم بكل سهولة مع</span>

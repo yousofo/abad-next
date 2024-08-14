@@ -56,7 +56,7 @@ const Header = () => {
       .catch((err) => console.log(err));
   }, [userInfo?.token]);
   return (
-    <header className="whitespace-nowrap main-header z-[100]">
+    <header className="whitespace-nowrap main-header z-[100]" >
       <div className="header-contact-bar noto">
         <a target="_blank" href={`mailto:${email}`}>
           <p>{email}</p>

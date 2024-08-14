@@ -6,7 +6,7 @@ import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import Loader from "@/components/shared/Loader/Loader";
 import { toggleUpdateInfo } from "@/components/GlobalState/Features/userData";
-import { toggleLoader } from "@/components/GlobalState/Features/popUpsSlice";
+import { closeLoader, openLoader } from "@/components/GlobalState/Features/popUpsSlice";
 import Hero from "@/components/shared/hero/Hero";
 import { fetchWithCheck } from "@/helperFunctions/dataFetching";
 import { toast } from "react-toastify";
@@ -49,7 +49,7 @@ const Profile = () => {
 
   async function handleFormSubmit(formData, e) {
     console.log("here");
-    dispatch(toggleLoader("قيد التحميل"));
+    dispatch(openLoader("قيد التحميل"));
 
     console.log(formData);
     const result = await fetchUpdateStudent(
@@ -62,7 +62,7 @@ const Profile = () => {
     } 
     console.log(result);
 
-    dispatch(toggleLoader(""));
+    dispatch(closeLoader());
   }
 
   useEffect(() => {

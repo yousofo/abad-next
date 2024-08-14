@@ -4,7 +4,7 @@ import "./change-password.css";
 import Link from "next/link";
 import { useDispatch, useSelector } from "react-redux";
 import Hero from "@/components/shared/hero/Hero";
-import { toggleLoader } from "@/components/GlobalState/Features/popUpsSlice";
+import { closeLoader, openLoader } from "@/components/GlobalState/Features/popUpsSlice";
 import { toast } from "react-toastify";
 
 async function fetchUpdatePassword(data, token) {
@@ -28,7 +28,7 @@ const ChangePassword = () => {
   const dispatch = useDispatch();
 
   async function handleSubmit(e) {
-    dispatch(toggleLoader("جاري التحديث"));
+    dispatch(openLoader("جاري التحديث"));
     e.preventDefault();
     const result = await fetchUpdatePassword(
       {
@@ -46,7 +46,7 @@ const ChangePassword = () => {
       }
     }
     console.log(result);
-    dispatch(toggleLoader(""));
+    dispatch(closeLoader(""));
   }
 
   return (

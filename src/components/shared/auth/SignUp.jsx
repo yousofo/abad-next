@@ -4,7 +4,7 @@ import React, { useEffect, useMemo, useRef, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { cities, countries } from "@/components/data/data";
-import { toggleLoader } from "@/components/GlobalState/Features/popUpsSlice";
+import { closeLoader, openLoader } from "@/components/GlobalState/Features/popUpsSlice";
 
 async function sendRegisterData(data) {
   console.log(data);
@@ -70,7 +70,7 @@ const SignUp = () => {
   console.log("rendered");
   async function handleSubmitSignUp(formData, e) {
     setGeneralError("");
-    dispatch(toggleLoader("جاري التسجيل"));
+    dispatch(openLoader("جاري التسجيل"));
 
     console.log(formData);
     const result = await sendRegisterData({
@@ -110,7 +110,7 @@ const SignUp = () => {
     }
     console.log(errors);
     console.log(result);
-    dispatch(toggleLoader(""));
+    dispatch(closeLoader());
   }
   useEffect(() => {
     // Trigger validation when the selected country changes

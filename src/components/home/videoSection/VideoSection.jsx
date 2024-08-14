@@ -1,13 +1,16 @@
 "use client";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
-const VideoSection = ({
-  titleVideo,
-  lVideoURL = "/media/Blank Video Placeholder.mp4",
-}) => {
+const VideoSection = ({ titleVideo, lVideoURL }) => {
   const videoRef = useRef(null);
+  const defaultVideoURL = "/media/placeholders/Blank-Video-Placeholder.mp4";
+
+  const [videoURL, setVideoURL] = useState(defaultVideoURL);
   const [videoState, setVideoState] = useState(false);
-  const devURL = "/media/placeholders/Blank-Video-Placeholder.mp4";
+  
+  useEffect(() => {
+    setVideoURL(lVideoURL);
+  }, [lVideoURL]);
   return (
     <>
       <img
@@ -42,12 +45,15 @@ const VideoSection = ({
             onEnded={() => {
               setVideoState(false);
             }}
+            onError={(event) => {
+              setVideoURL(defaultVideoURL);
+            }}
             id="homeVideo"
             poster="/media/arab-work-laptop.png"
             className="w-full "
             loop
           >
-            <source src={devURL} type="video/mp4" />
+            <source src={videoURL} type="video/mp4" />
             <source src="movie.ogg" type="video/ogg" />
             Your browser does not support the video tag.
           </video>

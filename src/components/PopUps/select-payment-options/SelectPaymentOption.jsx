@@ -1,4 +1,4 @@
-import { toggleLoader } from "@/components/GlobalState/Features/popUpsSlice";
+import { closeLoader, openLoader } from "@/components/GlobalState/Features/popUpsSlice";
 import { fetchWithCheck } from "@/helperFunctions/dataFetching";
 import { useParams } from "next/navigation";
 import { useRouter } from "next/navigation";
@@ -25,7 +25,7 @@ const PaymentMethod = ({ image, text, isTamara = false }) => {
     (store) => store.popUps.currentCourseToken
   );
   async function handleClick() {
-    dispatch(toggleLoader("جاري الدفع"));
+    dispatch(openLoader("جاري الدفع"));
 
     const courseToken = token || currentCourseToken;
     try {
@@ -43,7 +43,7 @@ const PaymentMethod = ({ image, text, isTamara = false }) => {
       toast.error(error.error);
       console.log(error);
     } finally {
-      dispatch(toggleLoader(""));
+      dispatch(closeLoader());
     }
   }
 

@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation";
 import Hero from "@/components/shared/hero/Hero";
 import { fetchWithCheck } from "@/helperFunctions/dataFetching";
 import { toast } from "react-toastify";
+import { openLoader } from "@/components/GlobalState/Features/popUpsSlice";
 async function fetchNewPassword(data) {
   try {
     const result = await fetchWithCheck("/api/student/newPassword", {
@@ -35,6 +36,7 @@ const NewPassword = ({ params }) => {
   const dispatch = useDispatch();
 
   async function handleSubmit(e) {
+    dispatch(openLoader("جاري التحديث"));
     e.preventDefault();
     if (password.current.value == confirmPassword.current.value) {
       try {
@@ -50,6 +52,7 @@ const NewPassword = ({ params }) => {
     } else {
       toast.error("كلمة السر غير متطابقة");
     }
+    dispatch(closeLoader());
   }
 
   useEffect(() => {

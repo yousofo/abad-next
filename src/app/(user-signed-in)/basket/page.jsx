@@ -2,14 +2,16 @@
 import React, { useEffect, useState } from "react";
 import "./basket.css";
 import { useDispatch, useSelector } from "react-redux";
-import Loader from "@/components/shared/Loader/Loader";
 import // toggleUpdateBasket,
 // toggleUpdateBasketCount,
 "@/components/GlobalState/Features/authSlice";
 import { fetchUserBasket } from "@/components/GlobalState/Features/userData";
 import { useRouter } from "next/navigation";
 import { fetchWithCheck } from "@/helperFunctions/dataFetching";
-import { toggleLoader } from "@/components/GlobalState/Features/popUpsSlice";
+import {
+  closeLoader,
+  openLoader,
+} from "@/components/GlobalState/Features/popUpsSlice";
 import Hero from "@/components/shared/hero/Hero";
 
 async function fetchDeletetFromBasket(basketCourseToken) {
@@ -31,7 +33,7 @@ const BasketItem = ({ data, userToken }) => {
   const dispatch = useDispatch();
 
   async function handleDelete(basketCourseToken) {
-    dispatch(toggleLoader("جاري الحذف"));
+    dispatch(openLoader("جاري الحذف"));
 
     await fetchDeletetFromBasket(basketCourseToken)
       .then(() => {
@@ -39,7 +41,7 @@ const BasketItem = ({ data, userToken }) => {
       })
       .catch((error) => console.log(error));
 
-    dispatch(toggleLoader(""));
+    dispatch(closeLoader(""));
   }
   return (
     <tr
@@ -163,11 +165,11 @@ const Basket = () => {
   const router = useRouter();
 
   async function handleFetchBasket() {
-    dispatch(toggleLoader("جاري التحميل"));
+    dispatch(openLoader("جاري التحميل"));
 
     await dispatch(fetchUserBasket()).unwrap();
 
-    dispatch(toggleLoader(""));
+    dispatch(closeLoader());
   }
 
   useEffect(() => {

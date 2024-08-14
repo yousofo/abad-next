@@ -24,9 +24,12 @@ export const popUpsSlice = createSlice({
         EnlistInCourse: !state.EnlistInCourse,
       };
     },
-    toggleLoader: (state, action) => {
-      state.loader.active = !state.loader.active;
+    openLoader: (state, action) => {
+      state.loader.active = true;
       state.loader.text = action.payload;
+    },
+    closeLoader: (state) => {
+      state.loader.active = false;
     },
     togglePaymentConfirmation: (state, action) => {
       state.isHidden = !state.isHidden
@@ -56,7 +59,8 @@ export const {
   toggleEnlistInCourse,
   togglePaymentConfirmation,
   toggleSelectPaymentOptions,
-  toggleLoader,
+  openLoader,
+  closeLoader,
   resetPopUps,
 } = popUpsSlice.actions;
 

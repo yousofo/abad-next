@@ -1,6 +1,6 @@
 // sharedFunctions.js
 import { toggleSignIn } from "@/components/GlobalState/Features/authSlice";
-import { toggleLoader, toggleSelectPaymentOptions } from "@/components/GlobalState/Features/popUpsSlice";
+import { closeLoader, openLoader, toggleSelectPaymentOptions } from "@/components/GlobalState/Features/popUpsSlice";
 import { fetchUserBasket } from "@/components/GlobalState/Features/userData";
 import { store } from "@/components/GlobalState/store";
 import { fetchAddToBasket, fetchRegisterAttendanceCourse } from "./dataFetching";
@@ -36,7 +36,7 @@ export async function handleAddToBasket(courseToken) {
     store.dispatch(toggleSignIn());
     return;
   }
-  store.dispatch(toggleLoader(""));
+  store.dispatch(openLoader(""));
 
   const user = getUserInfoFromStore();
 
@@ -51,7 +51,7 @@ export async function handleAddToBasket(courseToken) {
   } else if (result.error) {
     toast.error(result.error);
   }
-  store.dispatch(toggleLoader(""));
+  store.dispatch(closeLoader());
 }
 
 export async function handleRegisterAttendanceCourse(courseToken) {
@@ -66,7 +66,7 @@ export async function handleRegisterAttendanceCourse(courseToken) {
   }
 
 
-  store.dispatch(toggleLoader(""));
+  store.dispatch(openLoader(""));
   const user = getUserInfoFromStore();
 
   const result = await fetchRegisterAttendanceCourse({
@@ -79,5 +79,5 @@ export async function handleRegisterAttendanceCourse(courseToken) {
   } else if (result.error) {
     toast.error(result.error);
   }
-  store.dispatch(toggleLoader(""));
+  store.dispatch(closeLoader());
 }

@@ -7,7 +7,7 @@ import { useRouter } from "next/navigation";
 import { useDispatch } from "react-redux";
 
 import Link from "next/link";
-import { toggleLoader } from "@/components/GlobalState/Features/popUpsSlice";
+import { closeLoader, openLoader } from "@/components/GlobalState/Features/popUpsSlice";
 import { fetchWithCheck } from "@/helperFunctions/dataFetching";
 
 async function fetchCourseDetails(token) {
@@ -16,7 +16,7 @@ async function fetchCourseDetails(token) {
       `/api/reservations/getCourseDetailsByToken?token=${token}`,
       {
         headers: {
-          "Content-Type": "application/json"
+          "Content-Type": "application/json",
         },
       }
     );
@@ -50,13 +50,15 @@ async function fetchRegisterCourseRequest(data) {
 }
 
 const Register = ({ params }) => {
-  const [courseImg, setCourseImg] = useState("/media/course/course-image.png");
+  const defaultCourseImg = "/media/course/course-image.png"
+
+  const [courseImg, setCourseImg] = useState(defaultCourseImg);
   const [courseInfo, setCourseInfo] = useState({});
   const dispatch = useDispatch();
   const router = useRouter();
 
   useEffect(() => {
-    dispatch(toggleLoader("قيد التحميل"));
+    dispatch(openLoader(""));
     fetchCourseDetails(params.token)
       .then((e) => {
         if (e.error) {
@@ -65,7 +67,6 @@ const Register = ({ params }) => {
         }
         setCourseInfo(e);
         setCourseImg(e.imageUrl);
-        dispatch(toggleLoader(""));
       })
       .catch((e) => {
         console.log(e);
@@ -239,10 +240,21 @@ const Register = ({ params }) => {
           {/* COURSE CARD start */}
           <figure className="p-5  mx-auto md:p-6 text-[#252525] bg-white shadow rounded-xl md:rounded-2xl w-full max-w-[373px] h-fit">
             <img
-              src={courseImg}
+              src={courseImg || defaultCourseImg}
               alt=""
               className="mx-auto mb-2 md:mb-4"
-              onError={() => setCourseImg("/media/course/course-image.png")}
+              onLoad={() => {
+                console.log("loaded")
+                let cur = setTimeout(() => {
+                  dispatch(closeLoader());
+                  return clearTimeout(cur);
+                }, 500);
+              }}
+              
+              onError={() => {
+                setCourseImg(defaultCourseImg);
+                dispatch(closeLoader());
+              }}
             />
             <figcaption className="flex flex-col gap-6">
               <h2
