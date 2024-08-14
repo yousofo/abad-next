@@ -74,7 +74,7 @@ const SelectPaymentOption = () => {
         </p>
       </div>
       <div className="flex flex-col gap-4">
-        <PaymentMethod image="/media/logos/payment/paypal.png" text="Paypal" />
+        {/* <PaymentMethod image="/media/logos/payment/paypal.png" text="Paypal" /> */}
         <PaymentMethod
           image="/media/logos/payment/tamara.png"
           isTamara={true}
