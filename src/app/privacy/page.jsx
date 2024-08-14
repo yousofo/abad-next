@@ -19,7 +19,7 @@ const Privacy = () => {
   useEffect(() => {
     dispatch(openLoader(""));
     fetchWithCheck(
-      `${process.env.NEXT_PUBLIC_ROOT_URL}/api/GetDataHome/GetPrivacy`,
+      `/api/home/privacyData`,
       null,
       null
     )
