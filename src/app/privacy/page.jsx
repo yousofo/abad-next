@@ -9,7 +9,7 @@ import {
   closeLoader,
   openLoader,
 } from "@/components/GlobalState/Features/popUpsSlice";
-const page = () => {
+const Privacy = () => {
   const [privacyData, setPrivacyData] = useState(null);
   const [current, setCurrent] = useState("يا هلا");
   const dispatch = useDispatch();
@@ -88,4 +88,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Privacy;
