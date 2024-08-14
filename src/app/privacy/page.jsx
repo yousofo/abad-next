@@ -13,7 +13,6 @@ const Privacy = () => {
   const [privacyData, setPrivacyData] = useState(null);
   const [current, setCurrent] = useState("يا هلا");
   const dispatch = useDispatch();
-  console.log(privacyData);
   function handleClick(event, name) {
     setCurrent(privacyData[`${name}`]);
   }
