@@ -1,7 +1,11 @@
 "use client";
 
+import {
+  closeLoader,
+  openLoader,
+} from "@/components/GlobalState/Features/popUpsSlice";
 import React, { useRef, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 async function fetchResetPassword(data) {
   const request = await fetch(`/api/student/resetPassword?mail=${data}`, {
@@ -33,12 +37,12 @@ async function fetchResetPassword(data) {
 const ForgotPassword = () => {
   const forgotPassword = useSelector((state) => state.auth.forgotPassword);
   const [error, setError] = useState(false);
-  const [loading, setLoading] = useState(false);
   const [checkEmail, setCheckEmail] = useState("");
+  const disptch = useDispatch();
 
   const mailRef = useRef(null);
   async function handleSubmit(e) {
-    setLoading(true);
+    disptch(openLoader(""));
     e.preventDefault();
     let result = await fetchResetPassword(mailRef.current.value);
     setError(!result.success);
@@ -46,7 +50,7 @@ const ForgotPassword = () => {
       // dispatch(reset());
       setCheckEmail("تفقد بريدك الألكتروني");
     }
-    setLoading(false);
+    disptch(closeLoader());
   }
   return (
     <div
@@ -80,11 +84,6 @@ const ForgotPassword = () => {
           ارسال
         </button>
       </form>
-      {/* loader */}
-      <div className="loader" style={{ display: loading ? "block" : "none" }}>
-        <div></div>
-        <span>جاري التسجيل</span>
-      </div>
     </div>
   );
 };

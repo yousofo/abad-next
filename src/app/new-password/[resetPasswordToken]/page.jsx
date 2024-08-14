@@ -7,7 +7,7 @@ import { useRouter } from "next/navigation";
 import Hero from "@/components/shared/hero/Hero";
 import { fetchWithCheck } from "@/helperFunctions/dataFetching";
 import { toast } from "react-toastify";
-import { openLoader } from "@/components/GlobalState/Features/popUpsSlice";
+import { closeLoader, openLoader } from "@/components/GlobalState/Features/popUpsSlice";
 async function fetchNewPassword(data) {
   try {
     const result = await fetchWithCheck("/api/student/newPassword", {
@@ -29,8 +29,10 @@ const NewPassword = ({ params }) => {
   let password = useRef(null);
   let confirmPassword = useRef(null);
   const isSignedIn = useSelector((store) => store.auth.isSignedIn);
+  const isPasswordReassigned = useSelector((state) => state.auth.newPassword);
   const router = useRouter();
   const token = params.resetPasswordToken;
+  const [finished,setFinished]=useState(false);
   // if(isSignedIn) router.push("/")
 
   const dispatch = useDispatch();
@@ -45,6 +47,7 @@ const NewPassword = ({ params }) => {
           password: password.current.value,
         });
         console.log(result);
+        setFinished(true);
         dispatch(toggleNewPassword());
       } catch (error) {
         toast.error(error.error);
@@ -57,7 +60,9 @@ const NewPassword = ({ params }) => {
 
   useEffect(() => {
     if (isSignedIn) router.replace("/");
-  }, []);
+    
+    if(finished && !isPasswordReassigned) router.replace("/");
+  }, [isPasswordReassigned,finished]);
   return (
     <main className="pb-10">
       {/* HERO start  */}
