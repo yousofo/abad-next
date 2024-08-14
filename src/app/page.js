@@ -10,7 +10,7 @@ import {
 } from "@/helperFunctions/dataFetching";
 import Hero from "@/components/shared/hero/Hero";
 import Link from "next/link";
-import VideoSection from "@/components/home/videoSection/videoSection";
+import VideoSection from "@/components/home/videoSection/VideoSection";
 
 export const fetchCache = "force-no-store";
 
