@@ -4,11 +4,10 @@ module.exports = {
   generateRobotsTxt: true, 
   changefreq: 'daily',
   priority: 0.7,
-  sitemapBaseFileName: 'mysites',
   // exclude: ['/admin/*', '/login'],
-  robotsTxtOptions: {
-    additionalSitemaps: [
-      'https://abad-next.vercel.app/my-custom-sitemap-1.xml',
-    ],
-  },
+  // robotsTxtOptions: {
+  //   additionalSitemaps: [
+  //     'https://abad-next.vercel.app/my-custom-sitemap-1.xml',
+  //   ],
+  // },
 }
