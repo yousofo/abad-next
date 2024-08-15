@@ -4,7 +4,7 @@ module.exports = {
   generateRobotsTxt: true, 
   changefreq: 'daily',
   priority: 0.7,
-  sitemapBaseFileName: 'site-map',
+  sitemapBaseFileName: 'mysites',
   // exclude: ['/admin/*', '/login'],
   robotsTxtOptions: {
     additionalSitemaps: [
