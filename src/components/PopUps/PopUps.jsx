@@ -17,7 +17,6 @@ const PopUps = () => {
   function handleAuthClose() {
     dispatch(resetPopUps());
   }
-  console.log(isHidden)
   return (
     <div
       onClick={handleAuthClose}

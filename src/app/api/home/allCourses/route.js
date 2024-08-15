@@ -6,7 +6,7 @@ export async function GET(request) {
   try {
     const data = await fetchWithCheck(`${process.env.NEXT_PUBLIC_ROOT_URL}/api/Home/getAll`)
 
-    console.log("proxy==========================================")
+    console.log("home all courses")
     
     return new Response(JSON.stringify(data), {
       headers: {

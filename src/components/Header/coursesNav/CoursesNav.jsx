@@ -1,22 +1,11 @@
 "use client";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
-import { fetchWithCheck } from "@/helperFunctions/dataFetching";
+import { fetchCheckCourse, fetchCoursesWithTypes } from "@/helperFunctions/dataFetching";
 import { useDispatch } from "react-redux";
 import { closeLoader, openLoader } from "@/components/GlobalState/Features/popUpsSlice";
 // import fetchCoursesWithTypes from "@/helperFunctions/fetchCoursesWithTypes";
-async function fetchCheckCourse(courseToken) {
-  try {
-    const data = await fetchWithCheck(
-      `/api/reservations/checkCourse?token=${courseToken}&timestamp=${new Date().getTime()}`
-    );
 
-    console.log(data);
-    return data;
-  } catch (e) {
-    console.log(e);
-  }
-}
 const NavListItem = ({ data, handleNavListItem, index }) => {
   return (
     <li className="w-full">
@@ -54,7 +43,6 @@ const CoursesNav = () => {
   const [data, setData] = useState([]);
   const [current, setCurrent] = useState([]);
   const router = useRouter();
-  console.log("courses nav");
   function handleNavListItem(e, categoryCourses) {
     e.stopPropagation();
     setCurrent(categoryCourses);
@@ -71,12 +59,11 @@ const CoursesNav = () => {
     dispatch(closeLoader());
   }
   useEffect(() => {
-    fetchWithCheck("/api/categories/coursesWithTypes",  null, [])
+    fetchCoursesWithTypes()
       .then((e) => {
         setData(e);
-        console.log(e);
       })
-      .catch((e) => console.log(e));
+      .catch((error) => console.log(error));
   }, []);
   return (
     <div className="mini-nav">

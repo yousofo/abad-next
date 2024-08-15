@@ -7,7 +7,7 @@ const VideoSection = ({ titleVideo, lVideoURL }) => {
 
   const [videoURL, setVideoURL] = useState(defaultVideoURL);
   const [videoState, setVideoState] = useState(false);
-  
+
   useEffect(() => {
     setVideoURL(lVideoURL);
   }, [lVideoURL]);
@@ -32,6 +32,7 @@ const VideoSection = ({ titleVideo, lVideoURL }) => {
               مشاهدتك لهذا الفيديو!
             </span>
           )}
+
         </h2>
         <div className="video relative w-full max-w-[792px]">
           <video
@@ -45,8 +46,8 @@ const VideoSection = ({ titleVideo, lVideoURL }) => {
             onEnded={() => {
               setVideoState(false);
             }}
-            onError={(event) => {
-              setVideoURL(defaultVideoURL);
+            onError={() => {
+              if (window) setVideoURL(defaultVideoURL);
             }}
             id="homeVideo"
             poster="/media/arab-work-laptop.png"
@@ -54,9 +55,9 @@ const VideoSection = ({ titleVideo, lVideoURL }) => {
             loop
           >
             <source src={videoURL} type="video/mp4" />
-            <source src="movie.ogg" type="video/ogg" />
             Your browser does not support the video tag.
           </video>
+
           <img
             id="playHomeVideo"
             onClick={() => videoRef.current.play()}

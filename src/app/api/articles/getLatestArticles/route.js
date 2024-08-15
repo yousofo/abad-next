@@ -6,7 +6,7 @@ export async function GET(request) {
   try {
     const data = await fetchWithCheck(`${process.env.NEXT_PUBLIC_ROOT_URL}/api/Articles/GetLatestArticles`)
 
-    console.log("latest articles====latest articles====latest articles====latest articles====latest articles====latest articles")
+    console.log("latest articles")
 
     return new Response(JSON.stringify(data), {
       headers: {

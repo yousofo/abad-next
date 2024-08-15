@@ -15,7 +15,7 @@ import {
   fetchUserBasket,
   toggleUpdateInfo,
 } from "../GlobalState/Features/userData";
-import { fetchWithCheck } from "@/helperFunctions/dataFetching";
+import { fetchHomeData } from "@/helperFunctions/dataFetching";
 import { homeData } from "../GlobalState/Features/dataContentSlice";
 
 const Header = () => {
@@ -51,7 +51,7 @@ const Header = () => {
       setSingedInState(true);
       dispatch(fetchUserBasket(userInfo.token));
     }
-    fetchWithCheck(`/api/home/homeData`, null, null)
+    fetchHomeData()
       .then((e) => dispatch(homeData(e)))
       .catch((err) => console.log(err));
   }, [userInfo?.token]);
@@ -101,7 +101,6 @@ const Header = () => {
         >
           <p dir="ltr">{whatsAppNumber}</p>
           <svg
-            height="auto"
             viewBox="0 0 25 24"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -149,7 +148,6 @@ const Header = () => {
         <a target="_blank" href={`tel:${phone}`}>
           <p dir="ltr">{phone}</p>
           <svg
-            height="auto"
             viewBox="0 0 25 24"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"

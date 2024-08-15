@@ -3,20 +3,9 @@ import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useDispatch } from "react-redux";
 import { reset } from "../GlobalState/Features/navListSlice";
-import { fetchWithCheck } from "@/helperFunctions/dataFetching";
+import { fetchCheckCourse, fetchCoursesWithTypes } from "@/helperFunctions/dataFetching";
 
-async function fetchCheckCourse(courseToken) {
-  try {
-    const data = await fetchWithCheck(
-      `/api/reservations/checkCourse?token=${courseToken}&timestamp=${new Date().getTime()}`
-    );
 
-    console.log(data);
-    return data;
-  } catch (e) {
-    console.log(e);
-  }
-}
 //helper component
 const MiniNavItem = ({ data }) => {
   const [innerList, setInnerList] = useState(false);
@@ -90,7 +79,7 @@ const MiniNav = () => {
   const [data, setData] = useState([]);
 
   useEffect(() => {
-    fetchWithCheck("/api/categories/coursesWithTypes", {}, [])
+    fetchCoursesWithTypes()
       .then((e) => setData(e))
       .catch((e) => console.log(e));
   }, []);

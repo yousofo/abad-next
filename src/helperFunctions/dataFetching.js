@@ -1,12 +1,10 @@
-
-
 const noCacheHeaders = {
   // 'Content-Type': 'application/json',
-  'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate',
-  'Pragma': 'no-cache',
-  'Expires': '0',
-  'Surrogate-Control': 'no-store'
-}
+  "Cache-Control": "no-store, no-cache, must-revalidate, proxy-revalidate",
+  Pragma: "no-cache",
+  Expires: "0",
+  "Surrogate-Control": "no-store",
+};
 
 /**
  * Fetches a URL with optional caching and error handling.
@@ -24,54 +22,99 @@ export async function fetchWithCheck(url, options = {}, fallBack) {
       ...options,
       headers: {
         ...noCacheHeaders,
-        ...options?.headers
-      }
+        ...options?.headers,
+      },
     });
 
-    console.log("response.ok")
-    console.log(response.ok)
-
-    let data = await response.text()
+    let data = await response.text();
     if (!response.ok) {
       let finalData;
       try {
-        console.log("throw JSON.parse(data)")
-        console.log(data)
-        finalData = JSON.parse(data)
+        console.log(data);
+        finalData = JSON.parse(data);
       } catch {
-        console.log("throw final Data")
-        finalData = data
+        finalData = data;
       } finally {
-        console.log("finalData")
         throw finalData;
       }
     }
-    
-    console.log("fetching ok")
 
     try {
       return JSON.parse(data);
     } catch {
       return data;
     }
-
-
   } catch (error) {
     console.error("fetch with check catch");
     console.error(error);
-    if (fallBack) return fallBack
+    if (fallBack) return fallBack;
     throw error;
   }
 }
 
+// home
+
 export async function fetchHomeData() {
-  const data = await fetchWithCheck(`/api/home/homeData`)
-  return data
+  const data = await fetchWithCheck(`/api/home/homeData`,null,null);
+  return data;
 }
+
 export async function fetchLatestArticles() {
-  const data = await fetchWithCheck(`/api/articles/getLatestArticles`, null, [])
-  return data
+  const data = await fetchWithCheck(
+    `/api/articles/getLatestArticles`,
+    null,
+    []
+  );
+  return data;
 }
+
+//header - navlist
+
+export async function fetchCheckCourse(courseToken) {
+  try {
+    const data = await fetchWithCheck(
+      `/api/reservations/checkCourse?token=${courseToken}&timestamp=${new Date().getTime()}`,
+    );
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+// courses
+
+export async function fetchCourses() {
+  const data = await fetchWithCheck(`/api/home/allCourses`, null, []);
+  return data;
+}
+
+// articles
+
+export async function fetchArticles() {
+  const data = await fetchWithCheck(`/api/articles/getArticles`, null, []);
+  return data;
+}
+
+// catgories
+
+export async function fetchCoursesCategories() {
+  const data = await fetchWithCheck(
+    `/api/categories/coursesCategories`,
+    null,
+    []
+  );
+  return data;
+}
+export async function fetchCoursesWithTypes() {
+  const data = await fetchWithCheck(
+    `/api/categories/coursesWithTypes`,
+    null,
+    []
+  );
+  return data;
+}
+
+// registeration - payment - basket
 
 export async function fetchAddToBasket(data) {
   try {

@@ -3,7 +3,7 @@ import { fetchWithCheck } from "@/helperFunctions/dataFetching";
 export const fetchCache = 'force-no-store';
 
 export async function GET(request) {
-  console.log("GetDataHome getDataHome")
+  console.log("home getDataHome")
   try {
     const data = await fetchWithCheck(`${process.env.NEXT_PUBLIC_ROOT_URL}/api/GetDataHome/getDataHome`)
 

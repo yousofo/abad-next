@@ -6,7 +6,7 @@ export async function GET(request) {
   try {
     const data = await fetchWithCheck(`${process.env.NEXT_PUBLIC_ROOT_URL}/api/Category/courses-types`)
 
-    console.log("courses categories==========================================")
+    console.log("courses categories")
     // console.log(data)
     return new Response(JSON.stringify(data), {
       headers: {

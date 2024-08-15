@@ -3,6 +3,7 @@ import { fetchWithCheck } from "@/helperFunctions/dataFetching";
 export const fetchCache = 'force-no-store';
 
 export async function GET(request) {
+  console.log("article details")
   try {
     const url = new URL(request.url);
     const token = url.searchParams.get('token');
@@ -21,7 +22,6 @@ export async function GET(request) {
 
 
   } catch (error) {
-    console.log("error register")
     return new Response(JSON.stringify({ error: error.message }), {
       status: 402,
       headers: { 'Content-Type': 'application/json' },

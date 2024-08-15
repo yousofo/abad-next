@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import ReviewCard from "../cards/ReviewCard";
+import ReviewCard from "../../shared/cards/ReviewCard";
 //swiper
 import "swiper/css";
 import "swiper/css/navigation";
@@ -25,13 +25,13 @@ const ReviewsSwiper = () => {
         },
       }}
       loop
-      autoplay={{ delay: 1000 }}
+      autoplay={{ delay: 2000 }}
     >
       {(function () {
         let reviewCards = [];
         for (let i = 0; i < 6; i++) {
           reviewCards.push(
-            <SwiperSlide key={"reviewCard-"+i}>
+            <SwiperSlide key={"reviewCard-" + i}>
               <ReviewCard />
             </SwiperSlide>
           );

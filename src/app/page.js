@@ -1,31 +1,35 @@
 import "./main.css";
-import ReviewsSwiper from "@/components/shared/swipers/ReviewsSwiper";
+import ReviewsSwiper from "@/components/home/swipers/ReviewsSwiper";
 import "swiper/css";
-import PartnersSwiper from "@/components/shared/swipers/PartnersSwiper";
+import PartnersSwiper from "@/components/home/swipers/PartnersSwiper";
 import HomeCourses from "@/components/home/courses/HomeCourses";
 import SubscriptionWithEmail from "@/components/home/SubscriptionWithEmail/SubscriptionWithEmail";
 import LatestArticles from "@/components/home/articles/LatestArticles";
-import {
-  fetchWithCheck,
-} from "@/helperFunctions/dataFetching";
+import { fetchWithCheck } from "@/helperFunctions/dataFetching";
 import Hero from "@/components/shared/hero/Hero";
 import Link from "next/link";
-import VideoSection from "@/components/home/videoSection/VideoSection";
+import dynamic from "next/dynamic";
 
 export const fetchCache = "force-no-store";
-
+const VideoSection = dynamic(
+  () => import("@/components/home/videoSection/VideoSection"),
+  {
+    ssr: false, // This disables server-side rendering for this component
+  }
+);
 export default async function Home() {
   const latestArticles = await fetchWithCheck(
     `${process.env.NEXT_PUBLIC_ROOT_URL}/api/articles/getLatestArticles`,
     null,
     []
   );
+
   const homeData = await fetchWithCheck(
     `${process.env.NEXT_PUBLIC_ROOT_URL}/api/GetDataHome/getDataHome`,
     null,
     null
   );
-  console.log(homeData);
+
   return (
     <main className="home home-page">
       {/* HERO start  */}

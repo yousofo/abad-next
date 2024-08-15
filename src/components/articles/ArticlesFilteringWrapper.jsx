@@ -1,21 +1,9 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import ArticlesItem from "../shared/article/ArticlesItem";
-import { fetchWithCheck } from "@/helperFunctions/dataFetching";
+import { fetchArticles } from "@/helperFunctions/dataFetching";
 
-async function fetchArticles() {
-  try {
-    const data = await fetchWithCheck(
-      "/api/articles/getArticles",
-      null,
-      []
-    );
-    return data;
-  } catch (e) {
-    console.log("fetch e");
-    console.log(e);
-  }
-}
+
 
 export default function ArticlesFilteringWrapper() {
   const [data, setData] = useState([]);
@@ -29,7 +17,7 @@ export default function ArticlesFilteringWrapper() {
         console.log(e);
         setFilteredArticles(e);
       })
-      .catch((e) => console.log(e));
+      .catch((error) => console.log(error));
   }, []);
 
   const handleSearch = (event) => {
