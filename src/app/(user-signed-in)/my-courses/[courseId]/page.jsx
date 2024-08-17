@@ -2,8 +2,12 @@
 import React, { useEffect, useState } from "react";
 import "./myCourse.css";
 import { useRouter } from "next/navigation";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import RegisteredCourseAccordion from "@/components/shared/Accordion/RegisteredCourseAccordion";
+import {
+  closeLoader,
+  openLoader,
+} from "@/components/GlobalState/Features/popUpsSlice";
 
 async function fetchUserCourseDetails(token) {
   try {
@@ -28,14 +32,17 @@ async function fetchUserCourseDetails(token) {
 const MyCourse = ({ params }) => {
   const isSignedIn = useSelector((store) => store.auth.isSignedIn);
   let router = useRouter();
-  const [data, setData] = useState([]);
+  const [data, setData] = useState({});
+  const dipsatch = useDispatch();
   // if (!isSignedIn) {
   //   router.replace("/");
   // }
   useEffect(() => {
+    dipsatch(openLoader(""));
     fetchUserCourseDetails(params.courseId)
       .then((e) => setData(e))
-      .catch((e) => console.log(e));
+      .catch((e) => console.log(e))
+      .finally(() => dipsatch(closeLoader("")));
   }, []);
   return (
     <main className="pb-10 sm:pb-24 relative">
@@ -56,23 +63,25 @@ const MyCourse = ({ params }) => {
       {/* main content start */}
       <section className="my-course flex flex-col gap-4 mt-52  sm:gap-6 max-w-screen-lg mx-auto px-4">
         <div className="intro flex flex-col gap-6 p-6 shadow bg-white rounded-xl">
+          {/* image */}
           <img
             className="w-fit mx-auto h-full max-h-[165px] md:max-h-[183px] object-cover rounded-md"
             src={data?.imageUrl}
             alt=""
           />
-          <div className="flex flex-col gap-2 sm:flex-row items-center justify-between">
-            <h2 className="font-medium text-lg md:text-xl">
+          {/* name and buttons */}
+          <div className="flex flex-col gap-2 md:flex-row items-center justify-between">
+            <h2 className="font-medium text-lg md:text-xl flex-1">
               <bdi>{data.courseName}</bdi>
             </h2>
-            <div className="font-bold btns text-center flex flex-col sm:flex-row gap-3">
+            <div className="font-bold btns text-center flex flex-col md:flex-row gap-3 w-max">
               <a
-                className="text-white py-3 px-7 md:py-4 md:px-8 rounded-full"
+                className="text-white cursor-pointer py-3 px-7 md:py-4 md:px-8 rounded-full"
                 style={{
                   background:
                     "linear-gradient(83.79deg, #1B45B4 3.25%, #1C2792 96.85%)",
                 }}
-                href={data.whatsAppLink}
+                href={data.whatsAppLink || "#"}
               >
                 قروب واتس آب الدورة
               </a>
@@ -89,6 +98,8 @@ const MyCourse = ({ params }) => {
               </a>
             </div>
           </div>
+
+          {/* description */}
           <div className="border border-b-[#E0E0E0]"></div>
           <div className="flex gap-4 flex-col">
             <h3 className="font-medium text-lg md:text-xl">وصف الدورة</h3>
@@ -98,16 +109,24 @@ const MyCourse = ({ params }) => {
             />
           </div>
         </div>
-        <div className="flex flex-col gap-2">
-          <h2 className="text-[#252525] text-sm md:text-2xl font-medium mb-2 mr-3 sm:mr-0">
-            مواعيد الدورة
-          </h2>
+
+        {/* registered sessions */}
+        {data?.sessions?.length > 0 && (
           <div className="flex flex-col gap-2">
-            {data.sessions?.map((e, i) => (
-              <RegisteredCourseAccordion key={i} title={e.weekName} data={e.sessions} />
-            ))}
+            <h2 className="text-[#252525] text-sm md:text-2xl font-medium mb-2 mr-3 sm:mr-0">
+              مواعيد الدورة
+            </h2>
+            <div className="flex flex-col gap-2">
+              {data.sessions.map((e, i) => (
+                <RegisteredCourseAccordion
+                  key={i}
+                  title={e.weekName}
+                  data={e.sessions}
+                />
+              ))}
+            </div>
           </div>
-        </div>
+        )}
       </section>
       {/* main content end */}
     </main>

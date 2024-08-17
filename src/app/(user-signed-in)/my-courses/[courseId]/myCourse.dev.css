@@ -4,7 +4,7 @@
     word-spacing: 2px;
     width: 100%;
   }
-  @media (min-width:640px) {
+  @media (min-width:768px) {
     width: fit-content;
     button{
       width: fit-content;
