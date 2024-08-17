@@ -1,13 +1,19 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import ReviewCard from "../../shared/cards/ReviewCard";
 //swiper
 import "swiper/css";
 import "swiper/css/navigation";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Autoplay } from "swiper/modules";
+import { fetchComments } from "@/helperFunctions/dataFetching";
 
 const ReviewsSwiper = () => {
+  const [comments, setComments] = useState([]);
+
+  useEffect(() => {
+    fetchComments().then((data) => setComments(data));
+  }, []);
   return (
     <Swiper
       modules={[Navigation, Autoplay]}
@@ -27,17 +33,11 @@ const ReviewsSwiper = () => {
       loop
       autoplay={{ delay: 2000 }}
     >
-      {(function () {
-        let reviewCards = [];
-        for (let i = 0; i < 6; i++) {
-          reviewCards.push(
-            <SwiperSlide key={"reviewCard-" + i}>
-              <ReviewCard />
-            </SwiperSlide>
-          );
-        }
-        return reviewCards;
-      })()}
+      {comments?.map((comment, i) => (
+        <SwiperSlide key={"reviewCard-" + i}>
+          <ReviewCard data={comment} />
+        </SwiperSlide>
+      ))}
     </Swiper>
   );
 };

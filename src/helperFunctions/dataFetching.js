@@ -68,6 +68,11 @@ export async function fetchLatestArticles() {
   return data;
 }
 
+export async function fetchComments() {
+  const data = await fetchWithCheck(`/api/comments`, null, []);
+  return data;
+}
+
 //header - navlist
 
 export async function fetchCheckCourse(courseToken) {
