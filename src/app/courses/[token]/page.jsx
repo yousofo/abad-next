@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import "./course.css";
 
 import Accordion from "@/components/shared/Accordion/Accordion";
@@ -19,8 +19,10 @@ import {
 
 const Course = ({ params }) => {
   const defaultCourseImg = "/media/course/course-image.png"
+  const  shimmerLoader = useRef(null)
   const [courseImg, setCourseImg] = useState(defaultCourseImg);
   const [fetched, setFetched] = useState(false);
+  const [imgLoaded, setImgLoaded] = useState(false);
   const router = useRouter();
   let dispatch = useDispatch();
 
@@ -36,6 +38,7 @@ const Course = ({ params }) => {
       .catch((error) => router.replace("/not-found"))
       .finally(() => {
         setFetched(true);
+        dispatch(closeLoader());
       });
   }, []);
 
@@ -204,20 +207,28 @@ const Course = ({ params }) => {
           </section>
           {/* COURSE CONTENT & ACCORDIONS end */}
           {/* COURSE CARD start */}
-          <figure className="p-5 mx-auto md:p-6 text-[#252525] bg-white shadow rounded-xl md:rounded-2xl w-full max-w-[373px] h-fit">
+          <figure className="p-5 mx-auto md:p-6 text-[#252525] bg-white shadow rounded-xl md:rounded-2xl w-full max-w-[373px] h-fit relative">
+            <div className={`shimmer-effect ${fetched ? "hidden" : ""} w-full h-full absolute top-0 left-0`}>
+              <div className="w-full h-full"></div>
+            </div>
+            <div className={`shimmer-effect ${imgLoaded ? "hidden" : ""}`} ref={shimmerLoader}>
+              <div className="w-full h-72"></div>
+            </div>
             <img
-              src={courseImg || defaultCourseImg}
+              src={courseImg}
               alt=""
-              className="mx-auto mb-2 md:mb-4"
+              className={`mx-auto mb-2 ${imgLoaded ? "" : "hidden"} md:mb-4`}
               onLoad={() => {
                 console.log("loaded")
-                let cur = setTimeout(() => {
-                  dispatch(closeLoader());
-                  return clearTimeout(cur);
-                }, 500);
+                setImgLoaded(true)
+                // let cur = setTimeout(() => {
+                //   dispatch(closeLoader());
+                //   return clearTimeout(cur);
+                // }, 500);
               }}
               
               onError={() => {
+                setImgLoaded(true)
                 setCourseImg(defaultCourseImg);
                 dispatch(closeLoader());
               }}
