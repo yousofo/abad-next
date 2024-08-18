@@ -1,17 +1,22 @@
 "use client";
 import { useForm } from "react-hook-form";
 import "./accordion.css";
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { toggleSignIn } from "@/components/GlobalState/Features/authSlice";
-import { closeLoader, openLoader } from "@/components/GlobalState/Features/popUpsSlice";
+import {
+  closeLoader,
+  openLoader,
+} from "@/components/GlobalState/Features/popUpsSlice";
+import { cities } from "@/components/data/data";
 
 const AccordionForm = ({ form, token }) => {
   const { fetchRegisterCourseRequest } = form;
-  const user = useSelector(store=>store.userData.info)
+  const allCities = useMemo(() => cities, []);
+  const user = useSelector((store) => store.userData.info);
   const [generalError, setGeneralError] = useState("");
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   // react-hook-form
   const registerCourseForm = useForm();
   const { register, handleSubmit, formState, setError, reset } =
@@ -21,7 +26,7 @@ const AccordionForm = ({ form, token }) => {
   async function handleSubmitRegisterCourse(formData, e) {
     if (user) {
       setGeneralError("");
-      dispatch(openLoader("قيد التسجيل"))
+      dispatch(openLoader("قيد التسجيل"));
       const result = await fetchRegisterCourseRequest({
         tokenCourse: token,
         usserName: formData.registerCourseArabicName,
@@ -35,7 +40,7 @@ const AccordionForm = ({ form, token }) => {
         console.log(result.errors);
       } else if (result?.message) {
         // triggerToast(result?.message);
-        toast.success(result?.message)
+        toast.success(result?.message);
       } else {
         if (result.error) {
           setGeneralError(result.error);
@@ -43,11 +48,11 @@ const AccordionForm = ({ form, token }) => {
           setGeneralError(result);
         }
       }
-    }else{
-      dispatch(toggleSignIn())
+    } else {
+      dispatch(toggleSignIn());
     }
 
-    dispatch(closeLoader(""))
+    dispatch(closeLoader(""));
   }
 
   return (
@@ -75,6 +80,7 @@ const AccordionForm = ({ form, token }) => {
           {errors.registerCourseArabicName?.message}
         </p>
       </div>
+
       {/* email !*/}
       <div className="input">
         <label htmlFor="">عنوان البريد الإلكتروني*</label>
@@ -93,6 +99,7 @@ const AccordionForm = ({ form, token }) => {
         />
         <p className="input-error">{errors.registerCourseEmail?.message}</p>
       </div>
+
       {/* phone */}
       <div className="input">
         <label htmlFor="">الهاتف</label>
@@ -107,12 +114,12 @@ const AccordionForm = ({ form, token }) => {
         />
         <p className="input-error">{errors.registerCoursePhone?.message}</p>
       </div>
+
       {/* city  ! */}
       <div className="select">
         <label htmlFor="registerCourseCity">المدينة*</label>
         <div className="select relative">
           <select
-            name=""
             id="registerCourseCity"
             className="focus:outline-none"
             {...register("registerCourseCity", {
@@ -122,13 +129,17 @@ const AccordionForm = ({ form, token }) => {
             <option value="" style={{ display: "none" }}>
               اختر المدينة
             </option>
-            <option value="مكة">مكة</option>
-            <option value="المدينة">المدينة</option>
-            <option value="الطائف">الطائف</option>
+            {allCities.map((e, i) => (
+              <option key={i} value={e.Arabic}>
+                {e.Arabic}
+              </option>
+            ))}
+            <option value="غير ذلك">غير ذلك</option>
           </select>
         </div>
         <p className="input-error">{errors.city?.message}</p>
       </div>
+
       {/* details !*/}
       <div className="input md:col-span-2">
         <label htmlFor="details">تفاصيل الطلب*</label>
@@ -144,6 +155,7 @@ const AccordionForm = ({ form, token }) => {
         </div>
         <p className="input-error">{errors.details?.message}</p>
       </div>
+
       {/* general error */}
       <p
         style={{ display: generalError ? "block" : "none" }}
