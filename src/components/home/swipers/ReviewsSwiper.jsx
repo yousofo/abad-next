@@ -1,6 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import ReviewCard from "../../shared/cards/ReviewCard";
+
+import ReviewCard from "./cards/ReviewCard";
 //swiper
 import "swiper/css";
 import "swiper/css/navigation";
@@ -33,11 +34,16 @@ const ReviewsSwiper = () => {
       loop
       autoplay={{ delay: 2000 }}
     >
-      {comments?.map((comment, i) => (
-        <SwiperSlide key={"reviewCard-" + i}>
-          <ReviewCard data={comment} />
-        </SwiperSlide>
-      ))}
+      {comments?.map((comment, i) => {
+        if (comment.studentName && comment.comment) {
+          console.log(comment.studentName)
+          return (
+            <SwiperSlide key={"reviewCard-" + i}>
+              <ReviewCard data={comment} />
+            </SwiperSlide>
+          );
+        }
+      })}
     </Swiper>
   );
 };

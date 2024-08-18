@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import SignIn from "./SignIn";
-import SignUp from "./SignUp";
+import Register from "./Register";
 import "./auth.css";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleResetAuth } from "@/components/GlobalState/Features/authSlice";
@@ -33,7 +33,7 @@ const Authentication = () => {
         className={`auth-container`}
       >
         {isSignIn && <SignIn />}
-        {isSignUp && <SignUp />}
+        {isSignUp && <Register />}
         {isPasswordReassigned && <PasswordReassigned />}
         {isForgotPassword && <ForgotPassword />}
       </div>

@@ -110,6 +110,7 @@ export async function fetchCoursesCategories() {
   );
   return data;
 }
+
 export async function fetchCoursesWithTypes() {
   const data = await fetchWithCheck(
     `/api/categories/coursesWithTypes`,

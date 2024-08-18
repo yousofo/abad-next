@@ -5,7 +5,11 @@ const ReviewCard = ({ data }) => {
     <div className="card">
       <div className="card-wrapper">
         <div className="review-details">
-          <img src="/media/Profil.png" alt="" />
+          <img
+            className="w-16"
+            src="/media/placeholders/user-image.png"
+            alt=""
+          />
           <div>
             <h4>{data.studentName}</h4>
             <p>{data.studentjob}</p>

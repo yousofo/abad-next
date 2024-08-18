@@ -24,7 +24,7 @@ const PopUps = () => {
     >
       <div
         onClick={(e) => e.stopPropagation()}
-        className={`${paymentOptionState?"!rounded-sm":"!rounded-2xl"} auth-container bg-white py-7 px-6 md:py-12 md:px-10  h-fit w-max max-w-[800px]`}
+        className={`${paymentOptionState?"!rounded-sm !p-0":"!rounded-2xl py-7 px-6 md:py-12 md:px-10"} auth-container bg-white h-fit w-max max-w-[800px]`}
       >
         {enlistInCourseState && <EnlistInCourse />}
         {paymentOptionState && <SelectPaymentOption />}

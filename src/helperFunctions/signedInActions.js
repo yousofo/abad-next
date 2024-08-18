@@ -6,10 +6,6 @@ import { store } from "@/components/GlobalState/store";
 import { fetchAddToBasket, fetchRegisterAttendanceCourse } from "./dataFetching";
 import { toast } from "react-toastify";
 
-// Dispatch an action
-// store.dispatch(someAction(someValue));
-
-
 
 export function isUserSignedIn() {
   const userData = store.getState().userData;

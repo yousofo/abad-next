@@ -33,7 +33,7 @@ const SignIn = () => {
   //
   async function handleSignIn(e) {
     e.preventDefault();
-    dispatch(openLoader("جاري تسجيل الدخول"));
+    dispatch(openLoader(""));
 
     const result = await fetchSignIn({
       email: email.current.value,
@@ -61,6 +61,7 @@ const SignIn = () => {
 
     dispatch(closeLoader(""));
   }
+  
   return (
     <div className={`auth-signin`}>
       <div>

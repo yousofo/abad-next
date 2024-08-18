@@ -15,9 +15,38 @@
   }
 }
 
-.popups .payment-options button {
-  /* animation: fullRotate 3s infinite linear; */
+.popups .payment-options .input {
+  display: flex;
+  flex-direction: column;
+  font-size: 11px;
+  @media (min-width: 640px) {
+    font-size: 15px;
+  }
 }
+
+.popups .payment-options .input input {
+  border: 1px solid #cdd0d8;
+  border-radius: 8px;
+  flex: 1;
+  padding: 14px;
+  margin-top: 8px;
+  @media (min-width: 640px) {
+    padding: 16px 24px;
+  }
+  &:focus {
+    outline: none;
+  }
+  &::placeholder {
+    color: #cdd0d8;
+  }
+}
+
+.popups .payment-options .input label {
+  color: #4F4B56;
+  font-weight: 500;
+}
+
+
 .popups .payment-confirmation {
   h2 {
     font-weight: 700;

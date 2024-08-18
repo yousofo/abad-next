@@ -3,7 +3,6 @@ import "./courseRow.css";
 import Link from "next/link";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { handleOuterRegisterCourse } from "@/helperFunctions/UserCourseRegisteration";
 import { buyCourseNow, handleRegisterAttendanceCourse } from "@/helperFunctions/signedInActions";
 
 const CourseRow = ({ index, data }) => {

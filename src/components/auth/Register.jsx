@@ -5,43 +5,15 @@ import { Controller, useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { cities, countries } from "@/components/data/data";
 import { closeLoader, openLoader } from "@/components/GlobalState/Features/popUpsSlice";
+import { fetchRegisterUser } from "@/helperFunctions/auth";
 
-async function sendRegisterData(data) {
-  console.log(data);
-  try {
-    const request = await fetch("/api/student/register", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    });
-    let jsonData;
-    console.log(request.headers.get("Content-Type"));
-    if (
-      request.headers.get("Content-Type").includes("application/json") ||
-      request.headers.get("Content-Type").includes("application/problem+json")
-    ) {
-      jsonData = await request.json();
-    } else {
-      jsonData = await request.text();
-    }
 
-    return jsonData;
-  } catch (error) {
-    if (JSON.parse(error)) {
-      return JSON.parse(error);
-    } else {
-      return error;
-    }
-  }
-}
 
 const scrollToTop = (element) => {
   element.scrollIntoView({ behavior: "instant", block: "start" });
 };
 
-const SignUp = () => {
+const Register = () => {
   const allCountries = useMemo(() => countries, []);
   const allCities = useMemo(() => cities, []);
   const [selectedCountry, setSelectedCountry] = useState("سعودي");
@@ -73,7 +45,7 @@ const SignUp = () => {
     dispatch(openLoader("جاري التسجيل"));
 
     console.log(formData);
-    const result = await sendRegisterData({
+    const result = await fetchRegisterUser({
       ...formData,
       email: formData.signUpEmail,
       password: formData.signUpPassword,
@@ -415,4 +387,4 @@ const SignUp = () => {
   );
 };
 
-export default SignUp;
+export default Register;

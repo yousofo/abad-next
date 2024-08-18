@@ -4,35 +4,10 @@ import {
   closeLoader,
   openLoader,
 } from "@/components/GlobalState/Features/popUpsSlice";
+import { fetchResetPassword } from "@/helperFunctions/auth";
 import React, { useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-async function fetchResetPassword(data) {
-  const request = await fetch(`/api/student/resetPassword?mail=${data}`, {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/problem",
-    },
-  });
-  if (
-    request.headers.get("Content-Type").includes("application/json") ||
-    request.headers.get("Content-Type").includes("application/problem+json")
-  ) {
-    const dataToReturn = await request.json();
-    console.log(dataToReturn);
-    if (dataToReturn.errors) {
-      let messages = Object.entries(dataToReturn.errors).map(([key, value]) => {
-        return value;
-      });
-      return messages;
-    } else {
-      return dataToReturn;
-    }
-  } else {
-    const dataToReturn = await request.text();
-    return dataToReturn;
-  }
-}
 
 const ForgotPassword = () => {
   const forgotPassword = useSelector((state) => state.auth.forgotPassword);
