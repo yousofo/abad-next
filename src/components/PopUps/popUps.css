@@ -18,10 +18,7 @@
 .popups .payment-options .input {
   display: flex;
   flex-direction: column;
-  font-size: 11px;
-  @media (min-width: 640px) {
-    font-size: 15px;
-  }
+  font-size: 12px;
 }
 
 .popups .payment-options .input input {
@@ -30,9 +27,6 @@
   flex: 1;
   padding: 14px;
   margin-top: 8px;
-  @media (min-width: 640px) {
-    padding: 16px 24px;
-  }
   &:focus {
     outline: none;
   }

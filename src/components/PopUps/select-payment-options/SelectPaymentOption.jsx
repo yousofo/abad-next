@@ -8,6 +8,7 @@ import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
+import { resetPopUps } from "@/components/GlobalState/Features/popUpsSlice";
 
 /**
  * Renders a payment method button with the given image, text, and isTamara flag.
@@ -30,7 +31,7 @@ const PaymentMethod = ({ image, text,setSelected}) => {
         id={`paymentOptionSelection-${text}`}
         onClick={() => setSelected(text)}
       />
-      <label for={`paymentOptionSelection-${text}`} className="flex gap-1 items-center">
+      <label htmlFor={`paymentOptionSelection-${text}`} className="flex gap-1 items-center">
         <img src={image} className="max-h-10 " alt="" />
         <span className="text-sm">{text}</span>
       </label>
@@ -39,7 +40,7 @@ const PaymentMethod = ({ image, text,setSelected}) => {
 };
 
 const SelectPaymentOption = () => {
-  const [selected,setSelected] = useState()
+  const [selected,setSelected] = useState(null)
   const { token } = useParams(); //course token
   const userInfo = useSelector((store) => store.userData.info);
   const dispatch = useDispatch();
@@ -70,8 +71,15 @@ const SelectPaymentOption = () => {
       text: "Tabby",
     },
   ];
-  function handleClose() {}
+  function handleClose() {
+    dispatch(resetPopUps())
+  }
   async function handleSubmit() {
+    if(!selected){
+      toast.error("يرجى تحديد طريقة الدفع");
+      return;
+    }
+
     dispatch(openLoader("جاري الدفع"));
 
     const courseToken = token || currentCourseToken;
@@ -86,7 +94,11 @@ const SelectPaymentOption = () => {
       );
       console.log(result);
       toast.success(result.message);
-      router.push(result.redirect_url);
+      if(isTamara){
+        router.push(result.checkout_url);
+      }else{
+        router.push(result.redirect_url);
+      }
     } catch (error) {
       toast.error(error.error);
       console.log(error);
@@ -94,6 +106,7 @@ const SelectPaymentOption = () => {
       dispatch(closeLoader());
     }
   }
+  
   return (
     <div className="payment-options min-w-80 md:w-[400px] flex flex-col gap-4 relative">
       <svg
@@ -102,7 +115,7 @@ const SelectPaymentOption = () => {
         width="20px"
         height="20px"
         viewBox="0 0 256 256"
-        className="absolute top-1 right-1 z-10"
+        className="absolute top-1 right-1 z-10 cursor-pointer"
         onClick={handleClose}
       >
         <path d="M202.82861,197.17188a3.99991,3.99991,0,1,1-5.65722,5.65624L128,133.65723,58.82861,202.82812a3.99991,3.99991,0,0,1-5.65722-5.65624L122.343,128,53.17139,58.82812a3.99991,3.99991,0,0,1,5.65722-5.65624L128,122.34277l69.17139-69.17089a3.99991,3.99991,0,0,1,5.65722,5.65624L133.657,128Z" />
@@ -138,7 +151,7 @@ const SelectPaymentOption = () => {
           <input type="text" name="" required placeholder="اكتب كود الخصم" />
         </div>
 
-        <button className="bg-abad-gold rounded-lg text-[#282828] font-medium p-3" onClick={handleSubmit}>
+        <button className="bg-abad-gold rounded-lg text-[#282828] font-medium p-3 drop-shadow-lg" onClick={handleSubmit}>
           شراء الان
         </button>
       </div>
