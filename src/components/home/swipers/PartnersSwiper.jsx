@@ -34,7 +34,7 @@ const PartnersSwiper = () => {
         imagesX2.forEach((e, i) =>
           partnerCards.push(
             <SwiperSlide key={"partnerCard-" + i}>
-              <img style={{ margin: "0 auto" }} src={`/media/${e}`} alt="" />
+              <img style={{ margin: "0 auto" }} src={`/media/partners/${e}`} alt="" />
             </SwiperSlide>
           )
         );

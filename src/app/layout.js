@@ -9,6 +9,7 @@ import BrowserWarning from "@/components/shared/browser-support/BrowserWarning";
 import { ToastContainer } from "react-toastify";
 import Loader from "@/components/shared/Loader/Loader";
 import "./globals.css";
+import Head from "next/head";
 
 // import localFont from 'next/font/local'
 
@@ -77,6 +78,9 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en" dir="rtl">
+      <Head>
+        <link rel="shortcut icon" href="/icon.png" type="image/png" />
+      </Head>
       <body /*className={bukra.className}*/ suppressHydrationWarning={true}>
         <BrowserWarning />
         <StateProvider>
