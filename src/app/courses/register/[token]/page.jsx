@@ -58,7 +58,7 @@ const Register = ({ params }) => {
   const shimmerLoader = useRef(null);
   const [fetched, setFetched] = useState(false);
 
-  const [courseImg, setCourseImg] = useState(defaultCourseImg);
+  const [courseImg, setCourseImg] = useState("");
   const [courseInfo, setCourseInfo] = useState({});
   const dispatch = useDispatch();
   const router = useRouter();
