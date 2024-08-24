@@ -21,8 +21,6 @@ import { resetPopUps } from "@/components/GlobalState/Features/popUpsSlice";
  * @return {JSX.Element} The payment method button component.
  */
 const PaymentMethod = ({ image, text,setSelected}) => {
-  
-  
   return (
     <div className="flex gap-2 items-center">
       <input

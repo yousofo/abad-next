@@ -33,20 +33,20 @@
   font-weight: 500;
 }
 @media (min-width: 640px) {
-  .course-row > td:nth-child(3) span::nth-child(1) {
+  .course-row > td:nth-child(3) >span:nth-child(1) {
     display: none;
  }
 }
-.course-row > td:nth-child(3) span::nth-child(2) {
+.course-row > td:nth-child(3) >span:nth-child(2) {
   padding-left: 0.25rem;
   padding-right: 0.25rem;
 }
 @media (min-width: 640px) {
-  .course-row > td:nth-child(3) span::nth-child(2) {
+  .course-row > td:nth-child(3) >span:nth-child(2) {
     display: none;
  }
 }
-.course-row > td:nth-child(3) span::nth-child(3) {
+.course-row > td:nth-child(3) >span:nth-child(3) {
   font-weight: 500;
 }
 .course-row td:nth-child(4) {

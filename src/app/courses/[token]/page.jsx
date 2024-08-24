@@ -20,7 +20,7 @@ import {
 const Course = ({ params }) => {
   const defaultCourseImg = "/media/course/course-image.png"
   const  shimmerLoader = useRef(null)
-  const [courseImg, setCourseImg] = useState(defaultCourseImg);
+  const [courseImg, setCourseImg] = useState("");
   const [fetched, setFetched] = useState(false);
   const [imgLoaded, setImgLoaded] = useState(false);
   const router = useRouter();

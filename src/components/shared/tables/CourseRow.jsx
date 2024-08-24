@@ -6,8 +6,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { buyCourseNow, handleRegisterAttendanceCourse } from "@/helperFunctions/signedInActions";
 
 const CourseRow = ({ index, data }) => {
-  const user = useSelector((store) => store.userData.info);
-  const dispatch = useDispatch();
   const isOnline =
     data.isOnline == "اونلاين" ||
     data.isOnline == "أون لاين" ||

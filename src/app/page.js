@@ -10,7 +10,7 @@ import Hero from "@/components/shared/hero/Hero";
 import Link from "next/link";
 import dynamic from "next/dynamic";
 
-export const fetchCache = "force-no-store";
+// export const fetchCache = "force-no-store";
 const VideoSection = dynamic(
   () => import("@/components/home/videoSection/VideoSection"),
   {

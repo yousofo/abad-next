@@ -6,22 +6,32 @@ const noCacheHeaders = {
   "Surrogate-Control": "no-store",
 };
 
+export const cashedHeaders = {
+  "Cache-Control": "",
+  Pragma: "no-cache",
+  Expires: "0",
+  "Surrogate-Control": "no-store",
+};
 /**
  * Fetches a URL with optional caching and error handling.
  *
  * @param {string} url - The URL to fetch.
  * @param {object} [options={}] - Additional options to pass to the fetch request.
  * @param {any} [fallBack] - A fallback value to return if the fetch fails.
+ * @param {boolean} [cashe] - wether to cache the response or not.
  * @return {Promise<any>} - A promise that resolves to the parsed JSON response or the response text.
  * @throws {Error} - If the fetch fails and no fallback value is provided.
  */
-export async function fetchWithCheck(url, options = {}, fallBack) {
+export async function fetchWithCheck(url, options = {}, fallBack, cashe) {
   try {
+    const headers = cashe ? { "": "" } : noCacheHeaders;
+    const casheOption = cashe ? { "": "" } : { cache: "no-cache" };
+
     const response = await fetch(url, {
-      cache: "no-cache",
+      ...casheOption,
       ...options,
       headers: {
-        ...noCacheHeaders,
+        ...headers,
         ...options?.headers,
       },
     });
@@ -55,7 +65,7 @@ export async function fetchWithCheck(url, options = {}, fallBack) {
 // home
 
 export async function fetchHomeData() {
-  const data = await fetchWithCheck(`/api/home/homeData`,null,null);
+  const data = await fetchWithCheck(`/api/home/homeData`, null, null);
   return data;
 }
 
@@ -78,7 +88,7 @@ export async function fetchComments() {
 export async function fetchCheckCourse(courseToken) {
   try {
     const data = await fetchWithCheck(
-      `/api/reservations/checkCourse?token=${courseToken}&timestamp=${new Date().getTime()}`,
+      `/api/reservations/checkCourse?token=${courseToken}&timestamp=${new Date().getTime()}`
     );
     return data;
   } catch (error) {
