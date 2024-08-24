@@ -148,7 +148,7 @@ const Contact = () => {
           </div>
           <input
             type="submit"
-            defaultValue="ارسال"
+            value="ارسال"
             form="contact-form"
             className="py-3 px-6 rounded-2xl bg-[#FDB614] text-[#282828] font-medium w-fit ms-auto"
           />
