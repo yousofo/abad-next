@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import "./course.css";
 
 import Accordion from "@/components/shared/Accordion/Accordion";
@@ -7,7 +7,10 @@ import { useRouter } from "next/navigation";
 import { useDispatch } from "react-redux";
 
 import Link from "next/link";
-import { closeLoader, openLoader } from "@/components/GlobalState/Features/popUpsSlice";
+import {
+  closeLoader,
+  openLoader,
+} from "@/components/GlobalState/Features/popUpsSlice";
 import { fetchWithCheck } from "@/helperFunctions/dataFetching";
 
 async function fetchCourseDetails(token) {
@@ -50,7 +53,10 @@ async function fetchRegisterCourseRequest(data) {
 }
 
 const Register = ({ params }) => {
-  const defaultCourseImg = "/media/course/course-image.png"
+  const defaultCourseImg = "/media/course/course-image.png";
+  const [imgLoaded, setImgLoaded] = useState(false);
+  const shimmerLoader = useRef(null);
+  const [fetched, setFetched] = useState(false);
 
   const [courseImg, setCourseImg] = useState(defaultCourseImg);
   const [courseInfo, setCourseInfo] = useState({});
@@ -60,16 +66,22 @@ const Register = ({ params }) => {
   useEffect(() => {
     dispatch(openLoader(""));
     fetchCourseDetails(params.token)
-      .then((e) => {
-        if (e.error) {
+      .then((courseData) => {
+        if (courseData.error) {
           router.replace("/courses");
           return;
         }
-        setCourseInfo(e);
-        setCourseImg(e.imageUrl);
+        setCourseInfo(courseData);
+        setCourseImg(courseData.imageUrl);
       })
       .catch((e) => {
         console.log(e);
+        router.replace("/courses");
+        return;
+      })
+      .finally(() => {
+        setFetched(true);
+        dispatch(closeLoader());
       });
   }, []);
   return (
@@ -238,20 +250,30 @@ const Register = ({ params }) => {
           </section>
           {/* COURSE CONTENT end */}
           {/* COURSE CARD start */}
-          <figure className="p-5  mx-auto md:p-6 text-[#252525] bg-white shadow rounded-xl md:rounded-2xl w-full max-w-[373px] h-fit">
+          <figure className="p-5  mx-auto md:p-6 text-[#252525] bg-white shadow rounded-xl relative md:rounded-2xl w-full max-w-[373px] h-fit">
+            <div
+              className={`shimmer-effect ${
+                fetched ? "hidden" : ""
+              } w-full h-full absolute top-0 left-0`}
+            >
+              <div className="w-full h-full"></div>
+            </div>
+            <div
+              className={`shimmer-effect ${imgLoaded ? "hidden" : ""}`}
+              ref={shimmerLoader}
+            >
+              <div className="w-full h-72"></div>
+            </div>
             <img
-              src={courseImg || defaultCourseImg}
+              src={courseImg}
               alt=""
-              className="mx-auto mb-2 md:mb-4"
+              className={`mx-auto mb-2 ${imgLoaded ? "" : "hidden"} md:mb-4`}
               onLoad={() => {
-                console.log("loaded")
-                let cur = setTimeout(() => {
-                  dispatch(closeLoader());
-                  return clearTimeout(cur);
-                }, 500);
+                console.log("loaded");
+                setImgLoaded(true);
               }}
-              
               onError={() => {
+                setImgLoaded(true);
                 setCourseImg(defaultCourseImg);
                 dispatch(closeLoader());
               }}

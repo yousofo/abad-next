@@ -4,8 +4,8 @@ import React from "react";
 import { useSelector } from "react-redux";
 
 const Loader = () => {
-  const { active } = useSelector((state) => state.popUps.loader);
-
+  // const { active } = useSelector((state) => state.popUps.loader);
+  const active = false
   return (
     <div
       className={`${
