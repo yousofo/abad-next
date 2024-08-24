@@ -1,5 +1,5 @@
 "use client";
-import "./courseRow.css";
+import "./courseRow.dev.css";
 import Link from "next/link";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";

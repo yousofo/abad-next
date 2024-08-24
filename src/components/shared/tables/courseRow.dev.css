@@ -57,7 +57,9 @@
     }
     > div {
       display: flex;
-
+      /* >*{
+        max-width: 50%;
+      } */
       @media (min-width: 640px) {
         display: none;
       }

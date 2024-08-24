@@ -2,12 +2,10 @@
   --abad-gold: #fdb614;
 }
 main.home-page {
-
   .courses-sec {
     width: 100%;
     height: fit-content;
     position: relative;
-    /* margin-top: -80px; */
     > img {
       display: none;
       position: absolute;
@@ -24,9 +22,6 @@ main.home-page {
         background: linear-gradient(to right, #1b45b4, #1c2792);
       }
     }
-    /* @media (min-width: 640px) {
-      margin-top: 0;
-    } */
   }
   .plan {
     position: relative;

@@ -286,6 +286,7 @@
 }
 .home-courses .courses-contents > table tbody tr td .btns > * {
   flex: 1;
+  max-width: 50%;
 }
 .home-courses .courses-contents > table tbody tr td .btns > * > * {
   width: 100%;
