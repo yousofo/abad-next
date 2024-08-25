@@ -11,6 +11,7 @@ import { fetchWithCheck } from "@/helperFunctions/dataFetching";
 import {
   closeLoader,
   openLoader,
+  toggleSelectPaymentOptions,
 } from "@/components/GlobalState/Features/popUpsSlice";
 import Hero from "@/components/shared/hero/Hero";
 
@@ -43,6 +44,7 @@ const BasketItem = ({ data, userToken }) => {
 
     dispatch(closeLoader(""));
   }
+  
   return (
     <tr
       className={`text-[#626262] bg-white p-2.5 rounded-[10px] abad-drop-shadow sm:shadow-none font-medium flex flex-col sm:table-row`}
@@ -162,8 +164,11 @@ const Basket = () => {
   // get user JSON string then extract user's token
   const userInfo = useSelector((store) => store.userData.info);
 
-  const router = useRouter();
+  const [discount, setDiscount] = useState(0);
 
+
+  const router = useRouter();
+  console.log(userBasket)
   async function handleFetchBasket() {
     dispatch(openLoader("جاري التحميل"));
 
@@ -175,12 +180,20 @@ const Basket = () => {
   useEffect(() => {
     if (userInfo) handleFetchBasket();
     else router.replace("/");
+
+    fetchWithCheck(`/api/views/compareCourses?courseNumber=${userBasket.length}`,null,0).then(result=>{
+      console.log(result)
+      setDiscount(result.discount);
+    })
+
   }, [toggleReFetch]);
 
   //calculate all courses prices in basket
-  let totalPrice = userBasket?.reduce((pre, cur) => {
+  let accumulatedBasketPrice = userBasket?.reduce((pre, cur) => {
     return +pre + +cur.coursePrice;
   }, 0);
+
+  let discountedBasketPrice = accumulatedBasketPrice - (discount*accumulatedBasketPrice)/100
 
   return (
     <main className="pb-10 sm:pb-24 relative">
@@ -233,11 +246,11 @@ const Basket = () => {
           <h3 className="text-[#221638] md:text-xl">الاجمالي</h3>
           <h3 className="text-[#1B45B4] text-xs md:text-xl">
             <bdi>
-              {totalPrice}
+              {discountedBasketPrice}
               &nbsp; ريال سعودي
             </bdi>
           </h3>
-          <button className="w-full p-4 rounded-[10px] text-white text-xs sm:text-lg">
+          <button className="w-full p-4 rounded-[10px] text-white text-xs sm:text-lg" onClick={()=>dispatch(toggleSelectPaymentOptions())}>
             شراء الان
           </button>
         </div>

@@ -60,31 +60,15 @@ export async function fetchResetPassword(data) {
     }
   );
 
+  console.log(result);
+  
   if(result.errors){
-    let messages = Object.entries(dataToReturn.errors).map(([key, value]) => {
+    let messages = Object.entries(result.errors).map(([key, value]) => {
       return value;
     });
     return messages;
   } else {
-    return dataToReturn;
+    return result;
   }
-  
-  // if (
-  //   request.headers.get("Content-Type").includes("application/json") ||
-  //   request.headers.get("Content-Type").includes("application/problem+json")
-  // ) {
-  //   const dataToReturn = await request.json();
-  //   console.log(dataToReturn);
-  //   if (dataToReturn.errors) {
-  //     let messages = Object.entries(dataToReturn.errors).map(([key, value]) => {
-  //       return value;
-  //     });
-  //     return messages;
-  //   } else {
-  //     return dataToReturn;
-  //   }
-  // } else {
-  //   const dataToReturn = await request.text();
-  //   return dataToReturn;
-  // }
+
 }

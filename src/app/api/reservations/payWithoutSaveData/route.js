@@ -1,40 +1,40 @@
 import { fetchWithCheck } from "@/helperFunctions/dataFetching";
-
+import { noCacheHeaders } from "@/helperFunctions/dataFetching";
 export const fetchCache = "force-no-store";
 
 export async function POST(request) {
-  console.log("Pay Without Save Data ==============================");
+  console.log("Pay Without Save Data ");
 
-  const url = new URL(request.url);
-  const tokenCourse = url.searchParams.get("tokenCourse");
-  const TokenStudent = url.searchParams.get("TokenStudent");
-  const IsTamar = url.searchParams.get("IsTamar");
-
+  const requestData = await request.json();
+  const dataToSend = new FormData();
+  dataToSend.append("tokenCoursesList", requestData.tokenCoursesList);
+  dataToSend.append("TokenStudent", requestData.TokenStudent);
+  dataToSend.append("IsTamar", requestData.IsTamar);
+  dataToSend.append("IsTabby", requestData.IsTabby);
+  dataToSend.append("DiscountCode", requestData.DiscountCode);
+  
   try {
     const responseData = await fetchWithCheck(
-      `${process.env.NEXT_PUBLIC_ROOT_URL}/api/Reservations/PayWithoutSaveData?tokenCourse=${tokenCourse}&TokenStudent=${TokenStudent}&IsTamar=${IsTamar}&`,
+      `${process.env.NEXT_PUBLIC_ROOT_URL}/api/Reservations/PayWithoutSaveData`,
       {
         method: "POST",
+        body: dataToSend,
       }
     );
-
+    
     return new Response(JSON.stringify(responseData), {
       headers: {
-        'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate',
-        'Pragma': 'no-cache',
-        'Expires': '0',
-        'Surrogate-Control': 'no-store'
-      }
+        ...noCacheHeaders,
+      },
     });
   } catch (error) {
+    console.log("==============================");
     console.log(error);
     return new Response(JSON.stringify(error), {
-      status: 500, headers: {
-        'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate',
-        'Pragma': 'no-cache',
-        'Expires': '0',
-        'Surrogate-Control': 'no-store'
-      }
+      status: 500,
+      headers: {
+        ...noCacheHeaders,
+      },
     });
   }
 }

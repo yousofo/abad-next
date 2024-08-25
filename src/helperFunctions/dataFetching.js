@@ -1,4 +1,4 @@
-const noCacheHeaders = {
+export const noCacheHeaders = {
   // 'Content-Type': 'application/json',
   "Cache-Control": "no-store, no-cache, must-revalidate, proxy-revalidate",
   Pragma: "no-cache",

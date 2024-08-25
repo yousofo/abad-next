@@ -20,7 +20,7 @@ const PopUps = () => {
   return (
     <div
       onClick={handleAuthClose}
-      className={`${isHidden ? "hidden" : "flex"} auth popups z-[99]`}
+      className={`${isHidden ? "hidden" : "flex"} auth popups z-[199]`}
     >
       <div
         onClick={(e) => e.stopPropagation()}

@@ -5,7 +5,7 @@ import {
 import { fetchWithCheck } from "@/helperFunctions/dataFetching";
 import { useParams } from "next/navigation";
 import { useRouter } from "next/navigation";
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { resetPopUps } from "@/components/GlobalState/Features/popUpsSlice";
@@ -20,7 +20,7 @@ import { resetPopUps } from "@/components/GlobalState/Features/popUpsSlice";
  * @param {boolean} props.isTamara - Flag indicating if the payment method is Tamara.
  * @return {JSX.Element} The payment method button component.
  */
-const PaymentMethod = ({ image, text,setSelected}) => {
+const PaymentMethod = ({ image, text, setSelected }) => {
   return (
     <div className="flex gap-2 items-center">
       <input
@@ -29,7 +29,10 @@ const PaymentMethod = ({ image, text,setSelected}) => {
         id={`paymentOptionSelection-${text}`}
         onClick={() => setSelected(text)}
       />
-      <label htmlFor={`paymentOptionSelection-${text}`} className="flex gap-1 items-center">
+      <label
+        htmlFor={`paymentOptionSelection-${text}`}
+        className="flex gap-1 items-center"
+      >
         <img src={image} className="max-h-10 " alt="" />
         <span className="text-sm">{text}</span>
       </label>
@@ -38,11 +41,13 @@ const PaymentMethod = ({ image, text,setSelected}) => {
 };
 
 const SelectPaymentOption = () => {
-  const [selected,setSelected] = useState(null)
+  const [selected, setSelected] = useState(null);
   const { token } = useParams(); //course token
   const userInfo = useSelector((store) => store.userData.info);
+  const userBasket = useSelector((store) => store.userData.basket.data);
   const dispatch = useDispatch();
   const router = useRouter();
+  const discountCode = useRef(null);
   const currentCourseToken = useSelector(
     (store) => store.popUps.currentCourseToken
   );
@@ -70,33 +75,50 @@ const SelectPaymentOption = () => {
     },
   ];
   function handleClose() {
-    dispatch(resetPopUps())
+    dispatch(resetPopUps());
   }
   async function handleSubmit() {
-    if(!selected){
+    if (!selected) {
       toast.error("يرجى تحديد طريقة الدفع");
       return;
     }
 
     dispatch(openLoader("جاري الدفع"));
 
-    const courseToken = token || currentCourseToken;
-    const isTamara = selected === "Tamara" ? true : false;
+    let tokenCoursesList;
+
+    if (window.location.pathname == "/basket") {
+      tokenCoursesList = userBasket;
+    } else {
+      tokenCoursesList = [token || currentCourseToken];
+    }
+
+    console.log({
+      tokenCoursesList,
+      TokenStudent: userInfo.token,
+      IsTamar: selected == "Tamara",
+      IsTabby: selected == "Tabby",
+      DiscountCode: discountCode.current.value,
+    });
+
     try {
-      console.log(courseToken, userInfo.token);
       const result = await fetchWithCheck(
-        `/api/reservations/payWithoutSaveData?tokenCourse=${courseToken}&TokenStudent=${userInfo.token}&IsTamar=${isTamara}`,
+        `/api/reservations/payWithoutSaveData`,
         {
           method: "POST",
+          body: JSON.stringify({
+            tokenCoursesList,
+            TokenStudent: userInfo.token,
+            IsTamar: selected == "Tamara",
+            IsTabby: selected == "Tabby",
+            DiscountCode: discountCode.current.value,
+          }),
         }
       );
       console.log(result);
       toast.success(result.message);
-      if(isTamara){
-        router.push(result.checkout_url);
-      }else{
-        router.push(result.redirect_url);
-      }
+
+      // router.push(result.redirect_url);
     } catch (error) {
       toast.error(error.error);
       console.log(error);
@@ -104,7 +126,7 @@ const SelectPaymentOption = () => {
       dispatch(closeLoader());
     }
   }
-  
+
   return (
     <div className="payment-options min-w-80 md:w-[400px] flex flex-col gap-4 relative">
       <svg
@@ -146,10 +168,19 @@ const SelectPaymentOption = () => {
           <label htmlFor="" className="text-xs">
             كود الخصم
           </label>
-          <input type="text" name="" required placeholder="اكتب كود الخصم" />
+          <input
+            ref={discountCode}
+            type="text"
+            name=""
+            required
+            placeholder="اكتب كود الخصم"
+          />
         </div>
 
-        <button className="bg-abad-gold rounded-lg text-[#282828] font-medium p-3 drop-shadow-lg" onClick={handleSubmit}>
+        <button
+          className="bg-abad-gold rounded-lg text-[#282828] font-medium p-3 drop-shadow-lg"
+          onClick={handleSubmit}
+        >
           شراء الان
         </button>
       </div>

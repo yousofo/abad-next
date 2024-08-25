@@ -1,46 +1,67 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 //swiper
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay } from "swiper/modules";
+import { fetchWithCheck } from "@/helperFunctions/dataFetching";
 
-const PartnersSwiper = () => {
-  const images = [
-    "gitlab-logo-svg-150px.png",
-    "lattice-logo-svg-150px.png",
-    "sendgrid-logo-svg-150px.png",
-    "pendo-logo-svg-150px.png",
-    "pingdom-dark.png",
-  ];
+const PartnersItem = ({ data }) => {
+  const [hasImg, seHasImg] = useState(true);
+  function handleImgError(e) {
+    seHasImg(false);
+  }
+  useEffect(() => {
+    seHasImg(true);
+  }, [data.image]);
   return (
+    <div>
+      <img
+        className={`${!hasImg && "hidden"} max-h-12 max-w-72`}
+        style={{ margin: "0 auto" }}
+        src={data.image}
+        alt=""
+        onLoad={() => console.log("loaded")}
+        onError={handleImgError}
+      />
+      <p className={`${hasImg && "hidden"} text-center`}>{data.name}</p>
+    </div>
+  );
+};
+const PartnersSwiper = () => {
+const [data,setData] = useState([])
+
+  console.log(data)
+  let dataX2 = [...data, ...data]
+  
+  useEffect(() => {
+    fetchWithCheck(
+      `/api/partners`,
+      null,
+      []
+    ).then((data) => {
+      setData(data)
+    })
+  }, [])
+    return (
     <Swiper
       modules={[Autoplay]}
       slidesPerView={1}
       breakpoints={{
         640: {
           slidesPerView: 2,
+          loop: data.length >= 4,
         },
         1024: {
           slidesPerView: 3,
+          loop: data.length >= 6,
         },
       }}
-      loop
+      
       autoplay={{ delay: 1000 }}
     >
-      {(function () {
-        let partnerCards = [];
-        let imagesX2 = [...images, ...images];
-
-        imagesX2.forEach((e, i) =>
-          partnerCards.push(
-            <SwiperSlide key={"partnerCard-" + i}>
-              <img style={{ margin: "0 auto" }} src={`/media/partners/${e}`} alt="" />
-            </SwiperSlide>
-          )
-        );
-
-        return partnerCards;
-      })()}
+      {
+        dataX2.map((e, i) => (<SwiperSlide key={"partnerCard-" + i}><PartnersItem key={"partnerCard-" + i} data={e} /></SwiperSlide>))
+      }
     </Swiper>
   );
 };
