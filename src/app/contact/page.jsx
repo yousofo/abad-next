@@ -158,7 +158,7 @@ const Contact = () => {
       <iframe
         style={{ border: "0" }}
         loading="lazy"
-        allowfullscreen
+        allowFullscreen
         src="https://www.google.com/maps/embed/v1/place?q=place_id:ChIJ674hC6Y_WBQRujtC6Jay33k&key=AIzaSyCuTilAfnGfkZtIx0T3qf-eOmWZ_N2LpoY"
       ></iframe>
     </main>
