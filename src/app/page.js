@@ -33,6 +33,8 @@ export default async function Home() {
 
   return (
     <main className="home home-page">
+      {/* img for search result */}
+      <img src="/icon.png" alt="learn with abad" className="hidden" />
       {/* HERO start  */}
 
       <HomeHero />

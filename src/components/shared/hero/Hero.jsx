@@ -7,6 +7,8 @@ const Hero = ({ children }) => {
         {children}
       </div>
       <div className="back-shape w-full h-full absolute top-0 left-0 -z-50">
+        {/* img for search result */}
+        <img src="/icon.png" alt="learn with abad" className="hidden" />
         <img
           className="first w-full h-full object-cover overflow-visible"
           src="/media/BackgroundHero_rect.png"
