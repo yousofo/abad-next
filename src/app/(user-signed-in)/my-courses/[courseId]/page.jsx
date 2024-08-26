@@ -8,6 +8,7 @@ import {
   closeLoader,
   openLoader,
 } from "@/components/GlobalState/Features/popUpsSlice";
+import { handleValidateToken } from "@/helperFunctions/signedInActions";
 
 async function fetchUserCourseDetails(token) {
   try {
@@ -30,19 +31,29 @@ async function fetchUserCourseDetails(token) {
 }
 
 const MyCourse = ({ params }) => {
-  const isSignedIn = useSelector((store) => store.auth.isSignedIn);
+  const isSignedIn = useSelector((store) => store.userData.info);
   let router = useRouter();
   const [data, setData] = useState({});
   const dipsatch = useDispatch();
-  // if (!isSignedIn) {
-  //   router.replace("/");
-  // }
+
+  console.log(data);
   useEffect(() => {
+    if (!isSignedIn) {
+      router.replace("/");
+      return;
+    }
     dipsatch(openLoader(""));
     fetchUserCourseDetails(params.courseId)
       .then((e) => setData(e))
       .catch((e) => console.log(e))
       .finally(() => dipsatch(closeLoader("")));
+
+    handleValidateToken().then((e) => {
+      if (!e) {
+        router.replace("/");
+        return;
+      }
+    });
   }, []);
   return (
     <main className="pb-10 sm:pb-24 relative">

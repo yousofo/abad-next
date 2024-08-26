@@ -72,3 +72,9 @@ export async function fetchResetPassword(data) {
   }
 
 }
+
+
+export async function fetchCheckToken(token) {
+  const result = await fetchWithCheck(`/api/student/checkToken?token=${token}`);
+  return result;
+}

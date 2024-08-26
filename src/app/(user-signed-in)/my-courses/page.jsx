@@ -11,6 +11,8 @@ import {
 } from "@/components/GlobalState/Features/popUpsSlice";
 import { fetchWithCheck } from "@/helperFunctions/dataFetching";
 import Hero from "@/components/shared/hero/Hero";
+import { fetchCheckToken } from "@/helperFunctions/auth";
+import { handleValidateToken } from "@/helperFunctions/signedInActions";
 
 async function FetchStudentCourses(token) {
   try {
@@ -66,6 +68,7 @@ const MyCourses = () => {
 
     if (!userInfo) {
       router.replace("/");
+      return;
     } else {
       FetchStudentCourses(userInfo.token)
         .then((e) => {
@@ -76,6 +79,13 @@ const MyCourses = () => {
         .catch((e) => console.log(e))
         .finally(() => dispatch(closeLoader()));
     }
+
+    handleValidateToken().then((e) => {
+      if (!e) {
+        router.replace("/");
+        return;
+      }
+    });
   }, []);
 
   return (

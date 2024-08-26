@@ -6,10 +6,14 @@ import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import Loader from "@/components/shared/Loader/Loader";
 import { toggleUpdateInfo } from "@/components/GlobalState/Features/userData";
-import { closeLoader, openLoader } from "@/components/GlobalState/Features/popUpsSlice";
+import {
+  closeLoader,
+  openLoader,
+} from "@/components/GlobalState/Features/popUpsSlice";
 import Hero from "@/components/shared/hero/Hero";
 import { fetchWithCheck } from "@/helperFunctions/dataFetching";
 import { toast } from "react-toastify";
+import { handleValidateToken } from "@/helperFunctions/signedInActions";
 
 async function fetchUpdateStudent(bodyData, token) {
   try {
@@ -59,7 +63,7 @@ const Profile = () => {
     if (result.message) {
       dispatch(toggleUpdateInfo({ ...formData, token: userInfo.token }));
       toast.success(result.message);
-    } 
+    }
     console.log(result);
 
     dispatch(closeLoader());
@@ -69,6 +73,12 @@ const Profile = () => {
     reset({
       ...userInfo,
       birthDate: newDate,
+    });
+    handleValidateToken().then((e) => {
+      if (!e) {
+        router.replace("/");
+        return;
+      }
     });
   }, []);
 

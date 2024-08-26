@@ -29,6 +29,7 @@ import {
 import { COLUMNS } from "./columns";
 // filter functions
 import { filteredDataFn, priceFilterFn, sortedDataFn } from "./filterLogic";
+import { handleValidateToken } from "@/helperFunctions/signedInActions";
 
 // main component
 const CoursesComponent = () => {
@@ -36,7 +37,6 @@ const CoursesComponent = () => {
   const dispatch = useDispatch();
   //global state
   const isCards = useSelector((store) => store.coursesFilter.isCards);
-  const user = useSelector((store) => store.userData.info);
 
   //filtering
   const [data, setData] = useState([]);
@@ -131,6 +131,13 @@ const CoursesComponent = () => {
       .catch((error) => {
         console.log("courses filter");
         console.log(error);
+      });
+
+      handleValidateToken().then((e) => {
+        if (!e) {
+          router.replace("/");
+          return;
+        }
       });
   }, []);
 

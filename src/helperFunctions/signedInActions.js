@@ -1,10 +1,12 @@
 // sharedFunctions.js
-import { toggleSignIn } from "@/components/GlobalState/Features/authSlice";
+import { toggleResetAuth, toggleSignIn } from "@/components/GlobalState/Features/authSlice";
 import { closeLoader, openLoader, toggleSelectPaymentOptions } from "@/components/GlobalState/Features/popUpsSlice";
-import { fetchUserBasket } from "@/components/GlobalState/Features/userData";
+import { fetchUserBasket, toggleResetUserData } from "@/components/GlobalState/Features/userData";
 import { store } from "@/components/GlobalState/store";
 import { fetchAddToBasket, fetchRegisterAttendanceCourse } from "./dataFetching";
 import { toast } from "react-toastify";
+import { fetchCheckToken } from "./auth";
+import { deleteAllUserAuthDataFromCookies } from "./cookiesManagement";
 
 
 export function isUserSignedIn() {
@@ -76,4 +78,16 @@ export async function handleRegisterAttendanceCourse(courseToken) {
     toast.error(result.error);
   }
   store.dispatch(closeLoader());
+}
+
+export async function handleValidateToken() {
+  if(!isUserSignedIn()) return;
+  
+  const result = await fetchCheckToken(store.getState().userData.info.token);
+  if(!result.exists){
+    deleteAllUserAuthDataFromCookies();
+    store.dispatch(toggleResetUserData())
+    store.dispatch(toggleResetAuth())
+  }
+  return result.exists
 }

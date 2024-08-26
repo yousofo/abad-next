@@ -12,6 +12,7 @@ import {
   openLoader,
 } from "@/components/GlobalState/Features/popUpsSlice";
 import { fetchWithCheck } from "@/helperFunctions/dataFetching";
+import { handleValidateToken } from "@/helperFunctions/signedInActions";
 
 async function fetchCourseDetails(token) {
   try {
@@ -83,6 +84,12 @@ const Register = ({ params }) => {
         setFetched(true);
         dispatch(closeLoader());
       });
+        handleValidateToken().then((e) => {
+          if (!e) {
+            router.replace("/");
+            return;
+          }
+        });
   }, []);
   return (
     <main className="pb-10 relative">

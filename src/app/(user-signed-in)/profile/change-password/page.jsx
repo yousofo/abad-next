@@ -1,11 +1,15 @@
 "use client";
-import React, { useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import "./change-password.css";
 import Link from "next/link";
 import { useDispatch, useSelector } from "react-redux";
 import Hero from "@/components/shared/hero/Hero";
-import { closeLoader, openLoader } from "@/components/GlobalState/Features/popUpsSlice";
+import {
+  closeLoader,
+  openLoader,
+} from "@/components/GlobalState/Features/popUpsSlice";
 import { toast } from "react-toastify";
+import { handleValidateToken } from "@/helperFunctions/signedInActions";
 
 async function fetchUpdatePassword(data, token) {
   try {
@@ -49,6 +53,14 @@ const ChangePassword = () => {
     dispatch(closeLoader(""));
   }
 
+  useEffect(() => {
+    handleValidateToken().then((e) => {
+      if (!e) {
+        router.replace("/");
+        return;
+      }
+    });
+  }, []);
   return (
     <main className="pb-10 sm:pb-24 relative">
       {/* HERO start  */}

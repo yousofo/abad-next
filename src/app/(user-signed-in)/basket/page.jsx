@@ -14,6 +14,7 @@ import {
   toggleSelectPaymentOptions,
 } from "@/components/GlobalState/Features/popUpsSlice";
 import Hero from "@/components/shared/hero/Hero";
+import { handleValidateToken } from "@/helperFunctions/signedInActions";
 
 async function fetchDeletetFromBasket(basketCourseToken) {
   try {
@@ -44,7 +45,7 @@ const BasketItem = ({ data, userToken }) => {
 
     dispatch(closeLoader(""));
   }
-  
+
   return (
     <tr
       className={`text-[#626262] bg-white p-2.5 rounded-[10px] abad-drop-shadow sm:shadow-none font-medium flex flex-col sm:table-row`}
@@ -166,9 +167,8 @@ const Basket = () => {
 
   const [discount, setDiscount] = useState(0);
 
-
   const router = useRouter();
-  console.log(userBasket)
+  console.log(userBasket);
   async function handleFetchBasket() {
     dispatch(openLoader("جاري التحميل"));
 
@@ -177,23 +177,33 @@ const Basket = () => {
     dispatch(closeLoader());
   }
 
-  useEffect(() => {
-    if (userInfo) handleFetchBasket();
-    else router.replace("/");
-
-    fetchWithCheck(`/api/views/compareCourses?courseNumber=${userBasket.length}`,null,0).then(result=>{
-      console.log(result)
-      setDiscount(result.discount);
-    })
-
-  }, [toggleReFetch]);
-
   //calculate all courses prices in basket
   let accumulatedBasketPrice = userBasket?.reduce((pre, cur) => {
     return +pre + +cur.coursePrice;
   }, 0);
 
-  let discountedBasketPrice = accumulatedBasketPrice - (discount*accumulatedBasketPrice)/100
+  let discountedBasketPrice =
+    accumulatedBasketPrice - (discount * accumulatedBasketPrice) / 100;
+
+  useEffect(() => {
+    if (userInfo) handleFetchBasket();
+    else router.replace("/");
+
+    fetchWithCheck(
+      `/api/views/compareCourses?courseNumber=${userBasket.length}`,
+      null,
+      0
+    ).then((result) => {
+      console.log(result);
+      setDiscount(result.discount);
+    });
+    handleValidateToken().then((e) => {
+      if (!e) {
+        router.replace("/");
+        return;
+      }
+    });
+  }, [toggleReFetch]);
 
   return (
     <main className="pb-10 sm:pb-24 relative">
@@ -250,7 +260,10 @@ const Basket = () => {
               &nbsp; ريال سعودي
             </bdi>
           </h3>
-          <button className="w-full p-4 rounded-[10px] text-white text-xs sm:text-lg" onClick={()=>dispatch(toggleSelectPaymentOptions())}>
+          <button
+            className="w-full p-4 rounded-[10px] text-white text-xs sm:text-lg"
+            onClick={() => dispatch(toggleSelectPaymentOptions())}
+          >
             شراء الان
           </button>
         </div>

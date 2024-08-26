@@ -15,17 +15,17 @@ import {
   buyCourseNow,
   handleAddToBasket,
   handleRegisterAttendanceCourse,
+  handleValidateToken,
 } from "@/helperFunctions/signedInActions";
 
 const Course = ({ params }) => {
-  const defaultCourseImg = "/media/course/course-image.png"
-  const  shimmerLoader = useRef(null)
+  const defaultCourseImg = "/media/course/course-image.png";
+  const shimmerLoader = useRef(null);
   const [courseImg, setCourseImg] = useState("");
   const [fetched, setFetched] = useState(false);
   const [imgLoaded, setImgLoaded] = useState(false);
   const router = useRouter();
   let dispatch = useDispatch();
-
   const [courseInfo, setCourseInfo] = useState();
   useEffect(() => {
     console.log("hi");
@@ -40,6 +40,13 @@ const Course = ({ params }) => {
         setFetched(true);
         dispatch(closeLoader());
       });
+
+    handleValidateToken().then((e) => {
+      if (!e) {
+        router.replace("/");
+        return;
+      }
+    });
   }, []);
 
   return (
@@ -208,10 +215,17 @@ const Course = ({ params }) => {
           {/* COURSE CONTENT & ACCORDIONS end */}
           {/* COURSE CARD start */}
           <figure className="p-5 mx-auto md:p-6 text-[#252525] bg-white shadow rounded-xl md:rounded-2xl w-full max-w-[373px] h-fit relative">
-            <div className={`shimmer-effect ${fetched ? "hidden" : ""} w-full h-full absolute top-0 left-0`}>
+            <div
+              className={`shimmer-effect ${
+                fetched ? "hidden" : ""
+              } w-full h-full absolute top-0 left-0`}
+            >
               <div className="w-full h-full"></div>
             </div>
-            <div className={`shimmer-effect ${imgLoaded ? "hidden" : ""}`} ref={shimmerLoader}>
+            <div
+              className={`shimmer-effect ${imgLoaded ? "hidden" : ""}`}
+              ref={shimmerLoader}
+            >
               <div className="w-full h-72"></div>
             </div>
             <img
@@ -219,16 +233,15 @@ const Course = ({ params }) => {
               alt=""
               className={`mx-auto mb-2 ${imgLoaded ? "" : "hidden"} md:mb-4`}
               onLoad={() => {
-                console.log("loaded")
-                setImgLoaded(true)
+                console.log("loaded");
+                setImgLoaded(true);
                 // let cur = setTimeout(() => {
                 //   dispatch(closeLoader());
                 //   return clearTimeout(cur);
                 // }, 500);
               }}
-              
               onError={() => {
-                setImgLoaded(true)
+                setImgLoaded(true);
                 setCourseImg(defaultCourseImg);
                 dispatch(closeLoader());
               }}
