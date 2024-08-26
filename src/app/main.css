@@ -385,8 +385,8 @@ main.home-page .contact form .input input:focus + span {
   transform: translateY(-170%) !important;
 }
 body:has(.auth.flex) {
-  & {
+  /* & { */
     height: 100vh;
     overflow: hidden;
-  }
+  /* } */
 }

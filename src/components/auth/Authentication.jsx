@@ -21,8 +21,7 @@ const Authentication = () => {
   return (
     <div
       onClick={handleAuthClose}
-      style={{ display: isHidden ? "none" : "flex" }}
-      className={`auth z-[999999]`}
+      className={`auth z-[999999] ${isHidden ? "hidden" : "flex"}`}
     >
       <div
         onClick={(e) => e.stopPropagation()}
@@ -30,7 +29,7 @@ const Authentication = () => {
           maxWidth: isSignUp ? "814px" : "fit-content",
           width: isSignUp ? "814px" : "fit-content",
         }}
-        className={`auth-container relative`}
+        className={`auth-container relative `}
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"

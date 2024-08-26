@@ -331,8 +331,8 @@ main.home-page {
   /* contact page */
 }
 body:has(.auth.flex) {
-  & {
+  /* & { */
     height: 100vh;
     overflow: hidden;
-  }
+  /* } */
 }
