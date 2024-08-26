@@ -10,6 +10,7 @@ import {
 } from "@/components/GlobalState/Features/popUpsSlice";
 import { toast } from "react-toastify";
 import { handleValidateToken } from "@/helperFunctions/signedInActions";
+import { useRouter } from "next/navigation";
 
 async function fetchUpdatePassword(data, token) {
   try {
@@ -30,6 +31,7 @@ const ChangePassword = () => {
   let newPassword = useRef(null);
   let confirmNewPassword = useRef(null);
   const dispatch = useDispatch();
+  const router = useRouter()
 
   async function handleSubmit(e) {
     dispatch(openLoader("جاري التحديث"));
@@ -54,6 +56,10 @@ const ChangePassword = () => {
   }
 
   useEffect(() => {
+    if(!isUserSignedIn()){
+      router.replace("/")
+      return;
+    }
     handleValidateToken().then((e) => {
       if (!e) {
         router.replace("/");

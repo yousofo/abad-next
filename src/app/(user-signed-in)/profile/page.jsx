@@ -13,7 +13,8 @@ import {
 import Hero from "@/components/shared/hero/Hero";
 import { fetchWithCheck } from "@/helperFunctions/dataFetching";
 import { toast } from "react-toastify";
-import { handleValidateToken } from "@/helperFunctions/signedInActions";
+import { handleValidateToken, isUserSignedIn } from "@/helperFunctions/signedInActions";
+import { useRouter } from "next/navigation";
 
 async function fetchUpdateStudent(bodyData, token) {
   try {
@@ -34,7 +35,7 @@ async function fetchUpdateStudent(bodyData, token) {
 const Profile = () => {
   const userInfo = useSelector((store) => store.userData.info);
   const dispatch = useDispatch();
-
+  const router = useRouter()
   let newDate = null;
   if (userInfo?.birthDate) {
     const date = new Date(userInfo.birthDate);
@@ -70,10 +71,16 @@ const Profile = () => {
   }
 
   useEffect(() => {
+    if(!isUserSignedIn()){
+      router.replace("/")
+      return;
+    }
+
     reset({
       ...userInfo,
       birthDate: newDate,
     });
+    
     handleValidateToken().then((e) => {
       if (!e) {
         router.replace("/");

@@ -81,9 +81,10 @@ export async function handleRegisterAttendanceCourse(courseToken) {
 }
 
 export async function handleValidateToken() {
-  if(!isUserSignedIn()) return;
+  if(!isUserSignedIn()) return true;
   
   const result = await fetchCheckToken(store.getState().userData.info.token);
+  
   if(!result.exists){
     deleteAllUserAuthDataFromCookies();
     store.dispatch(toggleResetUserData())

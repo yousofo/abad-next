@@ -8,7 +8,7 @@ import {
   closeLoader,
   openLoader,
 } from "@/components/GlobalState/Features/popUpsSlice";
-import { handleValidateToken } from "@/helperFunctions/signedInActions";
+import { handleValidateToken, isUserSignedIn } from "@/helperFunctions/signedInActions";
 
 async function fetchUserCourseDetails(token) {
   try {
@@ -36,12 +36,12 @@ const MyCourse = ({ params }) => {
   const [data, setData] = useState({});
   const dipsatch = useDispatch();
 
-  console.log(data);
   useEffect(() => {
-    if (!isSignedIn) {
+    if (!isUserSignedIn()) {
       router.replace("/");
       return;
     }
+    
     dipsatch(openLoader(""));
     fetchUserCourseDetails(params.courseId)
       .then((e) => setData(e))

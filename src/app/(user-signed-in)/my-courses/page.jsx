@@ -12,7 +12,7 @@ import {
 import { fetchWithCheck } from "@/helperFunctions/dataFetching";
 import Hero from "@/components/shared/hero/Hero";
 import { fetchCheckToken } from "@/helperFunctions/auth";
-import { handleValidateToken } from "@/helperFunctions/signedInActions";
+import { handleValidateToken, isUserSignedIn } from "@/helperFunctions/signedInActions";
 
 async function FetchStudentCourses(token) {
   try {
@@ -66,7 +66,7 @@ const MyCourses = () => {
         break;
     }
 
-    if (!userInfo) {
+    if (!isUserSignedIn()) {
       router.replace("/");
       return;
     } else {

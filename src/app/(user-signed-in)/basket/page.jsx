@@ -14,7 +14,10 @@ import {
   toggleSelectPaymentOptions,
 } from "@/components/GlobalState/Features/popUpsSlice";
 import Hero from "@/components/shared/hero/Hero";
-import { handleValidateToken } from "@/helperFunctions/signedInActions";
+import {
+  handleValidateToken,
+  isUserSignedIn,
+} from "@/helperFunctions/signedInActions";
 
 async function fetchDeletetFromBasket(basketCourseToken) {
   try {
@@ -159,9 +162,6 @@ const Basket = () => {
 
   const [toggleReFetch, setToggleReFetch] = useState(false);
 
-  //loading state
-  const [deleteLoading, setDeleteLoading] = useState(false);
-
   // get user JSON string then extract user's token
   const userInfo = useSelector((store) => store.userData.info);
 
@@ -186,15 +186,18 @@ const Basket = () => {
     accumulatedBasketPrice - (discount * accumulatedBasketPrice) / 100;
 
   useEffect(() => {
-    if (userInfo) handleFetchBasket();
-    else router.replace("/");
+    if (isUserSignedIn()) {
+      handleFetchBasket();
+    } else {
+      router.replace("/");
+      return;
+    }
 
     fetchWithCheck(
       `/api/views/compareCourses?courseNumber=${userBasket.length}`,
       null,
       0
     ).then((result) => {
-      console.log(result);
       setDiscount(result.discount);
     });
     handleValidateToken().then((e) => {
