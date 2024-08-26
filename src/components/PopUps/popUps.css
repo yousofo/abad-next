@@ -81,6 +81,10 @@
     }
   }
 }
+
+.popups .payment-options .discount-input input:placeholder-shown{
+  opacity: 70%;
+}
 @keyframes fullRotate {
   from {
     rotate: 0deg;

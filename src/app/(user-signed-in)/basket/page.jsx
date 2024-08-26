@@ -18,6 +18,7 @@ import {
   handleValidateToken,
   isUserSignedIn,
 } from "@/helperFunctions/signedInActions";
+import { toast } from "react-toastify";
 
 async function fetchDeletetFromBasket(basketCourseToken) {
   try {
@@ -192,14 +193,19 @@ const Basket = () => {
       router.replace("/");
       return;
     }
-
+    // fetch discount
     fetchWithCheck(
       `/api/views/compareCourses?courseNumber=${userBasket.length}`,
       null,
       0
     ).then((result) => {
       setDiscount(result.discount);
+      if(result.discount>0){
+        toast.success(`تم تخفيض السعر بنسبة ${result.discount}%`)
+      }
     });
+
+
     handleValidateToken().then((e) => {
       if (!e) {
         router.replace("/");
@@ -270,6 +276,7 @@ const Basket = () => {
             شراء الان
           </button>
         </div>
+
       </section>
       {/* main content end */}
     </main>

@@ -4,11 +4,9 @@ import {
 } from "@/components/GlobalState/Features/popUpsSlice";
 import { fetchWithCheck } from "@/helperFunctions/dataFetching";
 import { useParams } from "next/navigation";
-import { useRouter } from "next/navigation";
 import React, { useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
-import { resetPopUps } from "@/components/GlobalState/Features/popUpsSlice";
 
 /**
  * Renders a payment method button with the given image, text, and isTamara flag.
@@ -40,13 +38,61 @@ const PaymentMethod = ({ image, text, setSelected }) => {
   );
 };
 
+const DiscountAccordion = ({ discountCode,checkDiscount }) => {
+  const [active, setActive] = useState(false);
+
+  return (
+    <div className="w-full border-b pb-5 flex flex-col gap-2">
+      <div
+        className="w-full flex justify-between cursor-pointer"
+        onClick={() => setActive(!active)}
+      >
+        <span className="text-[#6A6A6C] text-sm">هل لديك كود خصم؟</span>
+        <svg
+          width={20}
+          height={20}
+          viewBox="0 0 20 20"
+          fill="none"
+          className={`${active ? "rotate-0" : "rotate-180"} transition-all`}
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M16.25 12.5L10 6.25L3.75 12.5"
+            stroke="#6A6A6C"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+        </svg>
+      </div>
+      <div
+        className={`w-full ${
+          active ? "max-h-36" : "max-h-0"
+        } transition-all overflow-hidden flex items-end gap-3`}
+      >
+        <div className="input discount-input flex-1 ">
+          <input
+            ref={discountCode}
+            type="text"
+            name=""
+            required
+            placeholder="اكتب كود الخصم"
+          />
+        </div>
+        <button onClick={checkDiscount} className="text-xs rounded-lg h-fit py-[14px] px-5 border border-green-500 text-green-500">
+          تطبيق
+        </button>
+      </div>
+    </div>
+  );
+};
+
 const SelectPaymentOption = () => {
   const [selected, setSelected] = useState(null);
   const { token } = useParams(); //course token
   const userInfo = useSelector((store) => store.userData.info);
   const userBasket = useSelector((store) => store.userData.basket.data);
   const dispatch = useDispatch();
-  const router = useRouter();
   const discountCode = useRef(null);
   const currentCourseToken = useSelector(
     (store) => store.popUps.currentCourseToken
@@ -74,9 +120,36 @@ const SelectPaymentOption = () => {
       text: "Tabby",
     },
   ];
-  function handleClose() {
-    dispatch(resetPopUps());
+
+  async function checkDiscount() {
+    const formDataForDiscount = new FormData();
+    let coursesLength;
+
+    if (window.location.pathname == "/basket") {
+      coursesLength = userBasket.length;
+    } else {
+      coursesLength = 1;
+    }
+
+    console.log(discountCode.current);
+    formDataForDiscount.append("discountCode", discountCode.current);
+    formDataForDiscount.append("numberOfCourses", coursesLength);
+
+    try {
+      const result = await fetchWithCheck(`/api/views/checkDiscount`, {
+        method: "POST",
+        body: formDataForDiscount,
+      });
+      if(result.isDiscountApplicable){
+        toast.success(result.message);
+      }else{
+        toast.error(result.message);
+      }
+    } catch (error) {
+      console.log(error)
+    }
   }
+
   async function handleSubmit() {
     if (!selected) {
       toast.error("يرجى تحديد طريقة الدفع");
@@ -129,17 +202,6 @@ const SelectPaymentOption = () => {
 
   return (
     <div className="payment-options min-w-80 md:w-[400px] flex flex-col gap-4 relative">
-      {/* <svg
-        xmlns="http://www.w3.org/2000/svg"
-        fill="#FFFFFF"
-        width="20px"
-        height="20px"
-        viewBox="0 0 256 256"
-        className="absolute top-1 right-1 z-10 cursor-pointer"
-        onClick={handleClose}
-      >
-        <path d="M202.82861,197.17188a3.99991,3.99991,0,1,1-5.65722,5.65624L128,133.65723,58.82861,202.82812a3.99991,3.99991,0,0,1-5.65722-5.65624L122.343,128,53.17139,58.82812a3.99991,3.99991,0,0,1,5.65722-5.65624L128,122.34277l69.17139-69.17089a3.99991,3.99991,0,0,1,5.65722,5.65624L133.657,128Z" />
-      </svg> */}
       <div
         style={{
           background:
@@ -164,19 +226,7 @@ const SelectPaymentOption = () => {
           ))}
         </div>
 
-        <div className="input">
-          <label htmlFor="" className="text-xs">
-            كود الخصم
-          </label>
-          <input
-            ref={discountCode}
-            type="text"
-            name=""
-            required
-            placeholder="اكتب كود الخصم"
-          />
-        </div>
-
+        <DiscountAccordion discountCode={discountCode} checkDiscount={checkDiscount}/>
         <button
           className="bg-abad-gold rounded-lg text-[#282828] font-medium p-3 drop-shadow-lg"
           onClick={handleSubmit}
