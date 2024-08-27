@@ -1,3 +1,4 @@
+import Image from "next/image";
 import React from "react";
 
 const Hero = ({ children }) => {
@@ -8,16 +9,29 @@ const Hero = ({ children }) => {
       </div>
       <div className="back-shape w-full h-full absolute top-0 left-0 -z-50">
         {/* img for search result */}
-        <img src="/icon.png" alt="learn with abad" className="hidden" />
-        <img
+        <Image
+          src="/icon.png"
+          width={485}
+          height={0}
+          alt="learn with abad"
+          className="hidden"
+          priority
+        />
+        <Image
+          width={1400}
+          height={0}
           className="first w-full h-full object-cover overflow-visible"
           src="/media/BackgroundHero_rect.png"
           alt=""
+          priority
         />
-        <img
+        <Image
+          width={200}
+          height={0}
           className="second w-20 absolute top-[8vh] right-0"
           src="/media/hero-rectangle.png"
           alt=""
+          priority
         />
       </div>
     </section>

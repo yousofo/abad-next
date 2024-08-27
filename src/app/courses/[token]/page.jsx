@@ -64,12 +64,18 @@ const Course = ({ params }) => {
       <div className="hero relative">
         {/* BACKGROUND IMG start*/}
         <div className="back-shape h-dvh md:min-h-[600px] md:h-auto overflow-hidden w-full absolute -z-10">
-          <img
+          <Image
+            width={1400}
+            height={0}
+            priority
             className="w-full h-full md:h-auto object-cover md:min-h-[600px]"
             src="/media/BackgroundHero_rect.png"
             alt=""
           />
-          <img
+          <Image
+            width={200}
+            height={0}
+            priority
             className="md:w-36 w-20 absolute top-[8vh]  md:top-[10vh] right-0 "
             src="/media/hero-rectangle.png"
             alt=""

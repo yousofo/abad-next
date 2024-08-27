@@ -1,3 +1,4 @@
+import Image from "next/image";
 import "./courses.css";
 import CoursesComponent from "@/components/courses/CoursesComponent";
 
@@ -6,12 +7,18 @@ const Courses = () => {
     <main className="courses-page relative">
       {/* HERO start  */}
       <section className="back-shape hero h-screen min-h-[700px] -z-10 sm:h-auto md:min-h-[790px] lg:min-h-[850px] md:h-auto w-full !absolute left-0 top-0">
-        <img
+        <Image
+          width={1400}
+          height={0}
+          priority
           className="w-full h-full overflow-visible absolute object-cover"
           src="/media/BackgroundHero_rect.png"
           alt=""
         />
-        <img
+        <Image
+          width={1400}
+          height={0}
+          priority
           className="md:w-36 w-20 absolute top-[8vh]  md:top-[10vh] right-0 "
           src="/media/hero-rectangle.png"
           alt=""
