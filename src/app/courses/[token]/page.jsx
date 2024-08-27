@@ -17,29 +17,40 @@ import {
   handleRegisterAttendanceCourse,
   handleValidateToken,
 } from "@/helperFunctions/signedInActions";
+import Image from "next/image";
 
 const Course = ({ params }) => {
   const defaultCourseImg = "/media/course/course-image.png";
   const shimmerLoader = useRef(null);
   const [courseImg, setCourseImg] = useState("");
+  const preFetchedCourse = useSelector(
+    (state) => state.dataContent.preFetchedCourse
+  );
   const [fetched, setFetched] = useState(false);
-  const [imgLoaded, setImgLoaded] = useState(false);
+  const [imgLoaded, setImgLoaded] = useState(true);
   const router = useRouter();
   let dispatch = useDispatch();
-  const [courseInfo, setCourseInfo] = useState();
+  const [courseInfo, setCourseInfo] = useState(preFetchedCourse || null);
   useEffect(() => {
     console.log("hi");
     dispatch(openLoader("جاري التحميل"));
-    fetchWithCheck(`/api/home/courseDetails/${params.token}`)
-      .then((courseData) => {
-        setCourseInfo(courseData);
-        setCourseImg(courseData.imageUrl);
-      })
-      .catch((error) => router.replace("/not-found"))
-      .finally(() => {
-        setFetched(true);
-        dispatch(closeLoader());
-      });
+
+    if (preFetchedCourse) {
+      setFetched(true);
+      setCourseImg(courseInfo.imageUrl);
+      dispatch(closeLoader());
+    } else {
+      fetchWithCheck(`/api/home/courseDetails/${params.token}`)
+        .then((courseData) => {
+          setCourseInfo(courseData);
+          setCourseImg(courseData.imageUrl);
+        })
+        .catch((error) => router.replace("/not-found"))
+        .finally(() => {
+          setFetched(true);
+          dispatch(closeLoader());
+        });
+    }
 
     handleValidateToken().then((e) => {
       if (!e) {
@@ -228,9 +239,13 @@ const Course = ({ params }) => {
             >
               <div className="w-full h-72"></div>
             </div>
-            <img
-              src={courseImg}
-              alt=""
+            <Image
+              src={preFetchedCourse?.imageUrl || courseImg}
+              alt="tata"
+              width={300}
+              height={0}
+              style={{ width: "100%", height: "fit-content" }}
+              priority
               className={`mx-auto mb-2 ${imgLoaded ? "" : "hidden"} md:mb-4`}
               onLoad={() => {
                 console.log("loaded");

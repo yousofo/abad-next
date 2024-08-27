@@ -2,8 +2,15 @@
 import "./courseRow.dev.css";
 import Link from "next/link";
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { buyCourseNow, handleRegisterAttendanceCourse } from "@/helperFunctions/signedInActions";
+import {
+  buyCourseNow,
+  handleRegisterAttendanceCourse,
+} from "@/helperFunctions/signedInActions";
+import {
+  fetchPreloadCourseData,
+  handleNavigateToCourseDetails,
+} from "@/helperFunctions/clientOnlyActions";
+import { useRouter } from "next/navigation";
 
 const CourseRow = ({ index, data }) => {
   const isOnline =
@@ -11,6 +18,15 @@ const CourseRow = ({ index, data }) => {
     data.isOnline == "أون لاين" ||
     data.isOnline == "أونلاين";
   const hadaf = data.hadaf;
+
+  const router = useRouter();
+
+  // async function handleClick(event, router) {
+  //   event.preventDefault();
+  //   const result = await fetchPreloadCourseData(data.token);
+  //   router.push(`/courses/${data.token}`);
+  //   console.log(result);
+  // }
 
   return (
     <tr
@@ -122,7 +138,12 @@ const CourseRow = ({ index, data }) => {
       </td>
       <td>
         <div className="btns">
-          <Link href={`/courses/${data.token}`}>
+          <Link
+            onClick={(ev) =>
+              handleNavigateToCourseDetails(ev, data.token, router)
+            }
+            href={`/courses/${data.token}`}
+          >
             <button>
               <svg
                 xmlns="http://www.w3.org/2000/svg"

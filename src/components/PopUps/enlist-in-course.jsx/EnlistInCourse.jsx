@@ -2,12 +2,28 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { resetPopUps } from "@/components/GlobalState/Features/popUpsSlice";
+import { fetchRegisterAttendanceCourse } from "@/helperFunctions/dataFetching";
+import { getUserInfoFromStore } from "@/helperFunctions/signedInActions";
 
 const EnlistInCourse = () => {
   const EnlistInCourse = useSelector((e) => e.popUps.EnlistInCourse);
   const dispatch = useDispatch();
-  function handleClick(){
-    dispatch(resetPopUps())
+ async function handleClick() {
+    // dispatch(resetPopUps());
+    store.dispatch(openLoader(""));
+    const user = getUserInfoFromStore();
+  
+    const result = await fetchRegisterAttendanceCourse({
+      courseToken: courseToken,
+      userToken: user.token,
+    });
+  
+    if (result.message) {
+      toast.success(result.message);
+    } else if (result.error) {
+      toast.error(result.error);
+    }
+    store.dispatch(closeLoader());
   }
   return (
     <div
@@ -17,13 +33,13 @@ const EnlistInCourse = () => {
     >
       <div className="flex flex-col gap-3">
         <h2 className="text-[22px] sm:text-3xl font-bold text-[#03133D]">
-        ستبدأ الدورة قريباً و سيتم إشعارك بالموعد
+          ستبدأ الدورة قريباً و سيتم إشعارك بالموعد
         </h2>
         <p className="text-xs sm:text-lg text-[#68718B]">
-          املأ بياناتك لتسجيل  في الدورة
+          هل انت متأكد أنك تريد التسجيل في هذه الدورة؟
         </p>
       </div>
-      <form action="" className="flex flex-col gap-4">
+      {/* <form action="" className="flex flex-col gap-4">
         <div className="input">
           <label htmlFor="">الاسم*</label>
           <input type="email" name="" placeholder="اكتب اسمك رباعي" id="" />
@@ -54,8 +70,12 @@ const EnlistInCourse = () => {
             id=""
           ></textarea>
         </div>
-      </form>
-      <button onClick={handleClick} className="login text-white font-bold" type="submit">
+      </form> */}
+      <button
+        onClick={handleClick}
+        className="login text-white font-bold"
+        type="submit"
+      >
         تسجيل في الدورة
       </button>
     </div>

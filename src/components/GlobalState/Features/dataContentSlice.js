@@ -26,6 +26,7 @@ const initialState = {
     instagramURL: "",
     snapchatURL: "",
   },
+  preFetchedCourse: null,
 };
 
 export const dataContentSlice = createSlice({
@@ -35,9 +36,12 @@ export const dataContentSlice = createSlice({
     homeData: (state, action) => {
       state.homeData = action.payload;
     },
+    togglePreFetchedCourse: (state, action) => {
+      state.preFetchedCourse = action.payload;
+    },
   },
 });
 
-export const { homeData } = dataContentSlice.actions;
+export const { homeData, togglePreFetchedCourse } = dataContentSlice.actions;
 
 export default dataContentSlice.reducer;

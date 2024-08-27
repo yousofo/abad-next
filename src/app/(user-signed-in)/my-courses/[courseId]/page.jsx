@@ -9,26 +9,9 @@ import {
   openLoader,
 } from "@/components/GlobalState/Features/popUpsSlice";
 import { handleValidateToken, isUserSignedIn } from "@/helperFunctions/signedInActions";
+import { fetchCourseDetails } from "@/helperFunctions/dataFetching";
 
-async function fetchUserCourseDetails(token) {
-  try {
-    const request = await fetch(`/api/student/userCourseDetails/${token}`, {
-      method: "GET",
-      headers: {
-        "Cache-Control":
-          "no-store, no-cache, must-revalidate, proxy-revalidate",
-        Pragma: "no-cache",
-        Expires: "0",
-        "Surrogate-Control": "no-store",
-      },
-    });
-    const data = await request.json();
-    console.log(data);
-    return data;
-  } catch (e) {
-    console.log(e);
-  }
-}
+
 
 const MyCourse = ({ params }) => {
   const isSignedIn = useSelector((store) => store.userData.info);
@@ -43,7 +26,8 @@ const MyCourse = ({ params }) => {
     }
     
     dipsatch(openLoader(""));
-    fetchUserCourseDetails(params.courseId)
+
+    fetchCourseDetails(params.courseId)
       .then((e) => setData(e))
       .catch((e) => console.log(e))
       .finally(() => dipsatch(closeLoader("")));

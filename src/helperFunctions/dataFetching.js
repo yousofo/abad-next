@@ -1,3 +1,6 @@
+import { togglePreFetchedCourse } from "@/components/GlobalState/Features/dataContentSlice";
+import { openLoader } from "@/components/GlobalState/Features/popUpsSlice";
+
 export const noCacheHeaders = {
   // 'Content-Type': 'application/json',
   "Cache-Control": "no-store, no-cache, must-revalidate, proxy-revalidate",
@@ -83,6 +86,8 @@ export async function fetchComments() {
   return data;
 }
 
+
+
 //header - navlist
 
 export async function fetchCheckCourse(courseToken) {
@@ -101,6 +106,20 @@ export async function fetchCheckCourse(courseToken) {
 export async function fetchCourses() {
   const data = await fetchWithCheck(`/api/home/allCourses`, null, []);
   return data;
+}
+
+//course details
+
+export async function fetchCourseDetails(token) {
+  try {
+    const data = await fetchWithCheck(
+      `/api/home/courseDetails/${token}`
+    );
+    console.log(data);
+    return data;
+  } catch (e) {
+    console.log(e);
+  }
 }
 
 // articles

@@ -10,6 +10,8 @@ import { toggleCards } from "../../GlobalState/Features/coursesFilterSlice";
 import CourseRow from "@/components/shared/tables/CourseRow";
 import CourseCard from "@/components/shared/tables/CourseCard";
 import { fetchWithCheck } from "@/helperFunctions/dataFetching";
+import { handleNavigateToCourseDetails } from "@/helperFunctions/clientOnlyActions";
+import { useRouter } from "next/navigation";
 
 const HomeCourses = () => {
   const [data, setData] = useState([]);
@@ -19,7 +21,7 @@ const HomeCourses = () => {
   const dispatch = useDispatch();
   const [filteredCourses, setFilteredCourses] = useState(data);
   const [searchInput, setSearchInput] = useState("");
-
+  const router = useRouter();
   const handleSearch = (event) => {
     console.log(event.target.value);
     const input = event.target.value.toLowerCase();
@@ -33,7 +35,7 @@ const HomeCourses = () => {
   };
 
   useEffect(() => {
-    fetchWithCheck("/api/categories/coursesCategories",  {}, [])
+    fetchWithCheck("/api/categories/coursesCategories", {}, [])
       .then((e) => {
         setCoursesCategories(e);
       })
@@ -41,7 +43,7 @@ const HomeCourses = () => {
         console.log("home courses");
         console.log(e);
       });
-    fetchWithCheck("/api/home/latest",  {}, [])
+    fetchWithCheck("/api/home/latest", {}, [])
       .then((e) => {
         setData(e);
         setFilteredCourses(e);
@@ -247,14 +249,26 @@ const HomeCourses = () => {
         >
           {activeCategory == "all" && Array.isArray(data)
             ? filteredCourses.map((e, i) => (
-                <Link key={i} href={`/courses/${e.token}`}>
+                <Link
+                  onClick={(ev) =>
+                    handleNavigateToCourseDetails(ev, e.token, router)
+                  }
+                  key={i}
+                  href={`/courses/${e.token}`}
+                >
                   <CourseCard data={e} index={i} />
                 </Link>
               ))
             : filteredCourses
                 ?.filter((e) => e.categoryId == activeCategory)
                 .map((e, i) => (
-                  <Link key={i} href={`/courses/${e.token}`}>
+                  <Link
+                    onClick={(ev) =>
+                      handleNavigateToCourseDetails(ev, e.token, router)
+                    }
+                    key={i}
+                    href={`/courses/${e.token}`}
+                  >
                     <CourseCard data={e} index={i} />
                   </Link>
                 ))}

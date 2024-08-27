@@ -14,10 +14,10 @@ const getUserData = () => {
   return null;
 };
 
-const userData = getUserData();
+const userDataFromCookies = getUserData();
 
 const initialState = {
-  info: userData,
+  info: userDataFromCookies,
   basket: { data: [], status: null, error: null },
 };
 
@@ -38,6 +38,7 @@ export const userDataSlice = createSlice({
   initialState,
   reducers: {
     toggleUpdateInfo: (state, action) => {
+      console.log("toggleUpdateInfo");
       state.info = action.payload;
     },
     toggleUpdateBasket: (state, action) => {
@@ -47,7 +48,11 @@ export const userDataSlice = createSlice({
       state.basket = action.payload;
     },
     toggleResetUserData: (state) => {
-      return initialState;
+      console.log("toggleResetUserData");
+      return {
+        info: userDataFromCookies,
+        basket: { data: [], status: null, error: null },
+      };;
     },
   },
   extraReducers: (builder) => {
@@ -66,7 +71,7 @@ export const userDataSlice = createSlice({
   },
 });
 
-export const { toggleUpdateInfo, toggleUpdateBasket, toggleResetUserData } =
+export const { toggleUpdateInfo, toggleUpdateBasket, toggleResetUserData ,toggleSaveUserCookies} =
   userDataSlice.actions;
 
 export default userDataSlice.reducer;
