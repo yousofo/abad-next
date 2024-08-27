@@ -19,10 +19,13 @@ export const popUpsSlice = createSlice({
   reducers: {
     toggleEnlistInCourse: (state) => {
       return {
-        ...initialState,
+        ...state,
         isHidden: !state.isHidden,
         EnlistInCourse: !state.EnlistInCourse,
       };
+    },
+    toggleCurrentCourseToken: (state, action) => {
+      state.currentCourseToken = action.payload;
     },
     openLoader: (state, action) => {
       state.loader.active = true;
@@ -60,6 +63,7 @@ export const {
   togglePaymentConfirmation,
   toggleSelectPaymentOptions,
   openLoader,
+  toggleCurrentCourseToken,
   closeLoader,
   resetPopUps,
 } = popUpsSlice.actions;

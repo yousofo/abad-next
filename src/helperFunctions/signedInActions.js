@@ -1,7 +1,7 @@
 // sharedFunctions.js
 "use client";
 import { toggleResetAuth, toggleSignIn } from "@/components/GlobalState/Features/authSlice";
-import { closeLoader, openLoader, toggleEnlistInCourse, toggleSelectPaymentOptions } from "@/components/GlobalState/Features/popUpsSlice";
+import { closeLoader, openLoader, toggleCurrentCourseToken, toggleEnlistInCourse, toggleSelectPaymentOptions } from "@/components/GlobalState/Features/popUpsSlice";
 import { fetchUserBasket, toggleResetUserData } from "@/components/GlobalState/Features/userData";
 import { store } from "@/components/GlobalState/store";
 import { fetchAddToBasket, fetchRegisterAttendanceCourse } from "./dataFetching";
@@ -58,14 +58,8 @@ export async function handleRegisterAttendanceCourse(courseToken) {
     store.dispatch(toggleSignIn());
     return;
   }
-
-  // const userConfirmed = window.confirm("هل انت متأكد أنك تريد التسجيل في هذه الدورة؟");
-  // if (!userConfirmed) {
-  //   return;
-  // }
-
+  store.dispatch(toggleCurrentCourseToken(courseToken))
   store.dispatch(toggleEnlistInCourse())
-
 }
 
 export async function handleValidateToken() {
