@@ -8,8 +8,6 @@ export async function GET(request) {
   const token = requestURL.searchParams.get("token");
 
   try {
-    const requestData = await request.json();
-
     const data = await fetchWithCheck(
       `${process.env.NEXT_PUBLIC_ROOT_URL}/api/Student/checkToken?token=${token}`
     );

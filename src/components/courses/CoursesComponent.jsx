@@ -26,10 +26,10 @@ import {
   fetchCourses,
   fetchCoursesCategories,
 } from "@/helperFunctions/dataFetching";
-import { COLUMNS } from "./columns";
 // filter functions
 import { filteredDataFn, priceFilterFn, sortedDataFn } from "./filterLogic";
 import { handleValidateToken } from "@/helperFunctions/signedInActions";
+import { useColumns } from "./columns";
 
 // main component
 const CoursesComponent = () => {
@@ -47,7 +47,9 @@ const CoursesComponent = () => {
   const [minMax, setMinMax] = useState({ min: 0, max: 15000 }); //price filter state
   const [sortOrder, setSortOrder] = useState("latest"); // or 'newest'
 
-  const tableColumns = useMemo(() => COLUMNS, []);
+  const { columns } = useColumns();
+
+  const tableColumns = useMemo(() => columns, []);
 
   //1st filter based on categories + attendance + hadaf
   const filteredData = useMemo(() => {
@@ -133,12 +135,12 @@ const CoursesComponent = () => {
         console.log(error);
       });
 
-      handleValidateToken().then((e) => {
-        if (!e) {
-          router.replace("/");
-          return;
-        }
-      });
+    handleValidateToken().then((e) => {
+      if (!e) {
+        router.replace("/");
+        return;
+      }
+    });
   }, []);
 
   const handleSliderChange = useCallback(({ min, max }) => {

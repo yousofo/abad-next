@@ -32,10 +32,9 @@ const Course = ({ params }) => {
   let dispatch = useDispatch();
   const [courseInfo, setCourseInfo] = useState(preFetchedCourse || null);
   useEffect(() => {
-    console.log("hi");
-    dispatch(openLoader("جاري التحميل"));
+    dispatch(openLoader(""));
 
-    if (preFetchedCourse) {
+    if (preFetchedCourse && preFetchedCourse.token === params.token) {
       setFetched(true);
       setCourseImg(courseInfo.imageUrl);
       dispatch(closeLoader());
@@ -240,7 +239,7 @@ const Course = ({ params }) => {
               <div className="w-full h-72"></div>
             </div>
             <Image
-              src={preFetchedCourse?.imageUrl || courseImg}
+              src={courseImg || preFetchedCourse?.imageUrl}
               alt="tata"
               width={300}
               height={0}
@@ -248,7 +247,6 @@ const Course = ({ params }) => {
               priority
               className={`mx-auto mb-2 ${imgLoaded ? "" : "hidden"} md:mb-4`}
               onLoad={() => {
-                console.log("loaded");
                 setImgLoaded(true);
                 // let cur = setTimeout(() => {
                 //   dispatch(closeLoader());
