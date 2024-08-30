@@ -113,7 +113,7 @@ export async function fetchCourses() {
 export async function fetchCourseDetails(token) {
   try {
     const data = await fetchWithCheck(
-      `/api/home/courseDetails/${token}`
+      `/api/home/basic/${token}`
     );
     console.log(data);
     return data;
@@ -153,7 +153,7 @@ export async function fetchCoursesWithTypes() {
 
 export async function fetchAddToBasket(data) {
   try {
-    const courseDetails = await fetchWithCheck(
+    const addResult = await fetchWithCheck(
       `/api/reservations/addToBasket?tokenCourse=${data.tokenCourse}&tokenStudent=${data.tokenStudent}`,
       {
         method: "POST",
@@ -162,7 +162,8 @@ export async function fetchAddToBasket(data) {
         },
       }
     );
-    return courseDetails;
+    console.log(addResult);
+    return addResult;
   } catch (error) {
     console.log(error);
     return error;
@@ -185,5 +186,19 @@ export async function fetchRegisterAttendanceCourse(data) {
   } catch (error) {
     console.log(error);
     return error;
+  }
+}
+
+//registed course details
+
+export async function fetchRegisteredCourseDetails(token) {
+  try {
+    const data = await fetchWithCheck(
+      `/api/home/registeredCourseDetails/${token}`
+    );
+    console.log(data);
+    return data;
+  } catch (e) {
+    console.log(e);
   }
 }

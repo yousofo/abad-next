@@ -53,7 +53,7 @@ const Register = () => {
       // nationality: JSON.parse(formData.nationality.nationality_ar)
       // .nationality_ar,
     });
-
+    console.log(result)
     if (result.errors) {
       scrollToTop(signUpContainer.current);
       console.log("errrrr");
@@ -77,7 +77,8 @@ const Register = () => {
       if (result.error) {
         setGeneralError(result.error);
       } else {
-        setGeneralError(result);
+        console.log(result)
+        // setGeneralError(result);
       }
     }
     console.log(errors);

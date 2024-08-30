@@ -9,7 +9,7 @@ import {
   openLoader,
 } from "@/components/GlobalState/Features/popUpsSlice";
 import { handleValidateToken, isUserSignedIn } from "@/helperFunctions/signedInActions";
-import { fetchCourseDetails } from "@/helperFunctions/dataFetching";
+import { fetchRegisteredCourseDetails } from "@/helperFunctions/dataFetching";
 
 
 
@@ -18,7 +18,7 @@ const MyCourse = ({ params }) => {
   let router = useRouter();
   const [data, setData] = useState({});
   const dipsatch = useDispatch();
-
+  console.log(isSignedIn)
   useEffect(() => {
     if (!isUserSignedIn()) {
       router.replace("/");
@@ -27,7 +27,7 @@ const MyCourse = ({ params }) => {
     
     dipsatch(openLoader(""));
 
-    fetchCourseDetails(params.courseId)
+    fetchRegisteredCourseDetails(params.courseId)
       .then((e) => setData(e))
       .catch((e) => console.log(e))
       .finally(() => dipsatch(closeLoader("")));
@@ -67,7 +67,7 @@ const MyCourse = ({ params }) => {
           {/* name and buttons */}
           <div className="flex flex-col gap-2 md:flex-row items-center justify-between">
             <h2 className="font-medium text-lg md:text-xl flex-1">
-              <bdi>{data.courseName}</bdi>
+              <bdi>{data?.courseName}</bdi>
             </h2>
             <div className="font-bold btns text-center flex flex-col md:flex-row gap-3 w-max">
               <a
@@ -76,17 +76,17 @@ const MyCourse = ({ params }) => {
                   background:
                     "linear-gradient(83.79deg, #1B45B4 3.25%, #1C2792 96.85%)",
                 }}
-                href={data.whatsAppLink || "#"}
+                href={data?.whatsAppLink || "#"}
               >
                 قروب واتس آب الدورة
               </a>
               <a
                 download={`course${
-                  data.downloadLink?.split("/")[
-                    data.downloadLink?.split("/").length - 1
+                  data?.downloadLink?.split("/")[
+                    data?.downloadLink?.split("/").length - 1
                   ]
                 }`}
-                href={data.downloadLink}
+                href={data?.downloadLink}
                 className="bg-[#FDB614] py-3 px-7 md:py-4 md:px-8 rounded-full"
               >
                 تحميل الحزمة التدريبية
@@ -100,7 +100,7 @@ const MyCourse = ({ params }) => {
             <h3 className="font-medium text-lg md:text-xl">وصف الدورة</h3>
             <p
               className="text-[#252525] leading-6 text-sm md:text-base"
-              dangerouslySetInnerHTML={{ __html: data.description }}
+              dangerouslySetInnerHTML={{ __html: data?.description }}
             />
           </div>
         </div>
@@ -112,7 +112,7 @@ const MyCourse = ({ params }) => {
               مواعيد الدورة
             </h2>
             <div className="flex flex-col gap-2">
-              {data.sessions.map((e, i) => (
+              {data?.sessions?.map((e, i) => (
                 <RegisteredCourseAccordion
                   key={i}
                   title={e.weekName}

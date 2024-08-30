@@ -46,6 +46,7 @@ export async function fetchRegisterUser(data) {
     return result;
   } catch (error) {
     console.log("error sign in");
+    return error
   }
 }
 

@@ -27,7 +27,8 @@ export async function POST(request) {
   } catch (error) {
     console.log("error adding to basket")
 
-    return new Response(JSON.stringify({ error: error.message }), {
+    return new Response(JSON.stringify(error), {
+      status: 400,
       headers: { 'Content-Type': 'application/json' },
     });
   }

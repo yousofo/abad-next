@@ -32,7 +32,7 @@ const MyCourses = () => {
   const [data, setData] = useState([]);
   const dispatch = useDispatch();
   let router = useRouter();
-
+  console.log(data)
   useEffect(() => {
     dispatch(openLoader(""));
     const url = new URL(window?.location);

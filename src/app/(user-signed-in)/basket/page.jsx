@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import "./basket.css";
+import "./basket.dev.css";
 import { useDispatch, useSelector } from "react-redux";
 import // toggleUpdateBasket,
 // toggleUpdateBasketCount,
@@ -200,11 +200,10 @@ const Basket = () => {
       0
     ).then((result) => {
       setDiscount(result.discount);
-      if(result.discount>0){
-        toast.success(`تم تخفيض السعر بنسبة ${result.discount}%`)
+      if (result.discount > 0) {
+        toast.success(`تم تخفيض السعر بنسبة ${result.discount}%`);
       }
     });
-
 
     handleValidateToken().then((e) => {
       if (!e) {
@@ -232,10 +231,10 @@ const Basket = () => {
       {/* main content start */}
       <section className="basket relative z-[100] max-w-screen-xl mx-auto px-4 flex flex-col gap-2 sm:gap-8 -mt-40 sm:mt-0">
         {/* basket contents */}
-        <div className=" sm:p-10 sm:py-2 sm:drop-shadow-abad">
-          <table className="w-full">
+        <div className="flex sm:p-10 sm:py-2 sm:drop-shadow-abad">
+          <table className="flex-1">
             <thead className="hidden sm:table-header-group w-full py-4 item-title justify-between">
-              <tr className="[&>th]:text-start w-full flex sm:table-row">
+              <tr className="w-full flex sm:table-row">
                 <th>
                   <span>الصورة</span>
                 </th>
@@ -259,7 +258,24 @@ const Basket = () => {
             </tbody>
           </table>
         </div>
-
+        <table>
+          <thead>
+            <tr>
+              <th>
+                <span>المنتج</span>
+              </th>
+              <th>
+                <span>المجموع</span>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>أساسيات الشبكات +CompTIA Network</td>
+              <td>1500</td>
+            </tr>
+          </tbody>
+        </table>
         {/* total value */}
         <div className="purchase p-2.5 py-4 rounded-lg sm:p-10 drop-shadow-abad-2  bg-white flex gap-3 sm:gap-6 flex-wrap justify-between items-center font-bold">
           <h3 className="text-[#221638] md:text-xl">الاجمالي</h3>
@@ -276,7 +292,6 @@ const Basket = () => {
             شراء الان
           </button>
         </div>
-
       </section>
       {/* main content end */}
     </main>

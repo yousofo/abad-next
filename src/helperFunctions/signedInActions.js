@@ -43,7 +43,7 @@ export async function handleAddToBasket(courseToken) {
     tokenCourse: courseToken,
     tokenStudent: user.token,
   });
-
+  console.log(result)
   if (result.message) {
     store.dispatch(fetchUserBasket(user.token));
     toast.success(result.message);
