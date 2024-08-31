@@ -32,17 +32,6 @@ header.main-header .header-contact-bar a p {
     font-size: 18px;
  }
 }
-header.main-header .header-contact-bar a:nth-child(1) {
-  display: none;
-}
-@media (min-width: 640px) {
-  header.main-header .header-contact-bar a:nth-child(1) {
-    display: flex;
- }
-}
-header.main-header .header-contact-bar a:nth-child(2) {
-  margin: 0 2rem;
-}
 header.main-header .header-contact-bar a:nth-child(2) svg {
   width: 19px;
 }

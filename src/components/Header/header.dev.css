@@ -28,15 +28,7 @@ header.main-header {
     @media (min-width: 640px) {
       font-size: 18px;
     }
-    a:nth-child(1) {
-      display: none;
-
-      @media (min-width: 640px) {
-        display: flex;
-      }
-    }
     a:nth-child(2) {
-      margin: 0 2rem;
       svg {
         width: 19px;
 
