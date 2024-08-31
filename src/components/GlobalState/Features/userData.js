@@ -29,6 +29,7 @@ export const fetchUserBasket = createAsyncThunk(
     const data = await fetchWithCheck(
       `/api/reservations/getBasketByToken?token=${state.userData.info.token}`
     );
+    console.log(data)
     return data;
   }
 );

@@ -1,14 +1,28 @@
 // sharedFunctions.js
 "use client";
-import { toggleResetAuth, toggleSignIn } from "@/components/GlobalState/Features/authSlice";
-import { closeLoader, openLoader, toggleCurrentCourseToken, toggleEnlistInCourse, toggleSelectPaymentOptions } from "@/components/GlobalState/Features/popUpsSlice";
-import { fetchUserBasket, toggleResetUserData } from "@/components/GlobalState/Features/userData";
+import {
+  toggleResetAuth,
+  toggleSignIn,
+} from "@/components/GlobalState/Features/authSlice";
+import {
+  closeLoader,
+  openLoader,
+  toggleCurrentCourseToken,
+  toggleEnlistInCourse,
+  toggleSelectPaymentOptions,
+} from "@/components/GlobalState/Features/popUpsSlice";
+import {
+  fetchUserBasket,
+  toggleResetUserData,
+} from "@/components/GlobalState/Features/userData";
 import { store } from "@/components/GlobalState/store";
-import { fetchAddToBasket, fetchRegisterAttendanceCourse } from "./dataFetching";
+import {
+  fetchAddToBasket,
+  fetchRegisterAttendanceCourse,
+} from "./dataFetching";
 import { toast } from "react-toastify";
 import { fetchCheckToken } from "./auth";
 import { deleteAllUserAuthDataFromCookies } from "./cookiesManagement";
-
 
 export function isUserSignedIn() {
   const userData = store.getState().userData;
@@ -43,7 +57,7 @@ export async function handleAddToBasket(courseToken) {
     tokenCourse: courseToken,
     tokenStudent: user.token,
   });
-  console.log(result)
+  console.log(result);
   if (result.message) {
     store.dispatch(fetchUserBasket(user.token));
     toast.success(result.message);
@@ -58,19 +72,21 @@ export async function handleRegisterAttendanceCourse(courseToken) {
     store.dispatch(toggleSignIn());
     return;
   }
-  store.dispatch(toggleCurrentCourseToken(courseToken))
-  store.dispatch(toggleEnlistInCourse())
+  console.log(courseToken, store.getState().userData.info.token);
+
+  store.dispatch(toggleCurrentCourseToken(courseToken));
+  store.dispatch(toggleEnlistInCourse());
 }
 
 export async function handleValidateToken() {
-  if(!isUserSignedIn()) return true;
-  
+  if (!isUserSignedIn()) return true;
+
   const result = await fetchCheckToken(store.getState().userData.info.token);
-  
-  if(!result.exists){
+
+  if (!result.exists) {
     deleteAllUserAuthDataFromCookies();
-    store.dispatch(toggleResetUserData())
-    store.dispatch(toggleResetAuth())
+    store.dispatch(toggleResetUserData());
+    store.dispatch(toggleResetAuth());
   }
-  return result.exists
+  return result.exists;
 }
