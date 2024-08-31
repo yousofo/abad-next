@@ -15,7 +15,7 @@ export async function checkDiscount(userBasket, discountCode) {
 
   console.log(discountCode.current.value);
   formDataForDiscount.append("discountCode", discountCode.current.value);
-  formDataForDiscount.append("numberOfCourses", 1);
+  formDataForDiscount.append("numberOfCourses", coursesLength);
 
   try {
     const result = await fetchWithCheck(`/api/views/checkDiscount`, {
