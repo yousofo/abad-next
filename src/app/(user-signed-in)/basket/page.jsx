@@ -370,7 +370,7 @@ const Basket = () => {
         {/* content & summary */}
         <div className="flex flex-col md:flex-row w-full gap-4">
           {/* basket contents */}
-          <div className="hidden md:flex flex-1 sm:p-10 sm:py-2 drop-shadow-abad  items-center justify-center">
+          <div className="hidden md:flex flex-1 sm:p-10 sm:py-2 drop-shadow-abad  items-center justify-center max-h-[598px] overflow-y-auto">
             {userBasket.length > 0 ? (
               <table className="text-[#212529] self-start">
                 <thead className="hidden sm:table-header-group w-full py-4 item-title justify-between">
