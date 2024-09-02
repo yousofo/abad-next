@@ -30,11 +30,15 @@ import {
 import { filteredDataFn, priceFilterFn, sortedDataFn } from "./filterLogic";
 import { handleValidateToken } from "@/helperFunctions/signedInActions";
 import { useColumns } from "./columns";
+import { useRouter } from "next/navigation";
+import { handleNavigateToCourseDetails } from "@/helperFunctions/clientOnlyActions";
 
 // main component
 const CoursesComponent = () => {
   const allCatRef = useRef(null);
   const dispatch = useDispatch();
+  const router= useRouter();
+
   //global state
   const isCards = useSelector((store) => store.coursesFilter.isCards);
 
@@ -400,7 +404,17 @@ const CoursesComponent = () => {
             {page.map((row) => {
               prepareRow(row);
               return (
-                <Link key={row.id} href={`/courses/${row.original.token}`}>
+                <Link
+                  key={row.id}
+                  href={`/courses/${row.original.token}/$`}
+                  onClick={(ev) =>
+                    handleNavigateToCourseDetails(
+                      ev,
+                      row.original.token,
+                      router
+                    )
+                  }
+                >
                   <CourseCard data={row.original} />
                 </Link>
               );

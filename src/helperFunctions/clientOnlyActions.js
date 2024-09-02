@@ -11,13 +11,13 @@ export async function fetchPreloadCourseData(courseToken) {
   const result = await fetchCourseDetails(courseToken);
   store.dispatch(togglePreFetchedCourse(result));
   store.dispatch(closeLoader());
-  console.log(result)
-  return true
+  return result
 }
 
 export async function handleNavigateToCourseDetails(event,token,router){
   event.preventDefault()
   const result = await fetchPreloadCourseData(token)
-  router.push(`/courses/${token}`)
+  console.log(result.courseName)
+  router.push(`/courses/${token}/${result.courseName.split(" ").join("-")}`)
   console.log(result)
 } 

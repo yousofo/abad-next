@@ -51,6 +51,7 @@ const CoursesNav = () => {
   async function handleCourseClicked(courseToken) {
     dispatch(openLoader("جاري التنفيذ"));
     const result = await fetchCheckCourse(courseToken);
+    console.log(result)
     if (result.courseExists) {
       router.push(`/courses/${result.courseToken}`);
     } else {

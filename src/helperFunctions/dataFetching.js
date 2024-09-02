@@ -113,7 +113,7 @@ export async function fetchCourses() {
 export async function fetchCourseDetails(token) {
   try {
     const data = await fetchWithCheck(
-      `/api/home/basic/${token}`
+      `/api/home/courseDetails/${token}`
     );
     console.log(data);
     return data;
