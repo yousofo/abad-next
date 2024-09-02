@@ -202,3 +202,24 @@ export async function fetchRegisteredCourseDetails(token) {
     console.log(e);
   }
 }
+
+//contact us
+
+export async function fetchContactUsRequest(data) {
+  try {
+    const courseDetails = await fetchWithCheck(
+      `/api/contact`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      }
+    );
+    return courseDetails;
+  } catch (error) {
+    console.log(error);
+    return error;
+  }
+}

@@ -17,7 +17,7 @@ export async function GET(request, { params }) {
 
   } catch (error) {
     console.log("error register")
-    return new Response(JSON.stringify({ error: error.message }), {
+    return new Response(JSON.stringify(error), {
       status: 500,
       headers: { 'Content-Type': 'application/json' },
     });

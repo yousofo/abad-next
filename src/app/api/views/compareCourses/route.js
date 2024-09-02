@@ -21,7 +21,7 @@ export async function GET(request) {
       },
     });
   } catch (error) {
-    return new Response(JSON.stringify({ error: "Failed to fetch data" }), {
+    return new Response(JSON.stringify(error), {
       status: 500,
       headers: {
         ...noCacheHeaders,

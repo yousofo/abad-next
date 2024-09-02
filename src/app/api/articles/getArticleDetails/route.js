@@ -1,30 +1,26 @@
-import { fetchWithCheck } from "@/helperFunctions/dataFetching";
+import { fetchWithCheck, noCacheHeaders } from "@/helperFunctions/dataFetching";
 
-export const fetchCache = 'force-no-store';
+export const fetchCache = "force-no-store";
 
 export async function GET(request) {
-  console.log("article details")
+  console.log("article details");
   try {
     const url = new URL(request.url);
-    const token = url.searchParams.get('token');
-    const data = await fetchWithCheck(`${process.env.NEXT_PUBLIC_ROOT_URL}/api/Articles/GetArticleDetails?token=${token}`)
+    const token = url.searchParams.get("token");
+    const data = await fetchWithCheck(
+      `${process.env.NEXT_PUBLIC_ROOT_URL}/api/Articles/GetArticleDetails?token=${token}`
+    );
 
-    return new Response(JSON.stringify(data),{
+    return new Response(JSON.stringify(data), {
       headers: {
-        "Cache-Control":
-          "no-store, no-cache, must-revalidate, proxy-revalidate",
-        Pragma: "no-cache",
-        Expires: "0",
-        "Surrogate-Control": "no-store",
         "Content-Type": "application/json",
+        ...noCacheHeaders,
       },
     });
-
-
   } catch (error) {
-    return new Response(JSON.stringify({ error: error.message }), {
+    return new Response(JSON.stringify(error), {
       status: 402,
-      headers: { 'Content-Type': 'application/json' },
+      headers: { "Content-Type": "application/json" },
     });
   }
 }

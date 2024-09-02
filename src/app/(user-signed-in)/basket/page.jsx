@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useRef, useState } from "react";
-import "./basket.dev.css";
+import "./basket.css";
 import { useDispatch, useSelector } from "react-redux";
 import // toggleUpdateBasket,
 // toggleUpdateBasketCount,

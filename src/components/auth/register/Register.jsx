@@ -17,11 +17,13 @@ const Register = () => {
   const allCountries = useMemo(() => countries, []);
   const allCities = useMemo(() => cities, []);
   const [selectedCountry, setSelectedCountry] = useState("سعودي");
-  const [generalError, setGeneralError] = useState("");
   const isSignUp = useSelector((e) => e.auth.signUp);
   const dispatch = useDispatch();
   let signUpContainer = useRef(null);
   const firstRender = useRef(true);
+
+  //form validation
+  const [generalError, setGeneralError] = useState("");
   // react-hook-form
   const signUpForm = useForm();
   const {

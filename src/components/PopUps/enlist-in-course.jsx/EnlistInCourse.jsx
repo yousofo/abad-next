@@ -20,10 +20,10 @@ const EnlistInCourse = () => {
       userToken: user.token,
     });
     console.log(result)
-    if (result.message) {
+    if (result.success) {
       toast.success(result.message);
-    } else if (result.error) {
-      toast.error(result.error);
+    } else {
+      toast.error(result.message);
     }
     dispatch(closeLoader());
   }

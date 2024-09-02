@@ -1,4 +1,4 @@
-import { fetchWithCheck } from "@/helperFunctions/dataFetching";
+import { fetchWithCheck ,noCacheHeaders} from "@/helperFunctions/dataFetching";
 
 // export const fetchCache = 'force-no-store';
 
@@ -18,17 +18,13 @@ export async function GET(request, { params }) {
     );
     return new Response(JSON.stringify(data), {
       headers: {
-        "Cache-Control":
-          "no-store, no-cache, must-revalidate, proxy-revalidate",
-        Pragma: "no-cache",
-        Expires: "0",
-        "Surrogate-Control": "no-store",
         "Content-Type": "application/json",
+        ...noCacheHeaders
       },
     });
   } catch (error) {
     console.log("error register");
-    return new Response(JSON.stringify({ error: error.message }), {
+    return new Response(JSON.stringify(error), {
       status: 402,
       headers: { "Content-Type": "application/json" },
     });

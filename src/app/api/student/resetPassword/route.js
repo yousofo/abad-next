@@ -19,7 +19,7 @@ export async function GET(request) {
     });
 
   } catch (error) {
-    return new Response(JSON.stringify({ error: error.message }), {
+    return new Response(JSON.stringify(error), {
       status: 500,
       headers: { 'Content-Type': 'application/json' },
     });

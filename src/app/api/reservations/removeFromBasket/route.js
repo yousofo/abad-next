@@ -1,37 +1,29 @@
+import { fetchWithCheck,noCacheHeaders } from "@/helperFunctions/dataFetching";
+
 export async function DELETE(request) {
   try {
     const url = new URL(request.url)
     const tokenBasket = url.searchParams.get("tokenBasket")
     
-    const result = await fetch(`${process.env.NEXT_PUBLIC_ROOT_URL}/api/Reservations/RemoveFromBasket?tokenBasket=${tokenBasket}`, {
+    const data = await fetchWithCheck(`${process.env.NEXT_PUBLIC_ROOT_URL}/api/Reservations/RemoveFromBasket?tokenBasket=${tokenBasket}`, {
       method: "DELETE",
       headers: {
-        'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate',
-        'Pragma': 'no-cache',
         'Content-Type': 'application/json',
-        'Expires': '0',
-        'Surrogate-Control': 'no-store'
+        ...noCacheHeaders
       }
     })
 
-    const resultData = await result.json()
 
-    return new Response(JSON.stringify(resultData), {
+    return new Response(JSON.stringify(data), {
       headers: {
-        'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate',
-        'Pragma': 'no-cache',
-        'Expires': '0',
-        'Surrogate-Control': 'no-store'
+        ...noCacheHeaders
       }
     });
 
   } catch (error) {
     return new Response(JSON.stringify(error), {
       headers: {
-        'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate',
-        'Pragma': 'no-cache',
-        'Expires': '0',
-        'Surrogate-Control': 'no-store'
+       ...noCacheHeaders
       }
     })
   }

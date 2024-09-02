@@ -1,8 +1,9 @@
 import React from "react";
 import "./contact.css";
 import Hero from "@/components/shared/hero/Hero";
+import ContactForm from "@/components/forms/contactForm/ContactForm";
 
-const Contact = () => {
+const Contact = async () => {
   return (
     <main>
       {/* HERO start  */}
@@ -20,6 +21,7 @@ const Contact = () => {
       {/* HERO end  */}
       {/* main content start */}
       <section className="detailed-contact flex flex-col md:flex-row gap-8 max-w-screen-xl mx-auto   px-4">
+        {/* contanct info */}
         <div className="text-[#151318] contact-info mx-auto">
           <h2 className="text-2xl md:text-3xl font-bold">معلومات عنا</h2>
           <p className="text-[#7B7584] text-xs sm:text-sm md:text-base">
@@ -100,65 +102,14 @@ const Contact = () => {
             </li>
           </ul>
         </div>
-        <form className="flex-1" id="contact-form">
-          <div>
-            <label htmlFor="contact-name">الاسم بالكامل</label>
-            <input
-              type="text"
-              name=""
-              id="contact-name"
-              placeholder="اكتب اسمك بالكامل"
-            />
-          </div>
-          <div>
-            <label htmlFor="contact-name">البريد الالكتروني</label>
-            <input
-              type="text"
-              name=""
-              id="contact-name"
-              placeholder="اكتب البريد الالكتروني"
-            />
-          </div>
-          <div>
-            <label htmlFor="contact-name">رقم الجوال</label>
-            <input
-              type="text"
-              name=""
-              id="contact-name"
-              placeholder="رقم الجوال"
-            />
-          </div>
-          <div>
-            <label htmlFor="contact-name">نوع الطلب</label>
-            <input
-              type="text"
-              name=""
-              id="contact-name"
-              placeholder="اختر نوع الطلب"
-            />
-          </div>
-          <div>
-            <label htmlFor="contact-name">الرسالة</label>
-            <textarea
-              name=""
-              id=""
-              placeholder="اكتب رسالتك هنا .."
-              defaultValue={""}
-            />
-          </div>
-          <input
-            type="submit"
-            value="ارسال"
-            form="contact-form"
-            className="py-3 px-6 rounded-2xl bg-[#FDB614] text-[#282828] font-medium w-fit ms-auto"
-          />
-        </form>
+        {/* contact form */}
+       <ContactForm/>
       </section>
       {/* main content end */}
       <iframe
         style={{ border: "0" }}
         loading="lazy"
-        allowFullscreen
+        allowFullScreen
         src="https://www.google.com/maps/embed/v1/place?q=place_id:ChIJ674hC6Y_WBQRujtC6Jay33k&key=AIzaSyCuTilAfnGfkZtIx0T3qf-eOmWZ_N2LpoY"
       ></iframe>
     </main>
