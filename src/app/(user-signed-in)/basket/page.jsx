@@ -80,16 +80,32 @@ const Basket = () => {
       text: "قسّمها على 4. بدون أي فوائد، أو رسوم",
     },
   ];
+
   //calculate all courses prices in basket
   let accumulatedBasketPrice = userBasket?.reduce((pre, cur) => {
     return +pre + +cur.coursePrice;
   }, 0);
 
-  let discountedBasketPrice =
-    accumulatedBasketPrice - (discount * accumulatedBasketPrice) / 100;
+  //calculate courses general discount
+  let discountedBasketPrice = parseFloat(
+    (
+      accumulatedBasketPrice -
+      (discount * accumulatedBasketPrice) / 100
+    ).toFixed(2)
+  );
 
-  let priceAfterCode =
-    discountedBasketPrice - (codeDiscount * discountedBasketPrice) / 100;
+  //calculate code discount
+  let priceAfterCode = parseFloat(
+    (
+      discountedBasketPrice -
+      (codeDiscount * discountedBasketPrice) / 100
+    ).toFixed(2)
+  );
+
+  //calculate tax
+  let addedValueTax = parseFloat((priceAfterCode * 0.15).toFixed(2));
+
+  let finalPrice = priceAfterCode + addedValueTax;
   async function handleBasketPayment() {
     if (userBasket.length === 0) {
       toast.error("لا يوجد دورات في السلة");
@@ -246,12 +262,12 @@ const Basket = () => {
                   )}
                   <tr>
                     <td>ضريبة القيمة المضافة</td>
-                    <td className="!text-center">+ 0 ريال</td>
+                    <td className="!text-center">+ {addedValueTax} ريال</td>
                   </tr>
 
                   <tr>
                     <td>الإجمالي</td>
-                    <td className="!text-center">{priceAfterCode} ريال</td>
+                    <td className="!text-center">{finalPrice} ريال</td>
                   </tr>
                 </tbody>
               </table>
