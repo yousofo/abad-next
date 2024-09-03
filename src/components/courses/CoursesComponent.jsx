@@ -17,7 +17,7 @@ import SeachFilter from "./serachFilter/SeachFilter";
 //react-table
 import {
   useGlobalFilter,
-  usePagination,
+  // usePagination,
   useSortBy,
   useTable,
 } from "react-table";
@@ -79,7 +79,7 @@ const CoursesComponent = () => {
     { columns: tableColumns, data: sortedData },
     useGlobalFilter,
     useSortBy,
-    usePagination
+    // usePagination
   );
   const {
     getTableProps,
@@ -87,15 +87,16 @@ const CoursesComponent = () => {
     prepareRow,
     setGlobalFilter,
     headerGroups,
-    page,
-    nextPage,
-    previousPage,
-    canPreviousPage,
-    canNextPage,
-    gotoPage,
-    pageCount,
+    rows,
+    // page,
+    // nextPage,
+    // previousPage,
+    // canPreviousPage,
+    // canNextPage,
+    // gotoPage,
+    // pageCount,
     state,
-    setPageSize,
+    // setPageSize,
   } = tableInstance;
   const { globalFilter } = state;
 
@@ -375,7 +376,7 @@ const CoursesComponent = () => {
               ))}
             </thead>
             <tbody {...getTableBodyProps()}>
-              {page.map((row, i) => {
+              {rows.map((row, i) => {
                 prepareRow(row);
                 return (
                   <tr
@@ -401,7 +402,7 @@ const CoursesComponent = () => {
             style={{ display: `${!isCards ? "none" : "grid"}` }}
             className="courses-cards"
           >
-            {page.map((row) => {
+            {rows.map((row) => {
               prepareRow(row);
               return (
                 <Link
@@ -421,7 +422,7 @@ const CoursesComponent = () => {
             })}
           </div>
           {/* TABLE PAGINATION */}
-          <div className="flex gap-1 courses-paginaion">
+          {/* <div className="flex gap-1 courses-paginaion">
             <button className="next" onClick={nextPage} disabled={!canNextPage}>
               <svg
                 width="8"
@@ -457,7 +458,7 @@ const CoursesComponent = () => {
                 />
               </svg>
             </button>
-          </div>
+          </div> */}
         </div>
       </div>
     </>
