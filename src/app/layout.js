@@ -2,14 +2,15 @@ import "react-toastify/dist/ReactToastify.css";
 import Header from "@/components/Header/Header";
 import Footer from "@/components/Footer/Footer";
 import { StateProvider } from "@/components/GlobalState/StateProvider";
-import Authentication from "@/components/auth/Authentication";
-import NavList from "@/components/NavList/NavList";
-import PopUps from "@/components/PopUps/PopUps";
-import BrowserWarning from "@/components/shared/browser-support/BrowserWarning";
+// import Authentication from "@/components/auth/Authentication";
+// import NavList from "@/components/NavList/NavList";
+// import PopUps from "@/components/PopUps/PopUps";
 import { ToastContainer } from "react-toastify";
-import Loader from "@/components/shared/Loader/Loader";
+// import Loader from "@/components/shared/Loader/Loader";
 import "./globals.css";
 import Head from "next/head";
+import dynamic from "next/dynamic";
+// import BrowserWarning from "@/components/shared/browser-support/BrowserWarning";
 
 // import localFont from 'next/font/local'
 
@@ -89,7 +90,30 @@ export const metadata = {
     " والتعامل مع قواعد البيانات باستخدام SQL و Oracle.تمدة في وظائف تقنية المعلومات أمن الشبكات",
   ],
 };
-
+const Loader = dynamic(
+  () => import("@/components/shared/Loader/Loader"),
+  {
+    ssr: false, // This disables server-side rendering for this component
+  }
+);
+const Authentication = dynamic(
+  () => import("@/components/auth/Authentication"),
+  {
+    ssr: false, // This disables server-side rendering for this component
+  }
+);
+const NavList = dynamic(
+  () => import("@/components/NavList/NavList"),
+  {
+    ssr: false, // This disables server-side rendering for this component
+  }
+);
+const PopUps = dynamic(
+  () => import("@/components/PopUps/PopUps"),
+  {
+    ssr: false, // This disables server-side rendering for this component
+  }
+);
 export default function RootLayout({ children }) {
   return (
     <html lang="en" dir="rtl">
@@ -97,7 +121,7 @@ export default function RootLayout({ children }) {
         <link rel="shortcut icon" href="/icon.png" type="image/png" />
       </Head>
       <body /*className={bukra.className}*/ suppressHydrationWarning={true}>
-        <BrowserWarning />
+        {/* <BrowserWarning /> */}
         <StateProvider>
           <Loader />
           <Authentication />

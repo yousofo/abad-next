@@ -198,7 +198,7 @@ const Header = () => {
       <nav className="">
         {/* abad logo */}
         <Link href="/">
-          <img src="/media/logos/abad-logo.png" alt="" />
+          <img loading="lazy" src="/media/logos/abad-logo.png" alt="" />
         </Link>
         {/* nav links */}
         <ul className="nav-list cairo-font ">
@@ -207,7 +207,7 @@ const Header = () => {
           </li>
           <li onClick={handleCoursesNav} className={`p-2 py-4`}>
             <Link href="/courses">الدورات</Link>
-            <img src="/media/btns/angle-bottom.png" alt="" />
+            <img loading="lazy" src="/media/btns/angle-bottom.png" alt="" />
             <CoursesNav />
           </li>
           <li>
@@ -229,6 +229,7 @@ const Header = () => {
             suppressHydrationWarning
           >
             <img
+              loading="lazy"
               src="/media/placeholders/user-image.png"
               className="max-w-12"
               alt=""

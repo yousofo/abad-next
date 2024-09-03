@@ -64,7 +64,7 @@ const NavList = () => {
     >
       <div className="navlist-sm wrapper h-max min-full-height flex flex-col gap-7 py-6">
         <div className="flex justify-between items-center px-5">
-          <img src="/media/logos/NavListLogo.png" alt="" />
+          <img loading="lazy" src="/media/logos/NavListLogo.png" alt="" />
           <div
             onClick={() => dispatch(toggleNavList())}
             className="flex items-center gap-1"

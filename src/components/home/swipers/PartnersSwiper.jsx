@@ -16,6 +16,7 @@ const PartnersItem = ({ data }) => {
   return (
     <div>
       <img
+        loading="lazy"
         className={`${!hasImg && "hidden"} max-h-12 max-w-72`}
         style={{ margin: "0 auto" }}
         src={data.image}
@@ -28,21 +29,17 @@ const PartnersItem = ({ data }) => {
   );
 };
 const PartnersSwiper = () => {
-const [data,setData] = useState([])
+  const [data, setData] = useState([]);
 
-  console.log(data)
-  let dataX2 = [...data, ...data]
-  
+  console.log(data);
+  let dataX2 = [...data, ...data];
+
   useEffect(() => {
-    fetchWithCheck(
-      `/api/partners`,
-      null,
-      []
-    ).then((data) => {
-      setData(data)
-    })
-  }, [])
-    return (
+    fetchWithCheck(`/api/partners`, null, []).then((data) => {
+      setData(data);
+    });
+  }, []);
+  return (
     <Swiper
       modules={[Autoplay]}
       slidesPerView={1}
@@ -56,12 +53,13 @@ const [data,setData] = useState([])
           loop: data.length >= 6,
         },
       }}
-      
       autoplay={{ delay: 1000 }}
     >
-      {
-        dataX2.map((e, i) => (<SwiperSlide key={"partnerCard-" + i}><PartnersItem key={"partnerCard-" + i} data={e} /></SwiperSlide>))
-      }
+      {dataX2.map((e, i) => (
+        <SwiperSlide key={"partnerCard-" + i}>
+          <PartnersItem key={"partnerCard-" + i} data={e} />
+        </SwiperSlide>
+      ))}
     </Swiper>
   );
 };

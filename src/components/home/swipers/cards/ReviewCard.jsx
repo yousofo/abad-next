@@ -6,6 +6,7 @@ const ReviewCard = ({ data }) => {
       <div className="card-wrapper">
         <div className="review-details">
           <img
+            loading="lazy"
             className="w-16"
             src="/media/placeholders/user-image.png"
             alt=""

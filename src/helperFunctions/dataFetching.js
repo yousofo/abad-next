@@ -1,6 +1,3 @@
-import { togglePreFetchedCourse } from "@/components/GlobalState/Features/dataContentSlice";
-import { openLoader } from "@/components/GlobalState/Features/popUpsSlice";
-
 export const noCacheHeaders = {
   // 'Content-Type': 'application/json',
   "Cache-Control": "no-store, no-cache, must-revalidate, proxy-revalidate",

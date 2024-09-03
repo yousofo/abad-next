@@ -28,7 +28,7 @@ const Footer = () => {
     <footer className="bg-[#303030] p-10">
       <ul className="container text-white flex-col gap-6 md:gap-0 flex md:flex-row justify-between items-start max-w-screen-lg mx-auto">
         <li className="max-w-[370px]">
-          <img src="/media/logos/abad-logo.png" className="max-w-44" alt="" />
+          <img loading="lazy" src="/media/logos/abad-logo.png" className="max-w-44" alt="" />
           <p className="noto my-3 leading-normal">
             ومعهد شبكة آباد للتدريب من المعاهد الرائدة في تقديم الدورات
             التطويرية المتخصصة في تقنية المعلومات. معهد شبكة آباد للتدريب من

@@ -10,6 +10,7 @@ const CourseCard = ({ index, data }) => {
     <figure data-type={data} className="course-card h-full flex flex-col">
       <div className="img flex-1 flex items-center justify-center">
         <img
+          loading="lazy"
           src={data.imageUrl}
           onError={(event) =>
             (event.target.src = "/media/placeholders/abad-placeholder.png")
@@ -23,11 +24,11 @@ const CourseCard = ({ index, data }) => {
         </h4>
         <div className="course-date noto">
           <div>
-            <img src="/media/calendar.png" alt="" />
+            <img loading="lazy" src="/media/calendar.png" alt="" />
             <p>{data.startDate}</p>
           </div>
           <div>
-            <img src="/media/combo sape.png" alt="" />
+            <img loading="lazy" src="/media/combo sape.png" alt="" />
             <p>
               <span>
                 <span>من</span>

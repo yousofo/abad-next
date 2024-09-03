@@ -6,10 +6,9 @@ import HomeCourses from "@/components/home/courses/HomeCourses";
 import SubscriptionWithEmail from "@/components/home/SubscriptionWithEmail/SubscriptionWithEmail";
 import LatestArticles from "@/components/home/articles/LatestArticles";
 import { fetchWithCheck } from "@/helperFunctions/dataFetching";
-import Hero from "@/components/shared/hero/Hero";
-import Link from "next/link";
 import dynamic from "next/dynamic";
 import HomeHero from "@/components/home/hero/homeHero";
+import Image from "next/image";
 
 // export const fetchCache = "force-no-store";
 const VideoSection = dynamic(
@@ -34,29 +33,47 @@ export default async function Home() {
   return (
     <main className="home home-page">
       {/* img for search result */}
-      <img src="/icon.png" alt="learn with abad" className="hidden" />
+      <Image
+        width={144}
+        height={144}
+        src="/icon.png"
+        alt="learn with abad"
+        className="hidden"
+      />
       {/* HERO start  */}
 
       <HomeHero />
       {/* HERO end  */}
       {/* COURSES start */}
       <section className="courses-sec  mb-8">
-        <img className="" src="/media/Animation - 1717986646627.gif" alt="" />
+        <img
+          loading="lazy"
+          className=""
+          src="/media/Animation - 1717986646627.gif"
+          alt=""
+        />
         <HomeCourses />
       </section>
       {/* COURSES end   */}
       {/* PLAN start */}
       <section className="plan">
-        <img src="/media/Share Section.png" className="" alt="" />
+        <img
+          loading="lazy"
+          src="/media/Share Section.png"
+          className=""
+          alt=""
+        />
         <div className="flex">
           <div className="cards-title">
             <div className="about text-center md:text-start text-white flex flex-col gap-4 pt-16">
               <img
+                loading="lazy"
                 className="absolute w-32 top-5 right-5 lg:right-10"
                 src="/media/Animation - 1717986646627.gif"
                 alt=""
               />
               <img
+                loading="lazy"
                 className="w-fit mx-auto md:mx-0"
                 src="/media/ft-logo 3.png"
                 alt=""
@@ -99,7 +116,12 @@ export default async function Home() {
             {Array.from({ length: 4 }, (_, i) => (
               <figure className="card" key={i}>
                 <div className="img">
-                  <img src="/media/twitch.png" className="" alt="" />
+                  <img
+                    loading="lazy"
+                    src="/media/twitch.png"
+                    className=""
+                    alt=""
+                  />
                 </div>
                 <figcaption>
                   <h4 className="font-bold">من اباد؟</h4>
@@ -113,7 +135,7 @@ export default async function Home() {
       {/* PLAN end */}
       {/* REVIEWS start */}
       <section className="reviews">
-        <img src="/media/Review Section.png" alt="" />
+        <img loading="lazy" src="/media/Review Section.png" alt="" />
         <div>
           <h3>
             لماذا طلاب <span>اباد للتدريب</span>
@@ -199,6 +221,7 @@ export default async function Home() {
       <section className="contact w-full relative max-w-screen-lg mx-auto p-5 mb-10">
         <div className="container relative flex py-7 px-4 mx-auto md:p-10 gap-8 md:gap-[5%] flex-col md:flex-row rounded-xl overflow-hidden">
           <img
+            loading="lazy"
             src="/media/Submit section.png"
             className="absolute left-0 top-0 w-full h-full object-cover -z-10"
             alt=""

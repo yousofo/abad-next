@@ -14,11 +14,13 @@ const VideoSection = ({ titleVideo, lVideoURL }) => {
   return (
     <>
       <img
+        loading="lazy"
         src="/media/Trust company & Play section.png"
         className="absolute min-h-96 left-0 hidden md:block top-0 w-full object-cover -z-10"
         alt=""
       />
       <img
+        loading="lazy"
         src="/media/Trust company & Play section-small.png"
         className="absolute min-h-96 left-0 top-0 block md:hidden w-full object-cover -z-10"
         alt=""
@@ -32,10 +34,10 @@ const VideoSection = ({ titleVideo, lVideoURL }) => {
               مشاهدتك لهذا الفيديو!
             </span>
           )}
-
         </h2>
         <div className="video relative w-full max-w-[792px]">
           <video
+            preload="none"
             ref={videoRef}
             onPlay={() => {
               setVideoState(true);
@@ -59,6 +61,7 @@ const VideoSection = ({ titleVideo, lVideoURL }) => {
           </video>
 
           <img
+            loading="lazy"
             id="playHomeVideo"
             onClick={() => videoRef.current.play()}
             src="/media/media Icon.png"

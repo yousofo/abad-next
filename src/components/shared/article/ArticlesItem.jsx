@@ -20,6 +20,7 @@ export default function ArticlesItem({ data }) {
           <div className="img ">
             <div className="relative">
               <img
+                loading="lazy"
                 className={`h-full max-h-[188px] object-cover w-full`}
                 src={articleImg}
                 alt="article-image"
