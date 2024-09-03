@@ -82,6 +82,7 @@ const BasketItem = ({ data, userToken }) => {
               />
               <mask
                 id="mask0_402_763752"
+                className="mask0_402_76375"
                 style={{ maskType: "luminance" }}
                 maskUnits="userSpaceOnUse"
                 x="2"
@@ -96,7 +97,7 @@ const BasketItem = ({ data, userToken }) => {
                   fill="white"
                 />
               </mask>
-              <g mask="url(#mask0_402_763752)">
+              <g mask="url(.mask0_402_763752)">
                 <rect width="24" height="24" />
               </g>
             </svg>
@@ -133,6 +134,7 @@ const BasketItem = ({ data, userToken }) => {
               />
               <mask
                 id="mask0_402_76375"
+                className="mask0_402_76375"
                 style={{ maskType: "luminance" }}
                 maskUnits="userSpaceOnUse"
                 x="2"
@@ -147,7 +149,7 @@ const BasketItem = ({ data, userToken }) => {
                   fill="white"
                 />
               </mask>
-              <g mask="url(#mask0_402_76375)">
+              <g mask="url(.mask0_402_76375)">
                 <rect width="24" height="24" />
               </g>
             </svg>
@@ -183,58 +185,61 @@ const DiscountAccordion = ({
   checkDiscount,
   setCodeDiscount,
 }) => {
-  const [active, setActive] = useState(false);
+  const [isApplicable, setIsApplicable] = useState(false);
   async function checkDiscountCode(e) {
-    const result = await checkDiscount();
-    if (result.isDiscountApplicable) {
-      setCodeDiscount(result.codeDiscountPercentage);
+    try {
+      const result = await checkDiscount();
+      if (result?.isDiscountApplicable) {
+        setIsApplicable(result.isDiscountApplicabl);
+        setCodeDiscount(result.codeDiscountPercentage);
+      }
+    } catch {
+      toast.error("حدث خطأ في التحقق من الكود");
     }
   }
   return (
-    <div className="w-full flex flex-col ">
-      <div
-        className="w-full flex justify-between cursor-pointer"
-        onClick={() => setActive(!active)}
-      >
-        <span className="text-[#212529] text-sm">هل لديك كود خصم؟</span>
+    <div className={`w-full transition-all overflow-hidden flex items-end`}>
+      <div className="input discount-input flex-1 relative">
         <svg
-          width={20}
-          height={20}
-          viewBox="0 0 20 20"
+          width="23"
+          height="23"
+          viewBox="0 0 23 23"
           fill="none"
-          className={`${active ? "rotate-0" : "rotate-180"} transition-all`}
           xmlns="http://www.w3.org/2000/svg"
+          className={`${
+            !isApplicable && " hidden "
+          } absolute top-1/2 -translate-y-1/2 left-2`}
         >
           <path
-            d="M16.25 12.5L10 6.25L3.75 12.5"
-            stroke="#212529"
-            strokeWidth="1.5"
-            strokeLinecap="round"
-            strokeLinejoin="round"
+            d="M11.5 0C5.14894 0 0 5.14715 0 11.5C0 17.8529 5.14894 23 11.5 23C17.8511 23 23 17.8497 23 11.5C23 5.15029 17.8511 0 11.5 0Z"
+            fill="#2AD352"
+          />
+          <path
+            d="M1.06798e-05 11.5C-0.00258532 13.4009 0.468128 15.2724 1.36968 16.9459C2.51828 17.2831 3.7093 17.4539 4.90638 17.4531C11.8199 17.4531 17.4243 11.8486 17.4243 4.93513C17.4253 3.71907 17.2492 2.50935 16.9014 1.34408C15.2389 0.458543 13.3836 -0.00312088 11.5 1.58781e-05C5.14896 1.58781e-05 1.06798e-05 5.14716 1.06798e-05 11.5Z"
+            fill="#74DA7F"
+          />
+          <path
+            d="M18.0596 9.59447L11.1474 16.8534C10.9591 17.051 10.7328 17.2086 10.482 17.3166C10.2313 17.4247 9.96139 17.481 9.68839 17.4823H9.6794C9.40791 17.4824 9.13918 17.4279 8.88915 17.3221C8.63913 17.2163 8.41291 17.0613 8.22393 16.8664L4.55606 13.0885C4.36655 12.8983 4.2167 12.6723 4.11522 12.4237C4.01374 12.1751 3.96265 11.9088 3.96492 11.6403C3.96718 11.3718 4.02275 11.1064 4.1284 10.8595C4.23405 10.6126 4.38768 10.3892 4.58038 10.2022C4.77307 10.0152 5.00099 9.86832 5.2509 9.7701C5.50082 9.67188 5.76775 9.62428 6.03621 9.63005C6.30467 9.63582 6.56931 9.69486 6.81477 9.80373C7.06023 9.9126 7.28162 10.0691 7.4661 10.2643L9.66503 12.5292L15.1226 6.79809C15.3054 6.60205 15.5253 6.44421 15.7695 6.33369C16.0137 6.22317 16.2774 6.16217 16.5453 6.15421C16.8133 6.14626 17.0801 6.1915 17.3305 6.28733C17.5808 6.38316 17.8097 6.52768 18.0038 6.71252C18.1979 6.89736 18.3535 7.11886 18.4615 7.3642C18.5695 7.60954 18.6277 7.87386 18.6329 8.14186C18.6381 8.40987 18.5901 8.67624 18.4917 8.92558C18.3933 9.17491 18.2464 9.40226 18.0596 9.59447Z"
+            fill="white"
           />
         </svg>
+
+        <input
+          ref={discountCode}
+          type="text"
+          name=""
+          required
+          className="py-6 md:py-8 px-5 md:px-6 font-medium text-xs sm:text-base"
+          placeholder="ادخل كوبون الخصم "
+        />
       </div>
-      <div
-        className={`w-full ${
-          active ? "max-h-36" : "max-h-0"
-        } transition-all overflow-hidden flex items-end gap-3`}
+      <button
+        onClick={checkDiscountCode}
+        disabled={isApplicable}
+        className="discount-btn  text-white font-medium rounded-lg h-fit py-6 md:py-8 px-5 md:px-6 text-xs sm:text-base"
       >
-        <div className="input discount-input flex-1 ">
-          <input
-            ref={discountCode}
-            type="text"
-            name=""
-            required
-            placeholder="اكتب كود الخصم"
-          />
-        </div>
-        <button
-          onClick={checkDiscountCode}
-          className="text-xs sm:text-sm  rounded-lg h-fit py-[11px] md:py-[16px] px-4 md:px-6 border border-green-500 text-green-500"
-        >
-          تطبيق
-        </button>
-      </div>
+        تفعيل
+      </button>
     </div>
   );
 };
@@ -301,6 +306,8 @@ const Basket = () => {
   let discountedBasketPrice =
     accumulatedBasketPrice - (discount * accumulatedBasketPrice) / 100;
 
+  let priceAfterCode =
+    discountedBasketPrice - (codeDiscount * discountedBasketPrice) / 100;
   async function handleBasketPayment() {
     if (userBasket.length === 0) {
       toast.error("لا يوجد دورات في السلة");
@@ -369,39 +376,52 @@ const Basket = () => {
       <section className="basket relative z-[100] max-w-screen-xl mx-auto px-4 flex flex-col gap-3 sm:gap-4 -mt-40 sm:mt-0">
         {/* content & summary */}
         <div className="flex flex-col md:flex-row w-full gap-4">
-          {/* basket contents */}
-          <div className="hidden md:flex flex-1 sm:p-10 sm:py-2 drop-shadow-abad  items-center justify-center max-h-[598px] overflow-y-auto">
-            {userBasket.length > 0 ? (
-              <table className="text-[#212529] self-start">
-                <thead className="hidden sm:table-header-group w-full py-4 item-title justify-between">
-                  <tr className="w-full flex sm:table-row">
-                    <th>
-                      <span>الصورة</span>
-                    </th>
-                    <th>
-                      <span>اسم الدورة</span>
-                    </th>
-                    <th>
-                      <span>السعر</span>
-                    </th>
-                  </tr>
-                </thead>
-                <tbody className="flex flex-col gap-2 sm:table-row-group">
-                  {userBasket?.map((e, i) => (
-                    <BasketItem
-                      reFetchBasket={setToggleReFetch}
-                      data={e}
-                      userToken={userInfo?.token}
-                      key={i}
-                    />
-                  ))}
-                </tbody>
-              </table>
-            ) : (
-              <div className="text-center text-[#212529]">
-                لا يوجد دورات في السلة
-              </div>
-            )}
+          {/* basket contents & discount*/}
+          <div className="hidden md:flex flex-col flex-1 gap-4">
+            {/* contents */}
+            <div className="hidden md:flex  flex-1  drop-shadow-abad  items-center justify-center overflow-y-auto relative">
+              {userBasket.length > 0 ? (
+                <div className="self-start absolute w-full h-full overflow-y-auto max-h-full sm:p-10 sm:py-2">
+                  <table className="text-[#212529] ">
+                    <thead className="hidden sm:table-header-group w-full py-4 item-title justify-between">
+                      <tr className="w-full flex sm:table-row">
+                        <th>
+                          <span>الصورة</span>
+                        </th>
+                        <th>
+                          <span>اسم الدورة</span>
+                        </th>
+                        <th>
+                          <span>السعر</span>
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody className="flex flex-col gap-2 sm:table-row-group">
+                      {userBasket?.map((e, i) => (
+                        <BasketItem
+                          reFetchBasket={setToggleReFetch}
+                          data={e}
+                          userToken={userInfo?.token}
+                          key={i}
+                        />
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              ) : (
+                <div className="text-center text-[#212529] ">
+                  لا يوجد دورات في السلة
+                </div>
+              )}
+            </div>
+            {/* discount */}
+            <div className=" bg-white rounded  drop-shadow-abad w-full">
+              <DiscountAccordion
+                discountCode={discountCode}
+                checkDiscount={() => checkDiscount(userBasket, discountCode)}
+                setCodeDiscount={setCodeDiscount}
+              />
+            </div>
           </div>
           {/* basket summary & payment options */}
           <div className="flex-1 flex flex-col gap-3 md:gap-4">
@@ -437,7 +457,7 @@ const Basket = () => {
                     <tr>
                       <td>قيمة كود الخصم</td>
                       <td className="!text-center">
-                        - {codeDiscount * accumulatedBasketPrice} ريال
+                        - {(codeDiscount / 100) * accumulatedBasketPrice} ريال
                       </td>
                     </tr>
                   )}
@@ -448,9 +468,7 @@ const Basket = () => {
 
                   <tr>
                     <td>الإجمالي</td>
-                    <td className="!text-center">
-                      {discountedBasketPrice} ريال
-                    </td>
+                    <td className="!text-center">{priceAfterCode} ريال</td>
                   </tr>
                 </tbody>
               </table>
@@ -465,33 +483,12 @@ const Basket = () => {
                 />
               ))}
             </div>
-            {/* discount */}
-            <div className="px-4 py-3 bg-white rounded sm:p-6 drop-shadow-abad">
-              <DiscountAccordion
-                discountCode={discountCode}
-                checkDiscount={() => checkDiscount(userBasket, discountCode)}
-                setCodeDiscount={setCodeDiscount}
-              />
-            </div>
           </div>
         </div>
         {/* content - mobile view only */}
-        <div className="block md:hidden flex-1 py-3 px-4 drop-shadow-abad">
+        <div className="block md:hidden flex-1">
           {userBasket.length > 0 ? (
             <table className="text-[#212529]">
-              <thead className="table-header-group w-full py-4 item-title justify-between">
-                <tr className="w-full flex sm:table-row ">
-                  <th>
-                    <span>الصورة</span>
-                  </th>
-                  <th>
-                    <span>اسم الدورة</span>
-                  </th>
-                  <th>
-                    <span>السعر</span>
-                  </th>
-                </tr>
-              </thead>
               <tbody className="flex flex-col gap-2 sm:table-row-group">
                 {userBasket?.map((e, i) => (
                   <BasketItem
@@ -506,6 +503,14 @@ const Basket = () => {
           ) : (
             <p className="text-[#212529]">لا توجد دورات في السلة</p>
           )}
+        </div>
+        {/* discount - mobile view only*/}
+        <div className="block md:hidden  bg-white rounded  drop-shadow-abad w-full">
+          <DiscountAccordion
+            discountCode={discountCode}
+            checkDiscount={() => checkDiscount(userBasket, discountCode)}
+            setCodeDiscount={setCodeDiscount}
+          />
         </div>
         {/* terms & conditions */}
         <div className="flex items-center gap-2 sm:p-6 py-3 px-4 drop-shadow-abad">

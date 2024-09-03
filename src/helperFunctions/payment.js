@@ -13,7 +13,6 @@ export async function checkDiscount(userBasket, discountCode) {
     coursesLength = 1;
   }
 
-  console.log(discountCode.current.value);
   formDataForDiscount.append("discountCode", discountCode.current.value);
   formDataForDiscount.append("numberOfCourses", coursesLength);
 

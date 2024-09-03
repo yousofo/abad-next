@@ -1,5 +1,5 @@
 import { handleNavigateToCourseDetails } from "@/helperFunctions/clientOnlyActions";
-import { handleRegisterAttendanceCourse } from "@/helperFunctions/signedInActions";
+import { buyCourseNow, handleRegisterAttendanceCourse } from "@/helperFunctions/signedInActions";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 export function useColumns() {
@@ -167,7 +167,13 @@ export function useColumns() {
                 التفاصيل
               </button>
             </Link>
-            <button onClick={() => handleRegisterAttendanceCourse(row.original.token)}>
+            <button
+              onClick={() =>
+                row.original.isOnline == "أونلاين"
+                  ? buyCourseNow(row.original.token)
+                  : handleRegisterAttendanceCourse(row.original.token)
+              }
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width={14}
@@ -177,7 +183,7 @@ export function useColumns() {
               >
                 <path d="M6.66667 7.33333H5.33333C4.23973 7.33292 3.16682 7.63143 2.23058 8.1966C1.29435 8.76178 0.530401 9.57211 0.0213343 10.54C0.00702532 10.3604 -9.15218e-05 10.1802 8.88408e-07 10C8.88408e-07 6.318 2.98467 3.33333 6.66667 3.33333V0L13.3333 5.33333L6.66667 10.6667V7.33333Z" />
               </svg>
-              تسجيل
+              {row.original.isOnline == "أونلاين" ? "شراء" : "تسجيل"}
             </button>
           </div>
         </div>

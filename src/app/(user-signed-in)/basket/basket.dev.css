@@ -80,10 +80,6 @@
   .input {
     display: flex;
     flex-direction: column;
-    font-size: 12px;
-    @media (min-width: 640px) {
-      font-size: 14px;
-    }
     label {
       color: #03133d;
       font-weight: 700;
@@ -91,14 +87,8 @@
     input,
     .select,
     textarea {
-      border: 1px solid #cdd0d8;
       border-radius: 8px;
       flex: 1;
-      padding: 10px 16px;
-      margin-top: 8px;
-      @media (min-width: 640px) {
-        padding: 16px 24px;
-      }
       &:focus {
         outline: none;
       }
@@ -106,6 +96,15 @@
         color: #cdd0d8;
       }
     }
+    input::placeholder{
+      color: rgba(0, 0, 0, 0.5);
+    }
+  }
+  .discount-btn{
+    background: linear-gradient(83.79deg, #1B45B4 3.25%, #1C2792 96.85%);
+  }
+  .discount-btn.disabled{
+    opacity: .1;
   }
 }
 .drop-shadow-abad {
