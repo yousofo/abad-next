@@ -12,7 +12,7 @@ export async function checkDiscount(userBasket, discountCode) {
   } else {
     coursesLength = 1;
   }
-
+  
   formDataForDiscount.append("discountCode", discountCode.current.value);
   formDataForDiscount.append("numberOfCourses", coursesLength);
 
@@ -34,7 +34,10 @@ export async function checkDiscount(userBasket, discountCode) {
 }
 
 
-export async function handlePayment(selected,userBasket,token,currentCourseToken,TokenStudent,discountCode) {
+export async function handlePayment(selected,userBasket,token,currentCourseToken,TokenStudent,discountCode,router) {
+  console.log(
+    userBasket
+  )
   if (!selected) {
     toast.error("يرجى تحديد طريقة الدفع");
     return;
@@ -45,7 +48,7 @@ export async function handlePayment(selected,userBasket,token,currentCourseToken
   let tokenCoursesList;
 
   if (window.location.pathname == "/basket") {
-    tokenCoursesList = userBasket;
+    tokenCoursesList = userBasket.map(e=>e.coursesSchedulestoken);
   } else {
     tokenCoursesList = [token || currentCourseToken];
   }
@@ -75,7 +78,7 @@ export async function handlePayment(selected,userBasket,token,currentCourseToken
     console.log(result);
     toast.success(result.message);
 
-    // router.push(result.redirect_url);
+    router.push(result.redirect_url);
   } catch (error) {
     toast.error(error.error);
     console.log(error);
