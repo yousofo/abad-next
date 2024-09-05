@@ -1,25 +1,32 @@
 "use client";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { closeLoader, openLoader, resetPopUps } from "@/components/GlobalState/Features/popUpsSlice";
+import {
+  closeLoader,
+  openLoader,
+  resetPopUps,
+} from "@/components/GlobalState/Features/popUpsSlice";
 import { fetchRegisterAttendanceCourse } from "@/helperFunctions/dataFetching";
 import { getUserInfoFromStore } from "@/helperFunctions/signedInActions";
 import { toast } from "react-toastify";
 
 const EnlistInCourse = () => {
-  const currentCourseToken = useSelector(store=>store.popUps.currentCourseToken)
+  const currentCourseToken = useSelector(
+    (store) => store.popUps.currentCourseToken
+  );
   const dispatch = useDispatch();
-
- async function handleClick() {
+  console.log("currentCourseToken");
+  console.log(currentCourseToken);
+  async function handleClick() {
     // dispatch(resetPopUps());
     dispatch(openLoader(""));
     const user = getUserInfoFromStore();
-    
+    console.log(user);
     const result = await fetchRegisterAttendanceCourse({
       courseToken: currentCourseToken,
       userToken: user.token,
     });
-    console.log(result)
+    console.log(result);
     if (result.success) {
       toast.success(result.message);
     } else {
@@ -28,9 +35,7 @@ const EnlistInCourse = () => {
     dispatch(closeLoader());
   }
   return (
-    <div
-      className={`flex flex-col gap-7 md:gap-10 `}
-    >
+    <div className={`flex flex-col gap-7 md:gap-10 `}>
       <div className="flex flex-col gap-3">
         <h2 className="text-[22px] sm:text-3xl font-bold text-[#03133D]">
           ستبدأ الدورة قريباً و سيتم إشعارك بالموعد

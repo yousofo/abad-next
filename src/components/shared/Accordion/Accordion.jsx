@@ -10,6 +10,7 @@ import {
   openLoader,
 } from "@/components/GlobalState/Features/popUpsSlice";
 import { cities } from "@/components/data/data";
+import { handleRegisterAttendanceCourse } from "@/helperFunctions/signedInActions";
 
 const AccordionForm = ({ form, token }) => {
   const { fetchRegisterCourseRequest } = form;
@@ -180,6 +181,9 @@ const AccordionForm = ({ form, token }) => {
 };
 
 const Accordion = ({ title, data, table, active: starting, form, token }) => {
+  console.log(table);
+  console.log(token);
+  console.log
   const [active, setActive] = useState(starting ? true : false);
   return (
     <div
@@ -227,18 +231,16 @@ const Accordion = ({ title, data, table, active: starting, form, token }) => {
                   >
                     <td>
                       <div className="flex items-center gap-1">
-                        <span className="inline sm:hidden">
-                          {" "}
-                          بداية الدورة :
-                        </span>
+                        <span className="inline sm:hidden">بداية الدورة :</span>
                         <span className="font-medium">{e?.startDate}</span>
                       </div>
                     </td>
                     <td>{e?.formattedTimeStart}</td>
                     <td>
-                      <a
+                      <button
                         href="/"
                         className="w-fit enlist sm:!bg-[#FDB614] sm:!text-black"
+                        onClick={()=>handleRegisterAttendanceCourse(token)}
                       >
                         <svg
                           //3a96b4a5-84c9-4a75-92da-82b99dcdafa2
@@ -247,11 +249,12 @@ const Accordion = ({ title, data, table, active: starting, form, token }) => {
                           height={11}
                           viewBox="0 0 14 11"
                           fill="currentColor"
+                          
                         >
                           <path d="M6.66667 7.33333H5.33333C4.23973 7.33292 3.16682 7.63143 2.23058 8.1966C1.29435 8.76178 0.530401 9.57211 0.0213343 10.54C0.00702532 10.3604 -9.15218e-05 10.1802 8.88408e-07 10C8.88408e-07 6.318 2.98467 3.33333 6.66667 3.33333V0L13.3333 5.33333L6.66667 10.6667V7.33333Z" />
                         </svg>
                         تسجيل
-                      </a>
+                      </button>
                     </td>
                   </tr>
                 ))}

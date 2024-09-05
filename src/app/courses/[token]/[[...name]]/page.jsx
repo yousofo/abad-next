@@ -215,6 +215,7 @@ const Course = ({ params }) => {
                 title="موعد الدورة"
                 table={courseInfo?.openCourses}
                 active={true}
+                token={params.token}
               />
 
               <Accordion title="تفاصيل الاختبارات" data={courseInfo?.testAr} />
