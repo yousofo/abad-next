@@ -31,6 +31,7 @@ const Course = ({ params }) => {
   const router = useRouter();
   let dispatch = useDispatch();
   const [courseInfo, setCourseInfo] = useState(preFetchedCourse || null);
+  console.log(courseInfo);
   useEffect(() => {
     dispatch(openLoader(""));
 
@@ -279,9 +280,10 @@ const Course = ({ params }) => {
                 {/* handle coure REGISTERATION */}
                 {courseInfo?.isOnline == "أونلاين" ? (
                   <>
-                    <button onClick={buyCourseNow} className="register-btn">
+                    <Link href="/basket" className="register-btn text-center">شراء الدورة التدريبية الآن</Link>
+                    {/* <button onClick={buyCourseNow} className="register-btn">
                       شراء الدورة التدريبية الآن
-                    </button>
+                    </button> */}
                     <div
                       className="action-btns flex gap-4"
                       onClick={() => handleAddToBasket(params.token)}

@@ -410,7 +410,7 @@ const CoursesComponent = () => {
                 return (
                   <tr
                     {...row.getRowProps()}
-                    className={`shadow rounded-lg ${row.original.month && "[&>td]:!py-4 !flex"}`}
+                    className={`shadow rounded-lg ${row.original.month && "[&>td]:!py-4 flex md:table-row w-full"}`}
                     key={i}
                   >
                     {row.cells.map((cell, i) => {

@@ -40,7 +40,8 @@ const Basket = () => {
   );
 
   const userInfo = useSelector((store) => store.userData.info);
-
+  console.log("user token", userInfo.token);
+  console.log(userBasket);
   const [codeDiscount, setCodeDiscount] = useState(0);
   const [discount, setDiscount] = useState(0);
 
