@@ -33,7 +33,6 @@ const Basket = () => {
   const [toggleReFetch, setToggleReFetch] = useState(false);
   const agreeTerms = useRef(null);
   const [selected, setSelected] = useState(null);
-  const { token } = useParams(); //course token
   const discountCode = useRef(null);
   const currentCourseToken = useSelector(
     (store) => store.popUps.currentCourseToken
@@ -120,7 +119,7 @@ const Basket = () => {
     await handlePayment(
       selected,
       userBasket,
-      token,
+      null,
       currentCourseToken,
       userInfo.token,
       discountCode,
