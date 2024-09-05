@@ -36,9 +36,11 @@ export function getUserInfoFromStore() {
   return info;
 }
 
-export async function buyCourseNow(courseToken) {
+export async function buyCourseNow(courseToken,router) {
   if (isUserSignedIn()) {
-    store.dispatch(toggleSelectPaymentOptions(courseToken));
+    handleAddToBasket(courseToken);
+    router.push("/basket");
+    // store.dispatch(toggleSelectPaymentOptions(courseToken));
   } else {
     store.dispatch(toggleSignIn());
   }

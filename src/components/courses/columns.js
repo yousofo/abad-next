@@ -185,7 +185,7 @@ export function useColumns() {
               <button
                 onClick={() =>
                   row.original.isOnline == "أونلاين"
-                    ? buyCourseNow(row.original.token)
+                    ? buyCourseNow(row.original.token, router)
                     : handleRegisterAttendanceCourse(row.original.token)
                 }
               >

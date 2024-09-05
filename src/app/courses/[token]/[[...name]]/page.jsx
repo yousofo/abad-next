@@ -280,7 +280,17 @@ const Course = ({ params }) => {
                 {/* handle coure REGISTERATION */}
                 {courseInfo?.isOnline == "أونلاين" ? (
                   <>
-                    <Link href="/basket" className="register-btn text-center">شراء الدورة التدريبية الآن</Link>
+                    <Link
+                      href="/basket"
+                      className="register-btn text-center"
+                      onClick={(ev) => {
+                        ev.preventDefault();
+                        handleAddToBasket(params.token)
+                        router.push("/basket")
+                      }}
+                    >
+                      شراء الدورة التدريبية الآن
+                    </Link>
                     {/* <button onClick={buyCourseNow} className="register-btn">
                       شراء الدورة التدريبية الآن
                     </button> */}

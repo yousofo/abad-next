@@ -175,7 +175,7 @@ const CourseRow = ({ index, data }) => {
             <button
               onClick={() => {
                 isOnline
-                  ? buyCourseNow(data.token)
+                  ? buyCourseNow(data.token,router)
                   : handleRegisterAttendanceCourse(data.token);
               }}
             >
