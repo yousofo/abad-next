@@ -121,7 +121,7 @@ const Basket = () => {
       userBasket,
       null,
       currentCourseToken,
-      userInfo.token,
+      userInfo?.token,
       discountCode,
       router
     );
