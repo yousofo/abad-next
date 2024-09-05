@@ -158,7 +158,8 @@
   border-collapse: separate;
 }
 .courses-page table tr {
-  box-shadow: 5px 4px 30px 0px #000 14;
+  position: relative;
+  box-shadow: 5px 4px 30px 0px #00000014;
 }
 .courses-page table tbody {
   display: flex;
@@ -235,7 +236,7 @@
 @media (min-width: 768px) {
   .courses-page table td, .courses-page table th {
     display: table-cell;
-    padding: 16px !important;
+    padding: 16px ;
  }
   .courses-page table td .course-start-date, .courses-page table th .course-start-date {
     display: table-cell;

@@ -13,7 +13,9 @@ const ReviewsSwiper = () => {
   const [comments, setComments] = useState([]);
 
   useEffect(() => {
-    fetchComments().then((data) => setComments(data));
+    fetchComments()
+      .then((data) => setComments(data))
+      .catch((err) => setComments([]));
   }, []);
   return (
     <Swiper
@@ -34,16 +36,16 @@ const ReviewsSwiper = () => {
       loop
       autoplay={{ delay: 2000 }}
     >
-      {comments?.map((comment, i) => {
-        if (comment.studentName && comment.comment) {
-          console.log(comment.studentName)
-          return (
-            <SwiperSlide key={"reviewCard-" + i}>
-              <ReviewCard data={comment} />
-            </SwiperSlide>
-          );
-        }
-      })}
+      {Array.isArray(comments) &&
+        comments?.map((comment, i) => {
+          if (comment.studentName && comment.comment) {
+            return (
+              <SwiperSlide key={"reviewCard-" + i}>
+                <ReviewCard data={comment} />
+              </SwiperSlide>
+            );
+          }
+        })}
     </Swiper>
   );
 };

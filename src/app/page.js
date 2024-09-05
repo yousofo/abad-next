@@ -18,12 +18,17 @@ const VideoSection = dynamic(
   }
 );
 export default async function Home() {
+  const cardsText = [
+    "الشهادات الاحترافيه والمهنية",
+    "المعسكرات التدريبية",
+    "شهادات مدعومة من هدف",
+    "الدبلومات",
+  ];
   const latestArticles = await fetchWithCheck(
     `${process.env.NEXT_PUBLIC_ROOT_URL}/api/articles/getLatestArticles`,
     null,
     []
   );
-
   const homeData = await fetchWithCheck(
     `${process.env.NEXT_PUBLIC_ROOT_URL}/api/GetDataHome/getDataHome`,
     null,
@@ -124,7 +129,7 @@ export default async function Home() {
                   />
                 </div>
                 <figcaption>
-                  <h4 className="font-bold">من اباد؟</h4>
+                  <h4 className="font-bold">{cardsText[i]}</h4>
                   <p className="noto">{homeData?.[`whoMe${i + 1}`]}</p>
                 </figcaption>
               </figure>
@@ -203,7 +208,6 @@ export default async function Home() {
         <div className="swiper2 container max-w-full lg:max-w-screen-lg w-full mx-auto">
           <PartnersSwiper />
         </div>
-        {/* <div class="md:flex  justify-between  "></div> */}
       </section>
       {/* PARTNERS end */}
       {/* ARTICLES start */}

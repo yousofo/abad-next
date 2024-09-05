@@ -167,6 +167,7 @@
     border-collapse: separate;
     tr {
       box-shadow: 5px 4px 30px 0px #00000014;
+      position: relative;
     }
     tbody {
       display: flex;
@@ -238,7 +239,7 @@
       }
       @media (min-width: 768px) {
         display: table-cell;
-        padding: 16px !important;
+        padding: 16px;
         & .course-start-date {
           display: table-cell;
         }

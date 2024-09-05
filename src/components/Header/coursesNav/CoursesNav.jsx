@@ -69,7 +69,7 @@ const CoursesNav = () => {
   return (
     <div className="mini-nav">
       <ul className={`no-top-left courses-nav courses-nav-1`}>
-        {data.map((course, i) => (
+        {Array.isArray(data) && data.map((course, i) => (
           <NavListItem
             key={i}
             handleNavListItem={(e) => handleNavListItem(e, course.courses)}

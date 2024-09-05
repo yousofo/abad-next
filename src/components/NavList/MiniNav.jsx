@@ -3,8 +3,10 @@ import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useDispatch } from "react-redux";
 import { reset } from "../GlobalState/Features/navListSlice";
-import { fetchCheckCourse, fetchCoursesWithTypes } from "@/helperFunctions/dataFetching";
-
+import {
+  fetchCheckCourse,
+  fetchCoursesWithTypes,
+} from "@/helperFunctions/dataFetching";
 
 //helper component
 const MiniNavItem = ({ data }) => {
@@ -112,9 +114,8 @@ const MiniNav = () => {
           outerList ? "max-h-96" : "max-h-0"
         } overflow-y-hidden transition-all flex flex-col gap-2 w-full px-1`}
       >
-        {data.map((e, i) => (
-          <MiniNavItem data={e} key={i} />
-        ))}
+        {Array.isArray(data) &&
+          data.map((e, i) => <MiniNavItem data={e} key={i} />)}
       </ul>
     </button>
   );

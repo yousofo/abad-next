@@ -35,9 +35,14 @@ const PartnersSwiper = () => {
   let dataX2 = [...data, ...data];
 
   useEffect(() => {
-    fetchWithCheck(`/api/partners`, null, []).then((data) => {
-      setData(data);
-    });
+    fetchWithCheck(`/api/partners`, null, [])
+      .then((data) => {
+        if (!Array.isArray(data)) {
+          throw err;
+        }
+        setData(data);
+      })
+      .catch((err) => setData([]));
   }, []);
   return (
     <Swiper
@@ -55,11 +60,12 @@ const PartnersSwiper = () => {
       }}
       autoplay={{ delay: 1000 }}
     >
-      {dataX2.map((e, i) => (
-        <SwiperSlide key={"partnerCard-" + i}>
-          <PartnersItem key={"partnerCard-" + i} data={e} />
-        </SwiperSlide>
-      ))}
+      {Array.isArray(dataX2) &&
+        dataX2.map((e, i) => (
+          <SwiperSlide key={"partnerCard-" + i}>
+            <PartnersItem key={"partnerCard-" + i} data={e} />
+          </SwiperSlide>
+        ))}
     </Swiper>
   );
 };

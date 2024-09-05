@@ -37,8 +37,7 @@ import { handleNavigateToCourseDetails } from "@/helperFunctions/clientOnlyActio
 const CoursesComponent = () => {
   const allCatRef = useRef(null);
   const dispatch = useDispatch();
-  const router= useRouter();
-
+  const router = useRouter();
   //global state
   const isCards = useSelector((store) => store.coursesFilter.isCards);
 
@@ -78,7 +77,7 @@ const CoursesComponent = () => {
   const tableInstance = useTable(
     { columns: tableColumns, data: sortedData },
     useGlobalFilter,
-    useSortBy,
+    useSortBy
     // usePagination
   );
   const {
@@ -131,9 +130,39 @@ const CoursesComponent = () => {
         console.log(error);
       });
     fetchCourses()
-      .then((e) => {
-        setData(e);
-        setPageSize(6);
+      .then((result) => {
+        const monthCourses = [];
+
+        Object.entries(result).forEach(([key, value]) => {
+          const monthHeader = {
+            token: "",
+            courseName: "header",
+            startDate: "",
+            isOnlineId: 0,
+            isOnline: "",
+            hadaf: null,
+            categoryId: 0,
+            categoryName: "",
+            price: 0,
+            imageUrl: "",
+            summaryAr: "",
+            summary: null,
+            goalsAr: null,
+            targetAr: null,
+            detailsAr: null,
+            testAr: null,
+            numberOfweeks: 0,
+            numberOfHours: 0,
+            trainerLanguage: null,
+            formattedTimeStart: "",
+            formattedTimeEnd: "",
+            openCourses: null,
+            month: value.month,
+          };
+          monthCourses.push(monthHeader, ...value.courses);
+        });
+        setData(monthCourses);
+        // setPageSize(6);
       })
       .catch((error) => {
         console.log("courses filter");
@@ -381,7 +410,7 @@ const CoursesComponent = () => {
                 return (
                   <tr
                     {...row.getRowProps()}
-                    className="shadow rounded-lg"
+                    className={`shadow rounded-lg ${row.original.month && "[&>td]:!py-4"}`}
                     key={i}
                   >
                     {row.cells.map((cell, i) => {

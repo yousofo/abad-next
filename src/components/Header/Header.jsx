@@ -15,7 +15,11 @@ import {
   fetchUserBasket,
   toggleUpdateInfo,
 } from "../GlobalState/Features/userData";
-import { fetchHomeData } from "@/helperFunctions/dataFetching";
+import {
+  fetchArticles,
+  fetchHomeData,
+  fetchLatestArticles,
+} from "@/helperFunctions/dataFetching";
 import { homeData } from "../GlobalState/Features/dataContentSlice";
 
 const Header = () => {
@@ -52,7 +56,9 @@ const Header = () => {
       dispatch(fetchUserBasket(userInfo.token));
     }
     fetchHomeData()
-      .then((e) => dispatch(homeData(e)))
+      .then((e) => {
+        dispatch(homeData(e));
+      })
       .catch((err) => console.log(err));
   }, [userInfo?.token]);
   return (
