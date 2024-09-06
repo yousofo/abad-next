@@ -215,6 +215,7 @@ const Course = ({ params }) => {
                 table={courseInfo?.openCourses}
                 active={true}
                 token={params.token}
+                isOnline={courseInfo?.isOnline == "أونلاين"}
               />
 
               <Accordion title="تفاصيل الاختبارات" data={courseInfo?.testAr} />
@@ -383,6 +384,8 @@ const Course = ({ params }) => {
               title="موعد الدورة"
               table={courseInfo?.openCourses}
               active={true}
+              token={params.token}
+              isOnline={courseInfo?.isOnline == "أونلاين"}
             />
 
             <Accordion title="تفاصيل الاختبارات" data={courseInfo?.testAr} />

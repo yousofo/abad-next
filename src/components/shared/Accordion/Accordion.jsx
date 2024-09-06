@@ -185,9 +185,18 @@ const AccordionForm = ({ form, token }) => {
   );
 };
 
-const Accordion = ({ title, data, table, active: starting, form, token }) => {
+const Accordion = ({
+  title,
+  data,
+  table,
+  active: starting,
+  form,
+  token,
+  isOnline,
+}) => {
   const [active, setActive] = useState(starting ? true : false);
   const router = useRouter();
+  console.log(table);
   return (
     <div
       className={`accordion-item  ${active && "active"} ${
@@ -240,7 +249,19 @@ const Accordion = ({ title, data, table, active: starting, form, token }) => {
                     </td>
                     <td>{e?.formattedTimeStart}</td>
                     <td>
-                      {e?.isOnline == "أونلاين" ? (
+                      {isOnline ? (
+                        <Link
+                          href="/basket"
+                          className="register-btn text-center w-fit enlist sm:!bg-[#FDB614] sm:!text-black"
+                          onClick={(ev) => {
+                            ev.preventDefault();
+                            handleAddToBasket(token);
+                            router.push("/basket");
+                          }}
+                        >
+                          شراء الدورة
+                        </Link>
+                      ) : (
                         <button
                           href="/"
                           className="w-fit enlist sm:!bg-[#FDB614] sm:!text-black"
@@ -258,18 +279,6 @@ const Accordion = ({ title, data, table, active: starting, form, token }) => {
                           </svg>
                           تسجيل
                         </button>
-                      ) : (
-                        <Link
-                          href="/basket"
-                          className="register-btn text-center w-fit enlist sm:!bg-[#FDB614] sm:!text-black"
-                          onClick={(ev) => {
-                            ev.preventDefault();
-                            handleAddToBasket(token);
-                            router.push("/basket");
-                          }}
-                        >
-                          شراء الدورة
-                        </Link>
                       )}
                     </td>
                   </tr>
