@@ -37,13 +37,12 @@ const Course = ({ params }) => {
 
     if (preFetchedCourse && preFetchedCourse.token === params.token) {
       setFetched(true);
-      setCourseImg(courseInfo.imageUrl);
       dispatch(closeLoader());
     } else {
       fetchWithCheck(`/api/home/courseDetails/${params.token}`)
         .then((courseData) => {
           setCourseInfo(courseData);
-          setCourseImg(courseData.imageUrl);
+          setCourseImg(courseData.imageUrl || "");
         })
         .catch((error) => router.replace("/not-found"))
         .finally(() => {
@@ -247,7 +246,11 @@ const Course = ({ params }) => {
               <div className="w-full h-72"></div>
             </div>
             <Image
-              src={courseImg || preFetchedCourse?.imageUrl}
+              src={
+                preFetchedCourse && preFetchedCourse.token === params.token
+                  ? preFetchedCourse?.imageUrl
+                  : courseImg
+              }
               alt="tata"
               width={300}
               height={0}
@@ -256,10 +259,6 @@ const Course = ({ params }) => {
               className={`mx-auto mb-2 ${imgLoaded ? "" : "hidden"} md:mb-4`}
               onLoad={() => {
                 setImgLoaded(true);
-                // let cur = setTimeout(() => {
-                //   dispatch(closeLoader());
-                //   return clearTimeout(cur);
-                // }, 500);
               }}
               onError={() => {
                 setImgLoaded(true);
@@ -282,13 +281,13 @@ const Course = ({ params }) => {
                 {courseInfo?.isOnline == "أونلاين" ? (
                   <>
                     <Link
-                      href="/basket"
                       className="register-btn text-center"
                       onClick={(ev) => {
                         ev.preventDefault();
-                        handleAddToBasket(params.token)
-                        router.push("/basket")
+                        handleAddToBasket(params.token);
+                        router.push("/basket");
                       }}
+                      href="/basket"
                     >
                       شراء الدورة التدريبية الآن
                     </Link>
