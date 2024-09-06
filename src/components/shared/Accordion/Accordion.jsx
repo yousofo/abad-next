@@ -255,8 +255,7 @@ const Accordion = ({
                           className="register-btn text-center w-fit enlist sm:!bg-[#FDB614] sm:!text-black"
                           onClick={(ev) => {
                             ev.preventDefault();
-                            handleAddToBasket(token);
-                            router.push("/basket");
+                            handleAddToBasket(token,router);
                           }}
                         >
                           شراء الدورة

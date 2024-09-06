@@ -46,7 +46,7 @@ export async function buyCourseNow(courseToken,router) {
   }
 }
 
-export async function handleAddToBasket(courseToken) {
+export async function handleAddToBasket(courseToken,router) {
   if (!isUserSignedIn()) {
     store.dispatch(toggleSignIn());
     return;
@@ -59,13 +59,16 @@ export async function handleAddToBasket(courseToken) {
     tokenCourse: courseToken,
     tokenStudent: user.token,
   });
-  console.log(result);
+
+  
   if (result.message) {
     store.dispatch(fetchUserBasket(user.token));
     toast.success(result.message);
   } else if (result.error) {
     toast.error(result.error);
   }
+  
+  router.push("/basket");
   store.dispatch(closeLoader());
 }
 
