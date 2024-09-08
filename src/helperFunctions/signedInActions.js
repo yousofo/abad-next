@@ -38,7 +38,7 @@ export function getUserInfoFromStore() {
 
 export async function buyCourseNow(courseToken,router) {
   if (isUserSignedIn()) {
-    handleAddToBasket(courseToken);
+    handleAddToBasket(courseToken,router);
     router.push("/basket");
     // store.dispatch(toggleSelectPaymentOptions(courseToken));
   } else {
