@@ -70,8 +70,10 @@ const CoursesComponent = () => {
 
   //3rd filter latest | newest
   const sortedData = useMemo(() => {
-    return sortedDataFn(priceFilter, sortOrder);
-  }, [priceFilter, sortOrder]);
+    return sortedDataFn(priceFilter,sortOrder);
+  }, [priceFilter,sortOrder]);
+
+  console.log(sortedData);
 
   // initialize react table
   const tableInstance = useTable(
@@ -132,12 +134,11 @@ const CoursesComponent = () => {
     fetchCourses()
       .then((result) => {
         const monthCourses = [];
-
         Object.entries(result).forEach(([key, value]) => {
           const monthHeader = {
             token: "",
             courseName: "header",
-            startDate: "",
+            startDate: value.courses[0].startDate,
             isOnlineId: 0,
             isOnline: "",
             hadaf: null,
@@ -159,7 +160,7 @@ const CoursesComponent = () => {
             openCourses: null,
             month: value.month,
           };
-          monthCourses.push(monthHeader, ...value.courses);
+          monthCourses.push(...value.courses, monthHeader);
         });
         setData(monthCourses);
         // setPageSize(6);
@@ -410,7 +411,10 @@ const CoursesComponent = () => {
                 return (
                   <tr
                     {...row.getRowProps()}
-                    className={`shadow rounded-lg ${row.original.month && "[&>td]:!py-4 flex md:table-row w-full"}`}
+                    className={`shadow rounded-lg ${
+                      row.original.month &&
+                      "[&>td]:!py-4 flex md:table-row w-full"
+                    }`}
                     key={i}
                   >
                     {row.cells.map((cell, i) => {

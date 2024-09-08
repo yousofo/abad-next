@@ -51,20 +51,25 @@ export function filteredDataFn(
 /*2nd filter based on price after first filter*/
 export function priceFilterFn(filteredData, minMax) {
   console.log("filter price");
-  return filteredData.filter(
+  const filtered = filteredData.filter(
     (e) => e.price >= minMax.min && e.price <= minMax.max
   );
+  return filtered.reverse();
 }
 
 /*3rd filter latest | newest*/
-export function sortedDataFn(priceFilter, sortOrder) {
-  console.log("latest Filter");
-  return [...priceFilter].sort((a, b) => {
-    if (sortOrder === "latest") {
-      return new Date(b.startDate) - new Date(a.startDate);
-    } else {
-      return new Date(a.startDate) - new Date(b.startDate);
-    }
-  });
-}
+export function sortedDataFn(priceFilter,sortOrder) {
+  if(sortOrder === "latest"){
+    return priceFilter
+  }else{
+    return [...priceFilter].reverse().filter(e=>!e.month)
+  }
 
+  // return [...priceFilter].sort((a, b) => {
+  //   if (sortOrder === "latest") {
+  //     return new Date(b.startDate) - new Date(a.startDate);
+  //   } else {
+  //     return new Date(a.startDate) - new Date(b.startDate);
+  //   }
+  // });
+}
