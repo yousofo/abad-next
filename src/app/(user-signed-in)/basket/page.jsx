@@ -302,7 +302,7 @@ const Basket = () => {
           <h3 className="text-[#221638] md:text-xl">الاجمالي</h3>
           <h3 className="text-[#1B45B4] text-xs md:text-xl">
             <bdi>
-              {discountedBasketPrice}
+              {finalPrice}
               &nbsp; ريال سعودي
             </bdi>
           </h3>
