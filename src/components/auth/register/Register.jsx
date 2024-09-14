@@ -42,6 +42,9 @@ const Register = () => {
   } = signUpForm;
   let { errors, isSubmitted } = formState;
 
+  const today = new Date();
+  const tenYearsAgo = new Date(today.getFullYear() - 16, today.getMonth(), today.getDate());
+  const formattedMaxDate = tenYearsAgo.toISOString().split('T')[0]; // yyyy-mm-dd format
   function switchAuthMode(e) {
     e.preventDefault();
     dispatch(toggleSignIn());
@@ -80,21 +83,6 @@ const Register = () => {
       });
     } else if (result.message) {
       console.log(result);
-      // dispatch(
-      //   toggleUpdateInfo({
-      //     arabicName: formData.arabicName,
-      //     idnumber: formData.idNumber,
-      //     email: formData.signUpEmail,
-      //     phone: formData.phone,
-      //     gender: formData.gender,
-      //     birthDate: formData.birthDate,
-      //     nationality: formData.nationality,
-      //     educationsType: formData.educationsType,
-      //     city: formData.city,
-      //     token: "test",
-      //   })
-      // );
-      // dispatch(toggleSignedIn({ userData: result, days: 30 }));
       const signInResult = await fetchSignIn({
         email: formData.signUpEmail,
         password: formData.signUpPassword,
@@ -276,6 +264,7 @@ const Register = () => {
             {...register("birthDate", {
               required: "يجب ادخال تاريخ الميلاد",
             })}
+            max={formattedMaxDate} // Set the max date to 16 years ago
           />
           <p className="input-error">{errors.birthDate?.message}</p>
         </div>

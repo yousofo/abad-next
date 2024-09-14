@@ -44,7 +44,9 @@ const Profile = () => {
     }
   }
   console.log("profile");
-
+  const today = new Date();
+  const tenYearsAgo = new Date(today.getFullYear() - 16, today.getMonth(), today.getDate());
+  const formattedMaxDate = tenYearsAgo.toISOString().split('T')[0]; // yyyy-mm-dd format
   // react-hook-form
   const updateStudentForm = useForm();
   const { register, handleSubmit, formState, setError, reset } =
@@ -232,6 +234,7 @@ const Profile = () => {
               {...register("birthDate", {
                 required: "يجب كتابة تاريخ الميلاد",
               })}
+              max={formattedMaxDate} // Set the max date to 16 years ago
             />
             <p className="input-error">{errors.birthDate?.message}</p>
           </div>
