@@ -1,13 +1,18 @@
 "use client";
-import { toggleSignIn } from "@/components/GlobalState/Features/authSlice";
+import { toggleSignIn, toggleSignedIn } from "@/components/GlobalState/Features/authSlice";
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { cities, countries } from "@/components/data/data";
-import { closeLoader, openLoader } from "@/components/GlobalState/Features/popUpsSlice";
-import { fetchRegisterUser } from "@/helperFunctions/auth";
+import { reset as reserNavList } from "@/components/GlobalState/Features/navListSlice";
 
-
+import {
+  closeLoader,
+  openLoader,
+} from "@/components/GlobalState/Features/popUpsSlice";
+import { fetchRegisterUser, fetchSignIn } from "@/helperFunctions/auth";
+import { toggleUpdateInfo } from "@/components/GlobalState/Features/userData";
+import { toast } from "react-toastify";
 
 const scrollToTop = (element) => {
   element.scrollIntoView({ behavior: "instant", block: "start" });
@@ -55,7 +60,7 @@ const Register = () => {
       // nationality: JSON.parse(formData.nationality.nationality_ar)
       // .nationality_ar,
     });
-    console.log(result)
+    console.log(result);
     if (result.errors) {
       scrollToTop(signUpContainer.current);
       console.log("errrrr");
@@ -74,12 +79,37 @@ const Register = () => {
         }
       });
     } else if (result.message) {
-      dispatch(toggleSignIn());
+      console.log(result);
+      // dispatch(
+      //   toggleUpdateInfo({
+      //     arabicName: formData.arabicName,
+      //     idnumber: formData.idNumber,
+      //     email: formData.signUpEmail,
+      //     phone: formData.phone,
+      //     gender: formData.gender,
+      //     birthDate: formData.birthDate,
+      //     nationality: formData.nationality,
+      //     educationsType: formData.educationsType,
+      //     city: formData.city,
+      //     token: "test",
+      //   })
+      // );
+      // dispatch(toggleSignedIn({ userData: result, days: 30 }));
+      const signInResult = await fetchSignIn({
+        email: formData.signUpEmail,
+        password: formData.signUpPassword,
+      });
+      console.log(signInResult)
+      dispatch(toggleUpdateInfo(signInResult));
+      dispatch(toggleSignedIn({ userData: result, days: 30 }));
+      toast(result.message)
+      dispatch(reserNavList());
+      // dispatch(toggleSignIn());
     } else {
       if (result.error) {
         setGeneralError(result.error);
       } else {
-        console.log(result)
+        console.log(result);
         // setGeneralError(result);
       }
     }
@@ -113,7 +143,7 @@ const Register = () => {
         noValidate
         id="signUpForm"
       >
-        {/* name arabic ! */}
+        {/* name arabic ! arabicName*/}
         <div className="input">
           <label htmlFor="">الاسم الرباعي بالعربي*</label>
           <input
@@ -128,7 +158,7 @@ const Register = () => {
           <p className="input-error">{errors.arabicName?.message}</p>
         </div>
 
-        {/* id ! */}
+        {/* id ! idNumber*/}
         <div className="input">
           <label htmlFor="">رقم الهوية*</label>
           <input
@@ -155,7 +185,7 @@ const Register = () => {
           <p className="input-error">{errors.idNumber?.message}</p>
         </div>
 
-        {/* nationality ! */}
+        {/* nationality ! nationality*/}
         <div className="input nationality">
           <label htmlFor="nationality">الجنسية*</label>
           <div className="select relative">
@@ -188,7 +218,7 @@ const Register = () => {
           <p className="input-error">{errors.nationality?.message}</p>
         </div>
 
-        {/* email !*/}
+        {/* email ! signUpEmail*/}
         <div className="input">
           <label htmlFor="">عنوان البريد الإلكتروني*</label>
           <input
@@ -209,7 +239,7 @@ const Register = () => {
 
         {/* phone */}
         <div className="input">
-          <label htmlFor="">الهاتف</label>
+          <label htmlFor="phone">الهاتف</label>
           <input
             type="text"
             name=""
@@ -236,7 +266,7 @@ const Register = () => {
 
         {/* birthDate */}
         <div className="input">
-          <label htmlFor="signUpDate">تاريخ الميلاد</label>
+          <label htmlFor="birthDate">تاريخ الميلاد</label>
           <input
             type="date"
             name=""
@@ -252,7 +282,7 @@ const Register = () => {
 
         {/* gender ! */}
         <div className="input">
-          <label htmlFor="signUpGender">الجنس*</label>
+          <label htmlFor="gender">الجنس*</label>
           <div className="select relative">
             <select
               name=""
@@ -293,7 +323,6 @@ const Register = () => {
             <div className="select relative">
               <select
                 name=""
-                id="city"
                 {...register("city", {
                   required: "يجب اختيار المدينة",
                 })}
@@ -325,13 +354,12 @@ const Register = () => {
           <p className="input-error">{errors.city?.message}</p>
         </div>
 
-        {/* password ! */}
+        {/* password ! signUpPassword*/}
         <div className="input">
           <label htmlFor="">كلمة المرور*</label>
           <input
             type="password"
             name=""
-            id="signUpPassword"
             {...register("signUpPassword", {
               required: "يجب كتابة كلمة المرور",
             })}
@@ -340,13 +368,12 @@ const Register = () => {
           <p className="input-error">{errors.signUpPassword?.message}</p>
         </div>
 
-        {/* confirm password ! */}
+        {/* confirm password ! signUpConfirmPassword*/}
         <div className="input">
           <label htmlFor="">تأكيد كلمة المرور*</label>
           <input
             type="password"
             name=""
-            id="signUpConfirmPassword"
             {...register("signUpConfirmPassword", {
               required: "يجب تأكيد كلمة المرور",
             })}

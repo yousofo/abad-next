@@ -6,12 +6,14 @@ import {
   toggleSignedIn,
 } from "@/components/GlobalState/Features/authSlice";
 import { reset } from "@/components/GlobalState/Features/navListSlice";
-import { closeLoader, openLoader } from "@/components/GlobalState/Features/popUpsSlice";
+import {
+  closeLoader,
+  openLoader,
+} from "@/components/GlobalState/Features/popUpsSlice";
 import { toggleUpdateInfo } from "@/components/GlobalState/Features/userData";
 import { fetchSignIn } from "@/helperFunctions/auth";
 import React, { useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-
 
 //
 //
@@ -23,8 +25,6 @@ const SignIn = () => {
 
   const error = useSelector((state) => state.auth.signInError);
   const dispatch = useDispatch();
-
-  console.log(error);
 
   function handleForgotPassword(e) {
     e.preventDefault();
@@ -39,19 +39,20 @@ const SignIn = () => {
       email: email.current.value,
       password: password.current.value,
     });
-    console.log(result)
     if (result.token) {
+      console.log(result);
       dispatch(toggleUpdateInfo(result));
+      
       // save user data if remember me is chekced
-      if (remember && typeof window != undefined) {
-        dispatch(toggleSignedIn({ userData: result, days: 30 }));
-      } else {
-        dispatch(toggleSignedIn({ userData: result, days: null }));
-      }
+      dispatch(toggleSignedIn({ userData: result, days: 30 }));
+      // if (remember && typeof window != undefined) {
+      //   dispatch(toggleSignedIn({ userData: result, days: 30 }));
+      // } else {
+      //   dispatch(toggleSignedIn({ userData: result, days: 30 }));
+      // }
 
       dispatch(reset());
     } else {
-      console.log(result);
       if (result.message) {
         dispatch(addSignInError(result.message));
       } else {
@@ -61,7 +62,7 @@ const SignIn = () => {
 
     dispatch(closeLoader(""));
   }
-  
+
   return (
     <div className={`auth-signin`}>
       <div>
