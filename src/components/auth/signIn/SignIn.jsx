@@ -42,14 +42,14 @@ const SignIn = () => {
     if (result.token) {
       console.log(result);
       dispatch(toggleUpdateInfo(result));
-      
+
       // save user data if remember me is chekced
-      dispatch(toggleSignedIn({ userData: result, days: 30 }));
-      // if (remember && typeof window != undefined) {
-      //   dispatch(toggleSignedIn({ userData: result, days: 30 }));
-      // } else {
-      //   dispatch(toggleSignedIn({ userData: result, days: 30 }));
-      // }
+      // dispatch(toggleSignedIn({ userData: result, days: 30 }));
+      if (remember && typeof window != undefined) {
+        dispatch(toggleSignedIn({ userData: result, days: 30 }));
+      } else {
+        dispatch(toggleSignedIn({ userData: result, days: 0 }));
+      }
 
       dispatch(reset());
     } else {
