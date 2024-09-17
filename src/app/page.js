@@ -18,12 +18,6 @@ const VideoSection = dynamic(
   }
 );
 export default async function Home() {
-  const cardsText = [
-    "الشهادات الاحترافيه والمهنية",
-    "المعسكرات التدريبية",
-    "شهادات مدعومة من هدف",
-    "الدبلومات",
-  ];
   const latestArticles = await fetchWithCheck(
     `${process.env.NEXT_PUBLIC_ROOT_URL}/api/articles/getLatestArticles`,
     null,
@@ -83,8 +77,8 @@ export default async function Home() {
                 src="/media/ft-logo 3.png"
                 alt=""
               />
-              <h3 className="font-bold text-2xl md:text-4xl">
-                ماهي خطة <span className="text-abad-gold">اباد للتدريب؟</span>
+              <h3 className="font-bold text-2xl md:text-3xl lg:text-4xl !leading-[2.5rem]">
+                <span className="inline-block">ماهي خطة </span><span className="text-abad-gold inline-block">اباد للتدريب؟</span>
               </h3>
               <p className="text-sm md:text-base noto">
                 {homeData?.shortDescription}
@@ -118,22 +112,46 @@ export default async function Home() {
             </div>
           </div>
           <div className="cards">
-            {Array.from({ length: 4 }, (_, i) => (
-              <figure className="card" key={i}>
-                <div className="img">
-                  <img
-                    loading="lazy"
-                    src="/media/twitch.png"
-                    className=""
-                    alt=""
-                  />
-                </div>
-                <figcaption>
-                  <h4 className="font-bold">{cardsText[i]}</h4>
-                  <p className="noto">{homeData?.[`whoMe${i + 1}`]}</p>
-                </figcaption>
-              </figure>
-            ))}
+            <figure className="card">
+              <Image
+                width={210}
+                height={0}
+                src="/media/button website/Vector Smart Object-2.png"
+                alt="learn with abad"
+                className="w-36 md:!w-44 lg:!w-[210px]"
+                
+              />
+            </figure>
+            <figure className="card">
+              <Image
+                width={210}
+                height={0}
+                src="/media/button website/Vector Smart Object-1.png"
+                alt="learn with abad"
+                className="!w-36 md:!w-44 lg:!w-[210px]"
+                
+              />
+            </figure>
+            <figure className="card">
+              <Image
+                width={210}
+                height={0}
+                src="/media/button website/Vector Smart Object-3.png"
+                alt="learn with abad"
+                className="w-36 md:!w-44 lg:!w-[210px]"
+                
+              />
+            </figure>
+            <figure className="card">
+              <Image
+                width={210}
+                height={0}
+                src="/media/button website/Vector Smart Object.png"
+                alt="learn with abad"
+                className="w-36 md:!w-44 lg:!w-[210px]"
+                
+              />
+            </figure>
           </div>
         </div>
       </section>

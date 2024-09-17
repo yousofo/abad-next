@@ -70,7 +70,8 @@ main.home-page {
           border-radius: 12px;
           text-align: center;
           background-color: white;
-          padding: 20px 14px;
+          justify-content: center;
+          /* padding: 20px 14px; */
           width: 210px;
           margin: 0 auto;
           .img {
@@ -332,7 +333,7 @@ main.home-page {
 }
 body:has(.auth.flex) {
   /* & { */
-    height: 100vh;
-    overflow: hidden;
+  height: 100vh;
+  overflow: hidden;
   /* } */
 }
