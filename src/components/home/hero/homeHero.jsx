@@ -44,14 +44,14 @@ const HomeHero = async () => {
         </a>
         {/* ) : ( */}
         <div className={`${openOffer?.isOpen ? "hidden" : "block"} flex flex-col gap-6 items-center`}>
-          <h2 className="text-2xl md:text-3xl lg:text-4xl xl:text-[55px] xl:leading-[1.5] font-medium">
+          <h2 className="text-2xl md:text-3xl lg:text-4xl xl:text-[55px] xl:leading-[1.5] abad-font font-bold">
             <span>تعلم بكل سهولة مع</span>
             &nbsp;
             <span className="text-abad-gold whitespace-nowrap">
               اباد للتدريب
             </span>
           </h2>
-          <h4 className="text-sm md:text-lg leading-[28px] md:leading-[2] max-w-[650px]">
+          <h4 className="text-sm md:text-lg leading-[28px] md:leading-[2] max-w-[650px] abad-font">
             معهد شبكة آباد للتدريب من المعاهد الرائدة في تقديم الدورات التطويرية
             المتخصصة في تقنية المعلومات.
           </h4>
@@ -59,7 +59,7 @@ const HomeHero = async () => {
             href="/courses"
             className="flex w-fit items-center bg-abad-gold py-2 px-4 gap-5 text-sm rounded-xl text-black"
           >
-            <span className="font-medium">ابدأ التعلم</span>
+            <span className="font-medium abad-font">ابدأ التعلم</span>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width={24}

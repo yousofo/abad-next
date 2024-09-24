@@ -14,10 +14,12 @@ module.exports = {
       },
       colors: {
         "abad-gold": "#fdb614",
+        "abad-cyan": "#2057B2",
       },
       backgroundColor: {
         "abad-gold": "#fdb614",
-      }
+        "abad-cyan": "#2057B2",
+      },
     },
   },
   plugins: [],

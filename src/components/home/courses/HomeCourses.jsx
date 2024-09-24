@@ -63,7 +63,7 @@ const HomeCourses = () => {
     <div className="home-courses container min-h-[450px] py-2 mx-auto max-w-screen-lg flex flex-col px-1 gap-4 items-center bg-white rounded-xl">
       {/* courses preview mode options */}
       <div className="courses-preview-mode text-black flex px-2 justify-between items-center w-full">
-        <h3 className="font-bold text-[#1e1e1e] md:text-4xl">
+        <h3 className="font-bold text-[#1e1e1e] md:text-[40px]">
           دورات أباد للتدريب
         </h3>
         <ul className="flex gap-2 justify-center items-center">
@@ -188,7 +188,7 @@ const HomeCourses = () => {
             </ul>
           </nav>
           {/* search courese */}
-          <div className="search-courses abad-drop-shadow">
+          <div className="search-courses abad-drop-shadow bukra-front placeholder:text-base text-base">
             <svg
               viewBox="0 0 33 32"
               fill="none"

@@ -155,6 +155,9 @@
   font-weight: 700;
   src: url("/Tajawal/Tajawal-Bold.ttf") format("truetype");
 }
+.abad-font{
+  font-family: "29lt-Bukra";
+}
 body {
   font-family: "Tajawal";
   display: flex;

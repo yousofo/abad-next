@@ -1,4 +1,5 @@
 "use client";
+import Link from "next/link";
 import React from "react";
 
 const CourseCard = ({ index, data }) => {
@@ -82,9 +83,64 @@ const CourseCard = ({ index, data }) => {
           </span>
         </div>
         <p dangerouslySetInnerHTML={{ __html: data.summaryAr }} />
-        <div className="course-info">
-          <p>البرمجة</p>
-          <p>{data.price} ريال سعودي</p>
+        <div className="course-info !justify-start gap-2">
+          <Link className="text-abad-cyan bg-[#EBEBEB] px-4 py-2" 
+            // onClick={(ev) =>
+            //   handleNavigateToCourseDetails(ev, data.token, router)
+            // }
+            href={`/courses/${data.token}`}
+          >
+            <button className="flex items-center gap-1 text-xs">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width={17}
+                height={16}
+                viewBox="0 0 17 16"
+                fill="none"
+              >
+                <path
+                  d="M10.8866 7.99995C10.8866 9.31995 9.81995 10.3866 8.49995 10.3866C7.17995 10.3866 6.11328 9.31995 6.11328 7.99995C6.11328 6.67995 7.17995 5.61328 8.49995 5.61328C9.81995 5.61328 10.8866 6.67995 10.8866 7.99995Z"
+                  fill="currentColor"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+                <path
+                  d="M8.4999 13.5131C10.8532 13.5131 13.0466 12.1264 14.5732 9.7264C15.1732 8.7864 15.1732 7.2064 14.5732 6.2664C13.0466 3.8664 10.8532 2.47974 8.4999 2.47974C6.14656 2.47974 3.95323 3.8664 2.42656 6.2664C1.82656 7.2064 1.82656 8.7864 2.42656 9.7264C3.95323 12.1264 6.14656 13.5131 8.4999 13.5131Z"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+              التفاصيل
+            </button>
+          </Link>
+          <div className="text-abad-cyan bg-[#EBEBEB]" >
+            <button
+            className="flex items-center gap-1 text-xs px-4 py-2"
+              // onClick={() => {
+              //   isOnline
+              //     ? buyCourseNow(data.token, router)
+              //     : handleRegisterAttendanceCourse(data.token);
+              // }}
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width={14}
+                height={11}
+                viewBox="0 0 14 11"
+                fill="none"
+              >
+                <path
+                  d="M6.66667 7.33333H5.33333C4.23973 7.33292 3.16682 7.63143 2.23058 8.1966C1.29435 8.76178 0.530401 9.57211 0.0213343 10.54C0.00702532 10.3604 -9.15218e-05 10.1802 8.88408e-07 10C8.88408e-07 6.318 2.98467 3.33333 6.66667 3.33333V0L13.3333 5.33333L6.66667 10.6667V7.33333Z"
+                  fill="currentColor"
+                />
+              </svg>
+              {isOnline ? "شراء" : "التسجيل"}
+            </button>
+          </div>
         </div>
       </figcaption>
     </figure>

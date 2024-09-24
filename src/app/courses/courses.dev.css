@@ -279,12 +279,12 @@
       }
 
       a:nth-child(1) button {
-        background-color: #fdb614;
-        color: black;
+        /* background-color: #fdb614; */
+        /* color: black; */
       }
       button:nth-child(2) {
-        background: linear-gradient(83.79deg, #1b45b4 3.25%, #1c2792 96.85%);
-        color: white;
+        /* background: linear-gradient(83.79deg, #1b45b4 3.25%, #1c2792 96.85%); */
+        /* color: white; */
       }
     }
   }

@@ -396,7 +396,7 @@ const CoursesComponent = () => {
                   {headerGroup.headers.map((column, i) => (
                     <th
                       {...column.getHeaderProps(column.getSortByToggleProps())}
-                      className="text-start bg-[#1D2A96] !text-white"
+                      className="text-start bg-abad-cyan !text-white"
                       key={i}
                     >
                       {column.render("Header")}

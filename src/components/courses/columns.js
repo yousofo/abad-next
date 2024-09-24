@@ -55,7 +55,7 @@ export function useColumns() {
             </div>
           </div>
         ) : (
-          <div className="absolute w-full h-full left-1/2  top-1/2 -translate-x-1/2 -translate-y-1/2 bg-[#1D2A96] flex justify-center items-center text-white">
+          <div className="absolute w-full h-full left-1/2  top-1/2 -translate-x-1/2 -translate-y-1/2 bg-abad-cyan flex justify-center items-center text-white">
             <span>{row.original.month}</span>
           </div>
         ),
