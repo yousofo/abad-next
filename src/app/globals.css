@@ -97,7 +97,6 @@
   src: url("/bukra/29LT-Bukra-Light-2.ttf") format("truetype"); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ woff2*/
 }
 /* BUKRA-regular*/
-/* comment */
 @font-face {
   font-display: swap;
   font-family: "29lt-Bukra";
@@ -121,8 +120,43 @@
   font-weight: 700;
   src: url("/bukra/29LT-Bukra-Bold-2.OTF") format("opentype");
 }
+
+/* tajawal font */
+
+/* tajawal light */
+@font-face {
+  font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+  font-family: "Tajawal";
+  font-style: normal;
+  font-weight: 300;
+  src: url("/Tajawal/Tajawal-Light.ttf") format("truetype"); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ woff2*/
+}
+/* tajawal-regular*/
+@font-face {
+  font-display: swap;
+  font-family: "Tajawal";
+  font-style: normal;
+  font-weight: 400;
+  src: url("/Tajawal/Tajawal-Regular.ttf") format("truetype");
+}
+/* tajawal-500  */
+@font-face {
+  font-display: swap;
+  font-family: "Tajawal";
+  font-style: normal;
+  font-weight: 500;
+  src: url("/Tajawal/Tajawal-Medium.ttf") format("truetype");
+}
+/* tajawal-700  */
+@font-face {
+  font-display: swap;
+  font-family: "Tajawal";
+  font-style: normal;
+  font-weight: 700;
+  src: url("/Tajawal/Tajawal-Bold.ttf") format("truetype");
+}
 body {
-  font-family: "29lt-Bukra";
+  font-family: "Tajawal";
   display: flex;
   letter-spacing: -0.01rem;
   flex-direction: column;
@@ -188,10 +222,10 @@ img {
     width: 90vw;
   }
 }
-.shimmer-effect {
+/* .shimmer-effect { */
   /* width: 0px; */
   /* animation: fullView 0.5s forwards linear; */
-}
+/* } */
 .shimmer-effect div {
   border-radius: 8px;
   animation: shimmer 3s;
