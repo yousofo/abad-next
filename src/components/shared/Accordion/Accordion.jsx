@@ -247,43 +247,51 @@ const Accordion = ({
                   <>
                     <tr
                       style={{ boxShadow: "5px 4px 30px 0px #00000014" }}
-                      className="w-full p-2 [&>td]:p-0 sm:[&>td]:p-4 flex flex-col gap-2 sm:table-row bg-white"
+                      className="w-full p-2 [&>td]:p-0 sm:[&>td]:p-4 flex flex-col gap-3 sm:table-row bg-white"
                       key={i}
                     >
                       <td>
                         <div className="flex items-center gap-1 font-bold">
-                          <span className="inline sm:hidden">
+                          <span className="inline sm:hidden font-normal">
                             بداية الدورة :
                           </span>
-                          <span className="">{e?.startDate}</span>
+                          <span className="flex gap-1 md:inline-block">
+                            <p>يوم الجمعة</p>
+                            <p>{e?.startDate}</p>
+                          </span>
                         </div>
                         {/* attendance status */}
-                        <div className="text-[#0589F0] flex items-center gap-1">
-                          <svg
-                            width="10"
-                            height="10"
-                            viewBox="0 0 10 10"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <path
-                              d="M5.00033 8.33317C6.84127 8.33317 8.33366 6.84079 8.33366 4.99984C8.33366 3.15889 6.84127 1.6665 5.00033 1.6665C3.15938 1.6665 1.66699 3.15889 1.66699 4.99984C1.66699 6.84079 3.15938 8.33317 5.00033 8.33317Z"
-                              fill="currentColor"
-                            />
-                          </svg>
+                        <div className="text-[#0589F0] flex mt-1.5 md:mt-0 items-center gap-2.5 attendance-status font-bold">
+                          <div className="flex items-center gap-1">
+                            <svg
+                              width="10"
+                              height="10"
+                              viewBox="0 0 10 10"
+                              fill="none"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path
+                                d="M5.00033 8.33317C6.84127 8.33317 8.33366 6.84079 8.33366 4.99984C8.33366 3.15889 6.84127 1.6665 5.00033 1.6665C3.15938 1.6665 1.66699 3.15889 1.66699 4.99984C1.66699 6.84079 3.15938 8.33317 5.00033 8.33317Z"
+                                fill="currentColor"
+                              />
+                            </svg>
 
-                          <span>اونلاين</span>
+                            <span>اونلاين</span>
+                          </div>
+                          <div className="text-abad-cyan md:hidden">
+                            200 ريال
+                          </div>
                         </div>
                       </td>
                       <td>
                         <div className="flex items-center gap-1 md:block">
-                          <div>الجمعة و السبت</div>
-                          <div className="font-medium">
+                          <div className="font-medium md:font-bold">الجمعة و السبت</div>
+                          <div className="font-medium md:mt-2">
                             من ٦مساء : الي ٨ مساء
                           </div>
                         </div>
                       </td>
-                      <td className="text-sm font-bold text-abad-cyan md:text-black">
+                      <td className="text-sm hidden md:table-cell font-bold text-abad-cyan md:text-black">
                         200 ريال
                       </td>
                       <td>
@@ -320,7 +328,7 @@ const Accordion = ({
                         ) : (
                           <button
                             href="/"
-                            className="w-fit min-w-[113px] text-center enlist !bg-[#F6F6F6] !text-abad-cyan font-bold"
+                            className="w-fit  text-center enlist !bg-[#F6F6F6] !text-abad-cyan font-bold"
                             onClick={() =>
                               handleRegisterAttendanceCourse(token)
                             }
@@ -338,66 +346,6 @@ const Accordion = ({
                             تسجيل
                           </button>
                         )}
-                      </td>
-                    </tr>
-                    <tr
-                      style={{ boxShadow: "5px 4px 30px 0px #00000014" }}
-                      className="w-full p-2 [&>td]:p-0 sm:[&>td]:p-4 flex flex-col gap-2 sm:table-row bg-white"
-                      key={i}
-                    >
-                      <td>
-                        <div className="flex items-center gap-1 font-bold">
-                          <span className="inline sm:hidden">
-                            بداية الدورة :
-                          </span>
-                          <span className="">{e?.startDate}</span>
-                        </div>
-                        {/* attendance status */}
-                        <div className="text-[#0589F0] flex items-center gap-1">
-                          <svg
-                            width="10"
-                            height="10"
-                            viewBox="0 0 10 10"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <path
-                              d="M5.00033 8.33317C6.84127 8.33317 8.33366 6.84079 8.33366 4.99984C8.33366 3.15889 6.84127 1.6665 5.00033 1.6665C3.15938 1.6665 1.66699 3.15889 1.66699 4.99984C1.66699 6.84079 3.15938 8.33317 5.00033 8.33317Z"
-                              fill="currentColor"
-                            />
-                          </svg>
-
-                          <span>اونلاين</span>
-                        </div>
-                      </td>
-                      <td>
-                        <div className="flex items-center gap-1 md:block">
-                          <div>الجمعة و السبت</div>
-                          <div className="font-medium">
-                            من ٦مساء : الي ٨ مساء
-                          </div>
-                        </div>
-                      </td>
-                      <td className="text-sm font-bold">200 ريال</td>
-                      <td>
-                        <button
-                          className="w-fit min-w-[113px] md:min-w-[127px] justify-center enlist !bg-[#F6F6F6] !text-abad-cyan font-bold"
-                          // onClick={() =>
-                          //   handleRegisterAttendanceCourse(token)
-                          // }
-                        >
-                          <svg
-                            //3a96b4a5-84c9-4a75-92da-82b99dcdafa2
-                            xmlns="http://www.w3.org/2000/svg"
-                            width={14}
-                            height={11}
-                            viewBox="0 0 14 11"
-                            fill="currentColor"
-                          >
-                            <path d="M6.66667 7.33333H5.33333C4.23973 7.33292 3.16682 7.63143 2.23058 8.1966C1.29435 8.76178 0.530401 9.57211 0.0213343 10.54C0.00702532 10.3604 -9.15218e-05 10.1802 8.88408e-07 10C8.88408e-07 6.318 2.98467 3.33333 6.66667 3.33333V0L13.3333 5.33333L6.66667 10.6667V7.33333Z" />
-                          </svg>
-                          تسجيل
-                        </button>
                       </td>
                     </tr>
                   </>

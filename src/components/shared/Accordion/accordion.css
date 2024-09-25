@@ -1,5 +1,6 @@
 .enlist {
   font-size: 10px;
+  font-weight: 700;
   padding: 6px 12px;
   border-radius: 4px;
   display: flex;
@@ -45,6 +46,49 @@ table td:nth-child(2) {
   }
 }
 
+.handle-html-styles ol,
+.handle-html-styles ul {
+  padding-right: 20px;
+}
+.handle-html-styles ol {
+  list-style: decimal;
+}
+.handle-html-styles ul {
+  list-style: disc;
+}
+.handle-html-styles a:link {
+  color: blue; /* Default color for unvisited links */
+  text-decoration: underline; /* Underline by default */
+}
+.handle-html-styles a:visited {
+  color: purple; /* Default color for visited links */
+}
+.handle-html-styles a:hover {
+  color: red; /* Color when the link is hovered over */
+  text-decoration: underline; /* Underline on hover */
+}
+.handle-html-styles a:active {
+  color: darkred; /* Color when the link is clicked */
+}
+.handle-html-styles h1 {
+  font-size: 2em; /* Default size for <h1> */
+}
+.handle-html-styles h2 {
+  font-size: 1.5em; /* Default size for <h2> */
+}
+.handle-html-styles h3 {
+  font-size: 1.17em; /* Default size for <h3> */
+}
+.handle-html-styles h4 {
+  font-size: 1em; /* Default size for <h4> */
+}
+.handle-html-styles h5 {
+  font-size: 0.83em; /* Default size for <h5> */
+}
+.handle-html-styles h6 {
+  font-size: 0.67em; /* Default size for <h6> */
+}
+
 .accordion-item {
   /* box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 -1px 2px -1px rgb(0 0 0 / 0.1);
    */
@@ -87,61 +131,9 @@ table td:nth-child(2) {
 
 .accordion-content {
   max-height: 0;
-  transition: 0.3s;
+  transition: 0.3s max-height;
   background-color: #fff;
 }
 .accordion-content .wrapper {
   padding: 15px;
-}
-.handle-html-styles {
-  ol,
-  ul {
-    padding-right: 20px;
-  }
-  ol {
-    list-style: decimal;
-  }
-  ul {
-    list-style: disc;
-  }
-  a:link {
-    color: blue; /* Default color for unvisited links */
-    text-decoration: underline; /* Underline by default */
-  }
-
-  a:visited {
-    color: purple; /* Default color for visited links */
-  }
-
-  a:hover {
-    color: red; /* Color when the link is hovered over */
-    text-decoration: underline; /* Underline on hover */
-  }
-
-  a:active {
-    color: darkred; /* Color when the link is clicked */
-  }
-  h1 {
-    font-size: 2em; /* Default size for <h1> */
-  }
-
-  h2 {
-    font-size: 1.5em; /* Default size for <h2> */
-  }
-
-  h3 {
-    font-size: 1.17em; /* Default size for <h3> */
-  }
-
-  h4 {
-    font-size: 1em; /* Default size for <h4> */
-  }
-
-  h5 {
-    font-size: 0.83em; /* Default size for <h5> */
-  }
-
-  h6 {
-    font-size: 0.67em; /* Default size for <h6> */
-  }
-}
+}/*# sourceMappingURL=accordion.css.map */

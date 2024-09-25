@@ -59,12 +59,12 @@
 }
 .course-row td:nth-child(4) > div {
   display: flex;
+  /* >*{
+    max-width: 50%;
+  } */
 }
-/* .course-row td:nth-child(4) > div > * {
-  max-width: 50%;
-} */
 @media (min-width: 640px) {
   .course-row td:nth-child(4) > div {
     display: none;
   }
-}
+}/*# sourceMappingURL=courseRow.css.map */
