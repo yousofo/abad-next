@@ -15,10 +15,12 @@ module.exports = {
       colors: {
         "abad-gold": "#fdb614",
         "abad-cyan": "#2057B2",
+        "abad-cyan-light": "#0589F0",
       },
       backgroundColor: {
         "abad-gold": "#fdb614",
         "abad-cyan": "#2057B2",
+        "abad-cyan-light": "#0589F0",
       },
     },
   },

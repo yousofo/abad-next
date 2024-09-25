@@ -129,7 +129,8 @@
   color: #df2121;
 }
 .courses-page .courses-cards figure figcaption .course-attend span.in-person {
-  color: #0dc00d;
+  /* color: #0dc00d; */
+  color: #0589F0;
 }
 .courses-page .courses-cards figure figcaption .course-attend span:nth-child(2) {
   color: #1b45b4;
@@ -178,7 +179,8 @@
   color: #df2121;
 }
 .courses-page table tbody span.in-person {
-  color: #0dc00d;
+  /* color: #0dc00d; */
+  color: #0589F0;
 }
 @media (min-width: 640px) {
   .courses-page table tr:nth-child(even) {

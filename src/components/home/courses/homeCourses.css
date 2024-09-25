@@ -277,7 +277,8 @@
   td.course-name
   > div
   span.in-person {
-  color: #0dc00d;
+  /* color: #0dc00d; */
+  color: #0589F0;
 }
 .home-courses
   .courses-contents
@@ -522,7 +523,8 @@
   figcaption
   .course-attend
   span.in-person {
-  color: #0dc00d;
+  /* color: #0dc00d; */
+  color: #0589F0;
 }
 .home-courses
   .courses-contents

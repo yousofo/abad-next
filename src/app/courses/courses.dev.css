@@ -127,7 +127,8 @@
             color: #df2121;
           }
           span.in-person {
-            color: #0dc00d;
+            /* color: #0dc00d; */
+            color: #0589F0;
           }
           span:nth-child(2) {
             color: #1b45b4;
@@ -183,7 +184,8 @@
         color: #df2121;
       }
       span.in-person {
-        color: #0dc00d;
+        color: #0589F0;
+        /* color: #0dc00d; */
       }
     }
     @media (min-width: 640px) {
