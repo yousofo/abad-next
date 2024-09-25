@@ -278,7 +278,7 @@
   > div
   span.in-person {
   /* color: #0dc00d; */
-  color: #0589F0;
+  color: #0589f0;
 }
 .home-courses
   .courses-contents
@@ -382,6 +382,12 @@
   .home-courses .courses-contents > table tbody tr td:nth-child(2) {
     font-weight: 500;
   }
+}
+@media screen and (max-width: 767px) {
+  .home-courses .courses-contents > table tbody tr:nth-child(even) {
+    border: 1px solid #d6cbcb;
+  }
+  /* #D6CBCB */
 }
 @media (min-width: 768px) {
   .home-courses .courses-contents > table tbody tr:nth-child(even) {
@@ -524,7 +530,7 @@
   .course-attend
   span.in-person {
   /* color: #0dc00d; */
-  color: #0589F0;
+  color: #0589f0;
 }
 .home-courses
   .courses-contents
