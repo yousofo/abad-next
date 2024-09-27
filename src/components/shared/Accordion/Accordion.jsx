@@ -249,6 +249,7 @@ const Accordion = ({
                       style={{ boxShadow: "5px 4px 30px 0px #00000014" }}
                       className="w-full p-2 [&>td]:p-0 sm:[&>td]:p-4 flex flex-col gap-3 sm:table-row bg-white"
                       key={i}
+                      
                     >
                       <td>
                         <div className="flex items-center gap-1 font-bold">
