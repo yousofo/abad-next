@@ -9,7 +9,8 @@
   /* background: linear-gradient(83.79deg, #1b45b4 3.25%, #1c2792 96.85%); */
 }
 @media (min-width: 768px) {
-  .course-details figure a {
+  .course-details figure a,
+  .course-details figure .register-btn {
     padding: 16px 32px;
     font-size: 16px;
     border-radius: 100px;
@@ -37,6 +38,7 @@
     padding: 18px;
   }
 }
+
 .accordion {
   border-radius: 5px;
   display: flex;
@@ -49,9 +51,10 @@
     gap: 20px;
   }
 }
+
 .accordion-item {
   /* box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 -1px 2px -1px rgb(0 0 0 / 0.1);
-  */
+   */
   box-shadow: 5px 4px 30px 0px rgba(0, 0, 0, 0.078);
   display: flex;
   flex-direction: column;
@@ -63,9 +66,11 @@
 .accordion-item.active .accordion-header svg {
   rotate: 180deg;
 }
+
 .accordion-item:last-child {
   border-bottom: none;
 }
+
 .accordion-header {
   color: #252525;
   padding: 15px;
@@ -79,9 +84,11 @@
   font-size: 16px;
   transition: background-color 0.3s ease;
 }
+
 .accordion-header:hover {
   background-color: #f9fbff;
 }
+
 .accordion-content {
   max-height: 0;
   transition: 0.3s max-height;
@@ -89,29 +96,4 @@
 }
 .accordion-content .wrapper {
   padding: 15px;
-}
-.shimmer-effect {
-  /* width: 0px; */
-  /* animation: fullView 0.5s forwards linear; */
-}
-.shimmer-effect div {
-  border-radius: 8px;
-  animation: shimmer 3s;
-  animation-iteration-count: infinite;
-  background: linear-gradient(to right, #e6e6e6 5%, #cccccc 25%, #e6e6e6 35%);
-  background-size: 1000px 100%;
-}
-
-@keyframes fullView {
-  100% {
-    width: 100%;
-  }
-}
-@keyframes shimmer {
-  from {
-    background-position: -1000px 0;
-  }
-  to {
-    background-position: 1000px 0;
-  }
-}
+}/*# sourceMappingURL=course.css.map */

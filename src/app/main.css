@@ -1,20 +1,16 @@
 :root {
   --abad-gold: #fdb614;
 }
-/* main.home-page { */
+
+main.home-page {
   /* index page */
   /* contact page */
-/* } */
+}
 main.home-page .courses-sec {
   width: 100%;
+  height: -moz-fit-content;
   height: fit-content;
   position: relative;
-  /* margin-top: -80px;
-  */
-  /* @media (min-width: 640px) {
-    margin-top: 0;
- }
-  */
 }
 main.home-page .courses-sec > img {
   display: none;
@@ -29,16 +25,14 @@ main.home-page .courses-sec > img {
     display: block;
   }
 }
-main.home-page .courses-sec .home-courses > .show-all {
-  background: linear-gradient(to right, #1b45b4, #1c2792);
-}
 main.home-page .plan {
   position: relative;
   padding: 40px;
   overflow: hidden;
 }
 main.home-page .plan > img {
-  object-fit: cover;
+  -o-object-fit: cover;
+     object-fit: cover;
   position: absolute;
   top: 0;
   left: 0;
@@ -82,12 +76,12 @@ main.home-page .plan > div .cards .card {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  /* padding: 20px 14px; */
   gap: 8px;
   border-radius: 12px;
   text-align: center;
   background-color: white;
+  justify-content: center;
+  /* padding: 20px 14px; */
   width: 210px;
   margin: 0 auto;
 }
@@ -95,6 +89,7 @@ main.home-page .plan > div .cards .card .img {
   border-radius: 50%;
   padding: 18px;
   background-color: #fff2ec;
+  width: -moz-fit-content;
   width: fit-content;
 }
 main.home-page .plan > div .cards .card figcaption h4 {
@@ -103,6 +98,7 @@ main.home-page .plan > div .cards .card figcaption h4 {
   margin-bottom: 6px;
 }
 main.home-page .plan > div .cards .card figcaption p {
+  font-size: 15px;
   line-height: 1.5;
 }
 main.home-page .reviews {
@@ -111,7 +107,8 @@ main.home-page .reviews {
   padding: 2.5rem;
 }
 main.home-page .reviews > img {
-  object-fit: cover;
+  -o-object-fit: cover;
+     object-fit: cover;
   position: absolute;
   top: 0;
   left: 0;
@@ -187,77 +184,33 @@ main.home-page .reviews > div .cards .cards-wrapper .card .card-wrapper {
   gap: 20px;
   border-radius: 12px;
 }
-main.home-page
-  .reviews
-  > div
-  .cards
-  .cards-wrapper
-  .card
-  .card-wrapper
-  .review-details {
+main.home-page .reviews > div .cards .cards-wrapper .card .card-wrapper .review-details {
   display: flex;
   align-items: center;
   gap: 8px;
   font-family: "Noto Sans Arabic", sans-serif;
 }
-main.home-page
-  .reviews
-  > div
-  .cards
-  .cards-wrapper
-  .card
-  .card-wrapper
-  .review-details
-  h4 {
+main.home-page .reviews > div .cards .cards-wrapper .card .card-wrapper .review-details h4 {
   font-size: 18px;
   font-weight: bold;
   color: #1e1e1e;
 }
-main.home-page
-  .reviews
-  > div
-  .cards
-  .cards-wrapper
-  .card
-  .card-wrapper
-  .review-details
-  p {
+main.home-page .reviews > div .cards .cards-wrapper .card .card-wrapper .review-details p {
   font-size: 14px;
 }
-main.home-page
-  .reviews
-  > div
-  .cards
-  .cards-wrapper
-  .card
-  .card-wrapper
-  .review-text {
+main.home-page .reviews > div .cards .cards-wrapper .card .card-wrapper .review-text {
   color: #172327;
   font-size: 15px;
   line-height: 1.6;
   font-weight: 400;
 }
-main.home-page
-  .reviews
-  > div
-  .cards
-  .cards-wrapper
-  .card
-  .card-wrapper
-  .review-stars {
+main.home-page .reviews > div .cards .cards-wrapper .card .card-wrapper .review-stars {
   display: flex;
   align-items: center;
   gap: 18px;
 }
-main.home-page
-  .reviews
-  > div
-  .cards
-  .cards-wrapper
-  .card
-  .card-wrapper
-  .review-stars
-  img {
+main.home-page .reviews > div .cards .cards-wrapper .card .card-wrapper .review-stars img {
+  width: -moz-fit-content;
   width: fit-content;
 }
 main.home-page .reviews > div .cards .swiper-btns {
@@ -278,8 +231,7 @@ main.home-page .reviews > div .cards .swiper1-btn {
   align-items: center;
   border-radius: 50%;
 }
-main.home-page .reviews > div .cards .swiper1-btn::before,
-main.home-page .reviews > div .cards .swiper1-btn::after {
+main.home-page .reviews > div .cards .swiper1-btn::before, main.home-page .reviews > div .cards .swiper1-btn::after {
   content: "";
   z-index: -1;
   left: 0;
@@ -320,24 +272,20 @@ main.home-page .reviews > div .cards .swiper1-btn.animate-review-btn::after {
     opacity: 0;
   }
 }
-/* main.home-page .reviews > div .cards .swiper1-btn:focus-within { */
+main.home-page .reviews > div .cards .swiper1-btn:focus-within {
   /* transition: 1s;
-  background: #1e1e1e80;
-  */
-/* } */
+   background: #1e1e1e80; */
+}
 main.home-page .articles > * {
   margin: 0 auto;
 }
-/* main.home-page .articles > * article { */
-  /* padding: 12px;
-  */
-  /* max-width: 320px;
-  */
+main.home-page .articles > * article {
+  /* padding: 12px; */
+  /* max-width: 320px; */
   /* @media (min-width: 767px) {
     width: 32%;
- }
-  */
-/* } */
+  } */
+}
 main.home-page .articles > * article .article-wrapper {
   border-radius: 12px;
   display: flex;
@@ -376,17 +324,25 @@ main.home-page .contact form .input input {
   flex: 1;
   color: white;
 }
+main.home-page .contact form .input input:focus::-moz-placeholder {
+  display: none;
+}
 main.home-page .contact form .input input:focus::placeholder {
   display: none;
+}
+main.home-page .contact form .input input:not(:-moz-placeholder-shown) + span {
+  font-size: 10px;
+  transform: translateY(-170%) !important;
 }
 main.home-page .contact form .input input:not(:placeholder-shown) + span,
 main.home-page .contact form .input input:focus + span {
   font-size: 10px;
   transform: translateY(-170%) !important;
 }
+
 body:has(.auth.flex) {
   /* & { */
-    height: 100vh;
-    overflow: hidden;
+  height: 100vh;
+  overflow: hidden;
   /* } */
-}
+}/*# sourceMappingURL=main.css.map */

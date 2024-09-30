@@ -12,7 +12,7 @@
     padding: 16px 32px;
     font-size: 16px;
     border-radius: 100px;
- }
+  }
 }
 .course-details figure .action-btns button {
   padding: 14.5px 29px;
@@ -31,11 +31,12 @@
     padding: 16px 32px;
     font-size: 16px;
     border-radius: 100px;
- }
+  }
   .course-details figure .action-btns button:nth-child(2) {
     padding: 18px;
- }
+  }
 }
+
 .accordion {
   border-radius: 5px;
   display: flex;
@@ -46,11 +47,12 @@
 @media (min-width: 768px) {
   .accordion {
     gap: 20px;
- }
+  }
 }
+
 .accordion-item {
- /* box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 -1px 2px -1px rgb(0 0 0 / 0.1);
-  */
+  /* box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 -1px 2px -1px rgb(0 0 0 / 0.1);
+   */
   box-shadow: 5px 4px 30px 0px rgba(0, 0, 0, 0.078);
   display: flex;
   flex-direction: column;
@@ -66,6 +68,7 @@
 .accordion-item:last-child {
   border-bottom: none;
 }
+
 .accordion-header {
   color: #252525;
   padding: 15px;
@@ -79,9 +82,11 @@
   font-size: 16px;
   transition: background-color 0.3s ease;
 }
+
 .accordion-header:hover {
   background-color: #f9fbff;
 }
+
 .accordion-content {
   max-height: 0;
   transition: 0.3s max-height;
@@ -90,6 +95,7 @@
 .accordion-content .wrapper {
   padding: 15px;
 }
+
 form.register-course-request .input {
   display: flex;
   flex-direction: column;
@@ -100,18 +106,20 @@ form.register-course-request .input > * {
 @media (min-width: 640px) {
   form.register-course-request .input > * {
     font-size: 14px;
- }
+  }
 }
 @media (min-width: 1024px) {
   form.register-course-request .input > * {
     font-size: 16px;
- }
+  }
 }
 form.register-course-request .input label {
   color: #03133d;
   font-weight: 700;
 }
-form.register-course-request .input input, form.register-course-request .input .select, form.register-course-request .input textarea {
+form.register-course-request .input input,
+form.register-course-request .input .select,
+form.register-course-request .input textarea {
   width: 100%;
   border: 1px solid #cdd0d8;
   border-radius: 8px;
@@ -120,14 +128,23 @@ form.register-course-request .input input, form.register-course-request .input .
   margin-top: 8px;
 }
 @media (min-width: 640px) {
-  form.register-course-request .input input, form.register-course-request .input .select, form.register-course-request .input textarea {
+  form.register-course-request .input input,
+  form.register-course-request .input .select,
+  form.register-course-request .input textarea {
     padding: 16px 24px;
- }
+  }
 }
-form.register-course-request .input input:focus, form.register-course-request .input .select:focus, form.register-course-request .input textarea:focus {
+form.register-course-request .input input:focus,
+form.register-course-request .input .select:focus,
+form.register-course-request .input textarea:focus {
   outline: none;
 }
-form.register-course-request .input input::placeholder, form.register-course-request .input .select::placeholder, form.register-course-request .input textarea::placeholder {
+form.register-course-request .input input::-moz-placeholder, form.register-course-request .input .select::-moz-placeholder, form.register-course-request .input textarea::-moz-placeholder {
+  color: #cdd0d8;
+}
+form.register-course-request .input input::placeholder,
+form.register-course-request .input .select::placeholder,
+form.register-course-request .input textarea::placeholder {
   color: #cdd0d8;
 }
 form.register-course-request > .select label {
@@ -140,12 +157,12 @@ form.register-course-request > .select > * {
 @media (min-width: 640px) {
   form.register-course-request > .select > * {
     font-size: 14px;
- }
+  }
 }
 @media (min-width: 1024px) {
   form.register-course-request > .select > * {
     font-size: 16px;
- }
+  }
 }
 form.register-course-request > .select .select {
   border: 1px solid #cdd0d8;
@@ -157,6 +174,9 @@ form.register-course-request > .select .select select {
   width: 100%;
   padding: 11px 17px;
 }
+form.register-course-request > .select .select select::-moz-placeholder {
+  color: #cdd0d8;
+}
 form.register-course-request > .select .select select::placeholder {
   color: #cdd0d8;
 }
@@ -164,4 +184,4 @@ form.register-course-request .input-error {
   font-size: 11px;
   font-weight: 500;
   color: red;
-}
+}/*# sourceMappingURL=course.css.map */

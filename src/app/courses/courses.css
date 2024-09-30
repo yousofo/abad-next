@@ -116,7 +116,7 @@
   color: var(--abad-gold);
 }
 .courses-page .courses-cards figure figcaption .course-attend {
-  font-size: 10px !important;
+  font-size: 12px;
   font-weight: 500;
   display: flex;
   gap: 12px;
@@ -208,7 +208,7 @@
 .courses-page table th {
   display: block;
   padding: 2px;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 500;
   color: #3f3e43;
   /* border: 1px solid transparent; */
@@ -216,7 +216,7 @@
 .courses-page table td .course-name,
 .courses-page table th .course-name {
   padding-top: 4px;
-  font-size: 14px;
+  font-size: 16px;
   display: flex;
   font-weight: 700;
   flex-direction: column;
@@ -235,7 +235,6 @@
 }
 .courses-page table td .course-name > div span:nth-child(2),
 .courses-page table th .course-name > div span:nth-child(2) {
-  font-size: 12px;
   color: #1b39a6;
 }
 .courses-page table td .course-name > p,
@@ -265,7 +264,7 @@
 }
 .courses-page table td:nth-child(3),
 .courses-page table td:nth-child(2) {
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 400;
 }
 .courses-page table td:nth-child(3) > div > span:nth-last-child(1),
@@ -282,7 +281,7 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  font-size: 10px;
+  font-size: 12px;
   font-weight: 500;
 }
 @media (max-width: 767px) {
@@ -307,7 +306,7 @@
 }
 @media (min-width: 768px) {
   .courses-page table .btns {
-    font-size: 12px;
+    font-size: 14px;
   }
   .courses-page table .btns > * {
     flex: auto;
@@ -322,7 +321,7 @@
   /* color: white; */
 }
 .courses-page table td {
-  font-size: 14px;
+  font-size: 16px;
 }
 .courses-page nav li {
   padding: 4px 6px;

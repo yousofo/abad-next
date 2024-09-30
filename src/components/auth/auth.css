@@ -1,6 +1,7 @@
 :root {
   --abad-gold: #fdb614;
 }
+
 .auth {
   position: fixed;
   background-color: rgba(0, 0, 0, 0.3);
@@ -23,8 +24,9 @@
   padding-bottom: 1.75rem;
   flex-direction: column;
   border-radius: 1rem;
+  height: -moz-fit-content;
   height: fit-content;
-  background-color: #fff;
+  background-color: #ffffff;
   max-width: 814px;
 }
 @media (min-width: 768px) {
@@ -69,6 +71,9 @@
 .auth form .input .select:focus,
 .auth form .input textarea:focus {
   outline: none;
+}
+.auth form .input input::-moz-placeholder, .auth form .input .select::-moz-placeholder, .auth form .input textarea::-moz-placeholder {
+  color: #cdd0d8;
 }
 .auth form .input input::placeholder,
 .auth form .input .select::placeholder,
@@ -126,6 +131,7 @@
   .auth .password-reassigned > button {
     padding-top: 0.875rem;
     padding-bottom: 0.875rem;
+    width: -moz-fit-content;
     width: fit-content;
   }
 }
@@ -187,7 +193,7 @@
 }
 .auth .auth-forgot-password > form:nth-child(2) .send-btn {
   font-weight: 700;
-  color: #fff;
+  color: #ffffff;
   background: linear-gradient(83.79deg, #1b45b4 3.25%, #1c2792 96.85%);
   padding: 16px 32px;
   width: 100%;
@@ -267,8 +273,7 @@
   animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
 @keyframes pulse {
-  0%,
-  100% {
+  0%, 100% {
     opacity: 1;
   }
   50% {
@@ -352,9 +357,7 @@
   color: #ef4444;
 }
 .auth .auth-signup > form:nth-child(2) > p {
-  @media (min-width: 768px) {
-    grid-column: span 2 / span 2;
-  }
+  grid-column: span 2/span 2;
   text-align: center;
 }
 .auth .auth-signup > form:nth-child(2) select {
@@ -381,7 +384,7 @@
   border-radius: 10px;
   line-height: 22px;
   font-weight: 700;
-  color: #fff;
+  color: #ffffff;
 }
 .auth .auth-signup > div:nth-child(3) > p {
   font-size: 0.875rem;
@@ -428,4 +431,4 @@
   font-size: 0.75rem;
   line-height: 96px;
   white-space: nowrap;
-}
+}/*# sourceMappingURL=auth.css.map */

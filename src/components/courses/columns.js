@@ -15,7 +15,7 @@ export function useColumns() {
         !row.original.month ? (
           <div className="course-name">
             <p>{row.original.courseName}</p>
-            <div className="[&>*]:!text-[10px] hidden sm:flex">
+            <div className="hidden sm:flex">
               <span
                 className={`${
                   row.original.isOnline == "أونلاين" ? "online" : "in-person"
@@ -110,7 +110,7 @@ export function useColumns() {
       Cell: ({ row }) =>
         !row.original.month ? (
           <div className="">
-            <div className="my-3  sm:hidden [&>*]:!text-[10px] [&>span]:flex [&>span]:items-center [&>span]:gap-1 flex items-center gap-3">
+            <div className="my-3  sm:hidden [&>span]:flex [&>span]:items-center [&>span]:gap-1 flex items-center gap-3">
               <span
                 className={`${
                   row.original.isOnline == "أونلاين" ? "online" : "in-person"
