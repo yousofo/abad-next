@@ -249,7 +249,6 @@ const Accordion = ({
                       style={{ boxShadow: "5px 4px 30px 0px #00000014" }}
                       className="w-full p-2 [&>td]:p-0 sm:[&>td]:p-4 flex flex-col gap-3 sm:table-row bg-white"
                       key={i}
-                      
                     >
                       <td>
                         <div className="flex items-center gap-1 font-bold">
@@ -286,7 +285,9 @@ const Accordion = ({
                       </td>
                       <td>
                         <div className="flex items-center gap-1 md:block">
-                          <div className="font-medium md:font-bold">الجمعة و السبت</div>
+                          <div className="font-medium md:font-bold">
+                            الجمعة و السبت
+                          </div>
                           <div className="font-medium md:mt-2">
                             من ٦مساء : الي ٨ مساء
                           </div>
@@ -296,7 +297,8 @@ const Accordion = ({
                         200 ريال
                       </td>
                       <td>
-                        {isOnline ? (
+                        <div className="flex items-center gap-3">
+                          {/* {isOnline ? ( */}
                           <Link
                             href="/basket"
                             className="register-btn w-fit text-center enlist !bg-[#F6F6F6] !text-abad-cyan font-bold flex items-center gap-1"
@@ -326,7 +328,7 @@ const Accordion = ({
                             </svg>
                             <span>اضافة الي السلة</span>
                           </Link>
-                        ) : (
+                          {/* ) : ( */}
                           <button
                             href="/"
                             className="w-fit  text-center enlist !bg-[#F6F6F6] !text-abad-cyan font-bold"
@@ -346,7 +348,8 @@ const Accordion = ({
                             </svg>
                             تسجيل
                           </button>
-                        )}
+                          {/* )} */}
+                        </div>
                       </td>
                     </tr>
                   </>

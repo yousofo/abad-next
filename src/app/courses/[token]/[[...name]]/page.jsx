@@ -271,28 +271,26 @@ const Course = ({ params }) => {
 
               <div className="flex flex-col gap-4">
                 {/* handle coure REGISTERATION */}
-                {courseInfo?.isOnline == "أونلاين" ? (
-                  <>
-                    <Link
-                      className="register-btn bg-abad-cyan text-white text-center"
-                      // onClick={(ev) => {
-                      //   ev.preventDefault();
-                      //   handleAddToBasket(params.token);
-                      //   router.push("/basket");
-                      // }}
-                      href="/basket"
-                    >
-                      محتويات الدورة
-                    </Link>
-                  </>
-                ) : (
+                {/* {courseInfo?.isOnline == "أونلاين" ? ( */}
+                <Link
+                  className="register-btn bg-abad-cyan text-white text-center"
+                  // onClick={(ev) => {
+                  //   ev.preventDefault();
+                  //   handleAddToBasket(params.token);
+                  //   router.push("/basket");
+                  // }}
+                  href="/basket"
+                >
+                  محتويات الدورة
+                </Link>
+                {/* ) : (
                   <button
                     className="text-center register-btn"
                     onClick={() => handleRegisterAttendanceCourse(params.token)}
                   >
                     سجل في الدورة
                   </button>
-                )}
+                )} */}
 
                 <div className="course-description flex flex-col gap-4 pt-2 border-t border-t-[##E0E0E0] text-[#252525]">
                   <h4 className="text-xl font-mediu">وصف الدورة</h4>

@@ -254,6 +254,7 @@
   color: #1b39a6;
 }
 .home-courses .courses-contents > table tbody tr td.course-name p {
+  font-size: 18px;
   font-weight: 700;
 }
 @media (min-width: 768px) {

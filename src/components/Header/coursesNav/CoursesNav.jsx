@@ -68,7 +68,7 @@ const CoursesNav = () => {
   }, []);
   return (
     <div className="mini-nav">
-      <ul className={`no-top-left courses-nav courses-nav-1`}>
+      <ul className={`no-top-left courses-nav courses-nav-1 max-h-[300px] !overflow-auto`}>
         {Array.isArray(data) && data.map((course, i) => (
           <NavListItem
             key={i}

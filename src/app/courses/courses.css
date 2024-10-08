@@ -239,6 +239,7 @@
 }
 .courses-page table td .course-name > p,
 .courses-page table th .course-name > p {
+  font-size: 18px;
   order: 2;
 }
 @media (min-width: 768px) {

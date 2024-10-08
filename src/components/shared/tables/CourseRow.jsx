@@ -175,7 +175,7 @@ const CourseRow = ({ index, data }) => {
             <button
               onClick={() => {
                 isOnline
-                  ? buyCourseNow(data.token,router)
+                  ? buyCourseNow(data.token, router)
                   : handleRegisterAttendanceCourse(data.token);
               }}
             >
@@ -191,7 +191,8 @@ const CourseRow = ({ index, data }) => {
                   fill="currentColor"
                 />
               </svg>
-              {isOnline ? "شراء" : "التسجيل"}
+              {/* {isOnline ? "شراء" : "التسجيل"} */}
+              التسجيل
             </button>
           </div>
         </div>

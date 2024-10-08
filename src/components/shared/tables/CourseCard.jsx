@@ -84,7 +84,8 @@ const CourseCard = ({ index, data }) => {
         </div>
         <p dangerouslySetInnerHTML={{ __html: data.summaryAr }} />
         <div className="course-info !justify-start gap-2">
-          <Link className="text-abad-cyan bg-[#EBEBEB] px-4 py-2" 
+          <Link
+            className="text-abad-cyan bg-[#EBEBEB] px-4 py-2"
             // onClick={(ev) =>
             //   handleNavigateToCourseDetails(ev, data.token, router)
             // }
@@ -117,9 +118,9 @@ const CourseCard = ({ index, data }) => {
               التفاصيل
             </button>
           </Link>
-          <div className="text-abad-cyan bg-[#EBEBEB]" >
+          <div className="text-abad-cyan bg-[#EBEBEB]">
             <button
-            className="flex items-center gap-1 text-xs px-4 py-2"
+              className="flex items-center gap-1 text-xs px-4 py-2"
               // onClick={() => {
               //   isOnline
               //     ? buyCourseNow(data.token, router)
@@ -138,7 +139,8 @@ const CourseCard = ({ index, data }) => {
                   fill="currentColor"
                 />
               </svg>
-              {isOnline ? "شراء" : "التسجيل"}
+              {/* {isOnline ? "شراء" : "التسجيل"} */}
+              التسجيل
             </button>
           </div>
         </div>
