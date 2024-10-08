@@ -185,7 +185,7 @@ const Course = ({ params }) => {
                   ? preFetchedCourse?.imageUrl
                   : courseImg
               }
-              alt="tata"
+              alt="course image preview"
               width={300}
               height={0}
               style={{ width: "100%", height: "fit-content" }}

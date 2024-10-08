@@ -1,5 +1,6 @@
 :root {
   --abad-gold: #fdb614;
+  --abad-cyan: #2057b2;
 }
 .courses-page {
   .courses-preview-mode {
@@ -238,6 +239,7 @@
           }
         }
         > p {
+          color: var(--abad-cyan);
           font-size: 18px;
           order: 2;
         }
@@ -277,9 +279,10 @@
         margin-top: 20px;
       }
       button {
-        padding: 8px 12px;
+        padding: 8px 16px;
         border-radius: 4px;
         display: flex;
+        font-weight: 600;
         justify-content: center;
         align-items: center;
         gap: 8px;
@@ -291,7 +294,7 @@
         border-radius: 4px;
       }
       @media (min-width: 768px) {
-        font-size: 14px;
+        font-size: 13px;
         > * {
           flex: auto;
         }

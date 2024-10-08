@@ -1,5 +1,6 @@
 :root {
   --abad-gold: #fdb614;
+  --abad-cyan: #2057b2;
 }
 
 @media (min-width: 640px) {
@@ -235,7 +236,7 @@
   flex-direction: column;
 }
 .home-courses .courses-contents > table tbody tr td.course-name > div {
-  font-size: 12px !important;
+  font-size: 14px !important;
   gap: 12px;
 }
 .home-courses .courses-contents > table tbody tr td.course-name > div span {
@@ -254,6 +255,7 @@
   color: #1b39a6;
 }
 .home-courses .courses-contents > table tbody tr td.course-name p {
+  color: var(--abad-cyan);
   font-size: 18px;
   font-weight: 700;
 }
@@ -278,9 +280,10 @@
   font-weight: 500;
 }
 .home-courses .courses-contents > table tbody tr td .btns button {
-  padding: 6px 12px;
+  padding: 8px 16px;
   border-radius: 4px;
   display: flex;
+  font-weight: 600;
   align-items: center;
   gap: 8px;
 }
@@ -296,7 +299,7 @@
 }
 @media (min-width: 768px) {
   .home-courses .courses-contents > table tbody tr td .btns {
-    font-size: 14px;
+    font-size: 13px;
   }
   .home-courses .courses-contents > table tbody tr td .btns > * {
     flex: auto;

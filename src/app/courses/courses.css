@@ -1,5 +1,6 @@
 :root {
   --abad-gold: #fdb614;
+  --abad-cyan: #2057b2;
 }
 
 .courses-page .courses-preview-mode {
@@ -239,6 +240,7 @@
 }
 .courses-page table td .course-name > p,
 .courses-page table th .course-name > p {
+  color: var(--abad-cyan);
   font-size: 18px;
   order: 2;
 }
@@ -291,9 +293,10 @@
   }
 }
 .courses-page table .btns button {
-  padding: 8px 12px;
+  padding: 8px 16px;
   border-radius: 4px;
   display: flex;
+  font-weight: 600;
   justify-content: center;
   align-items: center;
   gap: 8px;
@@ -307,7 +310,7 @@
 }
 @media (min-width: 768px) {
   .courses-page table .btns {
-    font-size: 14px;
+    font-size: 13px;
   }
   .courses-page table .btns > * {
     flex: auto;
