@@ -309,17 +309,20 @@
             display: table-row;
           }
           @media (min-width: 786px) {
-            &:nth-child(even) {
-              .btns > * {
-                background-color: #f5f5f5;
-              }
-            }
-            &:nth-child(odd) {
+            .btns > * {
               background-color: #f5f5f5;
-              .btns > * {
-                background-color: white;
-              }
             }
+            // &:nth-child(even) {
+            //   .btns > * {
+            //     background-color: #f5f5f5;
+            //   }
+            // }
+            // &:nth-child(odd) {
+            //   background-color: #f5f5f5;
+            //   .btns > * {
+            //     background-color: white;
+            //   }
+            // }
           }
           @media (max-width: 767px) {
             &:nth-child(even) {

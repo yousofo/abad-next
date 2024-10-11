@@ -187,14 +187,8 @@
   /* color: #0dc00d; */
 }
 @media (min-width: 640px) {
-  .courses-page table tr:nth-child(even) .btns > * {
+  .courses-page table .btns > * {
     background-color: #f5f5f5;
-  }
-  .courses-page table tr:nth-child(odd) {
-    background-color: #f5f5f5;
-  }
-  .courses-page table tr:nth-child(odd) .btns > * {
-    background-color: white;
   }
 }
 @media (max-width: 767px) {

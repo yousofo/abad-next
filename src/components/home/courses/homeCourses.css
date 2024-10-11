@@ -341,14 +341,8 @@
   }
 }
 @media (min-width: 786px) {
-  .home-courses .courses-contents > table tbody tr:nth-child(even) .btns > * {
+  .home-courses .courses-contents > table tbody tr .btns > * {
     background-color: #f5f5f5;
-  }
-  .home-courses .courses-contents > table tbody tr:nth-child(odd) {
-    background-color: #f5f5f5;
-  }
-  .home-courses .courses-contents > table tbody tr:nth-child(odd) .btns > * {
-    background-color: white;
   }
 }
 @media (max-width: 767px) {
