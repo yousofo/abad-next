@@ -107,10 +107,10 @@ export async function fetchCourses() {
 
 //course details
 
-export async function fetchCourseDetails(token) {
+export async function fetchCourseDetails(name) {
   try {
     const data = await fetchWithCheck(
-      `/api/home/courseDetails/${token}`
+      `/api/home/getByName?courseName=${name}`
     );
     console.log(data);
     return data;
@@ -118,6 +118,18 @@ export async function fetchCourseDetails(token) {
     console.log(e);
   }
 }
+////old with token
+// export async function fetchCourseDetails(token) {
+//   try {
+//     const data = await fetchWithCheck(
+//       `/api/home/courseDetails/${token}`
+//     );
+//     console.log(data);
+//     return data;
+//   } catch (e) {
+//     console.log(e);
+//   }
+// }
 
 // articles
 

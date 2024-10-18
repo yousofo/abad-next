@@ -1,8 +1,12 @@
 "use client";
+import { handleNavigateToCourseDetails } from "@/helperFunctions/clientOnlyActions";
+import { buyCourseNow, handleRegisterAttendanceCourse } from "@/helperFunctions/signedInActions";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import React from "react";
 
 const CourseCard = ({ index, data }) => {
+  const router = useRouter()
   const isOnline =
     data.isOnline == "اونلاين" ||
     data.isOnline == "أون لاين" ||
@@ -86,10 +90,10 @@ const CourseCard = ({ index, data }) => {
         <div className="course-info !justify-start gap-2">
           <Link
             className="text-abad-cyan bg-[#EBEBEB] px-4 py-2"
-            // onClick={(ev) =>
-            //   handleNavigateToCourseDetails(ev, data.token, router)
-            // }
-            href={`/courses/${data.token}`}
+            onClick={(ev) =>
+              handleNavigateToCourseDetails(ev, data.courseName, router)
+            }
+            href={`/courses/${data.courseName}`}
           >
             <button className="flex items-center gap-1 text-xs">
               <svg
@@ -121,11 +125,11 @@ const CourseCard = ({ index, data }) => {
           <div className="text-abad-cyan bg-[#EBEBEB]">
             <button
               className="flex items-center gap-1 text-xs px-4 py-2"
-              // onClick={() => {
-              //   isOnline
-              //     ? buyCourseNow(data.token, router)
-              //     : handleRegisterAttendanceCourse(data.token);
-              // }}
+              onClick={() => {
+                isOnline
+                  ? buyCourseNow(data.token, router)
+                  : handleRegisterAttendanceCourse(data.token);
+              }}
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"

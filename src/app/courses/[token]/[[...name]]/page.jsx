@@ -35,16 +35,19 @@ const Course = ({ params }) => {
   useEffect(() => {
     dispatch(openLoader(""));
 
-    if (preFetchedCourse && preFetchedCourse.token === params.token) {
+    if (preFetchedCourse && preFetchedCourse.courseName === params.token) {
       setFetched(true);
       dispatch(closeLoader());
     } else {
-      fetchWithCheck(`/api/home/courseDetails/${params.token}`)
+      fetchWithCheck(`/api/home/getByName?courseName=${params.token}`)
         .then((courseData) => {
           setCourseInfo(courseData);
           setCourseImg(courseData.imageUrl || "");
         })
-        .catch((error) => router.replace("/not-found"))
+        .catch((error) => {
+          console.log(error)
+          router.replace("/not-found")
+        })
         .finally(() => {
           setFetched(true);
           dispatch(closeLoader());
@@ -145,7 +148,7 @@ const Course = ({ params }) => {
                 table={courseInfo?.openCourses}
                 test={true}
                 active={true}
-                token={params.token}
+                token={courseInfo?.token}
                 isOnline={courseInfo?.isOnline == "أونلاين"}
               />
 
@@ -181,10 +184,11 @@ const Course = ({ params }) => {
 
             <Image
               src={
-                preFetchedCourse && preFetchedCourse.token === params.token
+                preFetchedCourse && preFetchedCourse.courseName === params.token
                   ? preFetchedCourse?.imageUrl
                   : courseImg
               }
+              suppressHydrationWarning
               alt="course image preview"
               width={300}
               height={0}

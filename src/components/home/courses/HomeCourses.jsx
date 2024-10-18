@@ -252,28 +252,28 @@ const HomeCourses = () => {
           {Array.isArray(data) &&
             (activeCategory == "all"
               ? filteredCourses.map((e, i) => (
-                  <Link
-                    onClick={(ev) =>
-                      handleNavigateToCourseDetails(ev, e.token, router)
-                    }
-                    key={i}
-                    href={`/courses/${e.token}`}
-                  >
-                    <CourseCard data={e} index={i} />
-                  </Link>
+                  // <Link
+                  //   onClick={(ev) =>
+                  //     handleNavigateToCourseDetails(ev, e.courseName, router)
+                  //   }
+                  //   key={i}
+                  //   href={`/courses/${e.courseName}`}
+                  // >
+                    <CourseCard key={i} data={e} index={i} />
+                  // {/* </Link> */}
                 ))
               : filteredCourses
                   ?.filter((e) => e.categoryId == activeCategory)
                   .map((e, i) => (
-                    <Link
-                      onClick={(ev) =>
-                        handleNavigateToCourseDetails(ev, e.token, router)
-                      }
-                      key={i}
-                      href={`/courses/${e.token}`}
-                    >
-                      <CourseCard data={e} index={i} />
-                    </Link>
+                    // <Link
+                    //   onClick={(ev) =>
+                    //     handleNavigateToCourseDetails(ev, e.token, router)
+                    //   }
+                    //   key={i}
+                    //   href={`/courses/${e.token}`}
+                    // >
+                      <CourseCard key={i}  data={e} index={i} />
+                    // </Link>
                   )))}
         </div>
       </div>

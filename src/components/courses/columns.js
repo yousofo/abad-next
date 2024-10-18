@@ -151,7 +151,7 @@ export function useColumns() {
             <div className="btns">
               <Link
                 onClick={(ev) =>
-                  handleNavigateToCourseDetails(ev, row.original.token, router)
+                  handleNavigateToCourseDetails(ev, row.original.courseName, router)
                 }
                 href={`/courses/${row.original.token}`}
               >

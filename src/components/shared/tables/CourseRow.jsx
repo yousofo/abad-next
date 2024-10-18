@@ -140,7 +140,7 @@ const CourseRow = ({ index, data }) => {
         <div className="btns">
           <Link
             onClick={(ev) =>
-              handleNavigateToCourseDetails(ev, data.token, router)
+              handleNavigateToCourseDetails(ev, data.courseName, router)
             }
             href={`/courses/${data.token}`}
           >

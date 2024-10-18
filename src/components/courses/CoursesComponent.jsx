@@ -70,8 +70,8 @@ const CoursesComponent = () => {
 
   //3rd filter latest | newest
   const sortedData = useMemo(() => {
-    return sortedDataFn(priceFilter,sortOrder);
-  }, [priceFilter,sortOrder]);
+    return sortedDataFn(priceFilter, sortOrder);
+  }, [priceFilter, sortOrder]);
 
   console.log(sortedData);
 
@@ -190,6 +190,7 @@ const CoursesComponent = () => {
         setSearchFilter={setGlobalFilter}
       />
       <div className="flex flex-col gap-8 lg:gap-4 lg:flex-row">
+        {/* side filter */}
         <form className="search-filter bg-white h-fit w-full lg:w-max mx-auto abad-shadow p-5 flex flex-col gap-4 rounded-lg">
           <div className="flex items-center justify-between gap-12 pb-3 border-b border-b-[#D8D1E2]">
             <h3 className="font-bold">تصفية</h3>
@@ -435,22 +436,22 @@ const CoursesComponent = () => {
             style={{ display: `${!isCards ? "none" : "grid"}` }}
             className="courses-cards"
           >
-            {rows.map((row) => {
+            {rows.map((row,i) => {
               prepareRow(row);
               return (
-                <Link
-                  key={row.id}
-                  href={`/courses/${row.original.token}/$`}
-                  onClick={(ev) =>
-                    handleNavigateToCourseDetails(
-                      ev,
-                      row.original.token,
-                      router
-                    )
-                  }
-                >
-                  <CourseCard data={row.original} />
-                </Link>
+                // <Link
+                //   key={row.id}
+                //   href={`/courses/${row.original.token}/$`}
+                //   onClick={(ev) =>
+                //     handleNavigateToCourseDetails(
+                //       ev,
+                //       row.original.courseName,
+                //       router
+                //     )
+                //   }
+                // >
+                  <CourseCard key={i} data={row.original} />
+                // </Link>
               );
             })}
           </div>
